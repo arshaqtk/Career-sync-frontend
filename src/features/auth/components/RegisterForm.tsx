@@ -7,13 +7,20 @@ import CSButton from "@/components/ui/cs-button";
 import CSDivider from "@/components/ui/cs-divider";
 
 import { registerSchema, type RegisterFormValues } from "../../../validators/auth.schema";
+import { useRegister } from "@/queries/auth/useAuth";
+import { useRegisterRoleStore } from "@/store/role.store";
 
-
+type RegisterFormInputs = Omit<RegisterFormValues, "role">;
 export default function RegisterForm() {
-    const {register,handleSubmit,formState: { errors },} = useForm<RegisterFormValues>({resolver: zodResolver(registerSchema),});
+ 
+     const registerMutation = useRegister();
+        const role = useRegisterRoleStore((s) => s.role)
+    const {register,handleSubmit,formState: { errors },} = useForm<RegisterFormInputs>({resolver: zodResolver(registerSchema.omit({role:true})),});
 
-    const onSubmit = (data: RegisterFormValues) => {
-        console.log("VALID FORM:", data);
+    const onSubmit = (data: RegisterFormInputs) => {
+       const finalData = { ...data, role }; 
+        registerMutation.mutate(finalData)
+        console.log("VALID FORM:", finalData); 
     };
 
     return (
@@ -52,7 +59,7 @@ export default function RegisterForm() {
                     placeholder="••••••••"
                     icon={<Lock className="w-5 h-5" />}
                     error={errors.password?.message}
-                    {...register("confirmpassword")}
+                    {...register("confirmPassword")}
                 />
                <div className="text-sm">
                     <label className="flex items-center gap-2">
@@ -61,8 +68,8 @@ export default function RegisterForm() {
                     </label>
                 </div>
 
-                <CSButton type="submit" fullWidth>
-                    Sign up
+                <CSButton type="submit" fullWidth disabled={ registerMutation.isPending}>
+                    {registerMutation.isPending ? "Sign up..." : "Sign up"}
                 </CSButton>
             </form>
 

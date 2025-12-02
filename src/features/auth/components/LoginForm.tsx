@@ -6,14 +6,15 @@ import CSButton from "@/components/ui/cs-button";
 import CSDivider from "@/components/ui/cs-divider";
 import { loginSchema, type LoginFormValues } from "../../../validators/auth.schema";
 import { useRoleStore } from "@/store/role.store";
-import { useLogin } from "@/hooks/useAuth";
+import { useLogin } from "@/queries/auth/useAuth";
+import { useNavigate } from "react-router-dom";
 
 
 type LoginFormInputs = Omit<LoginFormValues, "role">;
 
 export default function LoginForm() {
-
-    const login = useLogin();
+    const navigate=useNavigate()
+    const loginMutation = useLogin();
     const role = useRoleStore((s) => s.role)
     const { register, handleSubmit, formState: { errors }, } = useForm<LoginFormInputs>(
         { resolver: zodResolver(loginSchema.omit({ role: true })), });
@@ -22,12 +23,12 @@ export default function LoginForm() {
 
     const onSubmit = (data: LoginFormInputs) => {
         const finalData = { ...data, role };
-        login.mutate(finalData)
+        loginMutation.mutate(finalData)
         console.log("VALID FORM:", finalData);
     };
-
+ 
     return (
-        <>
+        <> 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                 {/* EMAIL */}
@@ -57,13 +58,16 @@ export default function LoginForm() {
                         <span className="text-gray-500">Remember me</span>
                     </label>
 
-                    <button type="button" className="text-indigo-600 hover:underline">
+                    <button type="button" className="text-indigo-600 hover:underline" onClick={()=>{
+                        navigate("/forget-password")
+                    }}>
                         Forgot password?
                     </button>
                 </div>
 
-                <CSButton type="submit" fullWidth>
-                    Sign In
+                <CSButton type="submit" fullWidth
+                   disabled={ loginMutation.isPending}>
+                    {loginMutation.isPending ? "Sign in..." : "Sign in"}
                 </CSButton>
             </form>
 
@@ -71,7 +75,7 @@ export default function LoginForm() {
 
             <p className="text-center text-sm text-gray-500">
                 Don't have an account?{" "}
-                <button className="text-indigo-600 hover:underline font-medium">
+                <button className="text-indigo-600 hover:underline font-medium" >
                     Sign up
                 </button>
             </p>

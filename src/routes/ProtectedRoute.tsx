@@ -9,6 +9,6 @@ export default function ProtectedRoute({children}:{children:JSX.Element}){
     if(!isAuthenticated){
         return <Navigate to="/login" replace/>
     }
-
+ 
     return children;
 }
