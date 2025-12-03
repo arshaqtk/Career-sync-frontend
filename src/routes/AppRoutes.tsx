@@ -3,10 +3,17 @@ import Register from "@/features/auth/pages/Register";
 import ResetPassword from "@/features/auth/pages/ResetPassword";
 import VerifyForgetPasswordOtp from "@/features/auth/pages/VerifyForgetPasswordOtp";
 import {  VerifyRegisterOtp } from "@/features/auth/pages/VerifyRegisterOtp";
+import EditProfilePage from "@/features/candidate/pages/editProfile";
+import { CandidateProfilePage } from "@/features/candidate/pages/profile";
+import DashboardPage from "@/features/dashboard/pages/DashboardPage";
 import { createBrowserRouter } from "react-router-dom";
 
 
 export const router=createBrowserRouter([
+    {
+        path:"",
+        element:<DashboardPage/>
+    },
     {
     path:"login",
     element:<Login/>},
@@ -22,5 +29,11 @@ export const router=createBrowserRouter([
     },{
         path:"reset-password",
         element:<ResetPassword/>
+    },{
+        path:"candidate-profile",
+        element:<CandidateProfilePage/>
+    },{
+        path:"edit-profile",
+        element:<EditProfilePage/>
     }
 ])

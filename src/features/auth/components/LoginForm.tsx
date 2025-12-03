@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CSInput from "@/components/ui/cs-input";
 import CSButton from "@/components/ui/cs-button";
 import CSDivider from "@/components/ui/cs-divider";
-import { loginSchema, type LoginFormValues } from "../../../validators/auth.schema";
+import { loginSchema, type LoginFormValues } from "../validators/auth.schema";
 import { useRoleStore } from "@/store/role.store";
 import { useLogin } from "@/queries/auth/useAuth";
 import { useNavigate } from "react-router-dom";

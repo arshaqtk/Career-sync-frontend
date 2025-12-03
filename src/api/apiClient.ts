@@ -11,10 +11,8 @@ api.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       try {
-        // Ask backend to refresh the cookie
         await api.get("/auth/refresh-token", { withCredentials: true });
 
-        // retry original request
         return api(error.config);
       } catch (refreshErr) {
         return Promise.reject(refreshErr);

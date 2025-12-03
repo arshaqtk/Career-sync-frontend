@@ -1,4 +1,4 @@
-import { type LoginFormValues, type RegisterFormValues } from "@/validators/auth.schema";
+import { type LoginFormValues, type RegisterFormValues } from "@/features/auth/validators/auth.schema";
 import api from "./apiClient";
 
 type VerifyOtpPayload = {

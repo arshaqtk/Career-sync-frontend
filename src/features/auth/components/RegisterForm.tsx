@@ -6,7 +6,7 @@ import CSInput from "@/components/ui/cs-input";
 import CSButton from "@/components/ui/cs-button";
 import CSDivider from "@/components/ui/cs-divider";
 
-import { registerSchema, type RegisterFormValues } from "../../../validators/auth.schema";
+import { registerSchema, type RegisterFormValues } from "../validators/auth.schema";
 import { useRegister } from "@/queries/auth/useAuth";
 import { useRegisterRoleStore } from "@/store/role.store";
 

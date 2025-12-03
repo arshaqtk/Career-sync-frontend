@@ -1,7 +1,7 @@
 import CSButton from '@/components/ui/cs-button';
 import CSInput from '@/components/ui/cs-input';
 import { useResetPassword } from '@/queries/auth/usePassword';
-import { passwordSchema } from '@/validators/auth.schema';
+import { passwordSchema } from '@/features/auth/validators/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Lock } from 'lucide-react';
 import { useForm } from "react-hook-form";

@@ -53,7 +53,7 @@ export const useLogin=()=>{
                 navigate("/verify-otp",{ state: { email: data.user.email } })
                 return
             }
-            navigate("/register")
+            navigate("/")
         },
         onError(error: unknown) {
         type ErrorWithResponse = {
