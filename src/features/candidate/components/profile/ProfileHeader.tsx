@@ -1,8 +1,9 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/shadcn/avatar";
 import CSButton from "@/components/ui/cs-button";
 
 import { Mail, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useUpdateProfileImage } from "../../queries/useUpdateProfile";
 
 export interface UserDetails {
   name: string;
@@ -16,13 +17,30 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ user }: ProfileHeaderProps) {
+   const { mutate } = useUpdateProfileImage();
   const navigate=useNavigate()
+   const handleSelectImage = (file: File) => {
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+  
+    mutate(formData);
+  };
   return (
     <div className="flex items-center justify-between pb-6">
       <div className="flex items-center gap-4">
-        <Avatar className="h-20 w-20">
+        <Avatar className="h-20 w-20 relative">
           <AvatarImage src={user.profilePictureUrl} />
           <AvatarFallback>U</AvatarFallback>
+          <input
+            type="file"
+            accept="image/*"
+            className="absolute inset-0 opacity-0 cursor-pointer"
+            title=" "
+            onChange={e => {
+              const file = e.target.files?.[0];
+              if (file) handleSelectImage(file);
+            }}
+          />
         </Avatar>
 
         <div>

@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
 import {LOGINROLES, type LoginRole } from "../constatnts/role";
 import { useRoleStore } from "@/store/role.store";
 

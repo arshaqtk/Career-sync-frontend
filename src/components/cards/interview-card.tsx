@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/shadcn/card";
+import { Button } from "@/components/ui/shadcn/button";
 
 export default function InterviewCard() {
   return (

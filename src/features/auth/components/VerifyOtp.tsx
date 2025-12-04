@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
+import  CsButton  from '@/components/ui/cs-button'
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/shadcn/input-otp'
 import React, { useState } from 'react'
 
 interface OtpVerifyProps {
@@ -42,13 +42,13 @@ export default function VerifyOtp ({email,
                     </InputOTPGroup>
                 </InputOTP>
 
-                <Button
+                <CsButton
                     className="w-full"
                     onClick={handleSubmit}
                     disabled={otp.length !== 6 || isPending}
                 >
                     {isPending ? "Verifying..." : "Verify OTP"}
-                </Button>
+                </CsButton>
             </div>
         </div>
     )

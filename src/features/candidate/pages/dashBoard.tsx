@@ -1,9 +1,9 @@
 import CandidateLayout from '@/layouts/dashboard-layout'
 import React from 'react'
-import WelcomeHeader from '../components/WelcomeHeader'
-import StatsSection from '../components/StatsSection'
-import RecommendedJobsSection from '../components/RecommendedJobsSection'
-import UpcomingInterviewsSection from '../components/UpcomingInterviewsSection'
+import WelcomeHeader from '../components/dashboard/WelcomeHeader'
+import StatsSection from '../components/dashboard/StatsSection'
+import RecommendedJobsSection from '../components/dashboard/RecommendedJobsSection'
+import UpcomingInterviewsSection from '../components/dashboard/UpcomingInterviewsSection'
 
 export default  function DashboardPage() {
   return (

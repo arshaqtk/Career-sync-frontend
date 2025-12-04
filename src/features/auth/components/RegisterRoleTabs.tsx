@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
 import {REGISTEROLES, type RegisterRole } from "../constatnts/role";
 
 interface RegisterRoleTabsProps {

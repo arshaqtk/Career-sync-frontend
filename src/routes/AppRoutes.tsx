@@ -5,7 +5,7 @@ import VerifyForgetPasswordOtp from "@/features/auth/pages/VerifyForgetPasswordO
 import {  VerifyRegisterOtp } from "@/features/auth/pages/VerifyRegisterOtp";
 import EditProfilePage from "@/features/candidate/pages/editProfile";
 import { CandidateProfilePage } from "@/features/candidate/pages/profile";
-import DashboardPage from "@/features/dashboard/pages/DashboardPage";
+import DashboardPage from "@/features/candidate/pages/dashBoard";
 import { createBrowserRouter } from "react-router-dom";
 
 

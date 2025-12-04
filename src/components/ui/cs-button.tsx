@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import type{ ButtonHTMLAttributes, ReactNode } from "react";
 
 interface CSButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/shadcn/card";
+import { Badge } from "@/components/ui/shadcn/badge";
 import CSButton from "../ui/cs-button";
 
 export default function JobCard() {

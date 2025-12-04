@@ -10,7 +10,6 @@ import  useCandidateData  from "@/features/candidate/queries/useCandidateProfile
 
 export function CandidateProfilePage() {
   const { data: user, isLoading, error } = useCandidateData();
-console.log(user)
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Failed to load user</p>;
   if (!user) return <p>No user found</p>;
@@ -52,7 +51,7 @@ console.log(user)
           />
         </ProfileStatsRow>
 
-        <ProfileTabs />
+        <ProfileTabs user={user} />
       </Container>
     </CandidateLayout>
   );
