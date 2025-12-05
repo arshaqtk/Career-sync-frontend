@@ -11,6 +11,10 @@ export const LoginApi=async (data:LoginFormValues)=>{
     return res.data
 }
 
+export const LogoutApi=async ()=>{
+  await api.post("/auth/logout")
+}
+
 export const RegisterApi=async (data:RegisterFormValues)=>{
     const res= await api.post("/auth/register",data)
     return res.data

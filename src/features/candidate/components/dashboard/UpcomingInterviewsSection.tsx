@@ -1,4 +1,4 @@
-import InterviewCard from "@/components/cards/interview-card";
+import InterviewCard from "@/features/candidate/components/cards/interview-card";
 
 export default function UpcomingInterviewsSection() {
   return (

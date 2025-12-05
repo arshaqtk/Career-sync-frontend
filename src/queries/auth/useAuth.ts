@@ -53,7 +53,12 @@ export const useLogin=()=>{
                 navigate("/verify-otp",{ state: { email: data.user.email } })
                 return
             }
-            navigate("/")
+            console.log(data.user)
+            if(data.user.role=="recruiter"){
+                navigate("/recruiter")
+            }else{
+                navigate("/")
+            }
         },
         onError(error: unknown) {
         type ErrorWithResponse = {
@@ -81,8 +86,6 @@ export const useLogin=()=>{
     })
     return mutation
 } 
-
-
 
 export const useVerifyRegisterOtp=()=>{
     const navigate=useNavigate()

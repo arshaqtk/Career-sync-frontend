@@ -3,7 +3,7 @@ import CSButton from "@/components/ui/cs-button";
 
 import { Mail, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useUpdateProfileImage } from "../../queries/useUpdateProfile";
+import { useUpdateProfileImage } from "../../hooks/useUpdateProfile";
 
 export interface UserDetails {
   name: string;

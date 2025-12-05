@@ -1,6 +1,8 @@
-import JobCard from "@/components/cards/job-card";
+// import { JobCard } from "../cards/job-card";
 
 export default function RecommendedJobsSection() {
+
+  
   return (
     <section className="mb-10">
       <div className="flex justify-between items-center mb-4">
@@ -8,7 +10,7 @@ export default function RecommendedJobsSection() {
         <button className="text-purple-600">View all →</button>
       </div>
 
-      <JobCard />
+      {/* <JobCard /> */}
     </section>
   );
 }

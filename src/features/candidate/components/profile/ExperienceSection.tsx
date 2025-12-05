@@ -1,5 +1,7 @@
-import ExperienceCard from "@/components/cards/experience-card";
+import ExperienceCard from "@/features/candidate/components/cards/experience-card";
 import { Button } from "@/components/ui/shadcn/button";
+import { useNavigate } from "react-router-dom";
+import { Plus } from "lucide-react";
 
 export interface ExperienceItem {
   id?: string;
@@ -21,11 +23,19 @@ interface ExperienceSectionProps {
 
 export function ExperienceSection({ experience }: ExperienceSectionProps) {
   const hasNoExperience = !experience || experience.length === 0;
-
+  const navigate=useNavigate()
   return (
     <div className="mt-6">
       <h3 className="text-lg font-semibold mb-2">Work Experience</h3>
-
+<div className="flex justify-end mt-6">
+          <Button 
+            onClick={() => navigate("/recruiter/jobs/add")}
+            className="flex items-center gap-2"
+          >
+            <Plus size={18} />
+            Add Experience
+          </Button>
+        </div>
       {hasNoExperience ? (
         <div className="border rounded-md p-6 bg-muted/20 text-center">
           <p className="text-sm text-muted-foreground mb-3">

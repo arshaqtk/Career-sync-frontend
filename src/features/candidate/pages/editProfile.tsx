@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/container";
 import CandidateLayout from "@/layouts/dashboard-layout";
-import  useCandidateData  from "@/features/candidate/queries/useCandidateProfile";
+import  useCandidateData  from "@/hooks/useUserData";
 
 import { EditProfileForm } from "../components/profile/EditProfileForm";
 

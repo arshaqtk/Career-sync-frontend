@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import  { profileUpdateSchema,type ProfileUpdatePayload,type IUser } from "../../../../types/profileUpdate.type";
 import  CSInput  from "@/components/ui/cs-input";
 import CSButton  from "@/components/ui/cs-button";
-import  {useUpdateProfile}  from "../../queries/useUpdateProfile";
+import  {useUpdateProfile}  from "../../hooks/useUpdateProfile";
 
 interface EditProfileFormProps {
   user: IUser; 

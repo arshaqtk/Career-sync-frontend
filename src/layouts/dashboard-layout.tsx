@@ -1,10 +1,15 @@
 import Sidebar from "@/components/Sidebar/Sidebar";
 import TopNavbar from "@/components/TopNavbar/TopNavbar";
+import useUserData from "@/hooks/useUserData";
 
-export default function CandidateLayout({ children }: { children: React.ReactNode }) {
+
+
+export default function DashBoardLayout({ children }: { children: React.ReactNode }) {
+const { data: user, isLoading } = useUserData();
+ if (isLoading) return <div>Loading...</div>;
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar role={user?.role}/>
 
       <div className="flex-1">
         <TopNavbar />

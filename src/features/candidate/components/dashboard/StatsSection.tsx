@@ -1,5 +1,5 @@
 import { Briefcase, Calendar, Award } from "lucide-react";
-import StatCard from "@/components/cards/stat-card";
+import StatCard from "@/features/candidate/components/cards/stat-card";
 
 export default function StatsSection() {
   return (

@@ -5,11 +5,10 @@ import { ProfileStatCard } from "../components/profile/ProfileStatCard";
 import { ProfileTabs } from "../components/profile/ProfileTabs";
 import { FileText, Video, Award, Clock } from "lucide-react";
 import CandidateLayout from "@/layouts/dashboard-layout";
-// import { useQuery } from "@tanstack/react-query";
-import  useCandidateData  from "@/features/candidate/queries/useCandidateProfile";
+import useUserData from "@/hooks/useUserData";
 
 export function CandidateProfilePage() {
-  const { data: user, isLoading, error } = useCandidateData();
+  const { data: user, isLoading, error } = useUserData();
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Failed to load user</p>;
   if (!user) return <p>No user found</p>;

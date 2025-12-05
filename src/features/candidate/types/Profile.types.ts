@@ -7,9 +7,7 @@ export interface ExperienceItem {
   location?: string;
   logoUrl?: string;
   description?: string;
-  responsibilities?: string[];
   skills?: string[];
-  resumeUrl?: string;
 }
 
 export type ExperienceFormValues=ExperienceItem

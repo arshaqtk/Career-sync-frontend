@@ -1,14 +1,14 @@
 import { updateAvatarApi, updateProfileAboutApi, updateProfileApi } from "@/api/profile.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { IUser, ProfileUpdatePayload, UpdateAboutPayload } from "@/types/profileUpdate.type";
-import { QUERY_KEYS } from "../../../queries/queryKeys";
+import { QUERY_KEYS } from "../../../config/queryKeys";
 import { useNavigate } from "react-router-dom";
-import {  toast } from 'react-toastify';
+import {  toast } from 'sonner';
 
 export const useUpdateProfile=()=>{
      const navigate=useNavigate()
-  
     const queryClient=useQueryClient()
+    
      return useMutation<IUser, Error, ProfileUpdatePayload>({
              mutationFn:updateProfileApi,
              onSuccess:(updatedUser)=>{

@@ -3,7 +3,7 @@ import { Pencil, X, Check } from "lucide-react";
 import {Button} from "@/components/ui/shadcn/button";
 import { Textarea } from "@/components/ui/shadcn/textarea";
 import { useState } from "react";
-import { useUpdateProfileAbout } from "../../queries/useUpdateProfile";
+import { useUpdateProfileAbout } from "../../hooks/useUpdateProfile";
 
 interface AboutSectionProps {
   about: string | null;
