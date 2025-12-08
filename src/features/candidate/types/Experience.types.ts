@@ -1,5 +1,5 @@
 export interface Experience {
-  id?: string;
+  _id?: string;
   company: string;
   role: string;
   startDate: string; // ISO date string
@@ -9,5 +9,4 @@ export interface Experience {
   description?: string;
  jobType?:string;
   skills?: string[];
-  resumeUrl?: string; 
 }

@@ -15,6 +15,11 @@ export const RecruiterJobs=async()=>{
      const res= await api.get("/job/employer/jobs")
     return res.data
 }
+
+export const RecruiterAddJobApi=async({data}:{data:Job})=>{
+    const res=await api.post("/job/employer/jobs",data)
+    return res.data
+}
 export const RecruiterUpdateJobApi=async({jobId,data}:{jobId?:string,data:Job})=>{
   
     const res=await api.put(`/job/employer/jobs/${jobId}`,data);

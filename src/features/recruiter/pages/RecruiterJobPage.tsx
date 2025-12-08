@@ -13,14 +13,29 @@ import { Plus } from "lucide-react";
 import { AddJobModal } from "../components/job/jobModal";
 import { useJobModalStore } from "../store/openJobModalStore";
 import { useUpdateJob } from "../hooks/useUpdateJob";
+import { useAddJob } from "../hooks/useAddJob";
 
 export default function RecruiterJobPage() {
   const { data, isLoading } = useRecruiterJob();
-  const {mutate}=useUpdateJob()
+  const {mutate:addJob}=useAddJob()
+  const {mutate:updateJob}=useUpdateJob()
+
+
   const { openModal } = useJobModalStore();
+
+  const handleModalSubmission=(payload:{jobId?:string,job:Job})=>{
+    if(payload.jobId){
+      updateJob({jobId: payload.jobId,   data: payload.job})
+    }else{
+      addJob({data:payload.job})
+    }
+  }
+
+
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>Job not found</p>;
   const job = data.jobs as Job[];
+
 
   return (
     <RecruiterLayout>
@@ -35,8 +50,7 @@ export default function RecruiterJobPage() {
           </Button>
         </div>
 
-        <AddJobModal onSubmit={(payload) => mutate({jobId: payload.jobId,   data: payload.job})
-  }/>
+        <AddJobModal onSubmit={(payload) => handleModalSubmission(payload)}/>
 
         {job?.map((job, i) => (
           <Card className="shadow-sm rounded-2xl my-10" key={i}>

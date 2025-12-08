@@ -3,9 +3,9 @@ export interface Job {
   title: string;
   company: string;
   description?: string;
-  skills?: string[];
-  experienceMin?: number;
-  experienceMax?: number;
+  skills: string[];
+  experienceMin: number;
+  experienceMax: number;
   salary?: string
   location?: string;
   remote: boolean;

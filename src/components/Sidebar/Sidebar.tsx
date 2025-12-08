@@ -7,11 +7,9 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ role }: SidebarProps) {
-  console.log(role)
   const items = sidebarConfig[role];
-console.log(items)
   return (
-    <aside className="w-64 bg-white border-r h-screen px-4 py-6">
+    <aside className="w-64 bg-white border-r h-screen px-4 py-6 fixed">
       <h1 className="text-xl font-semibold mb-8">CareerSync</h1>
 
       <nav className="space-y-3">

@@ -11,9 +11,9 @@ const { data: user, isLoading } = useUserData();
     <div className="flex">
       <Sidebar role={user?.role}/>
 
-      <div className="flex-1">
+      <div className="flex-1 ml-64">
         <TopNavbar />
-        <main className="p-6 bg-gray-50 min-h-screen">{children}</main>
+        <main className="p-6 bg-gray-50 min-h-screen ">{children}</main>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/shadcn/card";
 import { Button } from "@/components/ui/shadcn/button";
 import { Badge } from "@/components/ui/shadcn/badge";
-import { Briefcase, MapPin, Calendar } from "lucide-react";
+import { Briefcase, MapPin, Calendar, Pencil } from "lucide-react";
 import type { Experience } from "../../types/Experience.types";
 import { formatRange } from "../../helpers/formatRange";
+import { ExperienceModalStore } from "../../store/experienceFormmodal.store";
 export interface ExperienceCardProps {
   experience: Experience;
   className?: string;
@@ -16,9 +17,10 @@ export default function ExperienceCard({ experience,className = "" }: Experience
     endDate,
     location,
     description,
-    skills = [],
+    skills = [], 
     jobType
   } = experience;
+  const { openModal } = ExperienceModalStore();
 
   return (
     <Card className={`p-4 sm:p-6 shadow-md ${className}`}>
@@ -98,19 +100,9 @@ export default function ExperienceCard({ experience,className = "" }: Experience
           <Button size="sm" variant="ghost" onClick={() => window.open(`/company/${company}`, "_blank")}>View company</Button>
         </div>
 
-        {/* <div className="flex items-center gap-2">
-          {resumeUrl && (
-            <Button
-              size="sm"
-              onClick={() => (onDownloadResume ? onDownloadResume(resumeUrl) : window.open(resumeUrl, "_blank"))}
-            >
-              <Download size={14} />
-              <span className="ml-2">Resume</span>
-            </Button>
-          )}
-
-          <Button size="sm" onClick={() => alert("Edit experience — open modal or navigate to edit form")}>Edit</Button>
-        </div> */}
+        <Button onClick={() =>openModal(experience)} className="sm flex gap-2">
+        <Pencil className="w-4 h-4" />
+      </Button>
       </CardFooter>
     </Card>
   );

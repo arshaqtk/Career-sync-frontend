@@ -18,8 +18,16 @@ export const updateAvatarApi=async(payload:FormData):Promise<IUser>=>{
 } 
 
 export const updateProfileAboutApi=async(payload:UpdateAboutPayload):Promise<IUser>=>{
-    console.log(payload)
     const res=await api.put("/user/update-profile-about",payload)
+    return res.data.data
+}
+
+export const addProfileExperienceApi=async(payload:string[]):Promise<IUser>=>{
+    const res=await api.put("/candidate/profile/experience",payload)
+    return res.data.data
+}
+export const updateProfileSkillApi=async(payload:string[]):Promise<IUser>=>{
+    const res=await api.put("/candidate/profile/skill",payload)
     return res.data.data
 }
 
