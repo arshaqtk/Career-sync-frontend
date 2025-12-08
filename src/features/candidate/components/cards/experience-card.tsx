@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/shadcn/badge";
 import { Briefcase, MapPin, Calendar, Pencil } from "lucide-react";
 import type { Experience } from "../../types/Experience.types";
 import { formatRange } from "../../helpers/formatRange";
-import { ExperienceModalStore } from "../../store/experienceFormmodal.store";
+import { ExperienceModalStore } from "../../store/experienceFormModal.store";
 export interface ExperienceCardProps {
   experience: Experience;
   className?: string;

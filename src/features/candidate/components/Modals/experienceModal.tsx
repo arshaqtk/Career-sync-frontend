@@ -1,11 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/shadcn/dialog";
-
+import {Dialog,DialogContent,DialogHeader,DialogTitle,  DialogFooter} from "@/components/ui/shadcn/dialog";
 import { Input } from "@/components/ui/shadcn/input";
 import { Textarea } from "@/components/ui/shadcn/textarea";
 import { Button } from "@/components/ui/shadcn/button";
@@ -16,7 +9,6 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/shadcn/select";
-
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/shadcn/popover";
 import { Calendar } from "@/components/ui/shadcn/calendar";
 import { format } from "date-fns";
@@ -24,46 +16,58 @@ import { cn } from "@/lib/utils";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import type { z } from "zod";
 import { experienceSchema } from "../../validators/Experience.schema";
 import { ExperienceModalStore } from "../../store/experienceFormmodal.store";
+import { useLayoutEffect } from "react";
+import type { Experience } from "../../types/Experience.types";
 
-type ExperienceFormValues = z.infer<typeof experienceSchema>;
+type ExperienceFormValues = Experience
 
-type SubmitPayload = {
-  experience: ExperienceFormValues;
-  ExperienceId?: string;
-};
+;
 
 export function ExperienceFormModal({
   onSubmit,
 }: {
-  onSubmit: (payload: SubmitPayload) => void;
+  onSubmit: (payload: Experience) => void;
 }) {
   const { isOpen, closeModal, selectedExperience } = ExperienceModalStore();
 
   const form = useForm<ExperienceFormValues>({
     resolver: zodResolver(experienceSchema),
     defaultValues: {
+      _id:"",
       company: "",
       role: "",
       description: "",
-      skills: "",
+      skills: [],
       location: "",
-      jobType: "full-time",
-      startDate: undefined,
-      endDate: undefined,
+      jobType: "full-time",   
+      startDate:undefined,
+      endDate:undefined ,
     },
   });
+  useLayoutEffect(()=>{
+    if(selectedExperience){
+      form.reset({
+        _id:selectedExperience?._id||"",
+      company: selectedExperience?.company||"",
+      role:selectedExperience?.role|| "",
+      description:selectedExperience?.description|| "",
+      skills: selectedExperience?.skills||[],
+      location:selectedExperience?.location|| "",
+      jobType:selectedExperience?.jobType|| "full-time",   
+      startDate:selectedExperience?.startDate|| undefined,
+      endDate: selectedExperience?.endDate||undefined ,
+      })
+    }else{
+      form.reset()
+    }
+  },[selectedExperience,form])
 
   const errors = form.formState.errors;
 
   const handleSubmit = (data: ExperienceFormValues) => {
-    onSubmit({
-      experience: data,
-      ExperienceId: selectedExperience?._id,
-    });
+    onSubmit(data);
   };
 
   return (
@@ -78,7 +82,7 @@ export function ExperienceFormModal({
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
 
           {/* Company */}
-          <div>
+          <div> 
             <Input placeholder="Company Name" {...form.register("company")} />
             {errors.company && (
               <p className="text-red-500 text-sm">{errors.company.message}</p>
@@ -119,7 +123,7 @@ export function ExperienceFormModal({
             <label className="text-sm font-medium">Job Type</label>
             <Select
               defaultValue={form.watch("jobType")}
-              onValueChange={(value) => form.setValue("jobType", value as any)}
+              onValueChange={(value) => form.setValue("jobType", value as "full-time"|"part-time"|"internship")}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select Job Type" />
@@ -171,7 +175,7 @@ export function ExperienceFormModal({
                 <Calendar
                   mode="single"
                   selected={form.watch("endDate")}
-                  onSelect={(date) => form.setValue("endDate", date ?? undefined)}
+                  onSelect={(date) => form.setValue("endDate", date ?? undefined )}
                 />
               </PopoverContent>
             </Popover>

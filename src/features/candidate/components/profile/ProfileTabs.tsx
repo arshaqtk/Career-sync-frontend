@@ -6,14 +6,15 @@ import { SkillsSection } from "./SkillSection";
 import { SkillsEditModal } from "../Modals/SkillModal";
 import { SkillModalStore } from "../../store/SkillModal";
 import { useUpdateProfileSkill } from "../../hooks/useUpdateProfile";
+import { EducationSection } from "./EducationSection";
 
 export function ProfileTabs({ user }: { user: UserDto }) {
 
-  const {mutate}=useUpdateProfileSkill()
+  const updateSkill=useUpdateProfileSkill()
  const {isOpen:isSkillModalOpen,closeModal:setSkillModalClose}=SkillModalStore()
- const handleUpdateSkill=(data)=>{
-  console.log(data)
-   mutate(data)
+ const handleUpdateSkill=(data:string[])=>{
+ 
+   updateSkill.mutate(data)
  }
   return (
     <Tabs defaultValue="overview" className="mt-6 flex flex-col gap-6 ">
@@ -34,7 +35,7 @@ export function ProfileTabs({ user }: { user: UserDto }) {
         onSave={(updated) => handleUpdateSkill(updated)}
       />
       <TabsContent value="skills"><SkillsSection skills={user.candidateData?.skills||[]}/></TabsContent>
-      <TabsContent value="education">Education Section</TabsContent>
+      <TabsContent value="education"><EducationSection Education={user.candidateData?.education||[]}/></TabsContent>
       <TabsContent value="portfolio">Portfolio Section</TabsContent>
     </Tabs>
   );

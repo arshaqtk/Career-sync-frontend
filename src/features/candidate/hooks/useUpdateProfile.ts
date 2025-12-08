@@ -1,11 +1,20 @@
-import { updateAvatarApi, updateProfileAboutApi, updateProfileApi, updateProfileSkillApi } from "@/api/profile.api";
+import { addProfileEducationApi, addProfileExperienceApi, updateAvatarApi, updateProfileAboutApi, updateProfileApi, updateProfileEducationApi, updateProfileExperienceApi, updateProfileSkillApi } from "@/api/profile.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { IUser, ProfileUpdatePayload, UpdateAboutPayload } from "@/types/profileUpdate.type";
 import { QUERY_KEYS } from "../../../config/queryKeys";
 import { useNavigate } from "react-router-dom";
 import {  toast } from 'sonner';
 import type { Experience } from "../types/Experience.types";
+import type { Education } from "../types/Education.types";
 
+type UpdateExperienceVars = {
+  experienceId: string;
+  payload: Experience;
+};
+type UpdateEduactionVars={
+    educationId:string;
+    payload:Education;
+}
 
 
 export const useUpdateProfile=()=>{
@@ -46,10 +55,39 @@ export const useUpdateProfileAbout=()=>{
      })
 }
 
+//-------------------Experience--------------------------
+
+export const useAddProfileExperience=()=>{
+    const queryClient=useQueryClient()
+    return useMutation<IUser,Error,Experience>({
+        mutationFn:addProfileExperienceApi,
+        onSuccess:(updatedUser: IUser)=>{
+                queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
+                toast.success("Experience Added Successfully")
+             },
+             onError:(error: unknown)=>{ErrorHandler(error) }
+     })
+}
+
 
 export const useUpdateProfileExperience=()=>{
     const queryClient=useQueryClient()
-    return useMutation<IUser,Error,Experience>({
+    return useMutation<IUser,Error,UpdateExperienceVars>({
+        mutationFn:updateProfileExperienceApi,
+        onSuccess:()=>{
+            queryClient.invalidateQueries({queryKey:[QUERY_KEYS.user]})
+                toast.success("Experience Updated Successfully")
+             },
+             onError:(error: unknown)=>{ErrorHandler(error) }
+     })
+}
+
+
+//--------------Skill----------------------------
+
+export const useUpdateProfileSkill=()=>{
+    const queryClient=useQueryClient()
+    return useMutation<IUser,Error,string[]>({
         mutationFn:updateProfileSkillApi,
         onSuccess:(updatedUser: IUser)=>{
                 queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
@@ -59,13 +97,28 @@ export const useUpdateProfileExperience=()=>{
      })
 }
 
-export const useUpdateProfileSkill=()=>{
+//------------------Education-----------------------
+
+export const useAddProfileEducation=()=>{
     const queryClient=useQueryClient()
-    return useMutation<IUser,Error,string[]>({
-        mutationFn:updateProfileSkillApi,
+    return useMutation<IUser,Error,Education>({
+        mutationFn:addProfileEducationApi,
         onSuccess:(updatedUser: IUser)=>{
                 queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
-                toast.success("Skill updated successfully")
+                toast.success("Education Added Successfully")
+             },
+             onError:(error: unknown)=>{ErrorHandler(error) }
+     })
+}
+
+
+export const useUpdateProfileEducation=()=>{
+    const queryClient=useQueryClient()
+    return useMutation<IUser,Error,UpdateEduactionVars>({
+        mutationFn:updateProfileEducationApi,
+        onSuccess:()=>{
+            queryClient.invalidateQueries({queryKey:[QUERY_KEYS.user]})
+                toast.success("Education Updated Successfully")
              },
              onError:(error: unknown)=>{ErrorHandler(error) }
      })

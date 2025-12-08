@@ -1,3 +1,4 @@
+import type { Experience } from "@/features/candidate/types/Experience.types";
 import { z } from "zod";
 
 export const profileUpdateSchema = z.object({
@@ -11,7 +12,7 @@ export type ProfileUpdatePayload = z.infer<typeof profileUpdateSchema>;
 
 export interface CandidateData {
   resumeUrl?: string;
-  experienceYears?: number;
+  experience?: Experience[];
    companyName?: string;
   skills?: string[];
   education?: string[];

@@ -1,6 +1,8 @@
 import api from "./apiClient";
 
 import { type ProfileUpdatePayload, type IUser, type UpdateAboutPayload, } from "../types/profileUpdate.type";
+import type { Experience } from "@/features/candidate/types/Experience.types";
+import type { Education } from "@/features/candidate/types/Education.types";
 
 export const fetchProfile=async()=>{
    const res=await api.get("/user/profile")
@@ -22,8 +24,14 @@ export const updateProfileAboutApi=async(payload:UpdateAboutPayload):Promise<IUs
     return res.data.data
 }
 
-export const addProfileExperienceApi=async(payload:string[]):Promise<IUser>=>{
-    const res=await api.put("/candidate/profile/experience",payload)
+export const addProfileExperienceApi=async(payload:Experience):Promise<IUser>=>{
+    const res=await api.post("/candidate/profile/experience",payload)
+    return res.data.data
+}
+
+export const updateProfileExperienceApi=async({payload,experienceId}:{payload:Experience,experienceId:string}):Promise<IUser>=>{
+    console.log(payload)
+    const res=await api.put(`/candidate/profile/experience/${experienceId}`,{experience:payload})
     return res.data.data
 }
 export const updateProfileSkillApi=async(payload:string[]):Promise<IUser>=>{
@@ -31,3 +39,13 @@ export const updateProfileSkillApi=async(payload:string[]):Promise<IUser>=>{
     return res.data.data
 }
 
+export const addProfileEducationApi=async(payload:Education):Promise<IUser>=>{
+    const res=await api.post("/candidate/profile/education",payload)
+    return res.data.data
+}
+
+export const updateProfileEducationApi=async({payload,educationId}:{payload:Education,educationId:string}):Promise<IUser>=>{
+    alert("called")
+    const res=await api.put(`/candidate/profile/education/${educationId}`,{education:payload})
+    return res.data.data
+}

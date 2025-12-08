@@ -4,8 +4,8 @@ import EditProfilePage from "@/features/candidate/pages/editProfile";
 import JobPage from "@/features/candidate/pages/jobs";
 
 export const candidateRoutes = [
-  { path: "", element: <DashboardPage /> },
-  { path: "candidate-profile", element: <CandidateProfilePage /> },
+  { path: "dashboard", element: <DashboardPage /> },
+  { path: "profile", element: <CandidateProfilePage /> },
   { path: "edit-profile", element: <EditProfilePage /> },
   { path: "jobs", element: <JobPage /> },
 ];

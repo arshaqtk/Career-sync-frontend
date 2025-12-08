@@ -2,11 +2,13 @@ export interface Experience {
   _id?: string;
   company: string;
   role: string;
-  startDate: string; // ISO date string
-  endDate?: string; // ISO date string or undefined -> Present
+  startDate: Date; 
+  endDate?: Date; 
   location?: string;
-  logoUrl?: string;
   description?: string;
- jobType?:string;
+  logoUrl?:string,
+ jobType?:"full-time"|"part-time"|"internship";
   skills?: string[];
 }
+
+export type ExperienceFormValues=Experience
