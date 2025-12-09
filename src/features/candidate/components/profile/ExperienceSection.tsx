@@ -50,7 +50,7 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
           <p className="text-sm text-muted-foreground mb-3">
             No experience added yet
           </p>
-          <Button onClick={() => alert("Open Add Experience Modal")}>
+          <Button onClick={() =>  openModal()}>
             Add Experience
           </Button>
         </div>

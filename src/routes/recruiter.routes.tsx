@@ -2,6 +2,6 @@ import { RecruiterDashboard } from "@/features/recruiter/components/dashboard/da
 import RecruiterJobPage from "@/features/recruiter/pages/RecruiterJobPage";
 
 export const recruiterRoutes = [
-  { path: "recruiter/Dashboard", element: <RecruiterDashboard /> },
+  { path: "recruiter/", element: <RecruiterDashboard /> },
   { path: "recruiter/jobs", element: <RecruiterJobPage /> },
 ];

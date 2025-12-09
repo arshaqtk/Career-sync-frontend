@@ -1,7 +1,8 @@
 import {  useMutation } from "@tanstack/react-query";
-import { LoginApi, RegisterApi, VerifyRegisterOtpApi } from "@/api/auth.api";
+import { LoginApi, RegisterApi, ResendRegisterOtp, VerifyRegisterOtpApi } from "@/api/auth.api";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth.store";
+import { toast } from "sonner";
 
 export const useRegister=()=>{
     const navigate=useNavigate()
@@ -29,10 +30,10 @@ export const useRegister=()=>{
         ) {
             const err = error as ErrorWithResponse;
             console.log("RQ ERROR:", err.response?.data);
-            alert(err.response?.data?.message);
+            toast.error(err.response?.data?.message);
         } else {
             console.log("RQ ERROR:", error);
-            alert("An unexpected error occurred.");
+            toast.error("An unexpected error occurred.");
         }
     }
     })
@@ -49,7 +50,7 @@ export const useLogin=()=>{
             setUser(data.user)
 
             if(!data.user.isVerified){
-                alert(data?.message);
+                toast.success(data?.message);
                 navigate("/verify-otp",{ state: { email: data.user.email } })
                 return
             }
@@ -77,15 +78,29 @@ export const useLogin=()=>{
         ) {
             const err = error as ErrorWithResponse;
             console.log("RQ ERROR:", err.response?.data);
-            alert(err.response?.data?.message);
+            toast.error(err.response?.data?.message);
         } else {
             console.log("RQ ERROR:", error);
-            alert("An unexpected error occurred.");
+            toast.error("An unexpected error occurred.");
         }
     }
     })
     return mutation
 } 
+
+
+export const useResendRegisterOtpMutation =()=>{ 
+const mutation =useMutation({
+  mutationFn: ResendRegisterOtp,
+  onSuccess: () => {
+    toast.success("OTP resent successfully");
+  },
+  onError: () => {
+    toast.error("Something went wrong");
+  }
+})
+return mutation
+}
 
 export const useVerifyRegisterOtp=()=>{
     const navigate=useNavigate()
@@ -111,10 +126,10 @@ export const useVerifyRegisterOtp=()=>{
         ) {
             const err = error as ErrorWithResponse;
             console.log("RQ ERROR:", err.response?.data);
-            alert(err.response?.data?.message);
+            toast.error(err.response?.data?.message);
         } else {
             console.log("RQ ERROR:", error);
-            alert("An unexpected error occurred.");
+            toast.error("An unexpected error occurred.");
         }
     }
     })

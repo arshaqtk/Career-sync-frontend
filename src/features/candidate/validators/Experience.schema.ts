@@ -6,7 +6,7 @@ export const experienceSchema = z.object({
   role: z.string().min(2, "Role is required"),
 
 
-  startDate: z.date("Start date is required"),
+  startDate: z.string("Start date is required"),
 
   endDate: z.date().optional().nullable().transform(val => val ?? undefined),
 

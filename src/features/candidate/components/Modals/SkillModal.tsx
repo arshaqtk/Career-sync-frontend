@@ -43,7 +43,14 @@ export function SkillsEditModal({
 
   // Save changes
   const handleSave = () => {
+    const trimmed = inputValue.trim();
+
+  if (trimmed && !skills.includes(trimmed)) {
+    onSave([...skills, trimmed]);
+  } else {
     onSave(skills);
+  }
+    setInputValue("");
     onClose();
   };
 

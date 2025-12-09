@@ -38,7 +38,6 @@ export function EducationFormModal({
   const form = useForm<Education>({
     resolver: zodResolver(educationSchema),
     defaultValues: {
-      _id: "",
       school: "",
       standard:undefined,
       startDate: undefined,

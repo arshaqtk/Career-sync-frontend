@@ -1,12 +1,13 @@
-import { ResetPasswordApi, SendResetPasswordEmail, VerifyResetPasswordOtpApi } from "@/api/auth.api";
+import { ResendResetPasswordOtp, ResetPasswordApi, SendResetPasswordEmail, VerifyResetPasswordOtpApi } from "@/api/auth.api";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export const useSendResetPasswordEmail=()=>{
     const mutate=useMutation({
         mutationFn:SendResetPasswordEmail,
         onSuccess(){
-            alert("Otp Sented Successfully")
+            toast.success("Otp Sented Successfully")
         },
         onError(error: unknown) {
         type ErrorWithResponse = {
@@ -25,10 +26,10 @@ export const useSendResetPasswordEmail=()=>{
         ) {
             const err = error as ErrorWithResponse;
             console.log("RQ ERROR:", err.response?.data);
-            alert(err.response?.data?.message);
+            toast.error(err.response?.data?.message);
         } else {
             console.log("RQ ERROR:", error);
-            alert("An unexpected error occurred.");
+            toast.error("An unexpected error occurred.");
         }
     }
     })
@@ -36,12 +37,24 @@ export const useSendResetPasswordEmail=()=>{
     return mutate
 
 }
+export const useResendResetPasswordOtpMutation =()=>{ 
+const mutation =useMutation({
+  mutationFn: ResendResetPasswordOtp,
+  onSuccess: () => {
+    toast.success("OTP resent successfully");
+  },
+  onError: () => {
+    toast.error("Something went wrong");
+  }
+})
+return mutation
+}
 export const useVerifyResetPasswordOtp=()=>{
     const navigate=useNavigate()
    const mutation= useMutation({
         mutationFn:VerifyResetPasswordOtpApi,
         onSuccess(data:{email:string,resetToken:string,message:string}){
-            alert(data.message)
+            toast.success(data.message)
              navigate("/reset-password", {
       state: {
         email:data.email,
@@ -66,10 +79,10 @@ export const useVerifyResetPasswordOtp=()=>{
         ) {
             const err = error as ErrorWithResponse;
             console.log("RQ ERROR:", err.response?.data);
-            alert(err.response?.data?.message);
+            toast.error(err.response?.data?.message);
         } else {
             console.log("RQ ERROR:", error);
-            alert("An unexpected error occurred.");
+            toast.error("An unexpected error occurred.");
         }
     }
     })
@@ -80,7 +93,7 @@ export const useResetPassword=()=>{
     const mutation=useMutation({
         mutationFn:ResetPasswordApi,
         onSuccess(){
-            alert("updated successfully")
+            toast.success("updated successfully")
         },
         onError(error: unknown) {
         type ErrorWithResponse = {
@@ -99,10 +112,10 @@ export const useResetPassword=()=>{
         ) {
             const err = error as ErrorWithResponse;
             console.log("RQ ERROR:", err.response?.data);
-            alert(err.response?.data?.message);
+            toast.error(err.response?.data?.message);
         } else {
             console.log("RQ ERROR:", error);
-            alert("An unexpected error occurred.");
+            toast.error("An unexpected error occurred.");
         }
     }
 

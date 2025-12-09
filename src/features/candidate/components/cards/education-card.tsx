@@ -66,7 +66,7 @@ export default function EducationCard({education}:{education:Education}){
           <p className="text-sm leading-relaxed text-gray-700">{description}</p>
         )}
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-end">
          <Button onClick={() =>openModal(education)} className="sm flex gap-2">
         <Pencil className="w-4 h-4" />
       </Button>

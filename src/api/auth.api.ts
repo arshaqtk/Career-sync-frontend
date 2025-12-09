@@ -24,9 +24,19 @@ export const VerifyRegisterOtpApi=async(data:VerifyOtpPayload)=>{
 const res= await api.post("/auth/verify-register-otp",data) 
     return res.data
 } 
+export const ResendRegisterOtp=async(email:string)=>{
+const res=await api.post("/auth/resend-register-otp",{email})
+return res.data
+}
+
 
 export const SendResetPasswordEmail=async(email:string)=>{
 const res=await api.post("/auth/forgot-password",{email})
+return res.data
+}
+
+export const ResendResetPasswordOtp=async(email:string)=>{
+const res=await api.post("/auth/resend-forgot-password-otp",{email})
 return res.data
 }
 export const VerifyResetPasswordOtpApi=async(data:VerifyOtpPayload)=>{

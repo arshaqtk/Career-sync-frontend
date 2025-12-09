@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { experienceSchema } from "../../validators/Experience.schema";
-import { ExperienceModalStore } from "../../store/experienceFormmodal.store";
+import { ExperienceModalStore } from "../../store/experienceFormModal.store";
 import { useLayoutEffect } from "react";
 import type { Experience } from "../../types/Experience.types";
 
@@ -31,11 +31,10 @@ export function ExperienceFormModal({
   onSubmit: (payload: Experience) => void;
 }) {
   const { isOpen, closeModal, selectedExperience } = ExperienceModalStore();
-
+console.log(selectedExperience)
   const form = useForm<ExperienceFormValues>({
     resolver: zodResolver(experienceSchema),
     defaultValues: {
-      _id:"",
       company: "",
       role: "",
       description: "",

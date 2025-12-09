@@ -38,7 +38,7 @@ export const useUpdateProfileImage=()=>{
              onSuccess:(updatedUser)=>{
                 queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
                 toast.success("Profile updated successfully")
-                navigate("/candidate-profile")  },
+                navigate("/profile")  },
             onError(error: unknown) { {ErrorHandler(error) } }
      })
 }
