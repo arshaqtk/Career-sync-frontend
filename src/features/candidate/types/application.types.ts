@@ -1,4 +1,3 @@
-import type { Job } from "@/types/job.type";
 
 export interface ApplyJobDTO {
   jobId: string;
@@ -6,15 +5,18 @@ export interface ApplyJobDTO {
   coverLetter?: string;
   expectedSalary?: number; 
   noticePeriod?: string;
+  experience:string
+  currentRole:string
 }
 
-export interface Application {
-  candidateId: string;
-  jobId: Job;
-  resumeUrl: string;
+export interface CandidateApplicationDTO {
+  id: string;
+  job: {
+    id: string;
+    title: string;
+    company: string;
+    location: string;
+  };
   status: "Pending" | "Shortlisted" | "Selected" | "Rejected";
-  coverLetter?: string; 
-  expectedSalary?: number;
-  noticePeriod?: string;
-  createdAt:string
+  createdAt: string;
 }

@@ -28,6 +28,8 @@ const fileInputRef = useRef<HTMLInputElement>(null);
             resumeUrl: candidateResumeUrl || "",
             expectedSalary: 0,
             noticePeriod: "",
+            experience:"",
+            currentRole:""
         },
     });
     
@@ -39,6 +41,8 @@ useEffect(() => {
       coverLetter: "",
       expectedSalary: 0,
       noticePeriod: "",
+      experience:"",
+      currentRole:""
     });
   }
 }, [open, jobIds]);
@@ -111,11 +115,19 @@ useEffect(() => {
                             <p className="text-red-500 text-sm">{errors.resumeUrl.message}</p>
                         )}
                     </div>
+                    {/* Current Role */}
+                     <div>
+                        <p className="font-medium">Current Role</p>
+                        <Input placeholder="Current Role" {...register("currentRole")} required/>
+                        {errors.currentRole && (
+                            <p className="text-red-500 text-sm">{errors.currentRole.message}</p>
+                        )}
+                    </div>
 
                     {/* Notice Period */}
                     <div>
                         <p className="font-medium">Notice Period</p>
-                        <Input placeholder="Notice Period" {...register("noticePeriod")} />
+                        <Input placeholder="Notice Period" {...register("noticePeriod")} required/>
                         {errors.noticePeriod && (
                             <p className="text-red-500 text-sm">{errors.noticePeriod.message}</p>
                         )}
@@ -131,6 +143,14 @@ useEffect(() => {
                         />
                         {errors.expectedSalary && (
                             <p className="text-red-500 text-sm">{errors.expectedSalary.message}</p>
+                        )}
+                    </div>
+                     {/* Experience */}
+                    <div>
+                        <p className="font-medium">Experience</p>
+                        <Input placeholder="Experience" {...register("experience")} required/>
+                        {errors.experience && (
+                            <p className="text-red-500 text-sm">{errors.experience.message}</p>
                         )}
                     </div>
 

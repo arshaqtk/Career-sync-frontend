@@ -13,6 +13,7 @@ export const candidateApplications=async()=>{
 
 
 export const recruiterJobApplicationsApi=async(jobId:string)=>{
-    const res=await api.get(`/application//job/${jobId}`)
+    const res=await api.get(`/application/job/${jobId}`)
+    console.log(res.data)
     return res.data
 }

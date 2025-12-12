@@ -2,13 +2,20 @@ import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
 import { Mail, FileText } from "lucide-react";
+import type { RecruiterApplicationDTO } from "../../types/application.dto";
 
-export function ApplicantCard({ applicant, onView }: any) {
+interface ApplicantCard{
+  applicant:RecruiterApplicationDTO,
+  onView:()=>void
+
+}
+
+export function ApplicantCard({ applicant, onView }:ApplicantCard ) {
   return (
     <Card className="w-full shadow-sm rounded-xl">
       <CardHeader className="flex flex-row justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">{applicant.name}</h3>
+          <h3 className="text-lg font-semibold">{applicant.candidate.name}</h3>
           <p className="text-sm text-muted-foreground">
             {applicant.currentRole} • {applicant.experience} yrs
           </p>
@@ -22,10 +29,10 @@ export function ApplicantCard({ applicant, onView }: any) {
       <CardContent className="flex justify-between items-center">
         <div className="text-sm">
           <p className="flex items-center gap-2">
-            <Mail size={14} /> {applicant.email}
+            <Mail size={14} /> {applicant.candidate.email}
           </p>
           <p className="text-xs text-muted-foreground">
-            Applied: {applicant.appliedAt}
+            Applied: {applicant.createdAt}
           </p>
         </div>
 

@@ -7,17 +7,15 @@ interface ApplicationRowData{
     title:string,
     company:string,
     location:string,
-    salary?:string,
     date:string,
     status:"Pending" | "Shortlisted" | "Selected" | "Rejected" }
     
-export default function ApplicationRow({title,company,location,salary,date,status }:ApplicationRowData) {
+export default function ApplicationRow({title,company,location,date,status }:ApplicationRowData) {
     return (
     <TableRow>
       <TableCell className="font-medium">{title}</TableCell>
       <TableCell>{company}</TableCell>
       <TableCell>{location}</TableCell>
-      <TableCell>{salary}</TableCell>
       <TableCell>{date}</TableCell>
 
       <TableCell>

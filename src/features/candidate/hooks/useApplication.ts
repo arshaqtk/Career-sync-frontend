@@ -29,25 +29,46 @@ export const useApplyNow=()=>{
     })
 }
 
-const ErrorHandler=(error:unknown)=>{
-             type ErrorWithResponse = {
-                    response?: {
-                        data?: {
-                            message?: string;
-                        };
-                    };
-                };
-                if (
-                    typeof error === "object" &&
-                    error !== null &&
-                    "response" in error &&
-                    typeof (error as ErrorWithResponse).response === "object"
-                ) {
-                    const err = error as ErrorWithResponse;
-                    console.log("RQ ERROR:", err.response?.data);
-                    toast.error(err.response?.data?.message);
-                } else {
-                    console.log("RQ ERROR:", error);
-                    toast.error("An unexpected error occurred.");
-                }
-        }
+const ErrorHandler = (error: unknown) => {
+  type ErrorWithResponse = {
+    response?: {
+      status?: number;
+      data?: {
+        message?: string;
+      };
+    };
+  };
+
+  //  if it's an Axios/React Query error
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "response" in error
+  ) {
+    const err = error as ErrorWithResponse;
+
+    const statusCode = err.response?.status;
+    const message = err.response?.data?.message;
+
+    console.log("RQ ERROR:", err.response);
+
+    // ====== CHECK FOR INTERNAL SERVER ERROR ======
+    if (statusCode === 500) {
+      toast.error("Something went wrong. Please try again later.");
+      return;
+    }
+
+    // ====== CLIENT ERRORS (SHOW REAL MESSAGE) ======
+    if (message) {
+      toast.error(message);
+      return;
+    }
+
+    // Default fallback
+    toast.error("An unexpected error occurred.");
+  } else {
+    // Non-axios or unknown error
+    console.log("Unknown Error:", error);
+    toast.error("An unexpected error occurred.");
+  }
+};
