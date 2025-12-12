@@ -16,7 +16,11 @@ import type { Education } from "@/features/candidate/types/Education.types";
 import type { Experience } from "@/features/candidate/types/Experience.types";
 
 export interface CandidateData {
-  resume?: string;
+  resume?: {
+    url: string,
+    originalName: string,
+    uploadedAt: string,
+  };
   experience?: Experience[];
    companyName?: string;
   skills?: string[];

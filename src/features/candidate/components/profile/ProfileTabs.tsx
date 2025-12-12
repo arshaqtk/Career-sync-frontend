@@ -38,7 +38,7 @@ export function ProfileTabs({ user }: { user: UserDto }) {
       />
       <TabsContent value="skills"><SkillsSection skills={user.candidateData?.skills||[]}/></TabsContent>
       <TabsContent value="education"><EducationSection Education={user.candidateData?.education||[]}/></TabsContent>
-      <TabsContent value="resume"><ResumeUpload resume={user.candidateData?.resume||{}}/></TabsContent>
+      <TabsContent value="resume"><ResumeUpload resume={user.candidateData?.resume ||{ url:"",originalName:"",uploadedAt: ""}}/></TabsContent>
     </Tabs>
   );
 }

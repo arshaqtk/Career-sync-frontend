@@ -2,12 +2,20 @@ import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
 import type{ Job } from "@/types/job.type";
+import { ApplyToJobModal } from "../Modals/applyToJobModal";
+import { useState } from "react";
+import type { ApplyJobDTO } from "../../types/application.types";
+import { useApplyNow } from "../../hooks/useApplication";
+import useUserData from "@/hooks/useUserData";
 
 interface JobDetailsProps {
   job?: Job|null;
 }
 
 export function JobDetails({ job }: JobDetailsProps) {
+  const [open,setIsOpen]=useState(false)
+  const applyNowJOb=useApplyNow()
+  const {data:userData}=useUserData()
   if (!job)
     return (
       <div className="w-[55%] flex items-center justify-center text-muted-foreground">
@@ -15,8 +23,14 @@ export function JobDetails({ job }: JobDetailsProps) {
       </div>
     );
 
-  return (
-    <div className="w-[65%] h-full overflow-y-auto p-4">
+   const handleApplyToJOb =(data:ApplyJobDTO)=>{
+    applyNowJOb.mutate(data)
+    }
+    
+   
+    return (
+      <div className="w-[65%] h-full overflow-y-auto p-4">
+<ApplyToJobModal jobIds={job._id as string} open={open} onSubmit={handleApplyToJOb} onOpenChange={setIsOpen} candidateResumeUrl={userData?.candidateData?.resumeUrl}></ApplyToJobModal>
       <Card>
         <CardContent className="p-6 space-y-4">
           <h2 className="text-2xl font-bold">{job.title}</h2>
@@ -34,7 +48,7 @@ export function JobDetails({ job }: JobDetailsProps) {
             {job.remote && <Badge>Remote</Badge>}
           </div>
 
-          <Button className="w-full mt-4">Apply Now</Button>
+          <Button className="w-full mt-4" onClick={()=>setIsOpen(true)}>Apply Now</Button>
 
           {/* Skills */}
           {job.skills && job.skills.length > 0 && (

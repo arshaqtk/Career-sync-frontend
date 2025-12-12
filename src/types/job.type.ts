@@ -7,7 +7,7 @@ export interface Job {
   experienceMin: number;
   experienceMax: number;
   salary?: string
-  location?: string;
+  location: string;
   remote: boolean;
   jobType: "full-time" | "part-time" | "internship";
   status: "open" | "closed" | "paused";

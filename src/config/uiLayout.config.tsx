@@ -15,7 +15,7 @@ export const sidebarConfig = {
     { label: "Analytics", icon: "BarChart3", path: "/recruiter/analytics" }
   ],
   candidate: [
-    { label: "Dashboard", icon: "Home", path: "/dashboard" },
+    { label: "Dashboard", icon: "Home", path: "/" },
     { label: "Jobs", icon: "Search", path: "/jobs" },
     { label: "Applications", icon: "FileText", path: "/applications" },
     { label: "Profile", icon: "User", path: "/profile" }

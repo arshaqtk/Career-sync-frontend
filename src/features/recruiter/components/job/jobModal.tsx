@@ -53,7 +53,6 @@ export function AddJobModal({
       remote: false,
       jobType: "full-time",
       status: "open",
-      applicationCount: undefined,
     },
   });
 
@@ -72,7 +71,6 @@ export function AddJobModal({
         remote: selectedJob.remote ?? false,
         jobType: selectedJob.jobType ?? "full-time",
         status: selectedJob.status ?? "open",
-        applicationCount: selectedJob.applicationCount ?? undefined,
       });
     } else {
       form.reset();
@@ -230,14 +228,6 @@ export function AddJobModal({
               <p className="text-red-500 text-sm">{errors.status.message}</p>
             )}
           </div>
-
-          {/* Application Count */}
-          <Input
-            type="number"
-            placeholder="Application Count"
-            {...form.register("applicationCount", { valueAsNumber: true })}
-          />
-
           <DialogFooter>
             <Button type="submit">Submit Job</Button>
           </DialogFooter>

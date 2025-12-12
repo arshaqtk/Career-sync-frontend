@@ -8,7 +8,6 @@ import { useJobStore } from "../store/selectedjob.store";
 export default function JobPage() {
  const { selectedJob, setSelectedJob } = useJobStore();
   const {data:jobs,isLoading}=useCandidateJobData()
-  console.log(jobs)
   if (isLoading) return <div>Loading...</div>;
   return (
      <CandidateLayout>

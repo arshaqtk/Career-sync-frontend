@@ -49,3 +49,13 @@ export const updateProfileEducationApi=async({payload,educationId}:{payload:Educ
     const res=await api.put(`/candidate/profile/education/${educationId}`,{education:payload})
     return res.data.data
 }
+
+export const updateResumeApi = async (formData: FormData): Promise<IUser> => {
+  const res = await api.put(`/candidate/profile/resume`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return res.data.data;
+};

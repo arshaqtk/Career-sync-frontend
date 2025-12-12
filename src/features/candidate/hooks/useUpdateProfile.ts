@@ -1,4 +1,4 @@
-import { addProfileEducationApi, addProfileExperienceApi, updateAvatarApi, updateProfileAboutApi, updateProfileApi, updateProfileEducationApi, updateProfileExperienceApi, updateProfileSkillApi } from "@/api/profile.api";
+import { addProfileEducationApi, addProfileExperienceApi, updateAvatarApi, updateProfileAboutApi, updateProfileApi, updateProfileEducationApi, updateProfileExperienceApi, updateProfileSkillApi, updateResumeApi } from "@/api/profile.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { IUser, ProfileUpdatePayload, UpdateAboutPayload } from "@/types/profileUpdate.type";
 import { QUERY_KEYS } from "../../../config/queryKeys";
@@ -119,6 +119,18 @@ export const useUpdateProfileEducation=()=>{
         onSuccess:()=>{
             queryClient.invalidateQueries({queryKey:[QUERY_KEYS.user]})
                 toast.success("Education Updated Successfully")
+             },
+             onError:(error: unknown)=>{ErrorHandler(error) }
+     })
+}
+
+export const useUpdateResume=()=>{
+     const queryClient=useQueryClient()
+    return useMutation({
+        mutationFn:updateResumeApi,
+        onSuccess:()=>{
+            queryClient.invalidateQueries({queryKey:[QUERY_KEYS.user]})
+                toast.success("Resume Updated Successfully")
              },
              onError:(error: unknown)=>{ErrorHandler(error) }
      })

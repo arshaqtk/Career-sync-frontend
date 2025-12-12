@@ -21,6 +21,4 @@ export const jobSchema = z.object({
 
   jobType: z.enum(["full-time", "part-time", "internship"]),
   status: z.enum(["open", "closed", "paused"]),
-
-  applicationCount: z.number().optional(),
 });
