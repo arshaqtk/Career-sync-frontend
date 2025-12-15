@@ -1,6 +1,7 @@
+import { Button } from "@/components/ui/shadcn/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/shadcn/dialog";
 
-export function ResumeModal({ resumeUrl }: any) {
+export function ResumeModal({ resumeUrl }: {resumeUrl:string}) {
   return (
     <Dialog>
       <DialogTrigger asChild>

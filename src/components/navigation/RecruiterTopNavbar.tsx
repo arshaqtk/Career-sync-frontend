@@ -1,0 +1,71 @@
+import { Bell, LogOut, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/shadcn/input";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem
+} from "@/components/ui/shadcn/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar";
+
+export default function RecruiterTopNavbar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Add your logout logic
+    console.log("Logout clicked");
+  };
+
+  return (
+    <header className="flex items-center justify-between px-6 py-4 bg-white">
+
+      {/* Search bar */}
+      <Input
+        placeholder="Search candidates, jobs, interviews..."
+        className="max-w-lg"
+      />
+
+      {/* Right side */}
+      <div className="flex items-center gap-6">
+
+        {/* Notification icon */}
+        <Bell className="h-5 w-5 cursor-pointer" />
+
+        {/* Profile dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex items-center gap-3 cursor-pointer">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src="" alt="Profile" />
+              <AvatarFallback>R</AvatarFallback>
+            </Avatar>
+
+            <span className="hidden lg:block font-medium">Recruiter</span>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem onClick={() => navigate("/recruiter/profile")}>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              onClick={handleLogout}
+              className="text-red-600 focus:text-red-600"
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Logout</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </header>
+  );
+}

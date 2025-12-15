@@ -7,7 +7,6 @@ import { JobActions } from "../components/job/jobActions";
 import useRecruiterJob from "../hooks/useRecruiterJob";
 import { Separator } from "@/components/ui/shadcn/separator";
 import type { Job } from "@/types/job.type";
-import RecruiterLayout from "@/layouts/dashboard-layout";
 import { Button } from "@/components/ui/shadcn/button";
 import { Plus } from "lucide-react";
 import { AddJobModal } from "../components/job/jobModal";
@@ -38,7 +37,7 @@ export default function RecruiterJobPage() {
 
 
   return (
-    <RecruiterLayout>
+   
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-end mt-6">
           <Button 
@@ -72,6 +71,6 @@ export default function RecruiterJobPage() {
           </Card>
         ))}
       </div>
-    </RecruiterLayout>
+    
   );
 }

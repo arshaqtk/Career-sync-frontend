@@ -9,10 +9,6 @@ export default function useRecruiterApplicationsData(jobId: string){
        const [, jobId] = queryKey; 
        return recruiterJobApplicationsApi(jobId);
     },
-         staleTime: 1000 * 60 * 5,
-          retry: 1,
-          refetchOnWindowFocus:false, 
-          refetchOnReconnect:false,
-          refetchOnMount:true
+         staleTime: 1000 * 60 * 1,
     })
 }

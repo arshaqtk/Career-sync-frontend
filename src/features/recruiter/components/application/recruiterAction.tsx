@@ -1,30 +1,43 @@
 import { Button } from "@/components/ui/shadcn/button";
-import { useUpdateApplicantStatus } from "../hooks/useUpdateApplicantStatus";
+import { useUpdateApplicantStatus } from "../../hooks/useUpdateApplicantStatus";
+import type { ApplicationStatus } from "../../types/applicant.types";
 
-export function RecruiterActions({ applicationId, currentStatus }: any) {
-  const { mutate } = useUpdateApplicantStatus();
+interface RecruiterActionsProps {
+  applicationId: string;
+  currentStatus: ApplicationStatus;
+}
+
+export function RecruiterActions({ applicationId, currentStatus }: RecruiterActionsProps) {
+  const { mutate, isPending } = useUpdateApplicantStatus();
+
+  const updateStatus = (status: ApplicationStatus) => {
+    mutate({ applicationId, status });
+  };
 
   return (
     <div className="flex gap-3">
+      {/* Shortlist */}
       <Button
-        onClick={() => mutate({ id: applicationId, status: "SHORTLISTED" })}
-        disabled={currentStatus === "SHORTLISTED"}
+        onClick={() => updateStatus("SHORTLISTED")}
+        disabled={currentStatus === "SHORTLISTED" || isPending}
       >
         Shortlist
       </Button>
 
+      {/* Reject */}
       <Button
         variant="destructive"
-        onClick={() => mutate({ id: applicationId, status: "REJECTED" })}
-        disabled={currentStatus === "REJECTED"}
+        onClick={() => updateStatus("REJECTED")}
+        disabled={currentStatus === "REJECTED" || isPending}
       >
         Reject
       </Button>
 
+      {/* Interview */}
       <Button
         variant="outline"
-        onClick={() => mutate({ id: applicationId, status: "INTERVIEW" })}
-        disabled={currentStatus === "INTERVIEW"}
+        onClick={() => updateStatus("INTERVIEW")}
+        disabled={currentStatus === "INTERVIEW" || isPending}
       >
         Move to Interview
       </Button>

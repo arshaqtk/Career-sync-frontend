@@ -4,10 +4,9 @@ import { ProfileStatsRow } from "../components/profile/ProfileStatsRow";
 import { ProfileStatCard } from "../components/profile/ProfileStatCard";
 import { ProfileTabs } from "../components/profile/ProfileTabs";
 import { FileText, Video, Award, Clock } from "lucide-react";
-import CandidateLayout from "@/layouts/dashboard-layout";
 import useUserData from "@/hooks/useUserData";
 
-export function CandidateProfilePage() {
+export default function CandidateProfilePage() {
   const { data: user, isLoading, error } = useUserData();
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Failed to load user</p>;
@@ -16,7 +15,7 @@ export function CandidateProfilePage() {
   const { name, email, phone, profilePictureUrl } = user;
 
   return (
-    <CandidateLayout>
+    
       <Container className="py-6">
         <ProfileHeader
           user={{
@@ -52,7 +51,6 @@ export function CandidateProfilePage() {
 
         <ProfileTabs user={user} />
       </Container>
-    </CandidateLayout>
   );
 }
 

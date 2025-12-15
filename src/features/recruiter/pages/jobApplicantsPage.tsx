@@ -2,7 +2,7 @@ import { useParams} from "react-router-dom";
 import { ApplicantCard } from "../components/application/applicationList";
 import useRecruiterApplicationsData from "../hooks/useFetchApplicants";
 import type { RecruiterApplicationDTO } from "../types/application.dto";
-import RecruiterLayout from "@/layouts/dashboard-layout";
+
 
 export default function JobApplicantsPage() {
  const { jobId } = useParams<{ jobId: string }>();
@@ -11,7 +11,7 @@ export default function JobApplicantsPage() {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <RecruiterLayout>
+   
     <div className="space-y-4">
       <h2 className="text-2xl font-semibold">Applicants</h2>
 
@@ -23,6 +23,6 @@ export default function JobApplicantsPage() {
         />
       ))}
     </div>
-    </RecruiterLayout>
+    
   );
 }
