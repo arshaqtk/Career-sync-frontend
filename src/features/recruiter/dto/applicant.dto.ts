@@ -10,10 +10,11 @@ export interface ApplicantDTO{
   createdAt: string,
 
   candidateId: {
+    _id?:string,
     name: string,
     email: string,
     phone: string,
-    profileImage: string,
+    profilePictureUrl: string,
     location: string,
     experience: number
   },

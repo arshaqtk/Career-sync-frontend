@@ -1,14 +1,15 @@
-import { recruiterJobApplicationsApi } from "@/api/application.api";
-import { QUERY_KEYS } from "@/config/queryKeys";
-import { useQuery } from "@tanstack/react-query";
+import {  useQuery } from "@tanstack/react-query"
+import { QUERY_KEYS } from "@/config/queryKeys"
+import { recruiterGetAllApplicationsApi } from "@/api/recruiter.api"
 
-export default function useRecruiterApplicationsData(jobId: string){
+export default function useRecruiterFetchApplications(){
     return useQuery({
-        queryKey: [QUERY_KEYS.applications,jobId],
-        queryFn:({ queryKey }) => {
-       const [, jobId] = queryKey; 
-       return recruiterJobApplicationsApi(jobId);
-    },
-         staleTime: 1000 * 60 * 1,
+        queryKey: QUERY_KEYS.applications.all,
+        queryFn:recruiterGetAllApplicationsApi,
+         staleTime: 1000 * 60 * 5,
+          retry: 1,
+          refetchOnWindowFocus:false, 
+          refetchOnReconnect:false,
+          refetchOnMount:true
     })
 }

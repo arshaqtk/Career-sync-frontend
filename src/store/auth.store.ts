@@ -1,3 +1,5 @@
+
+import { LogoutApi } from "@/api/auth.api";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -17,6 +19,7 @@ interface AuthStore {
   logout: () => void;
 }
 
+
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
@@ -30,7 +33,9 @@ export const useAuthStore = create<AuthStore>()(
         }),
 
       logout: () => {
+        LogoutApi()
         set({ user: null, isAuthenticated: false });
+        
       },
     }),
     {

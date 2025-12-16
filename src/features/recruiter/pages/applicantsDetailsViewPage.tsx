@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetApplicantDetails } from "../hooks/useGetApplicantDetails";
+import { useRecruiterApplicantDetails } from "../hooks/useGetApplicantDetails";
 
 import {CandidateProfileCard} from "../components/application/CandidateProfileCard";
 import {JobInfoCard} from "../components/application/JobInfoCard";
@@ -9,7 +9,7 @@ import { RecruiterActions } from "../components/application/recruiterAction";
 
 export default function ApplicantDetailPage() {
   const { applicationId } = useParams();
-  const { data, isLoading } = useGetApplicantDetails(applicationId!);
+  const { data, isLoading } = useRecruiterApplicantDetails(applicationId!);
 
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No application found.</p>;

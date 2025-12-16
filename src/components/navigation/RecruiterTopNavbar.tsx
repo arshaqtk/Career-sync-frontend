@@ -10,15 +10,16 @@ import {
   DropdownMenuItem
 } from "@/components/ui/shadcn/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar";
+import useUserData from "@/hooks/useUserData";
+import useLogout from "@/hooks/useLogout";
 
 export default function RecruiterTopNavbar() {
   const navigate = useNavigate();
+   const handleLogout = useLogout();
+  const {data:user,isLoading}=useUserData()
 
-  const handleLogout = () => {
-    // Add your logout logic
-    console.log("Logout clicked");
-  };
-
+  
+ if (isLoading) return <p>Loading...</p>;
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white">
 
@@ -38,11 +39,11 @@ export default function RecruiterTopNavbar() {
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-3 cursor-pointer">
             <Avatar className="h-10 w-10">
-              <AvatarImage src="" alt="Profile" />
+              <AvatarImage src={user?.profilePictureUrl} alt="Profile" />
               <AvatarFallback>R</AvatarFallback>
             </Avatar>
 
-            <span className="hidden lg:block font-medium">Recruiter</span>
+            <span className="hidden lg:block font-medium">{user?.name}</span>
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end" className="w-48">
