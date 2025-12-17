@@ -8,7 +8,7 @@ interface JobListProps {
 
 export function JobList({ jobs, onSelect }: JobListProps) {
   return (
-    <div className="w-[45%] h-full overflow-y-auto border-r p-4 space-y-3">
+    <div className="w-[45%] h-full overflow-y-auto border-r p-4 space-y-3 scrollbar-hide">
       {jobs?.map((job, i) => (
         <JobCard key={i} job={job} onClick={() => onSelect(job)} />
       ))}

@@ -13,6 +13,7 @@ import { AddJobModal } from "../components/job/jobModal";
 import { useJobModalStore } from "../store/openJobModalStore";
 import { useUpdateJob } from "../hooks/useUpdateJob";
 import { useAddJob } from "../hooks/useAddJob";
+import { JobFilter } from "../components/job/JobFilter";
 
 export default function RecruiterJobPage() {
   const { data, isLoading } = useRecruiterJob();
@@ -39,15 +40,16 @@ export default function RecruiterJobPage() {
   return (
    
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-end mt-6">
-          <Button 
-            onClick={() => openModal()}
-            className="flex items-center gap-2"
-          >
-            <Plus size={18} />
-            Add Job
-          </Button>
-        </div>
+        <div className="flex items-center justify-between">
+    {/* Left side: Filters */}
+    <JobFilter />
+
+    {/* Right side: Add Job button */}
+    <Button onClick={() => openModal()} className="flex items-center gap-2">
+      <Plus className="h-4 w-4" />
+      Add Job
+    </Button>
+  </div>
 
         <AddJobModal onSubmit={(payload) => handleModalSubmission(payload)}/>
 

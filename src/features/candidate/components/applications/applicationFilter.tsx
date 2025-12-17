@@ -1,43 +1,69 @@
-import { Input } from "@/components/ui/shadcn/input";
-import { Button } from "@/components/ui/shadcn/button";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/shadcn/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/shadcn/select";
+import type { ApplicationFilters } from "../../types/applicationFilter.types";
 
-export default function ApplicationsFilters() {
+type ApplicationFilterProps = {
+  filters: ApplicationFilters;
+  onChange: (filters: ApplicationFilters) => void;
+};
+
+export const ApplicationsFilter = ({
+  filters,
+  onChange,
+}: ApplicationFilterProps) => {
+  const updateFilter = <K extends keyof ApplicationFilters>(
+    key: K,
+    value: ApplicationFilters[K]
+  ) => {
+    onChange({
+      ...filters,
+      [key]: value,
+    });
+  };
+
   return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-      <Input className="w-full md:w-96" placeholder="Search applications..." />
+    <div className="flex flex-wrap items-center gap-4 rounded-lg border bg-card p-2 shadow-sm">
+      {/* STATUS FILTER */}
+      <Select
+        value={filters.status}
+        onValueChange={(value) =>
+          updateFilter("status", value as ApplicationFilters["status"])
+        }
+      >
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Status" />
+        </SelectTrigger>
 
-      <div className="flex gap-3">
-        {/* Status dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              All Statuses <ChevronDown size={16} />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>All</DropdownMenuItem>
-            <DropdownMenuItem>Applied</DropdownMenuItem>
-            <DropdownMenuItem>Shortlisted</DropdownMenuItem>
-            <DropdownMenuItem>Interview Scheduled</DropdownMenuItem>
-            <DropdownMenuItem>Rejected</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <SelectContent>
+          <SelectItem value="all">All</SelectItem>
+          <SelectItem value="Pending">Pending</SelectItem>
+          <SelectItem value="Shortlisted">Shortlisted</SelectItem>
+          <SelectItem value="Interview">Interview Scheduled</SelectItem>
+          <SelectItem value="Rejected">Rejected</SelectItem>
+        </SelectContent>
+      </Select>
 
-        {/* Sort dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Sort by Most Recent <ChevronDown size={16} />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>Most Recent</DropdownMenuItem>
-            <DropdownMenuItem>Oldest First</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      {/* SORT FILTER */}
+      <Select
+        value={filters.sortBy}
+        onValueChange={(value) =>
+          updateFilter("sortBy", value as ApplicationFilters["sortBy"])
+        }
+      >
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Sort by" />
+        </SelectTrigger>
+
+        <SelectContent>
+          <SelectItem value="newest">Newest</SelectItem>
+          <SelectItem value="oldest">Oldest</SelectItem>
+        </SelectContent>
+      </Select>
     </div>
   );
-}
+};

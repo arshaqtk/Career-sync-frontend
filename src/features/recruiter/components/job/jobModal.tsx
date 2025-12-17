@@ -189,7 +189,7 @@ export function AddJobModal({
           <div>
             <label className="text-sm font-medium">Job Type</label>
             <Select
-              onValueChange={(val) => form.setValue("jobType", val as any)}
+              onValueChange={(val) => form.setValue("jobType", val as "full-time" | "part-time" | "internship")}
               defaultValue={form.watch("jobType")}
             >
               <SelectTrigger>
@@ -211,7 +211,7 @@ export function AddJobModal({
           <div>
             <label className="text-sm font-medium">Status</label>
             <Select
-              onValueChange={(val) => form.setValue("status", val as any)}
+              onValueChange={(val) => form.setValue("status", val as "open" | "closed" | "paused")}
               defaultValue={form.watch("status")}
             >
               <SelectTrigger>

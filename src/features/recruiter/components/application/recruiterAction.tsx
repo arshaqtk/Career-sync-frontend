@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/shadcn/button";
 import { useUpdateApplicantStatus } from "../../hooks/useUpdateApplicantStatus";
-import type { ApplicationStatus } from "../../types/applicant.types";
+import type { ApplicationStatus } from "../../types/applicationStatus.types";
 
 interface RecruiterActionsProps {
   applicationId: string;
@@ -18,8 +18,8 @@ export function RecruiterActions({ applicationId, currentStatus }: RecruiterActi
     <div className="flex gap-3">
       {/* Shortlist */}
       <Button
-        onClick={() => updateStatus("SHORTLISTED")}
-        disabled={currentStatus === "SHORTLISTED" || isPending}
+        onClick={() => updateStatus("Shortlisted")}
+        disabled={currentStatus === "Shortlisted" || isPending}
       >
         Shortlist
       </Button>
@@ -27,8 +27,8 @@ export function RecruiterActions({ applicationId, currentStatus }: RecruiterActi
       {/* Reject */}
       <Button
         variant="destructive"
-        onClick={() => updateStatus("REJECTED")}
-        disabled={currentStatus === "REJECTED" || isPending}
+        onClick={() => updateStatus("Rejected")}
+        disabled={currentStatus === "Rejected" || isPending}
       >
         Reject
       </Button>
@@ -36,8 +36,8 @@ export function RecruiterActions({ applicationId, currentStatus }: RecruiterActi
       {/* Interview */}
       <Button
         variant="outline"
-        onClick={() => updateStatus("INTERVIEW")}
-        disabled={currentStatus === "INTERVIEW" || isPending}
+        onClick={() => updateStatus("Interview")}
+        disabled={currentStatus === "Interview" || isPending}
       >
         Move to Interview
       </Button>
