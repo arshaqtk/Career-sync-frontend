@@ -24,6 +24,9 @@ import RecruiterCandidateProfilePage from "@/features/recruiter/pages/RecruiterC
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import RecruiterApplicantionsPage from "@/features/recruiter/pages/RecruiterApplicationsPage";
+import RecruiterInterviewsPage from "@/features/recruiter/interview/pages/RecruiterInterviewsPage";
+import { VerifyRegisterOtp } from "@/features/auth/pages/VerifyRegisterOtp";
+import RecruiterInterviewDetailsPage from "@/features/recruiter/interview/pages/RecruiterInterviewDetailsPage";
 
 export default function AppRouter() {
     return (
@@ -50,6 +53,9 @@ export default function AppRouter() {
                         <Route path="applicants" element={<RecruiterApplicantionsPage/>} />
                         <Route path="applicants/:applicationId" element={<ApplicantDetailsPage />} />
                         <Route path="candidates/:candidateId" element={< RecruiterCandidateProfilePage />} />
+                        <Route path="interviews" element={<RecruiterInterviewsPage/>}/>
+                        <Route path="interviews/:interviewId" element={<RecruiterInterviewDetailsPage/>}/>
+
                     </Route>
                 </Route>
 
@@ -57,6 +63,7 @@ export default function AppRouter() {
                 <Route element={<PublicRoute />}>
                     <Route path="/auth/login" element={<LoginPage />} />
                     <Route path="/auth/register" element={<RegisterPage />} />
+                    <Route path="/auth/verify-otp" element={<VerifyRegisterOtp/>}/>
                 </Route>
                 
                 {/* 404 */}

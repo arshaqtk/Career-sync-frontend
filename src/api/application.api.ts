@@ -11,7 +11,6 @@ export const applyToJobApi=async(data:ApplyJobDTO)=>{
 }
 
 export const candidateApplications=async({filters}:{filters:ApplicationFilters})=>{
-    console.log(filters)
     const res=await api.get("/application/my",{params:filters})
     return res.data
 }

@@ -2,24 +2,21 @@ import { useForm } from "react-hook-form";
 import type { ApplyJobDTO } from "../../types/application.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { applyJobSchema } from "../../validators/applyJob.schema";
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/shadcn/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/shadcn/dialog";
+import { Textarea } from "@/components/ui/shadcn/textarea";
 import { Input } from "@/components/ui/shadcn/input";
 import { Button } from "@/components/ui/shadcn/button";
 import { useUpdateResume } from "../../hooks/useUpdateProfile";
 import { useEffect, useRef } from "react";
 
-export const ApplyToJobModal = ({   jobIds,candidateResumeUrl,onSubmit,open,onOpenChange,}: { 
-    jobIds: string;  candidateResumeUrl?: string;  onSubmit: (payload: ApplyJobDTO) => void;open: boolean;onOpenChange: (val: boolean) => void;
+export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, onOpenChange, }: {
+    jobIds: string; candidateResumeUrl?: string; onSubmit: (payload: ApplyJobDTO) => void; open: boolean; onOpenChange: (val: boolean) => void;
 }) => {
-   
+
     const { mutate, isPending } = useUpdateResume()
-const fileInputRef = useRef<HTMLInputElement>(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+
     const form = useForm<ApplyJobDTO>({
         resolver: zodResolver(applyJobSchema),
         defaultValues: {
@@ -28,24 +25,24 @@ const fileInputRef = useRef<HTMLInputElement>(null);
             resumeUrl: candidateResumeUrl || "",
             expectedSalary: 0,
             noticePeriod: "",
-            experience:"",
-            currentRole:""
+            experience: "",
+            currentRole: ""
         },
     });
-    
-useEffect(() => {
-  if (open) {
-    form.reset({
-      jobId: jobIds,
-      resumeUrl: candidateResumeUrl || "",
-      coverLetter: "",
-      expectedSalary: 0,
-      noticePeriod: "",
-      experience:"",
-      currentRole:""
-    });
-  }
-}, [open, jobIds]);
+
+    useEffect(() => {
+        if (open) {
+            form.reset({
+                jobId: jobIds,
+                resumeUrl: candidateResumeUrl || "",
+                coverLetter: "",
+                expectedSalary: 0,
+                noticePeriod: "",
+                experience: "",
+                currentRole: ""
+            });
+        }
+    }, [open, jobIds]);
 
     const {
         handleSubmit,
@@ -58,11 +55,11 @@ useEffect(() => {
         if (!file) return;
         const formData = new FormData();
         formData.append("resume", file);
-        mutate(formData,{
-  onSuccess: (data) => {
-    form.setValue("resumeUrl", data.candidateData?.resumeUrl as string);
-  }
-})
+        mutate(formData, {
+            onSuccess: (data) => {
+                form.setValue("resumeUrl", data.candidateData?.resumeUrl as string);
+            }
+        })
     };
 
     return (
@@ -75,13 +72,22 @@ useEffect(() => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                     {/* Cover Letter */}
-                    <div>
+                    <div className="space-y-2">
                         <p className="font-medium">Cover Letter</p>
-                        <Input placeholder="Cover Letter" {...register("coverLetter")} />
+
+                        <Textarea
+                            placeholder="Write your cover letter here..."
+                            rows={6}
+                            {...register("coverLetter")}
+                        />
+
                         {errors.coverLetter && (
-                            <p className="text-red-500 text-sm">{errors.coverLetter.message}</p>
+                            <p className="text-red-500 text-sm">
+                                {errors.coverLetter.message}
+                            </p>
                         )}
                     </div>
+
 
                     {/* Resume Section */}
                     <div className="space-y-2">
@@ -97,12 +103,13 @@ useEffect(() => {
                             type="button"
                             variant="outline"
                             disabled={isPending}
-                            onClick={() =>fileInputRef.current?.click()}
+                            onClick={() => fileInputRef.current?.click()}
                         >
                             {isPending ? "Uploading..." : "Upload New Resume"}
                         </Button>
 
                         <input
+                            ref={fileInputRef}
                             id="resumeFile"
                             type="file"
                             accept=".pdf,.doc,.docx,.rtf"
@@ -116,9 +123,9 @@ useEffect(() => {
                         )}
                     </div>
                     {/* Current Role */}
-                     <div>
+                    <div>
                         <p className="font-medium">Current Role</p>
-                        <Input placeholder="Current Role" {...register("currentRole")} required/>
+                        <Input placeholder="Current Role" {...register("currentRole")} required />
                         {errors.currentRole && (
                             <p className="text-red-500 text-sm">{errors.currentRole.message}</p>
                         )}
@@ -127,7 +134,7 @@ useEffect(() => {
                     {/* Notice Period */}
                     <div>
                         <p className="font-medium">Notice Period</p>
-                        <Input placeholder="Notice Period" {...register("noticePeriod")} required/>
+                        <Input placeholder="Notice Period" {...register("noticePeriod")} required />
                         {errors.noticePeriod && (
                             <p className="text-red-500 text-sm">{errors.noticePeriod.message}</p>
                         )}
@@ -145,10 +152,10 @@ useEffect(() => {
                             <p className="text-red-500 text-sm">{errors.expectedSalary.message}</p>
                         )}
                     </div>
-                     {/* Experience */}
+                    {/* Experience */}
                     <div>
                         <p className="font-medium">Experience</p>
-                        <Input placeholder="Experience" {...register("experience")} required/>
+                        <Input placeholder="Experience" {...register("experience")} required />
                         {errors.experience && (
                             <p className="text-red-500 text-sm">{errors.experience.message}</p>
                         )}

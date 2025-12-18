@@ -30,7 +30,7 @@ export function JobDetails({ job }: JobDetailsProps) {
    
     return (
       <div className="w-[65%] h-full overflow-y-auto p-4">
-<ApplyToJobModal jobIds={job._id as string} open={open} onSubmit={handleApplyToJOb} onOpenChange={setIsOpen} candidateResumeUrl={userData?.candidateData?.resumeUrl}></ApplyToJobModal>
+<ApplyToJobModal jobIds={job._id as string} open={open} onSubmit={handleApplyToJOb} onOpenChange={setIsOpen} candidateResumeUrl={userData?.candidateData?.resume?.url}></ApplyToJobModal>
       <Card>
         <CardContent className="p-4 space-y-3">
           <h2 className="text-2xl font-bold">{job.title}</h2>

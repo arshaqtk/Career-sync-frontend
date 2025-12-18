@@ -11,7 +11,7 @@ export const useRegister=()=>{
     const mutation=useMutation({
         mutationFn:RegisterApi,
         onSuccess(data: { email: string }){
-           navigate("/verify-otp", { state: { email: data.email } })
+           navigate("/auth/verify-otp", { state: { email: data.email } })
         },
         onError(error: unknown) {
         type ErrorWithResponse = {
@@ -51,7 +51,7 @@ export const useLogin=()=>{
 
             if(!data.user.isVerified){
                 toast.success(data?.message);
-                navigate("/verify-otp",{ state: { email: data.user.email } })
+                navigate("/auth/verify-otp",{ state: { email: data.user.email } })
                 return
             }
             console.log(data.user)
@@ -107,7 +107,7 @@ export const useVerifyRegisterOtp=()=>{
    const mutation= useMutation({
         mutationFn:VerifyRegisterOtpApi,
         onSuccess(){
-            navigate("/login")
+            navigate("/auth/login")
         },
      onError(error: unknown) {
         type ErrorWithResponse = {

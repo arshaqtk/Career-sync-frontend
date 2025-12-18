@@ -12,7 +12,7 @@ export function useLogout() {
     mutationFn: LogoutApi,
     onSuccess: () => {
       queryClient.clear();
-      navigate("/login");
+      navigate("/auth/login");
       toast.success("Logouted")
     },
     onError: (err) => {
