@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/shadcn/button";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { Textarea } from "@/components/ui/shadcn/textarea";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 export function InterviewNotes({
   notes,

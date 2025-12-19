@@ -55,7 +55,7 @@ export const useVerifyResetPasswordOtp=()=>{
         mutationFn:VerifyResetPasswordOtpApi,
         onSuccess(data:{email:string,resetToken:string,message:string}){
             toast.success(data.message)
-             navigate("/reset-password", {
+             navigate("/auth/reset-password", {
       state: {
         email:data.email,
         resetToken:data.resetToken,
@@ -90,10 +90,12 @@ export const useVerifyResetPasswordOtp=()=>{
 } 
 
 export const useResetPassword=()=>{
+    const navigate=useNavigate()
     const mutation=useMutation({
         mutationFn:ResetPasswordApi,
         onSuccess(){
             toast.success("updated successfully")
+            navigate("/auth/login")
         },
         onError(error: unknown) {
         type ErrorWithResponse = {

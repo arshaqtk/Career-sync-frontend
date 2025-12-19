@@ -59,7 +59,7 @@ export default function LoginForm() {
                     </label>
 
                     <button type="button" className="text-indigo-600 hover:underline" onClick={()=>{
-                        navigate("/forget-password")
+                        navigate("/auth/forget-password")
                     }}>
                         Forgot password?
                     </button>
@@ -76,7 +76,7 @@ export default function LoginForm() {
             <p className="text-center text-sm text-gray-500">
                 Don't have an account?{" "}
                 <button className="text-indigo-600 hover:underline font-medium"  onClick={()=>{
-                        navigate("/register")
+                        navigate("/auth/register")
                     }}>
                     Sign up
                 </button>

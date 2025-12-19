@@ -27,6 +27,8 @@ import RecruiterApplicantionsPage from "@/features/recruiter/pages/RecruiterAppl
 import RecruiterInterviewsPage from "@/features/recruiter/interview/pages/RecruiterInterviewsPage";
 import { VerifyRegisterOtp } from "@/features/auth/pages/VerifyRegisterOtp";
 import RecruiterInterviewDetailsPage from "@/features/recruiter/interview/pages/RecruiterInterviewDetailsPage";
+import ResetPassword from "@/features/auth/pages/ResetPassword";
+import VerifyForgetPasswordOtp from "@/features/auth/pages/VerifyForgetPasswordOtp";
 
 export default function AppRouter() {
     return (
@@ -64,6 +66,8 @@ export default function AppRouter() {
                     <Route path="/auth/login" element={<LoginPage />} />
                     <Route path="/auth/register" element={<RegisterPage />} />
                     <Route path="/auth/verify-otp" element={<VerifyRegisterOtp/>}/>
+                    <Route path="/auth/forget-password" element ={<VerifyForgetPasswordOtp/>}/>
+                    <Route path="/auth/reset-password" element={<ResetPassword/>}/>
                 </Route>
                 
                 {/* 404 */}
