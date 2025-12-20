@@ -4,6 +4,12 @@ export type InterviewStatus =
   | "Rescheduled"
   | "Completed"
   | "Cancelled";
+  
+  export type InterviewRoundType =
+  | "HR"
+  | "Technical"
+  | "Managerial"
+  | "Final";
 
 export type InterviewListItem = {
   id: string;

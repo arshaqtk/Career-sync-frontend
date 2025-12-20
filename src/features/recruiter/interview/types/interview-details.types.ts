@@ -5,6 +5,12 @@ export type InterviewStatus =
   | "Completed"
   | "Cancelled";
 
+  export type InterviewRoundType =
+  | "HR"
+  | "Technical"
+  | "Managerial"
+  | "Final";
+
 export type InterviewDetails = {
   _id: string;
 
@@ -19,7 +25,7 @@ export type InterviewDetails = {
     title: string;
   };
 
-  roundType: string;
+  roundType: InterviewRoundType;
   mode: "Online" | "Offline";
 
   startTime?: string;

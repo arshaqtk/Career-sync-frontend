@@ -1,8 +1,8 @@
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { Button } from "@/components/ui/shadcn/button";
 
-import { useInterviewScheduleModalStore } from "../../stores/interviewScheduleModal.store";
-import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types";
+import { useInterviewScheduleModalStore } from "../../../store/interviewScheduleModal.store";
+import type { ScheduleInterviewPayload } from "../../../types/scheduledInterview.types";
 
 export function InterviewScheduleSection({
   interview,

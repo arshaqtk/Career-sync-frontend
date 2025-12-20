@@ -12,7 +12,6 @@ interface InterviewScheduleModalStore {
 export const useInterviewScheduleModalStore = create<InterviewScheduleModalStore>((set) => ({
   isOpen: false,
   selectedInterview: null,
-
   openModal: (selectedInterview) => set({ isOpen: true, selectedInterview: selectedInterview ?? null }),
   closeModal: () => set({ isOpen: false, selectedInterview: null }),
 }));

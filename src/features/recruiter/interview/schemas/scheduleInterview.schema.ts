@@ -1,21 +1,30 @@
 import { z } from "zod";
 
-export const scheduleInterviewSchema = z
-  .object({
-    date: z.date({
-      error: "Date is required",
-    }),
+export const scheduleInterviewSchema = z.object({
+  date: z.date(),
+  startTime: z.string().min(1, "Start time is required"),
+  endTime: z.string().min(1, "End time is required"),
 
-    startTime: z.string().min(1, "Start time is required"),
-    endTime: z.string().min(1, "End time is required"),
+  timezone: z.string(),
+  mode: z.enum(["Online", "Offline"]),
 
-    timezone: z.string().min(1, "Timezone is required"),
+  roundType: z.enum([
+    "HR",
+    "Technical",
+    "Managerial",
+    "Final",
+  ]),
 
-    mode: z.enum(["Online", "Offline"]),
+  durationMinutes: z
+    .number()
+    .int()
+    .positive()
+    .optional(),
 
-    meetingLink: z.string().optional(),
-    location: z.string().optional(),
-  })
+  meetingLink: z.string().url().optional(),
+  location: z.string().optional(),
+})
+
 
   .refine(
     (data) => data.endTime > data.startTime,

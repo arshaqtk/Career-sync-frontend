@@ -1,17 +1,36 @@
-import {Dialog,DialogContent,DialogHeader,DialogTitle,DialogFooter,} from "@/components/ui/shadcn/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/shadcn/dialog";
 import { Button } from "@/components/ui/shadcn/button";
 import { Input } from "@/components/ui/shadcn/input";
-import {Select,SelectTrigger,SelectValue,SelectContent,SelectItem,} from "@/components/ui/shadcn/select";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/shadcn/select";
 import { Calendar } from "@/components/ui/shadcn/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/shadcn/popover";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn, combineDateAndTime } from "@/lib/utils";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {scheduleInterviewSchema,type ScheduleInterviewFormValues,} from "../../schemas/scheduleInterview.schema";
+
+import {scheduleInterviewSchema,type ScheduleInterviewFormValues} from "../../interview/schemas/scheduleInterview.schema";
+
 import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types";
+import type { InterviewRoundType } from "../../interview/types/interview-details.types";
 
 type Props = {
   open: boolean;
@@ -19,39 +38,57 @@ type Props = {
   onSubmit: (data: ScheduleInterviewPayload) => void;
 };
 
-
-export function ScheduleInterviewModal({open,onClose,onSubmit}: Props) {
-
-  const { register,handleSubmit, setValue, watch,formState: { errors, isSubmitting }
+export function ScheduleInterviewModal({
+  open,
+  onClose,
+  onSubmit,
+}: Props) {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors, isSubmitting },
   } = useForm<ScheduleInterviewFormValues>({
     resolver: zodResolver(scheduleInterviewSchema),
     defaultValues: {
       timezone: "Asia/Kolkata",
       mode: "Online",
+      roundType: "HR",
     },
   });
 
+  const date = watch("date");
+  const mode = watch("mode");
+  const roundType = watch("roundType");
 
-    const handleFormSubmit = (data: ScheduleInterviewFormValues) => {
+  const handleFormSubmit = (data: ScheduleInterviewFormValues) => {
     const startTimeISO = combineDateAndTime(
       data.date,
-      data.startTime);
+      data.startTime
+    );
+
     const endTimeISO = combineDateAndTime(
       data.date,
-      data.endTime);
+      data.endTime
+    );
 
-    onSubmit({
+    const payload: ScheduleInterviewPayload = {
       startTime: startTimeISO,
       endTime: endTimeISO,
       timezone: data.timezone,
       mode: data.mode,
-      meetingLink: data.mode === "Online" ? data.location : undefined,
-      location: data.mode === "Offline" ? data.location : undefined,
-    });
-  };
+      roundType: data.roundType,
+      durationMinutes: data.durationMinutes,
 
-  const date = watch("date");
-  const mode = watch("mode");
+      meetingLink:
+        data.mode === "Online" ? data.meetingLink : undefined,
+      location:
+        data.mode === "Offline" ? data.location : undefined,
+    };
+
+    onSubmit(payload);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -119,6 +156,25 @@ export function ScheduleInterviewModal({open,onClose,onSubmit}: Props) {
             )}
           </div>
 
+          {/* Duration */}
+          <div>
+            <label className="text-sm font-medium">
+              Duration (minutes)
+            </label>
+            <Input
+              type="number"
+              placeholder="Eg: 30"
+              {...register("durationMinutes", {
+                valueAsNumber: true,
+              })}
+            />
+            {errors.durationMinutes && (
+              <p className="text-xs text-red-500">
+                {errors.durationMinutes.message}
+              </p>
+            )}
+          </div>
+
           {/* Timezone */}
           <div>
             <label className="text-sm font-medium">Timezone</label>
@@ -139,6 +195,34 @@ export function ScheduleInterviewModal({open,onClose,onSubmit}: Props) {
                 </SelectItem>
               </SelectContent>
             </Select>
+          </div>
+
+          {/* Round Type */}
+          <div>
+            <label className="text-sm font-medium">
+              Interview Round
+            </label>
+            <Select
+              value={roundType}
+              onValueChange={(v) =>
+                setValue("roundType", v as InterviewRoundType)
+              }
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="HR">HR</SelectItem>
+                <SelectItem value="Technical">Technical</SelectItem>
+                <SelectItem value="Managerial">Managerial</SelectItem>
+                <SelectItem value="Final">Final</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.roundType && (
+              <p className="text-xs text-red-500">
+                {errors.roundType.message}
+              </p>
+            )}
           </div>
 
           {/* Mode */}

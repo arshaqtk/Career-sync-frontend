@@ -3,7 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { InterviewFilters } from "../components/list/InterviewFIlters";
 import { InterviewTable } from "../components/list/InterviewTable";
 import { InterviewsPagination } from "../components/list/InterviewsPagination";
-import { useRecruiterInterviews } from "../hooks/useRecruiterInterviews";
+import { useRecruiterInterviews } from "../../hooks/useRecruiterInterviews";
 import type { InterviewListFilters } from "../types/interview.type";
 
 export default function RecruiterInterviewsPage() {

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/shadcn/button";
 import { useUpdateApplicantStatus } from "../../hooks/useUpdateApplicantStatus";
 import type { ApplicationStatus } from "../../types/applicationStatus.types";
+import { useInterviewScheduleModalStore } from "../../store/interviewScheduleModal.store";
 
 interface RecruiterActionsProps {
   applicationId: string;
@@ -9,6 +10,7 @@ interface RecruiterActionsProps {
 
 export function RecruiterActions({ applicationId, currentStatus }: RecruiterActionsProps) {
   const { mutate, isPending } = useUpdateApplicantStatus();
+    const {openModal}=useInterviewScheduleModalStore()
 
   const updateStatus = (status: ApplicationStatus) => {
     mutate({ applicationId, status });
@@ -19,7 +21,7 @@ export function RecruiterActions({ applicationId, currentStatus }: RecruiterActi
       {/* Shortlist */}
       <Button
         onClick={() => updateStatus("Shortlisted")}
-        disabled={currentStatus === "Shortlisted" || isPending}
+        disabled={currentStatus === "Shortlisted" ||currentStatus==="Interview" || isPending}
       >
         Shortlist
       </Button>
@@ -28,7 +30,7 @@ export function RecruiterActions({ applicationId, currentStatus }: RecruiterActi
       <Button
         variant="destructive"
         onClick={() => updateStatus("Rejected")}
-        disabled={currentStatus === "Rejected" || isPending}
+        disabled={currentStatus === "Rejected" ||currentStatus==="Interview"|| isPending}
       >
         Reject
       </Button>
@@ -36,7 +38,7 @@ export function RecruiterActions({ applicationId, currentStatus }: RecruiterActi
       {/* Interview */}
       <Button
         variant="outline"
-        onClick={() => updateStatus("Interview")}
+        onClick={() => openModal()}
         disabled={currentStatus === "Interview" || isPending}
       >
         Move to Interview

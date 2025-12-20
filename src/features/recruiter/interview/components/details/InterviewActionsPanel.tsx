@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/shadcn/separator";
 import { CheckCircle, CalendarClock, XCircle } from "lucide-react";
 import type { InterviewDetails } from "../../types/interview-details.types";
 import { InterviewStatusBadge } from "../list/InterviewStatusBadge";
+import { useUpdateInterviewStatusStore } from "@/features/recruiter/store/interviewUpdateStatusDialog.store";
 
 export function InterviewActionsPanel({
   interview,
@@ -13,6 +14,8 @@ export function InterviewActionsPanel({
   const isScheduled = interview.status === "Scheduled";
   const isCompleted = interview.status === "Completed";
   const isCancelled = interview.status === "Cancelled";
+
+  const { openModal } = useUpdateInterviewStatusStore();
 
   return (
     <Card className="sticky top-6">
@@ -44,6 +47,7 @@ export function InterviewActionsPanel({
               variant="secondary"
               className="w-full"
               size="sm"
+              onClick={() => openModal("Completed")}
             >
               <CheckCircle className="mr-2 h-4 w-4" />
               Mark as Completed
@@ -73,6 +77,7 @@ export function InterviewActionsPanel({
                 variant="destructive"
                 className="w-full"
                 size="sm"
+                onClick={() => openModal("Cancelled")}
               >
                 <XCircle className="mr-2 h-4 w-4" />
                 Cancel Interview
