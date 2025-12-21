@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/shadcn/card";
-import type{ InterviewDetails } from "../../types/interview-details.types";
+import type{ InterviewDetails } from "../../../types/interview-details.types";
 
 export function InterviewOverview({
   interview,

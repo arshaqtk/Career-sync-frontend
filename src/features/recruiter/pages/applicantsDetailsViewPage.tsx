@@ -6,7 +6,7 @@ import {JobInfoCard} from "../components/application/JobInfoCard";
 import {ApplicationInfoCard} from "../components/application/ApplicationInfoCard";
 import {ResumeModal} from "../components/application/resumeModal";
 import { RecruiterActions } from "../components/application/recruiterAction";
-import { ScheduleInterviewModal } from "../components/modals/scheduleInterview.modal";
+import { ScheduleInterviewModal } from "../components/modals/scheduleInterview.modal"; 
 import { useInterviewScheduleModalStore } from "../store/interviewScheduleModal.store";
 import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types";
 import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
@@ -16,7 +16,7 @@ export default function ApplicantDetailPage() {
   const { applicationId } = useParams();
   const { data, isLoading } = useRecruiterApplicantDetails(applicationId!);
   const {closeModal,isOpen}=useInterviewScheduleModalStore()
-   const {mutate:scheduleInterview}=useScheduleInterview()
+   const {mutate:scheduleInterview,isPending}=useScheduleInterview()
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No application found.</p>;
   const handleScheduleSubmit=(data:ScheduleInterviewPayload)=>{
@@ -31,6 +31,7 @@ export default function ApplicantDetailPage() {
       <h2 className="text-2xl font-semibold">Applicant Details</h2>
 
         <ScheduleInterviewModal
+        isPending={isPending}
               open={isOpen}
               onClose={closeModal}
               onSubmit={(data) => {

@@ -1,22 +1,19 @@
 import { useParams } from "react-router-dom";
-import { useRecruiterInterviewDetail } from "../../hooks/useRecruiterInterviewDetails";
-import { InterviewHeader } from "../components/details/InterviewHeader";
-import { InterviewOverview } from "../components/details/InterviewOverview";
-import { InterviewScheduleSection } from "../components/details/InterviewScheduleSection";
-import { InterviewTimeline } from "../components/details/InterviewTimeline";
-import { InterviewActionsPanel } from "../components/details/InterviewActionsPanel";
-import { InterviewNotes } from "../components/details/InterviewNotes";
-import { useRecruiterUpdateInterviewStatus } from "../../hooks/useRecruiterUpdateInterviewStatus";
-import { InterviewStatusDialog } from "../components/details/InterviewStatusDialog";
-import { useUpdateInterviewStatusStore } from "../../store/interviewUpdateStatusDialog.store";
-import type { InterviewStatus } from "../types/interview-details.types";
+import { useRecruiterInterviewDetail } from "../hooks/useRecruiterInterviewDetails";
+import { InterviewHeader } from "../components/interview/details/InterviewHeader";
+import { InterviewOverview } from "../components/interview/details/InterviewOverview";
+import { InterviewScheduleSection } from "../components/interview/details/InterviewScheduleSection";
+import { InterviewTimeline } from "../components/interview/details/InterviewTimeline";
+import { InterviewActionsPanel } from "../components/interview/details/InterviewActionsPanel";
+import { InterviewNotes } from "../components/interview/details/InterviewNotes";
+import { useRecruiterUpdateInterviewStatus } from "../hooks/useRecruiterUpdateInterviewStatus";
+import { InterviewStatusDialog } from "../components/modals/InterviewStatusDialog"; 
+import { useUpdateInterviewStatusStore } from "../store/interviewUpdateStatusDialog.store";
+import type { UpdateStatusPayloadDto } from "../dto/interview";
 // import { ScheduleInterviewModal } from "../../components/modals/scheduleInterview.modal";
 // import { useInterviewScheduleModalStore } from "../../store/interviewScheduleModal.store";
 
-type UpdateStatusPayloadDto={
-    status:InterviewStatus,
-    notes?:string
-}
+
 
 
 export default function RecruiterInterviewDetailsPage() {
@@ -24,16 +21,16 @@ export default function RecruiterInterviewDetailsPage() {
 
   const { data: interview, isLoading } = useRecruiterInterviewDetail(interviewId!);
   const{mutate:updateInterviewStatus} =useRecruiterUpdateInterviewStatus()
-  const {isOpen,closeModal,status}=useUpdateInterviewStatusStore()
+  const {isOpen,closeModal,status,roundNumber}=useUpdateInterviewStatusStore()
 
   if (isLoading) return <p>Loading...</p>;
   if (!interview) return <p>Interview not found</p>;
 
 
 
-const handleConfirm = ({ status, notes }: UpdateStatusPayloadDto) => {
+const handleConfirm = ({ status, notes,roundNumber}: UpdateStatusPayloadDto) => {
   if(interviewId){
-    updateInterviewStatus({interviewId,payload:{status,notes:notes}})
+    updateInterviewStatus({interviewId,payload:{status,notes,roundNumber}})
   }
   
 
@@ -61,6 +58,7 @@ const handleConfirm = ({ status, notes }: UpdateStatusPayloadDto) => {
     open={isOpen} 
     onClose={() => closeModal()}
     status={status}
+    roundNumber={roundNumber}
     onConfirm={handleConfirm}
   />)}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

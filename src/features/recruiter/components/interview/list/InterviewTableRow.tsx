@@ -4,7 +4,7 @@ import {
 } from "@/components/ui/shadcn/table";
 import { Button } from "@/components/ui/shadcn/button";
 import { useNavigate } from "react-router-dom";
-import type{ InterviewListItem } from "../../types/interview.type";
+import type{ InterviewListItem } from "../../../types/interview.type";
 import { InterviewStatusBadge } from "./InterviewStatusBadge";
 
 export function InterviewTableRow({

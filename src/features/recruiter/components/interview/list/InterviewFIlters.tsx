@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/shadcn/select";
 import { Input } from "@/components/ui/shadcn/input";
-import type { InterviewListFilters as FiltersType, InterviewStatus } from "../../types/interview.type";
+import type { InterviewListFilters as FiltersType, InterviewStatus } from "../../../types/interview.type";
 
 type Props = {
   filters: FiltersType;

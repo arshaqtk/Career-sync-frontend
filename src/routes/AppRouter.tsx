@@ -24,9 +24,9 @@ import RecruiterCandidateProfilePage from "@/features/recruiter/pages/RecruiterC
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import RecruiterApplicantionsPage from "@/features/recruiter/pages/RecruiterApplicationsPage";
-import RecruiterInterviewsPage from "@/features/recruiter/interview/pages/RecruiterInterviewsPage";
+import RecruiterInterviewsPage from "@/features/recruiter/pages/RecruiterInterviewsPage";
 import { VerifyRegisterOtp } from "@/features/auth/pages/VerifyRegisterOtp";
-import RecruiterInterviewDetailsPage from "@/features/recruiter/interview/pages/RecruiterInterviewDetailsPage";
+import RecruiterInterviewDetailsPage from "@/features/recruiter/pages/RecruiterInterviewDetailsPage";
 import ResetPassword from "@/features/auth/pages/ResetPassword";
 import VerifyForgetPasswordOtp from "@/features/auth/pages/VerifyForgetPasswordOtp";
 

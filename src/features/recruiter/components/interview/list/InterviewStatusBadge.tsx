@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/shadcn/badge";
-import type { InterviewStatus } from "../../types/interview.type";
+import type { InterviewStatus } from "../../../types/interview.type";
 
 const styles: Record<InterviewStatus, string> = {
   Pending: "bg-yellow-100 text-yellow-700",

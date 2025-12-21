@@ -27,21 +27,24 @@ import { cn, combineDateAndTime } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {scheduleInterviewSchema,type ScheduleInterviewFormValues} from "../../interview/schemas/scheduleInterview.schema";
 
-import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types";
-import type { InterviewRoundType } from "../../interview/types/interview-details.types";
+import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types"; 
+import type { InterviewRoundType } from "../../types/interview.type"; 
+import { Spinner } from "@/components/ui/shadcn/spinner";
+import { scheduleInterviewSchema, type ScheduleInterviewFormValues } from "../../schemas/scheduleInterview.schema";
 
 type Props = {
   open: boolean;
   onClose: () => void;
   onSubmit: (data: ScheduleInterviewPayload) => void;
+  isPending:boolean
 };
 
 export function ScheduleInterviewModal({
   open,
   onClose,
   onSubmit,
+  isPending
 }: Props) {
   const {
     register,
@@ -54,7 +57,7 @@ export function ScheduleInterviewModal({
     defaultValues: {
       timezone: "Asia/Kolkata",
       mode: "Online",
-      roundType: "HR",
+      roundType: "Hr",
     },
   });
 
@@ -76,6 +79,7 @@ export function ScheduleInterviewModal({
     const payload: ScheduleInterviewPayload = {
       startTime: startTimeISO,
       endTime: endTimeISO,
+      roundNumber:data.roundNumber,
       timezone: data.timezone,
       mode: data.mode,
       roundType: data.roundType,
@@ -92,7 +96,7 @@ export function ScheduleInterviewModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Schedule Interview</DialogTitle>
         </DialogHeader>
@@ -175,6 +179,25 @@ export function ScheduleInterviewModal({
             )}
           </div>
 
+          {/* InterviewroundNumber */}
+           <div>
+            <label className="text-sm font-medium">
+             Interview round
+            </label>
+            <Input
+              type="number"
+              placeholder="Eg: 1"
+              {...register("roundNumber",{
+                valueAsNumber: true,
+              })}
+            />
+            {errors.roundNumber && (
+              <p className="text-xs text-red-500">
+                {errors.roundNumber.message}
+              </p>
+            )}
+          </div>
+
           {/* Timezone */}
           <div>
             <label className="text-sm font-medium">Timezone</label>
@@ -212,7 +235,7 @@ export function ScheduleInterviewModal({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="HR">HR</SelectItem>
+                <SelectItem value="Hr">HR</SelectItem>
                 <SelectItem value="Technical">Technical</SelectItem>
                 <SelectItem value="Managerial">Managerial</SelectItem>
                 <SelectItem value="Final">Final</SelectItem>
@@ -282,11 +305,19 @@ export function ScheduleInterviewModal({
               type="button"
               variant="outline"
               onClick={onClose}
+              disabled={isPending}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
-              Schedule
+            <Button type="submit" disabled={isSubmitting||isPending}>
+              {isPending ? (
+    <span className="flex items-center gap-2">
+      <Spinner className="h-4 w-4" />
+      Scheduling...
+    </span>
+  ) : (
+    "Schedule"
+  )}
             </Button>
           </DialogFooter>
         </form>

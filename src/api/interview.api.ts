@@ -1,7 +1,7 @@
-import type { InterviewListFilters } from "@/features/recruiter/interview/types/interview.type"
+import type { InterviewListFilters } from "@/features/recruiter/types/interview.type"
 import api from "./apiClient"
 import type { ScheduleInterviewPayload } from "@/features/recruiter/types/scheduledInterview.types"
-import type { InterviewStatus } from "@/features/recruiter/interview/types/interview.type"
+import type { InterviewStatus } from "@/features/recruiter/types/interview.type"
 
 
 export const recruiterGetInterviews=async({params}:{params:InterviewListFilters})=>{
@@ -11,6 +11,7 @@ export const recruiterGetInterviews=async({params}:{params:InterviewListFilters}
 
 export const recruiterGetInterviewDetailApi=async(id:string)=>{
     const res=await api.get(`interview/recruiter/interviews/${id}`)
+  
     return res.data
 }
 
@@ -21,8 +22,10 @@ const res=await api.patch(`interview/recruiter/interviews/${applicationId}/sched
 
 export const recruiterUpdateInterviewStatusApi=async({interviewId,payload}:{interviewId:string,payload:{
     status:InterviewStatus,
-    notes?:string
+    notes?:string,
+    roundNumber:number
 }})=>{
+    console.log(payload)
 const res=await api.patch(`interview/recruiter/interviews/${interviewId}/status`,payload)
     return res.data
 }

@@ -2,10 +2,10 @@ import {
   Table,
   TableBody,
 } from "@/components/ui/shadcn/table";
-import type{ InterviewListItem } from "../../types/interview.type";
+import type{ InterviewListItem } from "../../../types/interview.type";
 import { InterviewTableHeader } from "./InterviewTableHeader";
 import { InterviewTableRow } from "./InterviewTableRow";
-import { EmptyState } from "../shared/EmptyState";
+import { EmptyState } from "../../shared/EmptyState";
 
 export function InterviewTable({
   interviews,

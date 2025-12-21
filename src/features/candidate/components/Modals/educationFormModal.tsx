@@ -26,7 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { educationSchema } from "../../validators/education.schema";
 import { EducationModalStore } from "../../store/educationModal.store";
 import { useEffect } from "react";
-import type { Education, EducationLevel } from "../../types/Education.types";
+import type { Education, EducationroundNumber } from "../../types/Education.types";
 
 export function EducationFormModal({
   onSubmit,
@@ -97,10 +97,10 @@ export function EducationFormModal({
             <label className="text-sm font-medium">Standard</label>
             <Select
               defaultValue={form.watch("standard")}
-              onValueChange={(value:EducationLevel) => form.setValue("standard", value)}
+              onValueChange={(value:EducationroundNumber) => form.setValue("standard", value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select Education Level" />
+                <SelectValue placeholder="Select Education roundNumber" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="High School">High School</SelectItem>

@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/shadcn/button";
 import { Textarea } from "@/components/ui/shadcn/textarea";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type InterviewAction = "Cancelled" | "Completed";
 
@@ -17,9 +18,11 @@ type InterviewStatusDialogProps = {
   open: boolean;
   onClose: () => void;
   status: InterviewAction;
+  roundNumber:number|null;
   onConfirm: (payload: {
     status: InterviewAction;
     notes?: string;
+    roundNumber:number;
   }) => void;
 };
 
@@ -27,19 +30,25 @@ export function InterviewStatusDialog({
   open,
   onClose,
   status,
+  roundNumber,
   onConfirm,
 }: InterviewStatusDialogProps) {
   const [remark, setRemark] = useState("");
-
   const isCancel = status === "Cancelled";
-
+console.log(status,roundNumber)
   const handleConfirm = () => {
-    onConfirm({
-      status,
-      notes: remark.trim() || undefined,
-    });
-    setRemark("");
-    onClose();
+    if(roundNumber!=null){
+      onConfirm({
+        status,
+        notes: remark.trim() || undefined,
+        roundNumber
+      });
+      setRemark("");
+      onClose();
+    }else{
+      toast.error("Something went wrong")
+      return
+    }
   };
 
   return (

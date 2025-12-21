@@ -1,9 +1,10 @@
-import type { InterviewRoundType } from "../interview/types/interview-details.types";
+import type { InterviewRoundType } from "./interview.type";
 
 export type ScheduleInterviewPayload = {
   startTime: string;   // ISO
   endTime: string;     // ISO
   timezone: string;
+  roundNumber:number;
 
   roundType: InterviewRoundType;
   durationMinutes?: number;

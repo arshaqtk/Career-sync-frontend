@@ -1,4 +1,4 @@
-import type{ InterviewDetails } from "../../types/interview-details.types";
+import type{ InterviewDetails } from "../../../types/interview-details.types";
 import { InterviewStatusBadge } from "../list/InterviewStatusBadge";
 
 export function InterviewHeader({

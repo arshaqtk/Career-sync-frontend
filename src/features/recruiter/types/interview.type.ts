@@ -1,12 +1,15 @@
 export type InterviewStatus =
-  | "Pending"
-  | "Scheduled"
+ | "Scheduled"
   | "Rescheduled"
+  | "InProgress"
   | "Completed"
-  | "Cancelled";
+  | "Selected"
+  | "Rejected"
+  | "Cancelled"
+  | "NoShow";
   
   export type InterviewRoundType =
-  | "HR"
+  | "Hr"
   | "Technical"
   | "Managerial"
   | "Final";

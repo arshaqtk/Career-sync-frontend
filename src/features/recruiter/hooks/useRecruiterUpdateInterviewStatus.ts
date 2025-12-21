@@ -1,39 +1,41 @@
+import { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import {  recruiterUpdateInterviewStatusApi } from "@/api/interview.api"
 import { toast } from "sonner"
 import { QUERY_KEYS } from "@/config/queryKeys"
-import type { InterviewStatus } from "../interview/types/interview.type"
+import type { UpdateStatusPayloadDto } from "../dto/interview";
 
-type Response = {
-  message: string
-}
-type UpdateStatusPayloadDto={
-    status:InterviewStatus,
-    notes?:string
-}
 
+type UpdateInterviewStatusResponse = {
+  message: string;
+};
+
+type UpdateInterviewStatusVariables = {
+  interviewId: string;
+  payload: UpdateStatusPayloadDto;
+};
 
 export const useRecruiterUpdateInterviewStatus = () => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   return useMutation<
-    Response,
-    unknown,
-    { interviewId: string; payload:UpdateStatusPayloadDto  }
+    UpdateInterviewStatusResponse,
+    AxiosError<{ message?: string }>,
+    UpdateInterviewStatusVariables
   >({
     mutationFn: ({ interviewId, payload }) =>
       recruiterUpdateInterviewStatusApi({ interviewId, payload }),
 
-    onError: () => {
-      toast.error("Interview update failed")
+    onError: (error) => {
+      toast.error(error.response?.data?.message || "Failed to update interview");
     },
 
     onSuccess: (data, variables) => {
-      toast.success(data?.message || "Interview updated")
+      toast.success(data.message || "Interview updated");
 
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.interviews.detail(variables.interviewId),
-      })
+      });
     },
-  })
-}
+  });
+};

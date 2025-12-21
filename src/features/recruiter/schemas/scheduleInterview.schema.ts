@@ -7,9 +7,9 @@ export const scheduleInterviewSchema = z.object({
 
   timezone: z.string(),
   mode: z.enum(["Online", "Offline"]),
-
+  roundNumber:z.number().int().positive(),
   roundType: z.enum([
-    "HR",
+    "Hr",
     "Technical",
     "Managerial",
     "Final",

@@ -8,7 +8,7 @@ import {
   XCircle,
   CheckCircle2,
 } from "lucide-react";
-import type { InterviewStatus } from "../../types/interview-details.types";
+import type { InterviewStatus } from "../../../types/interview-details.types";
 
 type TimelineItem = {
   status: InterviewStatus;

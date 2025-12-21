@@ -1,15 +1,15 @@
-export type InterviewStatus =
-  | "Pending"
-  | "Scheduled"
-  |"Rescheduled"
-  | "Completed"
-  | "Cancelled";
+import type { InterviewRoundType } from "./interview.type";
 
-  export type InterviewRoundType =
-  | "HR"
-  | "Technical"
-  | "Managerial"
-  | "Final";
+export type InterviewStatus =
+  | "Scheduled"
+  | "Rescheduled"
+  | "InProgress"
+  | "Completed"
+  | "Selected"
+  | "Rejected"
+  | "Cancelled"
+  | "NoShow";
+
 
 export type InterviewDetails = {
   _id: string;
@@ -31,7 +31,7 @@ export type InterviewDetails = {
   startTime?: string;
   endTime?: string;
   meetingLink?: string;
-
+roundNumber:number;
   status: InterviewStatus;
 
   statusHistory: {

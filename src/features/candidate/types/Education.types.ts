@@ -1,4 +1,4 @@
-export type EducationLevel =
+export type EducationroundNumber =
   | "High School"
   | "Higher Secondary"
   | "Diploma"
@@ -11,7 +11,7 @@ export type EducationLevel =
 export  interface Education {
  _id?:string;
   school:string;
-  standard:EducationLevel;
+  standard:EducationroundNumber;
   startDate:Date;
   endDate?:Date;
   isCurrent?:boolean;
