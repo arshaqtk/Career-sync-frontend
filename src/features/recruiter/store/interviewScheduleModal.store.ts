@@ -3,15 +3,16 @@ import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types
 
 interface InterviewScheduleModalStore {
   isOpen: boolean;
-  selectedInterview: ScheduleInterviewPayload | null;
+  interview: ScheduleInterviewPayload | null;
 
   openModal: (selectedInterview?: ScheduleInterviewPayload) => void;
   closeModal: () => void;
 }
 
+
 export const useInterviewScheduleModalStore = create<InterviewScheduleModalStore>((set) => ({
   isOpen: false,
-  selectedInterview: null,
-  openModal: (selectedInterview) => set({ isOpen: true, selectedInterview: selectedInterview ?? null }),
-  closeModal: () => set({ isOpen: false, selectedInterview: null }),
+  interview: null,
+  openModal: (selectedInterview) => set({ isOpen: true, interview: selectedInterview ?? null }),
+  closeModal: () => set({ isOpen: false, interview: null }),
 }));

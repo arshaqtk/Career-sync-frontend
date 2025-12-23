@@ -1,6 +1,6 @@
 import type { ApplyJobDTO } from "@/features/candidate/types/application.types"
 import api from "./apiClient"
-import type { ApplicationStatus } from "@/features/recruiter/types/applicationStatus.types"
+import type { ApplicationStatus, SelectedOrRejected } from "@/features/recruiter/types/applicationStatus.types"
 import type { ApplicationFilters } from "@/features/candidate/types/applicationFilter.types"
 
 
@@ -32,5 +32,11 @@ export const recruiterGetApplicantDetailsApi=async(applicantionId:string)=>{
 export const RecruiterUpdateApplicationStatusApi=async({applicationId,status}:{applicationId?:string,status:ApplicationStatus})=>{
   
     const res=await api.patch(`/application/${applicationId}/status`,{status});
+    return res.data
+}
+
+export const RecruiterFinalizeApplicationStatusApi=async({applicationId,status,note}:{applicationId?:string,status:SelectedOrRejected,note:string})=>{
+  
+    const res=await api.post(`/interview/recruiter/interviews/${applicationId}/finalize`,{decision:status,note});
     return res.data
 }

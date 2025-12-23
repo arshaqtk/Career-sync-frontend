@@ -62,8 +62,13 @@ export const QUERY_KEYS = {
     listByRecruiter: (recruiterId: string) =>
       [...QUERY_KEYS.interviews.lists(), { recruiterId }] as const,
 
+    listByApplication: (applicationId: string) =>
+      [...QUERY_KEYS.interviews.lists(), { applicationId }] as const,
+
     detail: (interviewId: string) =>
       [...QUERY_KEYS.interviews.all, "detail", interviewId] as const,
+    
+    
   },
 
   recruiter: {

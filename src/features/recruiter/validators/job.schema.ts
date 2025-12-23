@@ -13,6 +13,7 @@ export const jobSchema = z.object({
   experienceMax: z
     .number()
     .refine(val => !isNaN(val), "Maximum experience is required"),
+field: z.string().min(1, "Field is required"),
 
   salary: z.string().min(1, "Salary is required"),
   location: z.string().min(1, "Location is required"),

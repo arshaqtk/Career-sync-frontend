@@ -7,29 +7,42 @@ import type { ScheduleInterviewPayload } from "../../../types/scheduledInterview
 export function InterviewScheduleSection({
   interview,
 }: {
-  interview:ScheduleInterviewPayload ;
+  interview: ScheduleInterviewPayload;
 }) {
-    const {openModal}=useInterviewScheduleModalStore()
   
-  const scheduled = interview.startTime && interview.endTime;
+    const {openModal}=useInterviewScheduleModalStore()
+
+  const lastStatus =
+    interview.statusHistory?.[interview.statusHistory.length - 1]?.status;
 
   return (
     <Card>
       <CardContent className="p-4 space-y-2">
         <h3 className="font-medium">Schedule</h3>
 
-        {scheduled ? (
+        {lastStatus === "Scheduled" ? (
           <>
             <p>
               {new Date(interview.startTime!).toLocaleString()} –{" "}
               {new Date(interview.endTime!).toLocaleString()}
             </p>
-            <Button variant="outline" onClick={()=>openModal(interview)}>Reschedule</Button>
+
+            {/* ✅ Pass interview for reschedule */}
+            <Button
+              variant="outline"
+              onClick={() => openModal(interview)}
+            >
+              Reschedule
+            </Button>
           </>
         ) : (
-          <Button onClick={()=>openModal()}>Schedule Interview</Button>
+          /* ✅ Still call openModal, just without interview */
+          <Button onClick={() => openModal()}>
+            Schedule Interview
+          </Button>
         )}
       </CardContent>
     </Card>
   );
 }
+

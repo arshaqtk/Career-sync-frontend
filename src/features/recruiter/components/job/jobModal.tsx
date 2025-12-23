@@ -32,6 +32,16 @@ type SubmitPayload = {
   jobId?: string;
 };
 
+const FIELD_OPTIONS = [
+  { label: "IT / Software", value: "IT" },
+  { label: "Healthcare / Medical", value: "Healthcare" },
+  { label: "Design", value: "Design" },
+  { label: "Education", value: "Education" },
+  { label: "Finance", value: "Finance" },
+  { label: "Other", value: "Other" },
+];
+
+
 export function AddJobModal({
   onSubmit,
 }: {
@@ -41,37 +51,40 @@ export function AddJobModal({
 
   const form = useForm<JobFormValues>({
     resolver: zodResolver(jobSchema),
-    defaultValues: {
-      title: "",
-      company: "",
-      description: "",
-      skills: "",
-      experienceMin: undefined,
-      experienceMax: undefined,
-      salary: "",
-      location: "",
-      remote: false,
-      jobType: "full-time",
-      status: "open",
-    },
+  defaultValues: {
+  title: "",
+  company: "",
+  description: "",
+  skills: "",
+  experienceMin: undefined,
+  experienceMax: undefined,
+  salary: "",
+  location: "",
+  remote: false,
+  jobType: "full-time",
+  status: "open",
+  field: "",
+},
+
   });
 
   // Load job data when editing
   useEffect(() => {
     if (selectedJob) {
       form.reset({
-        title: selectedJob.title ?? "",
-        company: selectedJob.company ?? "",
-        description: selectedJob.description ?? "",
-        skills: selectedJob.skills ? selectedJob.skills.join(", ") : "",
-        experienceMin: selectedJob.experienceMin ?? undefined,
-        experienceMax: selectedJob.experienceMax ?? undefined,
-        salary: selectedJob.salary ?? "",
-        location: selectedJob.location ?? "",
-        remote: selectedJob.remote ?? false,
-        jobType: selectedJob.jobType ?? "full-time",
-        status: selectedJob.status ?? "open",
-      });
+  title: selectedJob.title ?? "",
+  company: selectedJob.company ?? "",
+  description: selectedJob.description ?? "",
+  skills: selectedJob.skills ? selectedJob.skills.join(", ") : "",
+  experienceMin: selectedJob.experienceMin ?? undefined,
+  experienceMax: selectedJob.experienceMax ?? undefined,
+  salary: selectedJob.salary ?? "",
+  location: selectedJob.location ?? "",
+  remote: selectedJob.remote ?? false,
+  jobType: selectedJob.jobType ?? "full-time",
+  status: selectedJob.status ?? "open",
+  field: selectedJob.field ?? "",
+});
     } else {
       form.reset();
     }
@@ -118,6 +131,33 @@ export function AddJobModal({
               <p className="text-red-500 text-sm">{errors.company.message}</p>
             )}
           </div>
+
+          {/* Field / Domain */}
+<div>
+  <label className="text-sm font-medium">Field / Domain</label>
+
+  <Select
+    onValueChange={(val) => form.setValue("field", val)}
+    defaultValue={form.watch("field")}
+  >
+    <SelectTrigger className="h-10">
+      <SelectValue placeholder="Select field" />
+    </SelectTrigger>
+
+    <SelectContent>
+      {FIELD_OPTIONS.map((item) => (
+        <SelectItem key={item.value} value={item.value}>
+          {item.label}
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+
+  {errors.field && (
+    <p className="text-red-500 text-sm">{errors.field.message}</p>
+  )}
+</div>
+
 
           {/* Description */}
           <Textarea

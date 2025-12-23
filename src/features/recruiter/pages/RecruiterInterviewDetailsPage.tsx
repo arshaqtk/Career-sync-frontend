@@ -10,8 +10,11 @@ import { useRecruiterUpdateInterviewStatus } from "../hooks/useRecruiterUpdateIn
 import { InterviewStatusDialog } from "../components/modals/InterviewStatusDialog"; 
 import { useUpdateInterviewStatusStore } from "../store/interviewUpdateStatusDialog.store";
 import type { UpdateStatusPayloadDto } from "../dto/interview";
-// import { ScheduleInterviewModal } from "../../components/modals/scheduleInterview.modal";
-// import { useInterviewScheduleModalStore } from "../../store/interviewScheduleModal.store";
+import { ScheduleInterviewModal } from "../components/modals/scheduleInterview.modal";
+import { useInterviewScheduleModalStore } from "../store/interviewScheduleModal.store";
+import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
+import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types";
+import { toast } from "sonner";
 
 
 
@@ -20,8 +23,15 @@ export default function RecruiterInterviewDetailsPage() {
   const { interviewId } = useParams<{ interviewId: string }>();
 
   const { data: interview, isLoading } = useRecruiterInterviewDetail(interviewId!);
+
   const{mutate:updateInterviewStatus} =useRecruiterUpdateInterviewStatus()
-  const {isOpen,closeModal,status,roundNumber}=useUpdateInterviewStatusStore()
+  const {mutate:scheduleInterview,isPending}=useScheduleInterview()
+
+  //-------------------Modal--stores------------------------
+  const interviewStatusStore=useUpdateInterviewStatusStore()
+  const interviewScheduleModalStore=useInterviewScheduleModalStore()
+
+  
 
   if (isLoading) return <p>Loading...</p>;
   if (!interview) return <p>Interview not found</p>;
@@ -32,33 +42,37 @@ const handleConfirm = ({ status, notes,roundNumber}: UpdateStatusPayloadDto) => 
   if(interviewId){
     updateInterviewStatus({interviewId,payload:{status,notes,roundNumber}})
   }
-  
-
-  // Example API payload
-  // updateInterviewStatus(interviewId, {
-  //   status: action === "cancel" ? "CANCELLED" : "COMPLETED",
-  //   remark,
-  // });
 };
+
+const handleScheduleSubmit=(data:ScheduleInterviewPayload)=>{
+  console.log(interview.data)
+    if(interview.data.applicationId){
+      scheduleInterview({...data,applicationId:interview.data.applicationId,scheduleMode:"next_round"})
+    }else{
+      toast.error("Something went wrong")
+    }
+  }
 
 
 
   return (
     <div className="space-y-6">
       <InterviewHeader interview={interview.data} />
-      {/* <ScheduleInterviewModal
-        open={isOpen}
-        onClose={closeModal}
-        onSubmit={(data) => {
-          handleScheduleSubmit(data)
-        }}
-      /> */}
-      {isOpen && status && (
+      <ScheduleInterviewModal
+              isPending={isPending}
+                    open={interviewScheduleModalStore.isOpen}
+                    onClose={interviewScheduleModalStore.closeModal}
+                    onSubmit={(data) => {
+                      handleScheduleSubmit(data)
+                    }}
+                  />
+
+      {interviewStatusStore.isOpen && interviewStatusStore.status && (
        <InterviewStatusDialog
-    open={isOpen} 
-    onClose={() => closeModal()}
-    status={status}
-    roundNumber={roundNumber}
+    open={interviewStatusStore.isOpen} 
+    onClose={() => interviewStatusStore.closeModal()}
+    status={interviewStatusStore.status}
+    roundNumber={interviewStatusStore.roundNumber}
     onConfirm={handleConfirm}
   />)}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

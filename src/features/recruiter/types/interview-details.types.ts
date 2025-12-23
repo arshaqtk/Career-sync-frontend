@@ -7,8 +7,7 @@ export type InterviewStatus =
   | "Completed"
   | "Selected"
   | "Rejected"
-  | "Cancelled"
-  | "NoShow";
+  | "Cancelled";
 
 
 export type InterviewDetails = {

@@ -44,7 +44,7 @@ export default function JobApplicantsPage() {
             <ApplicantCard
               key={app.id}
               applicant={app}
-              onView={() => window.location.assign(`/recruiter/applicants/${app.id}`)}
+              onView={() => window.location.assign(`/recruiter/jobs/:jobId/applicants/${app.id}`)}
             />
           ))}
         </div>

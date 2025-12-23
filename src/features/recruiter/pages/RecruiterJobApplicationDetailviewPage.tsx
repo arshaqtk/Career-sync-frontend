@@ -12,16 +12,19 @@ import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types
 import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
 import { toast } from "sonner";
 
-export default function ApplicantDetailPage() {
+export default function JobApplicantionDetailPage() {
   const { applicationId } = useParams();
   const { data, isLoading } = useRecruiterApplicantDetails(applicationId!);
   const {closeModal,isOpen}=useInterviewScheduleModalStore()
    const {mutate:scheduleInterview,isPending}=useScheduleInterview()
+
+
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No application found.</p>;
+  
   const handleScheduleSubmit=(data:ScheduleInterviewPayload)=>{
     if(applicationId){
-      scheduleInterview({applicationId,payload:data})
+      scheduleInterview({...data,scheduleMode:"initial",applicationId})
     }else{
       toast.error("Something went wrong")
     }

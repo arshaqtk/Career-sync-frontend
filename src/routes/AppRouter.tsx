@@ -15,7 +15,7 @@ import EditProfilePage from "@/features/candidate/pages/editProfile";
 // import RecruiterDashboard from "@/features/recruiter/pages/dashboard";
 import RecruiterJobsPage from "@/features/recruiter/pages/RecruiterJobPage";
 import JobApplicantsPage from "@/features/recruiter/pages/RecruiterJobApplicationsPage";
-import ApplicantDetailsPage from "@/features/recruiter/pages/ApplicantsDetailsViewPage";
+import ApplicantDetailsPage from "@/features/recruiter/pages/ApplicationDetailsViewPage";
 
 // Auth pages
 import LoginPage from "@/features/auth/pages/Login";
@@ -29,6 +29,7 @@ import { VerifyRegisterOtp } from "@/features/auth/pages/VerifyRegisterOtp";
 import RecruiterInterviewDetailsPage from "@/features/recruiter/pages/RecruiterInterviewDetailsPage";
 import ResetPassword from "@/features/auth/pages/ResetPassword";
 import VerifyForgetPasswordOtp from "@/features/auth/pages/VerifyForgetPasswordOtp";
+import JobApplicantionDetailPage from "@/features/recruiter/pages/RecruiterJobApplicationDetailviewPage";
 
 export default function AppRouter() {
     return (
@@ -52,6 +53,7 @@ export default function AppRouter() {
                         {/* <Route index element={<RecruiterDashboard />} /> */}
                         <Route path="jobs" element={<RecruiterJobsPage />} />
                         <Route path="jobs/:jobId/applicants" element={<JobApplicantsPage />} />
+                        <Route path="jobs/:jobId/applicants/:applicationId" element={<JobApplicantionDetailPage />} />
                         <Route path="applicants" element={<RecruiterApplicantionsPage/>} />
                         <Route path="applicants/:applicationId" element={<ApplicantDetailsPage />} />
                         <Route path="candidates/:candidateId" element={< RecruiterCandidateProfilePage />} />

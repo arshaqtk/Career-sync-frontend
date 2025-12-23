@@ -26,7 +26,7 @@ export const JobActions: React.FC<JobActionsProps> = ({ id, status,job}) => {
         variant="secondary"
         className="flex gap-2"
       >
-        <Users className="w-4 h-4" /> Applicants
+        <Users className="w-4 h-4" /> Applicants {job?.applicationCount}
       </Button>
 
       {status === "open" ? (

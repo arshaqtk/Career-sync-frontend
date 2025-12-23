@@ -5,8 +5,7 @@ export type InterviewStatus =
   | "Completed"
   | "Selected"
   | "Rejected"
-  | "Cancelled"
-  | "NoShow";
+  | "Cancelled";
   
   export type InterviewRoundType =
   | "Hr"
@@ -28,3 +27,24 @@ export type InterviewListFilters = {
   search: string;
   page?:number
 };
+
+
+export interface StatusHistory {
+  roundNumber: number;
+  status: InterviewStatus;
+  changedAt: Date;
+  note?: string;
+}
+export interface Interview {
+  _id: string;
+  roundNumber: number;
+  roundType: InterviewRoundType;
+  status: InterviewStatus;
+  startTime: Date;
+  endTime: Date;
+  durationMinutes?: number;
+  statusHistory?: StatusHistory[];
+  mode?: "Online" | "Offline";
+  notes?: string;
+  createdAt: Date;
+}
