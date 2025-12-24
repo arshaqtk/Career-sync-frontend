@@ -42,3 +42,17 @@ export const recruiterGetApplicationInterviewTimeLineApi=async({applicationId}:{
      const res=await api.get(`interview/recruiter/applications/${applicationId}/interviews`)
     return res.data
 }
+
+
+export const candidateGetInterviewsApi=async()=>{
+    const res=await api.get("interview/candidate/interviews")
+    return res.data.data
+}
+export const candidateGetInterviewDetailApi=async({interviewId}:{interviewId:string})=>{
+    const res=await api.get(`interview/candidate/interviews/${interviewId}`)
+    console.log(res.data)
+    return res.data.data
+}
+
+
+
