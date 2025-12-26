@@ -7,8 +7,8 @@ export default function CandidateLayout() {
       <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
         <CandidateNavbar />
       </div>
-
-      <main className="pt-24 px-6 max-w-7xl mx-auto">
+{/* pt-24 px-6 max-w-7xl mx-auto */}
+      <main className="pt-20 px-6 pb-6">
         <Outlet />
       </main>
     </div>

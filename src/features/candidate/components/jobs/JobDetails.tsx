@@ -26,7 +26,8 @@ export function JobDetails({ job }: JobDetailsProps) {
   const handleApplyToJOb = (data: ApplyJobDTO) => {
     applyNowJOb.mutate(data)
   }
-
+const isClosed = job.status === "closed";
+const isApplied = job.hasApplied;
 
   return (
     <div className="w-[65%] h-full overflow-y-auto p-4">
@@ -49,12 +50,21 @@ export function JobDetails({ job }: JobDetailsProps) {
           </div>
 
           <Button
-            className="w-full mt-4"
-            onClick={() => setIsOpen(true)}
-            disabled={job.status === "closed"}
-          >
-            {job.status === "open" ? "Apply Now" : "Job is closed"}
-          </Button>
+  className="w-full mt-4"
+  disabled={isClosed || isApplied}
+  onClick={() => {
+    if (!isClosed && !isApplied) {
+      setIsOpen(true);
+    }
+  }}
+>
+  
+  {isClosed
+    ? "Job Closed"
+    : isApplied
+    ? "Already Applied"
+    : "Apply Now"}
+</Button>
 
           {/* Skills */}
           {job.skills && job.skills.length > 0 && (

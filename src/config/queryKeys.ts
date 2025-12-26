@@ -77,5 +77,8 @@ export const QUERY_KEYS = {
 
     jobApplicants: (jobId: string) =>
       ["recruiter", "job", jobId, "applicants"] as const,
+    
+     profile: () => [...QUERY_KEYS.user.all, "profile"] as const,
+     ProfileStats: ["recruiter", "profile","stats"] as const,
   },
 };

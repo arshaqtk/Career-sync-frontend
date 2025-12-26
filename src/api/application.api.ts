@@ -2,6 +2,7 @@ import type { ApplyJobDTO } from "@/features/candidate/types/application.types"
 import api from "./apiClient"
 import type { ApplicationStatus, SelectedOrRejected } from "@/features/recruiter/types/applicationStatus.types"
 import type { ApplicationFilters } from "@/features/candidate/types/applicationFilter.types"
+import type { CandidateApplicationDetailResponse } from "@/features/candidate/types/applicationDetail.types"
 
 
 //---------------------Candidate----------------------------------------------
@@ -12,6 +13,11 @@ export const applyToJobApi=async(data:ApplyJobDTO)=>{
 
 export const candidateApplications=async({filters}:{filters:ApplicationFilters})=>{
     const res=await api.get("/application/my",{params:filters})
+    return res.data
+}
+
+export const candidateApplicationDetailViewApi=async({applicationId}:{applicationId:string}):Promise<CandidateApplicationDetailResponse>=>{
+    const res=await api.get(`/application/my/${applicationId}`)
     return res.data
 }
 

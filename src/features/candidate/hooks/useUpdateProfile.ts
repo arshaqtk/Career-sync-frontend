@@ -25,7 +25,7 @@ export const useUpdateProfile=()=>{
              onSuccess:(updatedUser)=>{
                 queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
                 toast.success("user Data updated successfully")
-                navigate("/candidate-profile")
+                navigate("/profile")
              }, onError(error: unknown) {ErrorHandler(error) }
      })
 }

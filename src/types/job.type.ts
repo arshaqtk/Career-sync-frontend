@@ -13,5 +13,6 @@ export interface Job {
   jobType: "full-time" | "part-time" | "internship";
   status: "open" | "closed" | "paused";
   applicationCount?: number;
+  hasApplied:boolean;
   createdAt?: Date;
 }

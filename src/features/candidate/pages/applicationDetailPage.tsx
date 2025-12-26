@@ -1,26 +1,61 @@
-// import { ApplicationTimeline } from "../components/applications/application-detail/ApplicationTimeline";
-// import { CurrentStatusCard } from "../components/applications/application-detail/CurrentStatusCard";
-// import { RecruiterCard } from "../components/applications/application-detail/RecruiterCard";
+import { ApplicationHeader } from "../components/applications/application-detail/ApplicationHeader"
+import { ApplicationTimeline } from "../components/applications/application-detail/ApplicationTimeline"
+import { CandidateDetailsCard } from "../components/applications/application-detail/CandidateDetails"
+import { Documentscard } from "../components/applications/application-detail/DocumentsCard"
+import { JobDetailsCard } from "../components/applications/application-detail/JobOverviewCard"
+import { RecruiterInfoCard } from "../components/applications/application-detail/RecruiterInfo"
+import { ApplicationStatusCard } from "../components/applications/application-detail/StatusCard"
+import { useApplicationDetailViewData } from "../hooks/useApplicationDetails"
+import { useParams } from "react-router-dom"
+import { toast } from "sonner"
 
-// export default function ApplicationDetailPage() {
-//   return (
-//     <div className="space-y-6">
-//       <ApplicationHeader />
+export const CandidateApplicationDetailPage = () => {
+  const { applicationId } = useParams()
 
-//       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-//         {/* Left Section */}
-//         <div className="lg:col-span-2 space-y-6">
-//           <JobOverviewCard />
-//           <ApplicationTimeline />
-//         </div>
+  const {
+    data: application,
+    isLoading,
+    isError,
+  } = useApplicationDetailViewData(applicationId!)
 
-//         {/* Right Section */}
-//         <div className="space-y-6">
-//           <CurrentStatusCard />
-//           <RecruiterCard />
-//           <NextStepsCard />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (isError || !application) {
+    toast.error("Failed to fetch application")
+    return <div>Unable to load application</div>
+  }
+
+ 
+
+  return (
+    <div>
+      <ApplicationHeader 
+        jobTitle={application.job.title}
+        company={application.job.company}
+        status={application.application.status}
+        appliedAt={application.application.appliedAt}
+      />
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left */}
+        <div className="lg:col-span-2 space-y-6">
+          <JobDetailsCard job={application.job} />
+          <CandidateDetailsCard application={application.application} />
+          <Documentscard application={application.application} />
+          <ApplicationTimeline status={application.application.status} />
+        </div>
+
+        {/* Right */}
+        <div className="space-y-6 sticky top-25 self-start">
+          <ApplicationStatusCard application={application.application} />
+          <RecruiterInfoCard
+            name={application.recruiter.name}
+            email={application.recruiter.email}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}

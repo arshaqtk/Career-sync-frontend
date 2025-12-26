@@ -36,7 +36,7 @@ export const EditProfileForm = ({ user }: EditProfileFormProps) => {
       </div>
 
       {/* Email */}
-      {/* <div>
+      <div>
         <label className="text-sm font-medium">Email</label>
         <CSInput
           {...form.register("email")}
@@ -45,7 +45,7 @@ export const EditProfileForm = ({ user }: EditProfileFormProps) => {
         {form.formState.errors.email && (
           <p className="text-red-500 text-sm">{form.formState.errors.email.message}</p>
         )}
-      </div> */}
+      </div>
 
       {/* Phone */}
       <div>

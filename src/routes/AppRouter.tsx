@@ -5,7 +5,6 @@ import CandidateLayout from "@/layouts/CandidateLayout";
 import RecruiterLayout from "@/layouts/RecruiterLayout";
 
 // Candidate pages
-import CandidateDashboard from "@/features/candidate/pages/dashboard";
 import CandidateJobsPage from "@/features/candidate/pages/jobs";
 import ApplicationsPage from "@/features/candidate/pages/applications";
 import CandidateProfilePage from "@/features/candidate/pages/profile";
@@ -30,6 +29,12 @@ import RecruiterInterviewDetailsPage from "@/features/recruiter/pages/RecruiterI
 import ResetPassword from "@/features/auth/pages/ResetPassword";
 import VerifyForgetPasswordOtp from "@/features/auth/pages/VerifyForgetPasswordOtp";
 import JobApplicantionDetailPage from "@/features/recruiter/pages/RecruiterJobApplicationDetailviewPage";
+import MyInterviewsPage from "@/features/candidate/pages/MyInterviewsPage";
+import InterviewDetailPage from "@/features/candidate/pages/InterviewDetailPage";
+import LandingPage from "@/features/candidate/pages/LandingPage";
+import RecruiterProfilePage from "@/features/recruiter/pages/RecruiterProfilePage";
+import { CandidateApplicationDetailPage } from "@/features/candidate/pages/applicationDetailPage";
+import RecruiterEditProfilePage from "@/features/recruiter/pages/RecruiterEditProfile";
 
 export default function AppRouter() {
     return (
@@ -39,11 +44,16 @@ export default function AppRouter() {
                 {/* ---------- Candidate Routes ---------- */}
                 <Route element={<CandidateLayout />}>
                     <Route element={<ProtectedRoute role="candidate" />}>
-                        <Route path="/" element={<CandidateDashboard />} />
+                        <Route path="/" element={<LandingPage />} />
                         <Route path="/jobs" element={<CandidateJobsPage />} />
                         <Route path="/applications" element={<ApplicationsPage />} />
+                        <Route path="/applications/:applicationId" element={<CandidateApplicationDetailPage />} />
                         <Route path="/profile" element={<CandidateProfilePage />} />
                         <Route path="/edit-profile" element={<EditProfilePage />} />
+                        <Route path="/interviews" element={<MyInterviewsPage/>} />
+                        <Route path="/interviews/:interviewId" element={<InterviewDetailPage/>} />
+
+
                     </Route>
                 </Route>
 
@@ -51,6 +61,8 @@ export default function AppRouter() {
                 <Route path="/recruiter" element={<RecruiterLayout />}>
                     <Route element={<ProtectedRoute role="recruiter" />}>
                         {/* <Route index element={<RecruiterDashboard />} /> */}
+                        <Route path="profile" element={<RecruiterProfilePage />} />
+                        <Route path="profile/edit" element={< RecruiterEditProfilePage/>} />
                         <Route path="jobs" element={<RecruiterJobsPage />} />
                         <Route path="jobs/:jobId/applicants" element={<JobApplicantsPage />} />
                         <Route path="jobs/:jobId/applicants/:applicationId" element={<JobApplicantionDetailPage />} />

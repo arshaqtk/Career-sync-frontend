@@ -21,7 +21,7 @@ export default function ApplicationsTable({ applications }:{applications:Candida
 
       <TableBody>
         {applications.map((app, i) => (
-          <ApplicationRow key={i} company={app.job.company} date={app.createdAt} location={app.job.location}  status={app.status} title={app.job.title} />
+          <ApplicationRow key={i}applicationId={app.id} company={app.job.company} date={app.createdAt} location={app.job.location}  status={app.status} title={app.job.title} />
         ))}
       </TableBody>
     </Table>

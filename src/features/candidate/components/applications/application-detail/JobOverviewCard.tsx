@@ -1,20 +1,35 @@
 import { Badge } from "@/components/ui/shadcn/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
+import type { JobDetails } from "@/features/candidate/types/applicationDetail.types";
 
-<Card>
-  <CardHeader>
-    <div className="flex justify-between">
-      <div>
-        <h2 className="text-2xl font-semibold">Senior Frontend Developer</h2>
-        <p className="text-muted-foreground">TechCorp Inc.</p>
-      </div>
-      <Badge>Interview Scheduled</Badge>
-    </div>
-  </CardHeader>
 
-  <CardContent className="flex gap-6 text-sm text-muted-foreground">
-    <span>Remote</span>
-    <span>$120k - $150k</span>
-    <span>Applied on Dec 20, 2024</span>
-  </CardContent>
-</Card>
+export const JobDetailsCard=({ job }: { job: JobDetails })=> {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Job Details</CardTitle>
+      </CardHeader>
+
+      <CardContent className="space-y-3 text-sm">
+        <p><strong>Role:</strong> {job.title}</p>
+        <p><strong>Type:</strong> {job.jobType}</p>
+        <p>
+          <strong>Experience:</strong>{" "}
+          {job.experienceMin} – {job.experienceMax} years
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {job.skills?.map((skill) => (
+            <Badge key={skill} variant="secondary">
+              {skill}
+            </Badge>
+          ))}
+        </div>
+
+        {job.description && (
+          <p className="text-muted-foreground">{job.description}</p>
+        )}
+      </CardContent>
+    </Card>
+  )
+}

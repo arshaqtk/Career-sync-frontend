@@ -4,17 +4,14 @@ import useRecruiterFetchApplications from "../hooks/useFetchApplicants";
 import type { RecruiterApplicationDTO } from "../types/application.dto";
 import { Inbox, Users } from "lucide-react";
 import { Button } from "@/components/ui/shadcn/button";
+import { TableSkeleton } from "@/components/Skelton/TableSkelton";
 
 
 export default function RecruiterApplicantionsPage() {
   const { data: applications, isLoading,isError } = useRecruiterFetchApplications();
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <p className="text-muted-foreground">Loading applicants...</p>
-      </div>
-    );
+     return <TableSkeleton rows={6} columns={7} />;
   }
 
   if (isError) {
