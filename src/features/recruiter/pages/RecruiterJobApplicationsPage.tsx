@@ -6,6 +6,7 @@ import type { RecruiterApplicationDTO } from "../types/application.dto";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { Button } from "@/components/ui/shadcn/button";
 import { Inbox, Users } from "lucide-react";
+import { Spinner } from "@/components/ui/shadcn/spinner";
 
 export default function JobApplicantsPage() {
   const { jobId } = useParams<{ jobId: string }>();
@@ -13,8 +14,8 @@ export default function JobApplicantsPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <p className="text-muted-foreground">Loading applicants...</p>
+      <div className="flex justify-center py-20">
+        <Spinner />
       </div>
     );
   }

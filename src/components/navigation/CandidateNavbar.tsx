@@ -14,13 +14,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avat
 import { Input } from "@/components/ui/shadcn/input";
 import useLogout from "@/hooks/useLogout";
 import useUserData from "@/hooks/useUserData";
+import { Spinner } from "../ui/shadcn/spinner";
 
 export default function CandidateNavbar() {
   const navigate = useNavigate();
   const handleLogout = useLogout();
   const { data: user, isLoading } = useUserData();
 
-  if (isLoading) return null;
+  if (isLoading) return <Spinner />;
 
   return (
     <header className="w-full flex items-center justify-between px-6 py-4 bg-white border-b">

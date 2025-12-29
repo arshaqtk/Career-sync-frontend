@@ -19,7 +19,7 @@ export default function RecruiterTopNavbar() {
   const {data:user,isLoading}=useUserData()
 
   
- if (isLoading) return <p>Loading...</p>;
+ if (isLoading) return div;
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white">
 

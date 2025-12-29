@@ -40,6 +40,8 @@ import AdminLayout from "@/layouts/AdminLayout";
 import RecruiterDetailPage from "@/features/admin/pages/RecruiterDetailViewPage";
 import CandidateListPage from "@/features/admin/pages/CandidateListPage";
 import CandidateDetailPage from "@/features/admin/pages/CandidateDetailPage";
+import JobsListPage from "@/features/admin/pages/AdminJobsListPage";
+import AdminJobDetailPage from "@/features/admin/pages/AdminJobDetailPage";
 
 export default function AppRouter() {
     return (
@@ -86,6 +88,8 @@ export default function AppRouter() {
                         <Route path="recruiters/:id" element={<RecruiterDetailPage />} />
                         <Route path="candidates" element={<CandidateListPage />} />
                         <Route path="candidates/:id" element={<CandidateDetailPage/>} />
+                         <Route path="jobs" element={<JobsListPage />} />
+                        <Route path="jobs/:id" element={<AdminJobDetailPage/>} />
 
 
 

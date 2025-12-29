@@ -1,7 +1,30 @@
 import api from "./apiClient"
 
-export const getRecruitersListApi = async () => {
-  const res = await api.get("/admin/recruiters")
+
+export interface ListFilters  {
+  page?: number
+  limit?: number
+  status?: "active" | "blocked" | "closed" | "all"
+  search?: string
+}
+
+
+
+export const getRecruitersListApi = async ({
+  page,
+  limit,
+  status,
+  search,
+}: ListFilters) => {
+  const res = await api.get("/admin/recruiters", {
+    params: {
+      page,
+      limit,
+      status,
+      search,
+    },
+  })
+
   return res.data
 }
 
@@ -22,11 +45,23 @@ export const unblockRecruiterApi = async (id: string) => {
 }
 
 
-export const getCandidatesListApi = async () => {
-  const res = await api.get("/admin/candidates")
+export const getCandidatesListApi = async ({
+  page,
+  limit,
+  status,
+  search,
+}: ListFilters) => {
+  const res = await api.get("/admin/candidates", {
+    params: {
+      page,
+      limit,
+      status,
+      search,
+    },
+  })
+
   return res.data
 }
-
 export const getCandidateDetailApi = async (id: string) => {
   const res = await api.get(`/admin/candidates/${id}`)
   console.log(res.data)
@@ -40,5 +75,30 @@ export const blockCandidateApi = async (id: string,reason:string) => {
 
 export const unblockCandidateApi = async (id: string) => {
   const res = await api.patch(`/admin/candidates/${id}/unblock`)
+  return res.data
+}
+
+
+
+export const AdmingetJobsListApi = async (params:ListFilters) => {
+  const res = await api.get("/admin/jobs",{params})
+  return res.data
+}
+
+export const AdmingetJobDetailApi = async (id: string) => {
+  const res = await api.get(`/admin/jobs/${id}`)
+  console.log(res.data)
+  return res.data
+}
+
+
+
+export const blockJobApi = async (id: string,reason:string) => {
+  const res = await api.patch(`/admin/jobs/${id}/block`,{reason})
+  return res.data
+}
+
+export const unblockJobApi = async (id: string) => {
+  const res = await api.patch(`/admin/jobs/${id}/unblock`)
   return res.data
 }

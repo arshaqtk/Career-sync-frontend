@@ -1,3 +1,4 @@
+import { Spinner } from "@/components/ui/shadcn/spinner"
 import { ApplicationHeader } from "../components/applications/application-detail/ApplicationHeader"
 import { ApplicationTimeline } from "../components/applications/application-detail/ApplicationTimeline"
 import { CandidateDetailsCard } from "../components/applications/application-detail/CandidateDetails"
@@ -19,7 +20,9 @@ export const CandidateApplicationDetailPage = () => {
   } = useApplicationDetailViewData(applicationId!)
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div className="flex justify-center py-20">
+        <Spinner />
+      </div>
   }
 
   if (isError || !application) {
