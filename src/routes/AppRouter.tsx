@@ -35,6 +35,11 @@ import LandingPage from "@/features/candidate/pages/LandingPage";
 import RecruiterProfilePage from "@/features/recruiter/pages/RecruiterProfilePage";
 import { CandidateApplicationDetailPage } from "@/features/candidate/pages/applicationDetailPage";
 import RecruiterEditProfilePage from "@/features/recruiter/pages/RecruiterEditProfile";
+import RecruitersListPage from "@/features/admin/pages/RecruiterListPage";
+import AdminLayout from "@/layouts/AdminLayout";
+import RecruiterDetailPage from "@/features/admin/pages/RecruiterDetailViewPage";
+import CandidateListPage from "@/features/admin/pages/CandidateListPage";
+import CandidateDetailPage from "@/features/admin/pages/CandidateDetailPage";
 
 export default function AppRouter() {
     return (
@@ -71,6 +76,18 @@ export default function AppRouter() {
                         <Route path="candidates/:candidateId" element={< RecruiterCandidateProfilePage />} />
                         <Route path="interviews" element={<RecruiterInterviewsPage/>}/>
                         <Route path="interviews/:interviewId" element={<RecruiterInterviewDetailsPage/>}/>
+
+                    </Route>
+                </Route>
+{/* -------------------Admin Routes----------------------------------- */}
+                <Route path="/admin" element={<AdminLayout />}>
+                    <Route element={<ProtectedRoute role="admin" />}>
+                        <Route path="recruiters" element={<RecruitersListPage />} />
+                        <Route path="recruiters/:id" element={<RecruiterDetailPage />} />
+                        <Route path="candidates" element={<CandidateListPage />} />
+                        <Route path="candidates/:id" element={<CandidateDetailPage/>} />
+
+
 
                     </Route>
                 </Route>

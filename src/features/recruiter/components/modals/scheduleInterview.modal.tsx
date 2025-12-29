@@ -1,3 +1,5 @@
+// components/ScheduleInterviewModal.tsx
+import { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -27,68 +29,87 @@ import { cn, combineDateAndTime } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-
-import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types"; 
-import type { InterviewRoundType } from "../../types/interview.type"; 
+import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types";
+import type { InterviewRoundType } from "../../types/interview.type";
 import { Spinner } from "@/components/ui/shadcn/spinner";
-import { scheduleInterviewSchema, type ScheduleInterviewFormValues } from "../../schemas/scheduleInterview.schema";
+import {
+  scheduleInterviewSchema,
+  type ScheduleInterviewFormValues,
+} from "../../schemas/scheduleInterview.schema";
 
 type Props = {
   open: boolean;
   onClose: () => void;
   onSubmit: (data: ScheduleInterviewPayload) => void;
-  isPending:boolean
+  isPending: boolean;
+  defaultValues?: Partial<ScheduleInterviewFormValues>;
 };
 
 export function ScheduleInterviewModal({
   open,
   onClose,
   onSubmit,
-  isPending
+  isPending,
+  defaultValues,
 }: Props) {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm<ScheduleInterviewFormValues>({
+  const form = useForm<ScheduleInterviewFormValues>({
     resolver: zodResolver(scheduleInterviewSchema),
     defaultValues: {
       timezone: "Asia/Kolkata",
       mode: "Online",
       roundType: "Hr",
+      ...defaultValues,
     },
   });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors, isSubmitting },
+  } = form;
 
   const date = watch("date");
   const mode = watch("mode");
   const roundType = watch("roundType");
+  console.log(defaultValues)
+  useEffect(() => {
+    if (!open) return;
+
+    reset(
+      {
+        date: defaultValues?.date ?? undefined,
+        startTime: defaultValues?.startTime ?? "",
+        endTime: defaultValues?.endTime ?? "",
+        durationMinutes: defaultValues?.durationMinutes ?? undefined,
+        roundNumber: defaultValues?.roundNumber ?? undefined,
+        timezone: defaultValues?.timezone ?? "Asia/Kolkata",
+        mode: defaultValues?.mode ?? "Online",
+        roundType: defaultValues?.roundType ?? "Hr",
+        meetingLink: defaultValues?.meetingLink ?? "",
+        location: defaultValues?.location ?? "",
+      },
+      {
+        keepDirty: false,
+        keepTouched: false,
+      }
+    );
+  }, [open, defaultValues, reset]);
+
 
   const handleFormSubmit = (data: ScheduleInterviewFormValues) => {
-    const startTimeISO = combineDateAndTime(
-      data.date,
-      data.startTime
-    );
-
-    const endTimeISO = combineDateAndTime(
-      data.date,
-      data.endTime
-    );
-
     const payload: ScheduleInterviewPayload = {
-      startTime: startTimeISO,
-      endTime: endTimeISO,
-      roundNumber:data.roundNumber,
+      startTime: combineDateAndTime(data.date, data.startTime),
+      endTime: combineDateAndTime(data.date, data.endTime),
+      roundNumber: data.roundNumber,
       timezone: data.timezone,
       mode: data.mode,
       roundType: data.roundType,
       durationMinutes: data.durationMinutes,
-
-      meetingLink:
-        data.mode === "Online" ? data.meetingLink : undefined,
-      location:
-        data.mode === "Offline" ? data.location : undefined,
+      meetingLink: data.mode === "Online" ? data.meetingLink : undefined,
+      location: data.mode === "Offline" ? data.location : undefined,
     };
 
     onSubmit(payload);
@@ -98,13 +119,12 @@ export function ScheduleInterviewModal({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Schedule Interview</DialogTitle>
+          <DialogTitle>
+            {defaultValues ? "Reschedule Interview" : "Schedule Interview"}
+          </DialogTitle>
         </DialogHeader>
 
-        <form
-          onSubmit={handleSubmit(handleFormSubmit)}
-          className="space-y-4"
-        >
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           {/* Date */}
           <div>
             <label className="text-sm font-medium">Date</label>
@@ -125,199 +145,92 @@ export function ScheduleInterviewModal({
                 <Calendar
                   mode="single"
                   selected={date}
-                  onSelect={(d) => setValue("date", d!)}
+                  onSelect={(d) => {
+                    if (d) setValue("date", d, { shouldDirty: true });
+                  }}
                   disabled={(d) => d < new Date()}
                   initialFocus
                 />
               </PopoverContent>
             </Popover>
             {errors.date && (
-              <p className="text-xs text-red-500">
-                {errors.date.message}
-              </p>
+              <p className="text-xs text-red-500">{errors.date.message}</p>
             )}
           </div>
 
-          {/* Start Time */}
-          <div>
-            <label className="text-sm font-medium">Start Time</label>
-            <Input type="time" {...register("startTime")} />
-            {errors.startTime && (
-              <p className="text-xs text-red-500">
-                {errors.startTime.message}
-              </p>
-            )}
-          </div>
+          <Input type="time" {...register("startTime")} />
+          <Input type="time" {...register("endTime")} />
 
-          {/* End Time */}
-          <div>
-            <label className="text-sm font-medium">End Time</label>
-            <Input type="time" {...register("endTime")} />
-            {errors.endTime && (
-              <p className="text-xs text-red-500">
-                {errors.endTime.message}
-              </p>
-            )}
-          </div>
+          <Input
+            type="number"
+            placeholder="Duration (minutes)"
+            {...register("durationMinutes", { valueAsNumber: true })}
+          />
 
-          {/* Duration */}
-          <div>
-            <label className="text-sm font-medium">
-              Duration (minutes)
-            </label>
-            <Input
-              type="number"
-              placeholder="Eg: 30"
-              {...register("durationMinutes", {
-                valueAsNumber: true,
-              })}
-            />
-            {errors.durationMinutes && (
-              <p className="text-xs text-red-500">
-                {errors.durationMinutes.message}
-              </p>
-            )}
-          </div>
+          <Input
+            type="number"
+            placeholder="Round number"
+            {...register("roundNumber", { valueAsNumber: true })}
+          />
 
-          {/* InterviewroundNumber */}
-           <div>
-            <label className="text-sm font-medium">
-             Interview round
-            </label>
-            <Input
-              type="number"
-              placeholder="Eg: 1"
-              {...register("roundNumber",{
-                valueAsNumber: true,
-              })}
-            />
-            {errors.roundNumber && (
-              <p className="text-xs text-red-500">
-                {errors.roundNumber.message}
-              </p>
-            )}
-          </div>
+          <Select
+            value={watch("timezone")}
+            onValueChange={(v) => setValue("timezone", v)}
+          >
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Asia/Kolkata">IST</SelectItem>
+              <SelectItem value="UTC">UTC</SelectItem>
+            </SelectContent>
+          </Select>
 
-          {/* Timezone */}
-          <div>
-            <label className="text-sm font-medium">Timezone</label>
-            <Select
-              value={watch("timezone")}
-              onValueChange={(v) => setValue("timezone", v)}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Asia/Kolkata">
-                  IST (Asia/Kolkata)
-                </SelectItem>
-                <SelectItem value="UTC">UTC</SelectItem>
-                <SelectItem value="America/New_York">
-                  EST (New York)
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <Select
+            value={roundType}
+            onValueChange={(v) =>
+              setValue("roundType", v as InterviewRoundType)
+            }
+          >
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Hr">HR</SelectItem>
+              <SelectItem value="Technical">Technical</SelectItem>
+              <SelectItem value="Managerial">Managerial</SelectItem>
+              <SelectItem value="Final">Final</SelectItem>
+            </SelectContent>
+          </Select>
 
-          {/* Round Type */}
-          <div>
-            <label className="text-sm font-medium">
-              Interview Round
-            </label>
-            <Select
-              value={roundType}
-              onValueChange={(v) =>
-                setValue("roundType", v as InterviewRoundType)
-              }
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Hr">HR</SelectItem>
-                <SelectItem value="Technical">Technical</SelectItem>
-                <SelectItem value="Managerial">Managerial</SelectItem>
-                <SelectItem value="Final">Final</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.roundType && (
-              <p className="text-xs text-red-500">
-                {errors.roundType.message}
-              </p>
-            )}
-          </div>
+          <Select
+            value={mode}
+            onValueChange={(v) =>
+              setValue("mode", v as "Online" | "Offline")
+            }
+          >
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Online">Online</SelectItem>
+              <SelectItem value="Offline">Offline</SelectItem>
+            </SelectContent>
+          </Select>
 
-          {/* Mode */}
-          <div>
-            <label className="text-sm font-medium">Mode</label>
-            <Select
-              value={mode}
-              onValueChange={(v) =>
-                setValue("mode", v as "Online" | "Offline")
-              }
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Online">Online</SelectItem>
-                <SelectItem value="Offline">Offline</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Meeting Link / Location */}
           {mode === "Online" ? (
-            <div>
-              <label className="text-sm font-medium">
-                Meeting Link
-              </label>
-              <Input
-                placeholder="Google Meet / Zoom link"
-                {...register("meetingLink")}
-              />
-              {errors.meetingLink && (
-                <p className="text-xs text-red-500">
-                  {errors.meetingLink.message}
-                </p>
-              )}
-            </div>
+            <Input placeholder="Meeting link" {...register("meetingLink")} />
           ) : (
-            <div>
-              <label className="text-sm font-medium">
-                Interview Location
-              </label>
-              <Input
-                placeholder="Office address"
-                {...register("location")}
-              />
-              {errors.location && (
-                <p className="text-xs text-red-500">
-                  {errors.location.message}
-                </p>
-              )}
-            </div>
+            <Input placeholder="Location" {...register("location")} />
           )}
 
           <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={onClose}
-              disabled={isPending}
-            >
+            <Button type="button" variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting||isPending}>
+            <Button type="submit" disabled={isSubmitting || isPending}>
               {isPending ? (
-    <span className="flex items-center gap-2">
-      <Spinner className="h-4 w-4" />
-      Scheduling...
-    </span>
-  ) : (
-    "Schedule"
-  )}
+                <span className="flex gap-2">
+                  <Spinner className="h-4 w-4" />
+                  Saving...
+                </span>
+              ) : (
+                "Save"
+              )}
             </Button>
           </DialogFooter>
         </form>

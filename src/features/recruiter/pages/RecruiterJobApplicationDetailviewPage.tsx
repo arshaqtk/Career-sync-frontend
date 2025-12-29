@@ -15,14 +15,14 @@ import { toast } from "sonner";
 export default function JobApplicantionDetailPage() {
   const { applicationId } = useParams();
   const { data, isLoading } = useRecruiterApplicantDetails(applicationId!);
-  const {closeModal,isOpen}=useInterviewScheduleModalStore()
+  const {closeModal,open}=useInterviewScheduleModalStore()
    const {mutate:scheduleInterview,isPending}=useScheduleInterview()
 
 
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No application found.</p>;
   
-  const handleScheduleSubmit=(data:ScheduleInterviewPayload)=>{
+  const handleScheduleSubmit=(data:Omit<ScheduleInterviewPayload,"scheduleMode">)=>{
     if(applicationId){
       scheduleInterview({...data,scheduleMode:"initial",applicationId})
     }else{
@@ -35,7 +35,7 @@ export default function JobApplicantionDetailPage() {
 
         <ScheduleInterviewModal
         isPending={isPending}
-              open={isOpen}
+              open={open}
               onClose={closeModal}
               onSubmit={(data) => {
                 handleScheduleSubmit(data)

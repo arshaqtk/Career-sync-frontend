@@ -54,10 +54,12 @@ export const useLogin=()=>{
                 navigate("/auth/verify-otp",{ state: { email: data.user.email } })
                 return
             }
-            console.log(data.user)
+            
             if(data.user.role=="recruiter"){
                 navigate("/recruiter")
-            }else{
+            }else if(data.user.role=="admin"){
+                navigate("/admin")}
+                else{
                 navigate("/")
             }
         },

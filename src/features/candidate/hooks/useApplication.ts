@@ -3,6 +3,7 @@ import { QUERY_KEYS } from "@/config/queryKeys"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import type { ApplicationFilters } from "../types/applicationFilter.types"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 
 export const useApplicationData=({filters,candidateId}:{filters:ApplicationFilters,candidateId:string})=>{
@@ -27,50 +28,6 @@ export const useApplyNow=()=>{
             queryClient.invalidateQueries({queryKey:[QUERY_KEYS.jobs]});
             queryClient.invalidateQueries({queryKey:[QUERY_KEYS.applications]});
         },
-         onError(error: unknown) { {ErrorHandler(error) } }
+         onError(error: unknown) {handleRQError(error)}
     })
 }
-
-const ErrorHandler = (error: unknown) => {
-  type ErrorWithResponse = {
-    response?: {
-      status?: number;
-      data?: {
-        message?: string;
-      };
-    };
-  };
-
-  //  if it's an Axios/React Query error
-  if (
-    typeof error === "object" &&
-    error !== null &&
-    "response" in error
-  ) {
-    const err = error as ErrorWithResponse;
-
-    const statusCode = err.response?.status;
-    const message = err.response?.data?.message;
-
-    console.log("RQ ERROR:", err.response);
-
-    // ====== CHECK FOR INTERNAL SERVER ERROR ======
-    if (statusCode === 500) {
-      toast.error("Something went wrong. Please try again later.");
-      return;
-    }
-
-    // ====== CLIENT ERRORS (SHOW REAL MESSAGE) ======
-    if (message) {
-      toast.error(message);
-      return;
-    }
-
-    // Default fallback
-    toast.error("An unexpected error occurred.");
-  } else {
-    // Non-axios or unknown error
-    console.log("Unknown Error:", error);
-    toast.error("An unexpected error occurred.");
-  }
-};

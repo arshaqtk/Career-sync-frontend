@@ -17,5 +17,5 @@ export type ScheduleInterviewPayload = {
       status: InterviewStatus;
       changedAt: string;
     }[];
-  scheduleMode: "initial" | "reschedule" | "next_round";
+  scheduleMode?: "initial" | "reschedule" | "next_round";
 };

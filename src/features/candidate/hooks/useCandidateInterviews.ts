@@ -5,5 +5,6 @@ export const useCandidateInterviews = () => {
   return useQuery({
     queryKey: ["candidate-interviews"],
     queryFn: candidateGetInterviewsApi,
+
   })
 }

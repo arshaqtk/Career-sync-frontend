@@ -1,7 +1,8 @@
 import { Card, CardContent } from "@/components/ui/shadcn/card"
 
 export function RecruiterStats({jobsPosted,activeJobs,
-  applicationsCount,interviewsCount,hiresCount}) {
+  applicationsCount,interviewsCount,hiresCount}:{jobsPosted:number,activeJobs:number,
+  applicationsCount:number,interviewsCount:number,hiresCount:number}) {
   const stats = [
     { label: "Jobs Posted", value: jobsPosted },
     { label: "Active Jobs", value: activeJobs },

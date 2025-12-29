@@ -18,7 +18,7 @@ export const useUpdateJob=()=>{
         onSuccess:(data)=>{
             closeModal()
             toast.success(data?.message || "Job updated")
-            queryClient.invalidateQueries({queryKey:[QUERY_KEYS.jobs]})
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.jobs.all,})
         },
     })
     

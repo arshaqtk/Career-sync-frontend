@@ -44,7 +44,7 @@ const handleConfirm = ({ status, notes,roundNumber}: UpdateStatusPayloadDto) => 
   }
 };
 
-const handleScheduleSubmit=(data:ScheduleInterviewPayload)=>{
+const handleScheduleSubmit=(data:Omit<ScheduleInterviewPayload,"scheduleMode">)=>{
   console.log(interview.data)
     if(interview.data.applicationId){
       scheduleInterview({...data,applicationId:interview.data.applicationId,scheduleMode:"next_round"})
@@ -60,8 +60,9 @@ const handleScheduleSubmit=(data:ScheduleInterviewPayload)=>{
       <InterviewHeader interview={interview.data} />
       <ScheduleInterviewModal
               isPending={isPending}
-                    open={interviewScheduleModalStore.isOpen}
+                    open={interviewScheduleModalStore.open}
                     onClose={interviewScheduleModalStore.closeModal}
+                    defaultValues={interviewScheduleModalStore.selectedInterview}
                     onSubmit={(data) => {
                       handleScheduleSubmit(data)
                     }}

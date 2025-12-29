@@ -16,9 +16,14 @@ export const fetchAllJobs=async({page=1, limit=5,filters}: {
 
 
 //-----------------------------------Recruiter----------------------------------------
-export const RecruiterJobs=async()=>{
-     const res= await api.get("/job/employer/jobs")
+export const RecruiterJobs=async({page=1, limit=5,filters}: {
+      page: number;
+      limit: number;
+    filters:JobFilters})=>{
+        const {jobType,status}=filters
+     const res= await api.get(`/job/employer/jobs?page=${page}&limit=${limit}&status=${status}&jobType=${jobType}`)
     return res.data
+    
 }
 
 export const RecruiterAddJobApi=async({data}:{data:Job})=>{

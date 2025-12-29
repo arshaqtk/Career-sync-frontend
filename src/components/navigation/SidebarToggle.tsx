@@ -1,26 +1,31 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/shadcn/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function SidebarToggle({
   isOpen,
-  toggle
+  toggle,
 }: {
-  isOpen: boolean;
-  toggle: () => void;
+  isOpen: boolean
+  toggle: () => void
 }) {
   return (
-    <button
-      onClick={toggle}
-      className="
-        absolute top-6 -right-3 z-50 
-        bg-white border shadow-md rounded-full 
-        p-1 hover:bg-gray-100 transition
-      "
+    <div
+      className={`hidden lg:flex fixed top-1/2 z-50
+      ${isOpen ? "left-64" : "left-20"}
+      transition-all duration-300`}
     >
-      {isOpen ? (
-        <ChevronLeft className="h-4 w-4" />
-      ) : (
-        <ChevronRight className="h-4 w-4" />
-      )}
-    </button>
-  );
+      <Button
+        size="icon"
+        variant="secondary"
+        onClick={toggle}
+        className="rounded-full shadow"
+      >
+        {isOpen ? (
+          <ChevronLeft className="h-4 w-4" />
+        ) : (
+          <ChevronRight className="h-4 w-4" />
+        )}
+      </Button>
+    </div>
+  )
 }
