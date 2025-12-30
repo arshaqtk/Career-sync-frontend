@@ -32,7 +32,7 @@ export type InterviewDetails = {
   meetingLink?: string;
 roundNumber:number;
   status: InterviewStatus;
-
+ timezone?: string;
   statusHistory: {
     status: InterviewStatus;
     changedAt: string;

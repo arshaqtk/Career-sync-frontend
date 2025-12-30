@@ -1,49 +1,49 @@
-// components/ScheduleInterviewModal.tsx
-import { useEffect } from "react";
+import { useEffect } from "react"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/shadcn/dialog";
-import { Button } from "@/components/ui/shadcn/button";
-import { Input } from "@/components/ui/shadcn/input";
+} from "@/components/ui/shadcn/dialog"
+import { Button } from "@/components/ui/shadcn/button"
+import { Input } from "@/components/ui/shadcn/input"
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/ui/shadcn/select";
-import { Calendar } from "@/components/ui/shadcn/calendar";
+} from "@/components/ui/shadcn/select"
+import { Calendar } from "@/components/ui/shadcn/calendar"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/shadcn/popover";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { cn, combineDateAndTime } from "@/lib/utils";
+} from "@/components/ui/shadcn/popover"
+import { CalendarIcon } from "lucide-react"
+import { format } from "date-fns"
+import { cn, combineDateAndTime } from "@/lib/utils"
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
-import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types";
-import type { InterviewRoundType } from "../../types/interview.type";
-import { Spinner } from "@/components/ui/shadcn/spinner";
+import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types"
+import type { InterviewRoundType } from "../../types/interview.type"
+import { Spinner } from "@/components/ui/shadcn/spinner"
 import {
   scheduleInterviewSchema,
   type ScheduleInterviewFormValues,
-} from "../../schemas/scheduleInterview.schema";
+} from "../../schemas/scheduleInterview.schema"
+import { toast } from "sonner"
 
 type Props = {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (data: ScheduleInterviewPayload) => void;
-  isPending: boolean;
-  defaultValues?: Partial<ScheduleInterviewFormValues>;
-};
+  open: boolean
+  onClose: () => void
+  onSubmit: (data: ScheduleInterviewPayload) => void
+  isPending: boolean
+  defaultValues?: Partial<ScheduleInterviewFormValues>
+}
 
 export function ScheduleInterviewModal({
   open,
@@ -60,7 +60,7 @@ export function ScheduleInterviewModal({
       roundType: "Hr",
       ...defaultValues,
     },
-  });
+  })
 
   const {
     register,
@@ -68,15 +68,16 @@ export function ScheduleInterviewModal({
     setValue,
     watch,
     reset,
-    formState: { errors, isSubmitting },
-  } = form;
+    formState: { errors },
+  } = form
 
-  const date = watch("date");
-  const mode = watch("mode");
-  const roundType = watch("roundType");
-  console.log(defaultValues)
+  const date = watch("date")
+  const mode = watch("mode")
+  const roundType = watch("roundType")
+
+  /** 🔁 Reset form when modal opens */
   useEffect(() => {
-    if (!open) return;
+    if (!open) return
 
     reset(
       {
@@ -95,14 +96,22 @@ export function ScheduleInterviewModal({
         keepDirty: false,
         keepTouched: false,
       }
-    );
-  }, [open, defaultValues, reset]);
+    )
+  }, [open, defaultValues, reset])
 
-
+  /** ✅ Submit handler */
   const handleFormSubmit = (data: ScheduleInterviewFormValues) => {
+    const startTime = combineDateAndTime(data.date, data.startTime)
+    const endTime = combineDateAndTime(data.date, data.endTime)
+
+    if (endTime <= startTime) {
+      toast.error("End time must be after start time")
+      return
+    }
+
     const payload: ScheduleInterviewPayload = {
-      startTime: combineDateAndTime(data.date, data.startTime),
-      endTime: combineDateAndTime(data.date, data.endTime),
+      startTime,
+      endTime,
       roundNumber: data.roundNumber,
       timezone: data.timezone,
       mode: data.mode,
@@ -110,13 +119,18 @@ export function ScheduleInterviewModal({
       durationMinutes: data.durationMinutes,
       meetingLink: data.mode === "Online" ? data.meetingLink : undefined,
       location: data.mode === "Offline" ? data.location : undefined,
-    };
+    }
 
-    onSubmit(payload);
-  };
+    onSubmit(payload)
+  }
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) onClose()
+      }}
+    >
       <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
@@ -145,10 +159,12 @@ export function ScheduleInterviewModal({
                 <Calendar
                   mode="single"
                   selected={date}
-                  onSelect={(d) => {
-                    if (d) setValue("date", d, { shouldDirty: true });
+                  onSelect={(d) => d && setValue("date", d)}
+                  disabled={(d) => {
+                    const today = new Date()
+                    today.setHours(0, 0, 0, 0)
+                    return d < today
                   }}
-                  disabled={(d) => d < new Date()}
                   initialFocus
                 />
               </PopoverContent>
@@ -177,7 +193,9 @@ export function ScheduleInterviewModal({
             value={watch("timezone")}
             onValueChange={(v) => setValue("timezone", v)}
           >
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="Asia/Kolkata">IST</SelectItem>
               <SelectItem value="UTC">UTC</SelectItem>
@@ -190,7 +208,9 @@ export function ScheduleInterviewModal({
               setValue("roundType", v as InterviewRoundType)
             }
           >
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="Hr">HR</SelectItem>
               <SelectItem value="Technical">Technical</SelectItem>
@@ -205,7 +225,9 @@ export function ScheduleInterviewModal({
               setValue("mode", v as "Online" | "Offline")
             }
           >
-            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="Online">Online</SelectItem>
               <SelectItem value="Offline">Offline</SelectItem>
@@ -222,7 +244,7 @@ export function ScheduleInterviewModal({
             <Button type="button" variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting || isPending}>
+            <Button type="submit" disabled={isPending}>
               {isPending ? (
                 <span className="flex gap-2">
                   <Spinner className="h-4 w-4" />
@@ -236,5 +258,5 @@ export function ScheduleInterviewModal({
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

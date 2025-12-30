@@ -3,7 +3,13 @@ export interface RecruiterProfile {
   name: string
   email: string
   role: string
-  companyName: string
+   recruiterData?: {
+    companyName?: string
+    companyWebsite?: string
+    size?: string
+    companyDescription?: string
+    companyLocation?:string
+  }
   profilePictureUrl?: string
   status: "ACTIVE" | "INACTIVE"
 }
@@ -15,10 +21,11 @@ export interface RecruiterProfileDetails {
   role: string
   location?: string
 
-  company: {
-    name: string
-    website?: string
+  recruiterData: {
+    companyName: string
+    companyWebsite?: string
     size?: string
-    description?: string
+    companyDescription?: string
+    companyLocation?:string
   }
 }

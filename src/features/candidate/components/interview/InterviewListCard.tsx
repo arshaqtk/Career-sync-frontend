@@ -2,7 +2,8 @@ import { Card, CardContent } from "@/components/ui/shadcn/card"
 import { Button } from "@/components/ui/shadcn/button"
 import { useNavigate } from "react-router-dom"
 import { InterviewStatusBadge } from "./InterviewStatusBadge"
-import type{ CandidateInterview } from "../../types/interview.types"
+import type { CandidateInterview } from "../../types/interview.types"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip"
 
 export function InterviewListCard({
   interview,
@@ -11,7 +12,43 @@ export function InterviewListCard({
 }) {
   const navigate = useNavigate()
 
-  const startTime = new Date(interview.startTime).toLocaleString()
+  const startTime = interview.startTime
+    ? new Date(interview.startTime).toLocaleString()
+    : "-"
+
+  // ✅ status & time checks
+  // const lastStatus =
+  //   interview.statusHistory?.[
+  //     interview.statusHistory.length - 1
+  //   ]?.status
+
+  const now = new Date()
+  const start = interview.startTime
+    ? new Date(interview.startTime)
+    : null
+  const end = interview.endTime
+    ? new Date(interview.endTime)
+    : null
+
+ const canJoin =
+ start&&end&&
+  Boolean(interview.meetingLink) &&
+  Boolean(start) &&
+  Boolean(end) &&
+  now >= start &&
+  now <= end;
+
+  const tooltipMessage = (() => {
+    if (!interview.meetingLink)
+      return "Meeting link not available"
+    if (!start || !end)
+      return "Interview time not scheduled"
+    if (now < start)
+      return "You can join when the interview starts"
+    if (now > end)
+      return "Interview has already ended"
+    return ""
+  })()
 
   return (
     <Card>
@@ -29,15 +66,37 @@ export function InterviewListCard({
         </div>
 
         <div className="text-sm grid grid-cols-2 gap-2">
-          <p><strong>Round:</strong> {interview.roundNumber}</p>
-          <p><strong>Mode:</strong> {interview.mode}</p>
-          <p><strong>Date:</strong> {startTime}</p>
+          <p>
+            <strong>Round:</strong> {interview.roundNumber}
+          </p>
+          <p>
+            <strong>Mode:</strong> {interview.mode}
+          </p>
+          <p>
+            <strong>Date:</strong> {startTime}
+          </p>
         </div>
 
         <div className="flex gap-2 pt-2">
-          {interview.status === "Scheduled" && (
-            <Button size="sm">Join</Button>
-          )}
+          <Tooltip>
+  <TooltipTrigger asChild>
+    <span>
+      <Button
+            size="sm"
+            disabled={!canJoin}
+            title={!canJoin ? tooltipMessage : undefined}
+            onClick={() =>
+              canJoin &&
+              window.open(interview.meetingLink!, "_blank")
+            }
+          >
+            Join
+          </Button>
+    </span>
+  </TooltipTrigger>
+  <TooltipContent>{tooltipMessage}</TooltipContent>
+</Tooltip>
+
           <Button
             size="sm"
             variant="outline"

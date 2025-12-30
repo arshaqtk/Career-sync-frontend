@@ -19,8 +19,8 @@ const res=await api.post(`interview/recruiter/interviews/${payload.applicationId
     return res.data
 }
 
-export const rescheduleInterview=async({payload}:{payload:ScheduleInterviewPayload})=>{
-const res=await api.post(`interview/recruiter/interviews/${payload.interviewId}/reschedule`,payload)
+export const rescheduleInterview=async({payload,interviewId}:{interviewId:string,payload:ScheduleInterviewPayload})=>{
+const res=await api.put(`interview/recruiter/interviews/${interviewId}/reschedule`,payload)
     return res.data
 }
 

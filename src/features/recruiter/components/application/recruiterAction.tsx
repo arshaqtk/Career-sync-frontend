@@ -22,7 +22,7 @@ export function RecruiterActions({ applicationId, currentStatus }: RecruiterActi
       <Button
         onClick={() => updateStatus("Shortlisted")}
         disabled={currentStatus === "Shortlisted" ||currentStatus==="Interview" || isPending}
-      >
+      > 
         Shortlist
       </Button>
 
@@ -38,7 +38,7 @@ export function RecruiterActions({ applicationId, currentStatus }: RecruiterActi
       {/* Interview */}
       <Button
         variant="outline"
-        onClick={() => openModal()}
+        onClick={() => openModal({mode:"schedule"})}
         disabled={currentStatus === "Interview" || isPending}
       >
         Move to Interview

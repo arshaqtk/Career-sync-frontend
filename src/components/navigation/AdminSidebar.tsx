@@ -6,7 +6,7 @@ const navItems = [
   { label: "Recruiters", icon: Users, to: "/admin/recruiters" },
   { label: "Candidates", icon: Users, to: "/admin/candidates" },
   { label: "Jobs", icon: Briefcase, to: "/admin/jobs" },
-  { label: "System Logs", icon: Shield, to: "/admin/logs" },
+  // { label: "System Logs", icon: Shield, to: "/admin/logs" },
 ]
 
 export default function AdminSidebar({ isOpen }: { isOpen: boolean }) {

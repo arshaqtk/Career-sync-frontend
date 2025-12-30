@@ -20,12 +20,14 @@ import { RecruitereJobsPagination } from "../components/job/JobsPagination";
 
 export default function RecruiterJobPage() {
   const [page, setPage] = useState(1);
+
   const [filters, setFilters] = useState<JobFilters>({
     status: "all",
     jobType: "all",
+    search: "",
   });
 
-  const { data: job, isLoading } = useRecruiterJob({
+  const { data, isLoading } = useRecruiterJob({
     page,
     limit: 5,
     filters,
@@ -48,12 +50,15 @@ export default function RecruiterJobPage() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
-      
-      <div className="flex items-center justify-between">
-        <JobFilter filters={filters} onChange={(next) => {
-          setPage(1);           
-          setFilters(next);
-        }} />
+      {/* Header + Filters */}
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <JobFilter
+          filters={filters}
+          onChange={(next) => {
+            setPage(1); // ✅ reset pagination on filter/search
+            setFilters(next);
+          }}
+        />
 
         <Button onClick={() => openModal()} className="flex items-center gap-2">
           <Plus className="h-4 w-4" />
@@ -63,14 +68,15 @@ export default function RecruiterJobPage() {
 
       <AddJobModal onSubmit={handleModalSubmission} />
 
-     
+      {/* Loading */}
       {isLoading && (
         <div className="py-20 text-center text-muted-foreground">
           Loading jobs...
         </div>
       )}
 
-      {!isLoading && job?.jobs.length === 0 && (
+      {/* Empty State */}
+      {!isLoading && data?.jobs.length === 0 && (
         <div className="py-20 flex flex-col items-center text-center space-y-4">
           <div className="text-5xl">📭</div>
           <h2 className="text-xl font-semibold">No jobs found</h2>
@@ -80,8 +86,9 @@ export default function RecruiterJobPage() {
         </div>
       )}
 
+      {/* Job Cards */}
       {!isLoading &&
-        job?.jobs.map((job) => (
+        data?.jobs.map((job) => (
           <Card key={job._id} className="shadow-sm rounded-2xl">
             <CardHeader>
               <JobHeader
@@ -105,16 +112,14 @@ export default function RecruiterJobPage() {
           </Card>
         ))}
 
-      {/* Pagination (only if jobs exist) */}
-      {!isLoading && job && job.pagination.totalPages > 1 && (
+      {/* Pagination */}
+      {!isLoading && data && data.pagination.totalPages > 1 && (
         <RecruitereJobsPagination
           page={page}
-          totalPages={job.pagination.totalPages}
+          totalPages={data.pagination.totalPages}
           onPageChange={setPage}
         />
       )}
     </div>
   );
 }
-
-

@@ -12,6 +12,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar";
 import useUserData from "@/hooks/useUserData";
 import useLogout from "@/hooks/useLogout";
+import { Spinner } from "../ui/shadcn/spinner";
 
 export default function RecruiterTopNavbar() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function RecruiterTopNavbar() {
   const {data:user,isLoading}=useUserData()
 
   
- if (isLoading) return div;
+ if (isLoading) return  <Spinner /> ;
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white">
 

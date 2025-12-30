@@ -5,7 +5,7 @@ import { InterviewOverview } from "../components/interview/details/InterviewOver
 import { InterviewScheduleSection } from "../components/interview/details/InterviewScheduleSection";
 import { InterviewTimeline } from "../components/interview/details/InterviewTimeline";
 import { InterviewActionsPanel } from "../components/interview/details/InterviewActionsPanel";
-import { InterviewNotes } from "../components/interview/details/InterviewNotes";
+// import { InterviewNotes } from "../components/interview/details/InterviewNotes";
 import { useRecruiterUpdateInterviewStatus } from "../hooks/useRecruiterUpdateInterviewStatus";
 import { InterviewStatusDialog } from "../components/modals/InterviewStatusDialog"; 
 import { useUpdateInterviewStatusStore } from "../store/interviewUpdateStatusDialog.store";
@@ -15,6 +15,7 @@ import { useInterviewScheduleModalStore } from "../store/interviewScheduleModal.
 import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
 import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types";
 import { toast } from "sonner";
+import { useRescheduleInterview } from "../hooks/useRecruiterRescheduleInterview";
 
 
 
@@ -23,9 +24,13 @@ export default function RecruiterInterviewDetailsPage() {
   const { interviewId } = useParams<{ interviewId: string }>();
 
   const { data: interview, isLoading } = useRecruiterInterviewDetail(interviewId!);
-
+const {selectedInterview}=useInterviewScheduleModalStore()
   const{mutate:updateInterviewStatus} =useRecruiterUpdateInterviewStatus()
-  const {mutate:scheduleInterview,isPending}=useScheduleInterview()
+const { mutate: scheduleInterview, isPending: isScheduling } =
+  useScheduleInterview()
+
+const { mutate: rescheduleInterview, isPending: isRescheduling } =
+  useRescheduleInterview()
 
   //-------------------Modal--stores------------------------
   const interviewStatusStore=useUpdateInterviewStatusStore()
@@ -44,14 +49,35 @@ const handleConfirm = ({ status, notes,roundNumber}: UpdateStatusPayloadDto) => 
   }
 };
 
-const handleScheduleSubmit=(data:Omit<ScheduleInterviewPayload,"scheduleMode">)=>{
-  console.log(interview.data)
-    if(interview.data.applicationId){
-      scheduleInterview({...data,applicationId:interview.data.applicationId,scheduleMode:"next_round"})
-    }else{
-      toast.error("Something went wrong")
-    }
+const handleScheduleSubmit = (
+  data: Omit<ScheduleInterviewPayload, "scheduleMode">
+) => {
+  if (!interview.data.applicationId) {
+    toast.error("Something went wrong")
+    return
   }
+
+  if (interviewScheduleModalStore.mode === "reschedule") {
+    if (!selectedInterview?._id) {
+      toast.error("Interview not found")
+      return
+    }
+
+    rescheduleInterview({
+      interviewId: selectedInterview._id,
+      payload: data,
+    })
+
+    return
+  }
+
+ 
+  scheduleInterview({
+    ...data,
+    applicationId: interview.data.applicationId,
+    scheduleMode: "next_round",
+  })
+}
 
 
 
@@ -59,7 +85,7 @@ const handleScheduleSubmit=(data:Omit<ScheduleInterviewPayload,"scheduleMode">)=
     <div className="space-y-6">
       <InterviewHeader interview={interview.data} />
       <ScheduleInterviewModal
-              isPending={isPending}
+              isPending={isScheduling||isRescheduling}
                     open={interviewScheduleModalStore.open}
                     onClose={interviewScheduleModalStore.closeModal}
                     defaultValues={interviewScheduleModalStore.selectedInterview}
@@ -82,7 +108,7 @@ const handleScheduleSubmit=(data:Omit<ScheduleInterviewPayload,"scheduleMode">)=
           <InterviewOverview interview={interview.data} />
           <InterviewScheduleSection interview={interview.data} />
           <InterviewTimeline timeline={interview.data.statusHistory} currentStatus={interview.data.status} />
-          <InterviewNotes interviewId={interview.data._id} notes={interview.data.notes} />
+          {/* <InterviewNotes interviewId={interview.data._id} notes={interview.data.notes} /> */}
         </div>
 
         {/* RIGHT */}

@@ -1,22 +1,38 @@
-// store/interviewScheduleModal.store.ts
 import { create } from "zustand";
-import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types";
+import type { InterviewDetails } from "../types/interview-details.types";
+
+type InterviewScheduleMode = "schedule" | "reschedule";
 
 type InterviewScheduleModalState = {
   open: boolean;
-  selectedInterview?: ScheduleInterviewPayload;
-  openModal: (interview?: ScheduleInterviewPayload) => void;
+  mode: InterviewScheduleMode;
+  selectedInterview?: InterviewDetails;
+
+  openModal: (params: {
+    mode: InterviewScheduleMode;
+    interview?: InterviewDetails;
+  }) => void;
+
   closeModal: () => void;
 };
 
 export const useInterviewScheduleModalStore =
   create<InterviewScheduleModalState>((set) => ({
     open: false,
+    mode: "schedule",
     selectedInterview: undefined,
 
-    openModal: (interview) =>
-      set({ open: true, selectedInterview: interview }),
+    openModal: ({ mode, interview }) =>
+      set({
+        open: true,
+        mode,
+        selectedInterview: interview,
+      }),
 
     closeModal: () =>
-      set({ open: false, selectedInterview: undefined }),
+      set({
+        open: false,
+        mode: "schedule",
+        selectedInterview: undefined,
+      }),
   }));

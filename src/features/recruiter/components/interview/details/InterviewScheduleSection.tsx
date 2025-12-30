@@ -25,7 +25,6 @@ export function InterviewScheduleSection({
   const end = interview.endTime ? new Date(interview.endTime) : null;
 
   const canJoin =
-    lastStatus === "Scheduled" &&
     start &&
     end &&
     now >= start &&
@@ -45,7 +44,7 @@ export function InterviewScheduleSection({
       <CardContent className="p-4 space-y-3">
         <h3 className="font-medium">Interview</h3>
 
-        {lastStatus === "Scheduled" ? (
+        {lastStatus === "Scheduled"||lastStatus ==="Rescheduled" ? (
           <>
             <p className="text-sm text-muted-foreground">
               {start?.toLocaleString()} – {end?.toLocaleString()}
@@ -79,14 +78,17 @@ export function InterviewScheduleSection({
               {/* Reschedule */}
               <Button
                 variant="outline"
-                onClick={() => openModal(interview)}
+                onClick={() => openModal({
+    mode: "reschedule",
+    interview,
+  })}
               >
                 Reschedule
               </Button>
             </div>
           </>
         ) : (
-          <Button onClick={() => openModal()}>
+          <Button onClick={() => openModal({mode:"schedule"})}>
             Schedule Interview
           </Button>
         )}

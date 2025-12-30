@@ -27,6 +27,7 @@ export function JobDetails({ job }: JobDetailsProps) {
     applyNowJOb.mutate(data)
   }
 const isClosed = job.status === "closed";
+const isPaused=job.status==="paused"
 const isApplied = job.hasApplied;
 
   return (
@@ -51,7 +52,7 @@ const isApplied = job.hasApplied;
 
           <Button
   className="w-full mt-4"
-  disabled={isClosed || isApplied}
+  disabled={isClosed || isApplied || isPaused}
   onClick={() => {
     if (!isClosed && !isApplied) {
       setIsOpen(true);
@@ -60,7 +61,7 @@ const isApplied = job.hasApplied;
 >
   
   {isClosed
-    ? "Job Closed"
+    ? "Job Closed":isPaused?"Job Blocked"
     : isApplied
     ? "Already Applied"
     : "Apply Now"}

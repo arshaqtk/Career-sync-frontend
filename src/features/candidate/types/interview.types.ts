@@ -28,4 +28,8 @@ export interface CandidateInterview {
   endTime: string
   meetingLink?: string
   notes?: string
+   statusHistory?: {
+      status: InterviewStatus;
+      changedAt: string;
+    }[];
 }

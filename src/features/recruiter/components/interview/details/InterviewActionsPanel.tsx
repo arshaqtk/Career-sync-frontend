@@ -16,6 +16,7 @@ import {
 import type { InterviewDetails } from "../../../types/interview-details.types";
 import { InterviewStatusBadge } from "../list/InterviewStatusBadge";
 import { useUpdateInterviewStatusStore } from "@/features/recruiter/store/interviewUpdateStatusDialog.store";
+import { useInterviewScheduleModalStore } from "@/features/recruiter/store/interviewScheduleModal.store";
 
 export function InterviewActionsPanel({
   interview,
@@ -23,7 +24,7 @@ export function InterviewActionsPanel({
   interview: InterviewDetails;
 }) {
    const { openModal } = useUpdateInterviewStatusStore();
-
+  const { openModal:scheduleModalOpen } = useInterviewScheduleModalStore();
    const lastStatus =
     interview.statusHistory?.[interview.statusHistory.length - 1]?.status;
 
@@ -64,7 +65,13 @@ export function InterviewActionsPanel({
         {!isCompleted && !isCancelled && (
           <div className="space-y-2">
             {isScheduled ? (
-              <Button className="w-full" size="sm">
+              <Button className="w-full" size="sm" 
+               onClick={() =>
+  scheduleModalOpen({
+    mode: "reschedule",
+    interview,
+  })
+}>
                 <CalendarClock className="mr-2 h-4 w-4" />
                 Reschedule Interview
               </Button>

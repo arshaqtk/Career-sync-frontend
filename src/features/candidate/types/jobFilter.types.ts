@@ -3,4 +3,5 @@ export type JobFilters = {
   jobType: "all"|"full-time" | "part-time" | "internship";
   location?: string;
   experience?: string;
+  search?:string;
 };

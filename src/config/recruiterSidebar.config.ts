@@ -27,9 +27,9 @@ export const recruiterSidebar: SidebarItem[] = [
     icon: "Calendar",
     path: "/recruiter/interviews",
   },
-  {
-    label: "Analytics",
-    icon: "BarChart3",
-    path: "/recruiter/analytics",
-  },
+  // {
+  //   label: "Analytics",
+  //   icon: "BarChart3",
+  //   path: "/recruiter/analytics",
+  // },
 ];
