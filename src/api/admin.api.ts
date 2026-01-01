@@ -1,6 +1,5 @@
 import api from "./apiClient"
 
-
 export interface ListFilters  {
   page?: number
   limit?: number
@@ -8,21 +7,16 @@ export interface ListFilters  {
   search?: string
 }
 
+export const getAdminDashboardApi=async()=>{
+  const res = await api.get("/admin/dashboard")
+  return res.data.data
+}
 
 
-export const getRecruitersListApi = async ({
-  page,
-  limit,
-  status,
-  search,
+export const getRecruitersListApi = async ({page, limit,status,search,
 }: ListFilters) => {
   const res = await api.get("/admin/recruiters", {
-    params: {
-      page,
-      limit,
-      status,
-      search,
-    },
+    params: {page, limit, status,search,},
   })
 
   return res.data
@@ -45,19 +39,9 @@ export const unblockRecruiterApi = async (id: string) => {
 }
 
 
-export const getCandidatesListApi = async ({
-  page,
-  limit,
-  status,
-  search,
-}: ListFilters) => {
-  const res = await api.get("/admin/candidates", {
-    params: {
-      page,
-      limit,
-      status,
-      search,
-    },
+export const getCandidatesListApi = async ({ page, limit, status, search,}: ListFilters) => {
+  const res = await api.get("/admin/candidates", {params: {
+      page,  limit,  status,  search, },
   })
 
   return res.data

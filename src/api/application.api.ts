@@ -11,10 +11,16 @@ export const applyToJobApi=async(data:ApplyJobDTO)=>{
     return res.data
 }
 
-export const candidateApplications=async({filters}:{filters:ApplicationFilters})=>{
-    const res=await api.get("/application/my",{params:filters})
-    return res.data
-}
+export const candidateApplications = async ({
+  filters,
+  page,
+  limit,
+}: {   filters: ApplicationFilters;  page: number;  limit: number;}) =>
+     {const res = await api.get("/application/my", {   params: { ...filters, page, limit,},
+  });
+
+  return res.data;
+};
 
 export const candidateApplicationDetailViewApi=async({applicationId}:{applicationId:string}):Promise<CandidateApplicationDetailResponse>=>{
     const res=await api.get(`/application/my/${applicationId}`)

@@ -5,10 +5,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select";
-import { Button } from "@/components/ui/shadcn/button";
 import { Input } from "@/components/ui/shadcn/input";
-import { SlidersHorizontal, Search } from "lucide-react";
 import type { JobFilters } from "../../types/jobFilter.types";
+import { Search } from "lucide-react";
 
 type JobFilterProps = {
   filters: JobFilters;

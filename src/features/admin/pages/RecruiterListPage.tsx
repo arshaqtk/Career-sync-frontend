@@ -54,7 +54,6 @@ export default function RecruitersListPage() {
     )
   }
 
-  console.log(data)
 
   const recruiters = data.recruiters
   const pagination = data.pagination

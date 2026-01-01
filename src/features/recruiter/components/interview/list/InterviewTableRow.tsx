@@ -13,7 +13,7 @@ export function InterviewTableRow({
   interview: InterviewListItem;
 }) {
   const navigate = useNavigate();
-
+console.log(interview)
   return (
     <TableRow>
       <TableCell>{interview.candidateName}</TableCell>
@@ -21,9 +21,10 @@ export function InterviewTableRow({
       <TableCell>{interview.roundType}</TableCell>
 
       <TableCell>
-        {interview.startTime
+        {/* {interview.startTime
           ? new Date(interview.startTime).toLocaleString()
-          : "Not scheduled"}
+          : "Not scheduled"} */}
+          {interview.roundNumber}
       </TableCell>
 
       {/* <TableCell>{interview.mode}</TableCell> */}

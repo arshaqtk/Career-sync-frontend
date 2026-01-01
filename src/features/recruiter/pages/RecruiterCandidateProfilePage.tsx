@@ -11,7 +11,7 @@ import useRecruiterFetchCandidateProfile from "../hooks/useFetchCandidateProfile
 
 export default function RecruiterCandidateProfilePage() {
   const { candidateId } = useParams();
-  console.log(candidateId)
+ 
   const { data, isLoading } = useRecruiterFetchCandidateProfile(candidateId!);
 
   if (isLoading) return <p>Loading...</p>;

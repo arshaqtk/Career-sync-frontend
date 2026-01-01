@@ -6,3 +6,10 @@ export type RecruiterList = {
   jobsPosted: number
   status: "active" | "blocked"
 }
+
+export interface RecruiterCompany {
+  companyName: string
+  companyWebsite?: string
+  companyLocation?: string
+  companyDescription?: string
+}

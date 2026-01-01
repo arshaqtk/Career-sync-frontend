@@ -11,9 +11,10 @@ import type { JobFilters } from "../types/jobFilter.types";
 export default function JobPage() {
 
   const [page, setPage] = useState(1);
-  const [filters, setFilters] = useState<JobFilters>({
+ const [filters, setFilters] = useState<JobFilters>({
   status: "all",
   jobType: "all",
+  search: "",
 });
 
   const { selectedJob, setSelectedJob } = useJobStore();
@@ -25,7 +26,10 @@ export default function JobPage() {
 
   return (
     <div className="my-2">
-      <JobFilter filters={filters} onChange={setFilters} />
+     <JobFilter
+  filters={filters}
+  onChange={setFilters}
+/>
       <div className="flex w-full h-[calc(100vh-70px)] my-3">
         <JobList jobs={jobs?.jobs} onSelect={(job) => setSelectedJob(job)} />
         <JobDetails job={selectedJob} />

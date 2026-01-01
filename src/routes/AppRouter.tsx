@@ -11,7 +11,7 @@ import CandidateProfilePage from "@/features/candidate/pages/profile";
 import EditProfilePage from "@/features/candidate/pages/editProfile";
 
 // Recruiter pages
-// import RecruiterDashboard from "@/features/recruiter/pages/dashboard";
+import RecruiterDashboard from "@/features/recruiter/pages/RecruiterDashboardPage";
 import RecruiterJobsPage from "@/features/recruiter/pages/RecruiterJobPage";
 import JobApplicantsPage from "@/features/recruiter/pages/RecruiterJobApplicationsPage";
 import ApplicantDetailsPage from "@/features/recruiter/pages/ApplicationDetailsViewPage";
@@ -42,6 +42,7 @@ import CandidateListPage from "@/features/admin/pages/CandidateListPage";
 import CandidateDetailPage from "@/features/admin/pages/CandidateDetailPage";
 import JobsListPage from "@/features/admin/pages/AdminJobsListPage";
 import AdminJobDetailPage from "@/features/admin/pages/AdminJobDetailPage";
+import AdminDashboardPage from "@/features/admin/pages/AdminDashboardPage";
 
 export default function AppRouter() {
     return (
@@ -67,7 +68,7 @@ export default function AppRouter() {
                 {/* ---------- Recruiter Routes ---------- */}
                 <Route path="/recruiter" element={<RecruiterLayout />}>
                     <Route element={<ProtectedRoute role="recruiter" />}>
-                        {/* <Route index element={<RecruiterDashboard />} /> */}
+                        <Route index element={<RecruiterDashboard />} />
                         <Route path="profile" element={<RecruiterProfilePage />} />
                         <Route path="profile/edit" element={< RecruiterEditProfilePage/>} />
                         <Route path="jobs" element={<RecruiterJobsPage />} />
@@ -84,6 +85,7 @@ export default function AppRouter() {
 {/* -------------------Admin Routes----------------------------------- */}
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route element={<ProtectedRoute role="admin" />}>
+                    <Route index element={<AdminDashboardPage />} />
                         <Route path="recruiters" element={<RecruitersListPage />} />
                         <Route path="recruiters/:id" element={<RecruiterDetailPage />} />
                         <Route path="candidates" element={<CandidateListPage />} />

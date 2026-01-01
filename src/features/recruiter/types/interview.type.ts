@@ -18,6 +18,7 @@ export type InterviewListItem = {
   candidateName: string;
   jobTitle: string;
   roundType: string;
+  roundNumber:number;
   startTime?: string;
   status: InterviewStatus;
 };

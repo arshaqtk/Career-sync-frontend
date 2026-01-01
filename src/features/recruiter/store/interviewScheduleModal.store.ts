@@ -1,16 +1,16 @@
 import { create } from "zustand";
-import type { InterviewDetails } from "../types/interview-details.types";
+import type { ResecheduleInterviewPayload } from "../types/scheduledInterview.types";
 
 type InterviewScheduleMode = "schedule" | "reschedule";
 
 type InterviewScheduleModalState = {
   open: boolean;
   mode: InterviewScheduleMode;
-  selectedInterview?: InterviewDetails;
+  selectedInterview?: ResecheduleInterviewPayload;
 
   openModal: (params: {
     mode: InterviewScheduleMode;
-    interview?: InterviewDetails;
+    interview?: ResecheduleInterviewPayload;
   }) => void;
 
   closeModal: () => void;

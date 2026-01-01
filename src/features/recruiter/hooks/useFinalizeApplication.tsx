@@ -11,6 +11,7 @@ type UpdateApplicationResponse = {
 export const useFinalizeApplicantStatus=()=>{
     const queryClient=useQueryClient();
     return useMutation<UpdateApplicationResponse,unknown,{applicationId:string,status:SelectedOrRejected,note:string}>({
+      
         mutationFn:async({applicationId,status,note})=>RecruiterFinalizeApplicationStatusApi({applicationId,status,note}),
          onError:()=>{
             toast.error("Status updation failed")

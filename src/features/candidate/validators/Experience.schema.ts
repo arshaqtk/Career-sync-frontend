@@ -1,35 +1,20 @@
-import z from "zod";
+import { z } from "zod";
 
 export const experienceSchema = z.object({
-  _id:z.string().optional(),
-  company: z.string().min(2, "Company is required"),
-  role: z.string().min(2, "Role is required"),
+  _id: z.string().optional(),
 
+  company: z.string().min(1),
+  role: z.string().min(1),
 
-  startDate: z.string("Start date is required"),
-
-  endDate: z.date().optional().nullable().transform(val => val ?? undefined),
-
-  location: z.string().optional(),
-  logoUrl: z.string().optional().nullable(),
   description: z.string().optional(),
 
-  // responsibilities: z.array(
-  //   z.object({ value: z.string().min(1) })
-  // ).optional(),
+  skills: z.string().optional(), // 👈 STRING IN FORM
 
-skills: z.preprocess(
-    (val) => {
-      if (!val) return [];
-      if (typeof val === "string") {
-        return val.split(",").map((s) => s.trim());
-      }
-      return val;
-    },
-    z.array(z.string())
-  ),
+  location: z.string().optional(),
 
   jobType: z.enum(["full-time", "part-time", "internship"]),
+
+  startDate: z.date(),
+  endDate: z.date().optional(),
 });
 
-export type ExperienceFormSchema = z.infer<typeof experienceSchema>;

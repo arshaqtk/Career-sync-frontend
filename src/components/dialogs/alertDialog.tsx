@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/shadcn/alert-dialog"
 import { Button } from "@/components/ui/shadcn/button"
 
-export function AlertDialogComponent({title,description,}) {
+export function AlertDialogComponent() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>

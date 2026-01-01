@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { Users, Briefcase, Shield, BarChart } from "lucide-react"
+import { Users, Briefcase, BarChart } from "lucide-react"
 
 const navItems = [
   { label: "Dashboard", icon: BarChart, to: "/admin" },

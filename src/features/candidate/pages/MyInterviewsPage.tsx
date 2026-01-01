@@ -3,6 +3,7 @@ import { useCandidateInterviews } from "../hooks/useCandidateInterviews"
 import { InterviewListTabs } from "../components/interview/InterviewListTabs"
 import { InterviewListCard } from "../components/interview/InterviewListCard"
 import { InterviewEmptyState } from "../components/interview/InterviewEmptyState"
+import type { CandidateInterview } from "../types/interview.types"
 
 export default function MyInterviewsPage() {
   const [tab, setTab] = useState("upcoming")
@@ -22,7 +23,7 @@ console.log(data)
         <InterviewEmptyState />
       ) : (
         <div className="space-y-4">
-          {interviews.map((interview) => (
+          {interviews.map((interview:CandidateInterview) => (
             <InterviewListCard
               key={interview._id}
               interview={interview}

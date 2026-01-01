@@ -6,6 +6,7 @@ export const QUERY_KEYS = {
     all: ["user"] as const,
     profile: () => [...QUERY_KEYS.user.all, "profile"] as const,
     byId: (id: string) => [...QUERY_KEYS.user.all, id] as const,
+     ProfileStats: ["recruiter", "profile","stats"] as const,
   },
 
   jobs: {
@@ -29,14 +30,14 @@ export const QUERY_KEYS = {
     all: ["applications"] as const,
 
     byCandidate: (
-      candidateId: string,
-      filters?: ApplicationFilters
+      candidateId: string,page:number,limit:number,
+      filters?: ApplicationFilters,
     ) =>
       [
         ...QUERY_KEYS.applications.all,
         "candidate",
         candidateId,
-        filters,
+        filters,page,limit
       ] as const,
 
     byJob: (
@@ -81,4 +82,9 @@ export const QUERY_KEYS = {
      profile: () => [...QUERY_KEYS.user.all, "profile"] as const,
      ProfileStats: ["recruiter", "profile","stats"] as const,
   },
-};
+
+  admin:{
+  dashboard: ["admin", "dashboard"] as const,
+}
+  }
+

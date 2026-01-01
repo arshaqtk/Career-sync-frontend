@@ -19,3 +19,35 @@ export type ScheduleInterviewPayload = {
     }[];
   scheduleMode?: "initial" | "reschedule" | "next_round";
 };
+
+
+export type ResecheduleInterviewPayload = {
+  _id?: string;
+
+  candidate?: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+
+  job?: {
+    _id: string;
+    title: string;
+  };
+
+  roundType: InterviewRoundType;
+  mode: "Online" | "Offline";
+
+  startTime?: string;
+  endTime?: string;
+  meetingLink?: string;
+roundNumber:number;
+  status?: InterviewStatus;
+ timezone?: string;
+  statusHistory?: {
+    status: InterviewStatus;
+    changedAt: string;
+  }[];
+
+  notes?: string;
+};

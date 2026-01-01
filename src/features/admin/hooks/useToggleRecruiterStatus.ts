@@ -1,7 +1,12 @@
 import { blockRecruiterApi, unblockRecruiterApi } from "@/api/admin.api"
-import { useMutation } from "@tanstack/react-query"
+import { handleRQError } from "@/lib/react-query/errorHandler"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { toast } from "sonner"
+import { QUERY_KEYS } from "@/config/queryKeys"
 
 export function useRecruiterStatusAction() {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: ({
       recruiterId,
@@ -23,5 +28,23 @@ export function useRecruiterStatusAction() {
 
       return unblockRecruiterApi(recruiterId)
     },
+     onSuccess: (_, variables) => {
+      const { recruiterId, currentStatus } = variables
+     
+      toast.success(
+        currentStatus === "active"
+          ? "Recruiter blocked successfully"
+          : "Recruiter unblocked successfully"
+      )
+
+     queryClient.invalidateQueries({
+  queryKey: QUERY_KEYS.admin.dashboard,
+})
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "recruiter", recruiterId],
+      })
+    },
+
+    onError: handleRQError,
   })
 }

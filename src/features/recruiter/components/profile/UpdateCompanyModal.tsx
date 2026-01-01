@@ -5,20 +5,26 @@ import { Input } from "@/components/ui/shadcn/input"
 import { Textarea } from "@/components/ui/shadcn/textarea"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/shadcn/dialog"
 import { AlertDialogHeader } from "@/components/ui/shadcn/alert-dialog"
+import type { RecruiterCompany, UpdateRecruiterCompanyPayload } from "../../types/Recruiter.type"
 
-export function UpdateCompanyModal({ open, onClose, company }) {
+interface UpdateCompanyModalProps {
+  open: boolean
+  onClose: () => void
+  company?: RecruiterCompany
+}
+export function UpdateCompanyModal({ open, onClose, company }:UpdateCompanyModalProps) {
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      companyName: company?.name || "",
-      companyWebsite: company?.website || "",
-      companyLocation: company?.location || "",
-      companyDescription: company?.description || "",
+      companyName: company?.companyName || "",
+      companyWebsite: company?.companyWebsite || "",
+      companyLocation: company?.companyLocation || "",
+      companyDescription: company?.companyDescription || "",
     },
   })
 
   const { mutate, isPending } = useUpdateRecruiterCompany()
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data:UpdateRecruiterCompanyPayload) => {
     mutate(data, {
       onSuccess: () => {
         onClose()

@@ -52,7 +52,7 @@ export default function RegisterForm() {
       field: "",
     },
   });
-
+console.log(role)
   const onSubmit = (data: RegisterFormInputs) => {
     console.log(data)
     const finalData = { ...data, role };

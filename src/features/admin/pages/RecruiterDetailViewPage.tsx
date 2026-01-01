@@ -54,7 +54,7 @@ export default function RecruiterDetailPage() {
 
         <div className="grid gap-6 md:grid-cols-2">
           <PersonalInfoCard recruiter={recruiter} />
-          <CompanyInfoCard company={recruiter.company} />
+          <CompanyInfoCard company={recruiter.recruiterData} />
         </div>
 
         <RecruiterActivityCard recruiter={recruiter} />

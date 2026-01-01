@@ -50,6 +50,12 @@ export const updateProfileEducationApi=async({payload,educationId}:{payload:Educ
     return res.data.data
 }
 
+export const getCandidateProfileStatsApi=async()=>{
+    const res=await api.get("/candidate/profile/stats")
+    return res.data
+}
+
+
 export const updateResumeApi = async (formData: FormData): Promise<IUser> => {
   const res = await api.put(`/candidate/profile/resume`, formData, {
     headers: {

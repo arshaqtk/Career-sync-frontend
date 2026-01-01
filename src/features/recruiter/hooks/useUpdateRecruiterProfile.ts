@@ -24,7 +24,7 @@ export const useUpdateProfileImage=()=>{
      return useMutation<IUser, Error, FormData>({
              mutationFn:updateRecruiterAvatarApi,
              onSuccess:(updatedUser)=>{
-                queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
+                queryClient.setQueryData([QUERY_KEYS.recruiter.profile], updatedUser)
                 toast.success("Profile updated successfully")
                 navigate("/profile")  },
             onError(error: unknown) { {ErrorHandler(error) } }

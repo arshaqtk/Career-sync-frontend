@@ -9,9 +9,9 @@ export function useRecruiterApplicantDetails(applicationId?: string) {
     queryFn: () =>
       recruiterGetApplicantDetailsApi(applicationId as string),
 
-    enabled: !!applicationId, // 🛑 critical safety check
+    enabled: !!applicationId, 
 
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5, 
 
     retry: 1,
 

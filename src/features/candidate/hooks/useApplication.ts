@@ -5,19 +5,32 @@ import { toast } from "sonner"
 import type { ApplicationFilters } from "../types/applicationFilter.types"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 
-
-export const useApplicationData=({filters,candidateId}:{filters:ApplicationFilters,candidateId:string})=>{
-    return useQuery({
-
-        queryKey: QUERY_KEYS.applications.byCandidate(candidateId,filters),
-        queryFn:()=>candidateApplications({filters}),
-        staleTime: 1000 * 60 * 5,
-        retry:1,
-        refetchOnWindowFocus:false,
-        refetchOnMount:true,
-        refetchOnReconnect:false
-    })
-}
+export const useApplicationData = ({candidateId,filters,page,limit}: {
+  candidateId: string;
+  filters: ApplicationFilters;
+  page: number;
+  limit: number;
+}) => {
+  return useQuery({
+    queryKey: QUERY_KEYS.applications.byCandidate(
+      candidateId,
+      page,
+      limit,
+      filters
+    ),
+    queryFn: () =>
+      candidateApplications({
+        filters,
+        page,
+        limit,
+      }),
+    staleTime: 1000 * 60 * 5,
+    retry: 1,
+    refetchOnWindowFocus: false,
+    refetchOnMount: true,
+    refetchOnReconnect: false,
+  });
+};
 export const useApplyNow=()=>{
     const queryClient=useQueryClient()
     return useMutation({

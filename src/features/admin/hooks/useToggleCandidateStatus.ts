@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import {
   blockCandidateApi,
   unblockCandidateApi,
@@ -6,6 +6,7 @@ import {
 import { handleRQError } from "@/lib/react-query/errorHandler"
 
 export function useCandidateStatusAction() {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({
       candidateId,
@@ -24,6 +25,19 @@ export function useCandidateStatusAction() {
       }
 
       return unblockCandidateApi(candidateId)
-    },onError:(error: unknown)=>{handleRQError(error) }
+    }, onSuccess: (_, variables) => {
+      const { candidateId } = variables
+
+      
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "candidates"],
+      })
+
+      
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "candidates", candidateId],
+      })
+    },
+    onError:(error: unknown)=>{handleRQError(error) }
   })
 }

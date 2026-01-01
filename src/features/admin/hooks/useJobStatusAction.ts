@@ -19,7 +19,7 @@ export function useAdminJobStatusAction() {
       currentStatus: JobStatus
       reason?: string
     }) => {
-      // ✅ Admin rules ONLY
+      
       if (currentStatus === "active" || currentStatus === "closed") {
         if (!reason) {
           throw new Error("Reason is required to block job")

@@ -10,8 +10,8 @@ export function InterviewTableHeader() {
       <TableRow>
         <TableHead>Candidate</TableHead>
         <TableHead>Job</TableHead>
+        <TableHead>Type</TableHead>
         <TableHead>Round</TableHead>
-        <TableHead>Date & Time</TableHead>
         <TableHead>Status</TableHead>
         <TableHead />
       </TableRow>

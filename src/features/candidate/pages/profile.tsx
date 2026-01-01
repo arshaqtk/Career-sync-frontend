@@ -5,11 +5,13 @@ import { ProfileStatCard } from "../components/profile/ProfileStatCard";
 import { ProfileTabs } from "../components/profile/ProfileTabs";
 import { FileText, Video, Award, Clock } from "lucide-react";
 import useUserData from "@/hooks/useUserData";
+import useFetchCandidateProfileStats from "../hooks/useProfileStats";
 
 export default function CandidateProfilePage() {
   const { data: user, isLoading, error } = useUserData();
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Failed to load user</p>;
+  const {data:stats, isLoading:statsLoading, error:statsError }=useFetchCandidateProfileStats()
+  if (isLoading||statsLoading) return <p>Loading...</p>;
+  if (error||statsError) return <p>Failed to load user</p>;
   if (!user) return <p>No user found</p>;
 
   const { name, email, phone, profilePictureUrl } = user;
@@ -29,22 +31,22 @@ export default function CandidateProfilePage() {
         <ProfileStatsRow>
           <ProfileStatCard
             icon={<FileText size={20} />}
-            value="24"
+            value={stats.totalApplications}
             label="Applications Submitted"
           />
           <ProfileStatCard
             icon={<Video size={20} />}
-            value="8"
+            value={stats.totalInterviews}
             label="Interviews Attended"
           />
           <ProfileStatCard
             icon={<Award size={20} />}
-            value="3"
+            value={stats.offersReceived}
             label="Offers Received"
           />
           <ProfileStatCard
             icon={<Clock size={20} />}
-            value="4+"
+            value={stats.yearsOfExperience}
             label="Years of Experience"
           />
         </ProfileStatsRow>

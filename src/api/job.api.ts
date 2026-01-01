@@ -7,8 +7,8 @@ export const fetchAllJobs=async({page=1, limit=5,filters}: {
       page: number;
       limit: number;
     filters:JobFilters})=>{
-        const {jobType,status}=filters
-     const res= await api.get(`/job/jobs/?page=${page}&limit=${limit}&status=${status}&jobType=${jobType}`)
+        const {jobType,status,search}=filters
+     const res= await api.get(`/job/jobs/?page=${page}&limit=${limit}&status=${status}&jobType=${jobType}&search=${search}`)
      console.log(res.data)
     return res.data
 }

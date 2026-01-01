@@ -11,7 +11,6 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/shadcn/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar";
-import { Input } from "@/components/ui/shadcn/input";
 import useLogout from "@/hooks/useLogout";
 import useUserData from "@/hooks/useUserData";
 import { Spinner } from "../ui/shadcn/spinner";
@@ -59,10 +58,10 @@ export default function CandidateNavbar() {
       <div className="flex items-center gap-6">
 
         {/* Search bar */}
-        <Input
+        {/* <Input
           placeholder="Search jobs..."
           className="hidden lg:block max-w-md"
-        />
+        /> */}
 
         {/* Notifications */}
         <Bell className="cursor-pointer" />

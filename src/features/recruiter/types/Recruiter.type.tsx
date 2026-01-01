@@ -29,3 +29,18 @@ export interface RecruiterProfileDetails {
     companyLocation?:string
   }
 }
+
+
+export interface RecruiterCompany {
+  companyName: string
+  companyWebsite?: string
+  companyLocation?: string
+  companyDescription?: string
+}
+
+export interface UpdateRecruiterCompanyPayload {
+  companyName: string
+  companyWebsite?: string
+  companyLocation?: string
+  companyDescription?: string
+}

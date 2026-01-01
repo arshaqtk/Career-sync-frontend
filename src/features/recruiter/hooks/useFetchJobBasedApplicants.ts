@@ -8,8 +8,7 @@ export function useRecruiterJobApplications(jobId?: string) {
 
     queryFn: () => recruiterJobApplicationsApi(jobId as string),
 
-    enabled: !!jobId, // 🛑 prevents unnecessary API call
-
-    staleTime: 1000 * 60, // 1 minute
+    enabled: !!jobId, 
+    staleTime: 1000 * 60, 
   });
 }

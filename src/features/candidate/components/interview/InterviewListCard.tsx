@@ -31,6 +31,7 @@ export function InterviewListCard({
     : null
 
  const canJoin =
+ interview.status!="Cancelled"&&
  start&&end&&
   Boolean(interview.meetingLink) &&
   Boolean(start) &&
@@ -39,6 +40,8 @@ export function InterviewListCard({
   now <= end;
 
   const tooltipMessage = (() => {
+    if(interview.status=="Cancelled")
+      return "Interview is cancelled"
     if (!interview.meetingLink)
       return "Meeting link not available"
     if (!start || !end)
