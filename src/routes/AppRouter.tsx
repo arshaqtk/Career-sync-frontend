@@ -43,6 +43,7 @@ import CandidateDetailPage from "@/features/admin/pages/CandidateDetailPage";
 import JobsListPage from "@/features/admin/pages/AdminJobsListPage";
 import AdminJobDetailPage from "@/features/admin/pages/AdminJobDetailPage";
 import AdminDashboardPage from "@/features/admin/pages/AdminDashboardPage";
+import { NotificationPage } from "@/features/notifications/pages/notificationPage";
 
 export default function AppRouter() {
     return (
@@ -53,6 +54,7 @@ export default function AppRouter() {
                 <Route element={<CandidateLayout />}>
                     <Route element={<ProtectedRoute role="candidate" />}>
                         <Route path="/" element={<LandingPage />} />
+                        <Route path="/notifications" element={<NotificationPage />} />
                         <Route path="/jobs" element={<CandidateJobsPage />} />
                         <Route path="/applications" element={<ApplicationsPage />} />
                         <Route path="/applications/:applicationId" element={<CandidateApplicationDetailPage />} />

@@ -7,15 +7,22 @@ export type InterviewStatus =
 
 export type InterviewMode = "Online" | "Offline"
 
-export interface InterviewTimelineItem {
-  _id:string
-  roundNumber: number
-  roundType: string
-  status: InterviewStatus
-  date: string
-  startTime:string
+export interface StatusHistoryItem {
+  status: InterviewStatus;
+  changedAt: string; // ISO date string
+  notes?: string;
 }
 
+export interface InterviewTimelineItem {
+  id: string;
+  roundNumber: number;
+  roundType: string;
+  mode: InterviewMode;
+  status: InterviewStatus;
+  startTime?: string;
+  endTime?: string;
+  statusHistory?: StatusHistoryItem[];
+}
 export interface CandidateInterview {
   _id: string
   jobTitle: string

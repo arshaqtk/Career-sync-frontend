@@ -34,6 +34,7 @@ export const recruiterUpdateInterviewStatusApi=async({interviewId,payload}:{inte
     notes?:string,
     roundNumber:number
 }})=>{
+    console.log(payload)
 const res=await api.patch(`interview/recruiter/interviews/${interviewId}/status`,payload)
     return res.data
 }

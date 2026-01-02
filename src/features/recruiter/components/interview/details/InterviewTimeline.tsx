@@ -12,7 +12,7 @@ type InterviewStatus = "Pending" | "Scheduled" | "Rescheduled" | "Completed" | "
 type TimelineItem = {
   status: InterviewStatus;
   changedAt: string;
-  note?: string;
+  notes?: string;
 };
 
 const statusConfig: Record<
@@ -141,9 +141,9 @@ export function InterviewTimeline({
                         </div>
                       </div>
 
-                      {item.note && (
+                      {item.notes && (
                         <p className="text-sm text-gray-700 mt-2 leading-relaxed">
-                          {item.note}
+                          {item.notes}
                         </p>
                       )}
 
@@ -185,45 +185,3 @@ export function InterviewTimeline({
   );
 }
 
-// Demo Component
-export default function Demo() {
-  const sampleTimeline: TimelineItem[] = [
-    {
-      status: "Pending",
-      changedAt: "2024-01-15T10:00:00Z",
-      note: "Interview request submitted by hiring manager"
-    },
-    {
-      status: "Scheduled",
-      changedAt: "2024-01-16T14:30:00Z",
-      note: "Interview scheduled for January 25th at 2:00 PM with Sarah Johnson"
-    },
-    {
-      status: "Rescheduled",
-      changedAt: "2024-01-20T09:15:00Z",
-      note: "Candidate requested reschedule due to conflict. New time: January 27th at 3:00 PM"
-    },
-    {
-      status: "Completed",
-      changedAt: "2024-01-27T16:00:00Z",
-      note: "Interview completed successfully. Feedback submitted by interviewer."
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
-      <div className="max-w-3xl mx-auto">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Interview Status</h1>
-          <p className="text-gray-600">Track the progress of your interview</p>
-        </div>
-        
-        <InterviewTimeline 
-          timeline={sampleTimeline}
-          currentStatus="Completed"
-          onReschedule={() => alert('Reschedule clicked!')}
-        />
-      </div>
-    </div>
-  );
-}

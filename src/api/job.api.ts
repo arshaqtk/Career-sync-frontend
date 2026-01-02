@@ -13,7 +13,15 @@ export const fetchAllJobs=async({page=1, limit=5,filters}: {
     return res.data
 }
 
+export const fetchJobSuggestions = async (query: string) => {
+  if (!query) return []
 
+  const res = await api.get("job/jobs/suggestions", {
+    params: { query },
+  })
+
+  return res.data.data as string[]
+}
 
 //-----------------------------------Recruiter----------------------------------------
 export const RecruiterJobs=async({page=1, limit=5,filters}: {

@@ -6,11 +6,12 @@ import {
   SelectValue,
 } from "@/components/ui/shadcn/select";
 // import { Button } from "@/components/ui/shadcn/button";
-import { Input } from "@/components/ui/shadcn/input";
+// import { Input } from "@/components/ui/shadcn/input";
 // import { SlidersHorizontal, Search } from "lucide-react";
 import type { JobFilters } from "../../types/jobFilter.types";
 import { Search } from "lucide-react";
-
+import { AutoCompleteInput } from "@/components/ui/AutoCompleteInput"
+import { fetchJobSuggestions } from "@/api/job.api"
 type JobFilterProps = {
   filters: JobFilters;
   onChange: (filters: JobFilters) => void;
@@ -35,14 +36,20 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
         {/* 🔍 Search */}
         <div className="relative">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
+          {/* <Input
             placeholder="Search jobs..."
             className="pl-8 w-[220px]"
             value={filters.search ?? ""}
             onChange={(e) =>
               updateFilter("search", e.target.value)
             }
-          />
+          /> */}
+          <AutoCompleteInput
+  value={filters.search ?? ""}
+  onChange={(value) => updateFilter("search", value)}
+  placeholder="Search jobs..."
+  fetchSuggestions={fetchJobSuggestions}
+/>
         </div>
 
         {/* Status */}
@@ -52,7 +59,7 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
             updateFilter("status", value as JobFilters["status"])
           }
         >
-          <SelectTrigger className="w-[160px]">
+          <SelectTrigger className="w-40">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
@@ -69,7 +76,7 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
             updateFilter("jobType", value as JobFilters["jobType"])
           }
         >
-          <SelectTrigger className="w-[160px]">
+          <SelectTrigger className="w-40">
             <SelectValue placeholder="Job Type" />
           </SelectTrigger>
           <SelectContent>

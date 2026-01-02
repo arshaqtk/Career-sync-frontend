@@ -12,12 +12,12 @@ export const CandidateDetailsCard=({ application }: { application: ApplicationDe
         <p><strong>Current Role:</strong> {application.currentRole}</p>
         <p><strong>Experience:</strong> {application.experience}</p>
 
-        {application.expectedSalary && (
-          <p><strong>Expected Salary:</strong> ₹{application.expectedSalary}</p>
-        )}
+       
+          <p><strong>Expected Salary:</strong> ₹{application.expectedSalary||0}</p>
+      
 
         {application.noticePeriod && (
-          <p><strong>Notice Period:</strong> {application.noticePeriod}</p>
+          <p><strong>Notice Period:</strong> {application.noticePeriod||0}</p>
         )}
       </CardContent>
     </Card>

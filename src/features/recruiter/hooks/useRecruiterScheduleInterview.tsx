@@ -46,7 +46,6 @@ export const useScheduleInterview = () => {
       }
     },
     onError:(error)=>{
-           closeModal()
            handleRQError(error)
      },
   })

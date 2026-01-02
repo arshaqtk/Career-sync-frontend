@@ -64,7 +64,9 @@ export default function CandidateNavbar() {
         /> */}
 
         {/* Notifications */}
-        <Bell className="cursor-pointer" />
+        <button onClick={() => navigate("/notifications")}>
+  <Bell className="cursor-pointer" />
+</button>
 
         {/* Profile Dropdown */}
         <DropdownMenu>

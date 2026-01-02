@@ -17,3 +17,30 @@ export function combineDateAndTime(
   // Store as UTC ISO string
   return localDate.toISOString();
 }
+
+export const formatDateTime = (dateString?: string): string => {
+  if (!dateString) return "Not scheduled";
+
+  const date = new Date(dateString);
+
+  return date.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
+export const formatDuration = (
+  start?: string,
+  end?: string
+): string | null => {
+  if (!start || !end) return null;
+
+  const duration =
+    (new Date(end).getTime() - new Date(start).getTime()) / 60000;
+
+  return `${Math.round(duration)} min`;
+};
