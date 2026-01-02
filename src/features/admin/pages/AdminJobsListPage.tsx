@@ -7,7 +7,6 @@ import {
   // CardTitle,
 } from "@/components/ui/shadcn/card"
 import { Input } from "@/components/ui/shadcn/input"
-import { Spinner } from "@/components/ui/shadcn/spinner"
 import { Button } from "@/components/ui/shadcn/button"
 
 import { JobTable } from "../components/jobs/ListView/JobTable"
@@ -16,6 +15,7 @@ import { ConfirmStatusDialog } from "../components/dialogs/confirmBlockJob"
 import { useAdminJobsList } from "../hooks/useAdminJobsList"
 import { useAdminJobStatusAction } from "../hooks/useJobStatusAction"
 import { PageHeader } from "../components/shared/PageHeader"
+import { SectionSkeleton } from "@/components/Loaders"
 
 type JobStatus = "active" | "blocked" | "closed"
 
@@ -38,13 +38,7 @@ export default function JobsListPage() {
   const [currentStatus, setCurrentStatus] =
     useState<JobStatus | null>(null)
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <Spinner />
-      </div>
-    )
-  }
+ if (isLoading) return <SectionSkeleton/>
 
   const jobs = data?.data.jobs ?? []
   const pagination = data?.data.pagination

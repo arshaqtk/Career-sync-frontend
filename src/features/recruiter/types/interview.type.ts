@@ -43,7 +43,6 @@ export interface Interview {
   status: InterviewStatus;
   startTime: Date;
   endTime: Date;
-  durationMinutes?: number;
   statusHistory?: StatusHistory[];
   mode?: "Online" | "Offline";
   notes?: string;

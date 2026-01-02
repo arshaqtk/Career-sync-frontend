@@ -2,8 +2,8 @@ export interface Experience {
   _id?: string;
   company: string;
   role: string;
-  startDate: Date; 
-  endDate?: Date; 
+  startDate: string; 
+  endDate?: string; 
   location?: string;
   description?: string;
   logoUrl?:string,

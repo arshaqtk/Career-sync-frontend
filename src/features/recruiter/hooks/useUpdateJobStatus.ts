@@ -27,6 +27,7 @@ export const useUpdateJobstatus=()=>{
             toast.error("Status updation failed")
         },
         onSuccess:(data)=>{
+            queryClient.invalidateQueries({queryKey:QUERY_KEYS.jobs.lists()})
             toast.success(data?.message || "Status updated")
         },
         onSettled:()=>{

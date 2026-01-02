@@ -4,15 +4,18 @@ import { InterviewListTabs } from "../components/interview/InterviewListTabs"
 import { InterviewListCard } from "../components/interview/InterviewListCard"
 import { InterviewEmptyState } from "../components/interview/InterviewEmptyState"
 import type { CandidateInterview } from "../types/interview.types"
+import { SectionSkeleton } from "@/components/Loaders"
 
 export default function MyInterviewsPage() {
   const [tab, setTab] = useState("upcoming")
   const { data, isLoading } = useCandidateInterviews()
 
-  if (isLoading) return <p>Loading interviews...</p>
+  if (isLoading) {
+      return <SectionSkeleton />
+    }
 
   const interviews = data?.[tab] ?? []
-console.log(data)
+
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <h1 className="text-2xl font-bold">My Interviews</h1>

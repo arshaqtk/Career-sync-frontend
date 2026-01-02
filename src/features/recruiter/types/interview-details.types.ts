@@ -30,9 +30,9 @@ export type InterviewDetails = {
   startTime?: string;
   endTime?: string;
   meetingLink?: string;
+   location?:string,
 roundNumber:number;
   status: InterviewStatus;
- timezone?: string;
   statusHistory: {
     status: InterviewStatus;
     changedAt: string;

@@ -1,20 +1,30 @@
 import { z } from "zod";
 
-export const experienceSchema = z.object({
-  _id: z.string().optional(),
+export const experienceFormSchema = z
+  .object({
+    _id: z.string().optional(),
 
-  company: z.string().min(1),
-  role: z.string().min(1),
+    company: z.string().min(1, "Company is required"),
+    role: z.string().min(1, "Role is required"),
 
-  description: z.string().optional(),
+    description: z.string().optional(),
+    skills: z.string().optional(),
+    location: z.string().optional(),
 
-  skills: z.string().optional(), // 👈 STRING IN FORM
+    jobType: z.enum(["full-time", "part-time", "internship"]),
 
-  location: z.string().optional(),
+    startDate: z.date({
+      message: "Start date is required",
+    }),
 
-  jobType: z.enum(["full-time", "part-time", "internship"]),
-
-  startDate: z.date(),
-  endDate: z.date().optional(),
-});
-
+    endDate: z.date().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.endDate && data.endDate < data.startDate) {
+      ctx.addIssue({
+        path: ["endDate"],
+        message: "End date cannot be before start date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  });

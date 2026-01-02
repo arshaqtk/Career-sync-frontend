@@ -9,17 +9,19 @@ import { CandidateProfileCard } from "../components/Candidates/DetailView/Candid
 import { CandidateSkillsCard } from "../components/Candidates/DetailView/CandidateSkillsCard"
 import { CandidateExperienceCard } from "../components/Candidates/DetailView/CandidateExperienceCard"
 import { CandidateActionCard } from "../components/Candidates/DetailView/CandidateActionCard"
+import { SectionSkeleton } from "@/components/Loaders"
 
 type Status = "active" | "blocked"
 
 export default function CandidateDetailPage() {
   const { id } = useParams()
-  const { data } = useAdminCandidateDetail(id!)
+  const { data ,isLoading} = useAdminCandidateDetail(id!)
   const { mutate, isPending } = useCandidateStatusAction()
 
 
   const [dialogOpen, setDialogOpen] = useState(false)
   const [currentStatus, setCurrentStatus] = useState<Status | null>(null)
+ if (isLoading) return <SectionSkeleton/>
 
   if (!data) return null
 

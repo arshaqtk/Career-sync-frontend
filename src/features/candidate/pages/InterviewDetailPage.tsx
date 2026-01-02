@@ -4,12 +4,15 @@ import { InterviewSummaryCard } from "../components/interview/InterviewSummaryCa
 import { InterviewJoinSection } from "../components/interview/InterviewJoinSection"
 import { InterviewTimeline } from "../components/interview/InterviewTimeline"
 import { InterviewNotes } from "../components/interview/InterviewNotes"
+import { SectionSkeleton } from "@/components/Loaders"
 
 export default function InterviewDetailPage() {
   const { interviewId } = useParams()
   const { data, isLoading } = useCandidateInterviewDetail(interviewId!)
 
-  if (isLoading) return <p>Loading...</p>
+   if (isLoading) {
+      return <SectionSkeleton />
+    }
 
   const { interview, timeline } = data
   console.log(interview)

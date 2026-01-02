@@ -4,6 +4,7 @@ import { createNextRound, rescheduleInterview, scheduleInitialInterview } from "
 import { toast } from "sonner"
 import { QUERY_KEYS } from "@/config/queryKeys"
 import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 type ScheduleInterviewResponse = {
   message: string
@@ -20,15 +21,16 @@ export const useScheduleInterview = () => {
       }
 
       if (payload.scheduleMode === "reschedule") {
-        return rescheduleInterview({payload});
+        if(payload.interviewId){
+          return rescheduleInterview({interviewId:payload.interviewId,payload});
+        }else{
+          toast.error("Something went wrong,try again some times later")
+        }
       }
 
       return scheduleInitialInterview({payload});
     },
-    onError: () => {
-      toast.error("Interview update failed")
-    },
-
+    
     onSuccess: (data, variables) => {
       closeModal()
       toast.success(data?.message || "Interview updated")
@@ -43,5 +45,9 @@ export const useScheduleInterview = () => {
         })
       }
     },
+    onError:(error)=>{
+           closeModal()
+           handleRQError(error)
+     },
   })
 }

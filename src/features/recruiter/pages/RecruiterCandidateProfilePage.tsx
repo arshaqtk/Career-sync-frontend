@@ -8,13 +8,14 @@ import ExperienceCard from "../components/candidate-profile/ExperienceCard";
 import ResumeCard from "../components/candidate-profile/ResumeCard";
 import PortfolioCard from "../components/candidate-profile/PortfolioCard";
 import useRecruiterFetchCandidateProfile from "../hooks/useFetchCandidateProfile";
+import { SectionSkeleton } from "@/components/Loaders";
 
 export default function RecruiterCandidateProfilePage() {
   const { candidateId } = useParams();
  
   const { data, isLoading } = useRecruiterFetchCandidateProfile(candidateId!);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <SectionSkeleton/>
   if (!data) return <p>No candidate found.</p>;
 
   return (

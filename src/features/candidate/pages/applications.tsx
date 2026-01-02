@@ -6,6 +6,7 @@ import type { ApplicationFilters } from "../types/applicationFilter.types";
 import { useState } from "react";
 import { useAuthStore } from "@/store/auth.store";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/shadcn/pagination";
+import { SectionSkeleton } from "@/components/Loaders";
 
 export default function ApplicationsPage() {
   const [filters, setFilters] = useState<ApplicationFilters>({
@@ -27,7 +28,9 @@ export default function ApplicationsPage() {
     limit,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+   if (isLoading) {
+      return <SectionSkeleton />
+    }
   if (error) return <p>Failed to load user</p>;
 
   const { applications, pagination } = data;

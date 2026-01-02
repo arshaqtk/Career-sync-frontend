@@ -1,5 +1,6 @@
 import type { ApplicationFilters } from "@/features/candidate/types/applicationFilter.types";
 import type { JobFilters } from "@/features/candidate/types/jobFilter.types";
+import type { InterviewListFilters } from "@/features/recruiter/types/interview.type";
 
 export const QUERY_KEYS = {
   user: {
@@ -60,8 +61,15 @@ export const QUERY_KEYS = {
 
     lists: () => [...QUERY_KEYS.interviews.all, "list"] as const,
 
-    listByRecruiter: (recruiterId: string) =>
-      [...QUERY_KEYS.interviews.lists(), { recruiterId }] as const,
+    listByRecruiter: (
+      recruiterId: string,
+      filters?: InterviewListFilters
+    ) =>
+      [
+        ...QUERY_KEYS.interviews.lists(),
+        { recruiterId, ...filters },
+      ] as const,
+
 
     listByApplication: (applicationId: string) =>
       [...QUERY_KEYS.interviews.lists(), { applicationId }] as const,

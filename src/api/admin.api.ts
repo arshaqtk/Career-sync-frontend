@@ -1,8 +1,8 @@
 import api from "./apiClient"
 
 export interface ListFilters  {
-  page?: number
-  limit?: number
+  page: number
+  limit: number
   status?: "active" | "blocked" | "closed" | "all"
   search?: string
 }

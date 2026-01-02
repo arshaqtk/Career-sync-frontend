@@ -6,6 +6,7 @@ import type{ InterviewListItem } from "../../../types/interview.type";
 import { InterviewTableHeader } from "./InterviewTableHeader";
 import { InterviewTableRow } from "./InterviewTableRow";
 import { EmptyState } from "../../shared/EmptyState";
+import { TableSkeleton } from "@/components/Loaders";
 
 export function InterviewTable({
   interviews,
@@ -14,7 +15,7 @@ export function InterviewTable({
   interviews?: InterviewListItem[];
   isLoading: boolean;
 }) {
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <TableSkeleton/>
 
   if (!interviews?.length) {
     return <EmptyState message="No interviews found" />;

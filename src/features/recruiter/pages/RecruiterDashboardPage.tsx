@@ -6,12 +6,13 @@ import { RecentApplications } from "../components/dashboard/RecentApplications"
 import { TodaysInterviews } from "../components/dashboard/TodaysInterviews"
 import { HiringFunnel } from "../components/dashboard/HiringFunnel"
 import { useRecruiterDashboard } from "../hooks/useRecruiterDashboard"
+import { SectionSkeleton } from "@/components/Loaders"
 
 export default function RecruiterDashboardPage() {
   const { data, isLoading, isError } = useRecruiterDashboard()
 
   if (isError) return <p>Failed to load dashboard</p>
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <SectionSkeleton/>
 
   return (
     <div className="grid grid-cols-12 gap-6 p-6">

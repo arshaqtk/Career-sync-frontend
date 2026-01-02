@@ -1,4 +1,3 @@
-import { Spinner } from "@/components/ui/shadcn/spinner"
 import { ApplicationHeader } from "../components/applications/application-detail/ApplicationHeader"
 import { ApplicationTimeline } from "../components/applications/application-detail/ApplicationTimeline"
 import { CandidateDetailsCard } from "../components/applications/application-detail/CandidateDetails"
@@ -9,6 +8,7 @@ import { ApplicationStatusCard } from "../components/applications/application-de
 import { useApplicationDetailViewData } from "../hooks/useApplicationDetails"
 import { useParams } from "react-router-dom"
 import { toast } from "sonner"
+import { SectionSkeleton } from "@/components/Loaders"
 
 export const CandidateApplicationDetailPage = () => {
   const { applicationId } = useParams()
@@ -20,9 +20,7 @@ export const CandidateApplicationDetailPage = () => {
   } = useApplicationDetailViewData(applicationId!)
 
   if (isLoading) {
-    return <div className="flex justify-center py-20">
-        <Spinner />
-      </div>
+    return <SectionSkeleton />
   }
 
   if (isError || !application) {

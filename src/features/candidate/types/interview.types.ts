@@ -5,7 +5,7 @@ export type InterviewStatus =
   | "Cancelled"
   | "Rescheduled"
 
-export type InterviewMode = "Video" | "Coding" | "InPerson"
+export type InterviewMode = "Online" | "Offline"
 
 export interface InterviewTimelineItem {
   _id:string
@@ -27,6 +27,7 @@ export interface CandidateInterview {
   startTime: string
   endTime: string
   meetingLink?: string
+  location?:string
   notes?: string
    statusHistory?: {
       status: InterviewStatus;

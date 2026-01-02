@@ -4,8 +4,6 @@ export const scheduleInterviewSchema = z.object({
   date: z.date(),
   startTime: z.string().min(1, "Start time is required"),
   endTime: z.string().min(1, "End time is required"),
-
-  timezone: z.string(),
   mode: z.enum(["Online", "Offline"]),
   roundNumber:z.number().int().positive(),
   roundType: z.enum([
@@ -15,12 +13,7 @@ export const scheduleInterviewSchema = z.object({
     "Final",
   ]),
 
-  durationMinutes: z
-    .number()
-    .int()
-    .positive()
-    .optional(),
-
+ 
   meetingLink: z.string().url().optional(),
   location: z.string().optional(),
 })

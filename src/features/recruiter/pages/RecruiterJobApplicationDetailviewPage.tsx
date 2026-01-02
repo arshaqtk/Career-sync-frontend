@@ -11,6 +11,7 @@ import { useInterviewScheduleModalStore } from "../store/interviewScheduleModal.
 import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types";
 import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
 import { toast } from "sonner";
+import { SectionSkeleton } from "@/components/Loaders";
 
 export default function JobApplicantionDetailPage() {
   const { applicationId } = useParams();
@@ -19,7 +20,7 @@ export default function JobApplicantionDetailPage() {
    const {mutate:scheduleInterview,isPending}=useScheduleInterview()
 
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <SectionSkeleton/>
   if (!data) return <p>No application found.</p>;
   
   const handleScheduleSubmit=(data:Omit<ScheduleInterviewPayload,"scheduleMode">)=>{

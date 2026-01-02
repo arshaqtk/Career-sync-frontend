@@ -5,7 +5,7 @@ interface ApplicationHeaderProps{
         appliedAt:string;
 }
 
-export function ApplicationHeader({ appliedAt, jobTitle,company,status}: ApplicationHeaderProps) {
+export function ApplicationHeader({ appliedAt, jobTitle,company}: ApplicationHeaderProps) {
   
   return (
     <div className="mb-6">

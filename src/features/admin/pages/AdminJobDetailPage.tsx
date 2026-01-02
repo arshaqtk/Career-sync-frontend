@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
-import { Spinner } from "@/components/ui/shadcn/spinner"
 
 import { ConfirmStatusDialog } from "../components/dialogs/confirmBlockJob"
 import { useAdminJobDetail } from "../hooks/useAdminJobDetail"
@@ -13,6 +12,7 @@ import { JobSkillsCard } from "../components/jobs/DetailView/JobSkillsCard"
 import { JobStatsCard } from "../components/jobs/DetailView/JobStatsCard"
 import { RecruiterInfoCard } from "../components/jobs/DetailView/RecruiterInfoCard"
 import { JobActionCard } from "../components/jobs/DetailView/JobActionCard"
+import {  SectionSkeleton } from "@/components/Loaders"
 
 type Status = "active" | "blocked" | "closed"
 
@@ -25,13 +25,7 @@ export default function AdminJobDetailPage() {
   const [currentStatus, setCurrentStatus] =
     useState<Status | null>(null)
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <Spinner />
-      </div>
-    )
-  }
+  if (isLoading) return <SectionSkeleton/>
 
   const job = data.data
 

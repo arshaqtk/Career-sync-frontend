@@ -5,6 +5,7 @@ import { InterviewTable } from "../components/interview/list/InterviewTable";
 import { InterviewsPagination } from "../components/interview/list/InterviewsPagination";
 import { useRecruiterInterviews } from "../hooks/useRecruiterInterviews";
 import type { InterviewListFilters } from "../types/interview.type";
+import { useAuthStore } from "@/store/auth.store";
 
 export default function RecruiterInterviewsPage() {
   const [filters, setFilters] = useState<InterviewListFilters>({
@@ -12,13 +13,10 @@ export default function RecruiterInterviewsPage() {
     search: "",
   });
 
-
+const {user}=useAuthStore()
   const [page, setPage] = useState(1);
 
-  const { data:interviews, isLoading } = useRecruiterInterviews({
-    ...filters,
-    page,
-  });
+  const { data:interviews, isLoading } = useRecruiterInterviews(user?.id as string,{ ...filters, page, });
 
 
   return (

@@ -4,11 +4,8 @@ import { useNavigate } from "react-router-dom"
 import { CandidateTable } from "../components/Candidates/ListView/CandidateTable"
 import { ConfirmStatusDialog } from "../components/dialogs/ConfirmBlockUser"
 import { PageHeader } from "../components/shared/PageHeader"
-
 import { useAdminCandidatesList } from "../hooks/useAdminCandidatesList"
 import { useCandidateStatusAction } from "../hooks/useToggleCandidateStatus"
-
-import { Spinner } from "@/components/ui/shadcn/spinner"
 import { Input } from "@/components/ui/shadcn/input"
 import { Button } from "@/components/ui/shadcn/button"
 import {
@@ -18,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select"
+import { SectionSkeleton } from "@/components/Loaders"
 
 type Status = "active" | "blocked" | "all"
 
@@ -45,13 +43,8 @@ export default function CandidatesListPage() {
   const [currentStatus, setCurrentStatus] =
     useState<"active" | "blocked" | null>(null)
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <Spinner />
-      </div>
-    )
-  }
+  if (isLoading) return <SectionSkeleton/>
+ 
 
   const candidates = data.data.candidates
   const pagination = data.data.pagination

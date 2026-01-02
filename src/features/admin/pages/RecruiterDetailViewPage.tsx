@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
-import { Spinner } from "@/components/ui/shadcn/spinner"
+
 import { useAdminRecruiterDetail } from "../hooks/useAdminRecruiterDetail"
 import { useRecruiterStatusAction } from "../hooks/useToggleRecruiterStatus"
 import { ConfirmStatusDialog } from "../components/dialogs/ConfirmBlockUser"
@@ -9,6 +9,7 @@ import { RecruiterHeader } from "../components/Recruiter/Detailview/RecruiterHea
 import { PersonalInfoCard } from "../components/Recruiter/Detailview/PersonalInfoCard"
 import { CompanyInfoCard } from "../components/Recruiter/Detailview/CompanyInfoCard"
 import { RecruiterActivityCard } from "../components/Recruiter/Detailview/RecruiterActivityCard"
+import { SectionSkeleton } from "@/components/Loaders"
 
 type Status = "active" | "blocked"
 
@@ -21,13 +22,8 @@ export default function RecruiterDetailPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [currentStatus, setCurrentStatus] = useState<Status | null>(null)
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <Spinner />
-      </div>
-    )
-  }
+  if (isLoading) return <SectionSkeleton/>
+ 
 
   if (isError || !data) {
     return (

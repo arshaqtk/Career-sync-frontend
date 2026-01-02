@@ -18,7 +18,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select"
-import { Spinner } from "@/components/ui/shadcn/spinner"
+import { SectionSkeleton } from "@/components/Loaders"
+
 
 type Status = "active" | "blocked" | "all"
 
@@ -46,13 +47,8 @@ export default function RecruitersListPage() {
   const [currentStatus, setCurrentStatus] =
     useState<"active" | "blocked" | null>(null)
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <Spinner />
-      </div>
-    )
-  }
+  if (isLoading) return <SectionSkeleton/>
+ 
 
 
   const recruiters = data.recruiters

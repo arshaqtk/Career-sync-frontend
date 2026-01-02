@@ -6,11 +6,13 @@ import { ProfileTabs } from "../components/profile/ProfileTabs";
 import { FileText, Video, Award, Clock } from "lucide-react";
 import useUserData from "@/hooks/useUserData";
 import useFetchCandidateProfileStats from "../hooks/useProfileStats";
+import { SectionSkeleton } from "@/components/Loaders";
 
 export default function CandidateProfilePage() {
   const { data: user, isLoading, error } = useUserData();
   const {data:stats, isLoading:statsLoading, error:statsError }=useFetchCandidateProfileStats()
-  if (isLoading||statsLoading) return <p>Loading...</p>;
+  if (isLoading||statsLoading) return  <SectionSkeleton />
+     
   if (error||statsError) return <p>Failed to load user</p>;
   if (!user) return <p>No user found</p>;
 

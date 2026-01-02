@@ -41,8 +41,8 @@ export default function ExperienceCard({ experience,className = "" }: Experience
             <div className="text-right">
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Calendar size={14} />
-                <span>{formatRange(startDate, endDate)}</span>
-              </div>
+                <span>{formatRange(startDate, endDate)}</span>             
+                 </div>
               {location && (
                 <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
                   <MapPin size={14} />

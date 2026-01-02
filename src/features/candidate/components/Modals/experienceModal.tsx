@@ -27,12 +27,12 @@ import { cn } from "@/lib/utils";
 import type { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { experienceSchema } from "../../validators/Experience.schema";
+import { experienceFormSchema } from "../../validators/Experience.schema";
 import { ExperienceModalStore } from "../../store/experienceFormModal.store";
 import { useLayoutEffect } from "react";
 import type { Experience } from "../../types/Experience.types";
 
-export type ExperienceFormValues = z.infer<typeof experienceSchema>;
+export type ExperienceFormValues = z.infer<typeof experienceFormSchema>;
 
 export function ExperienceFormModal({
   onSubmit,
@@ -43,7 +43,7 @@ export function ExperienceFormModal({
     ExperienceModalStore();
 
   const form = useForm<ExperienceFormValues>({
-    resolver: zodResolver(experienceSchema),
+    resolver: zodResolver(experienceFormSchema),
     defaultValues: {
       company: "",
       role: "",
@@ -61,7 +61,22 @@ useLayoutEffect(() => {
 
   if (selectedExperience) {
     form.reset({
-      ...selectedExperience,
+      _id: selectedExperience._id,
+      company: selectedExperience.company,
+      role: selectedExperience.role,
+      description: selectedExperience.description,
+      location: selectedExperience.location,
+      jobType: selectedExperience.jobType,
+
+      // ✅ STRING → DATE (THIS IS MANDATORY)
+      startDate: selectedExperience.startDate
+        ? new Date(selectedExperience.startDate)
+        : undefined,
+
+      endDate: selectedExperience.endDate
+        ? new Date(selectedExperience.endDate)
+        : undefined,
+
       skills: selectedExperience.skills?.join(", "),
     });
   } else {
@@ -76,10 +91,11 @@ useLayoutEffect(() => {
       endDate: undefined,
     });
   }
-}, [isOpen, selectedExperience]);
+}, [isOpen, selectedExperience, form]);
+
   const errors = form.formState.errors;
 
- 
+ console.log(form.formState.errors);
 
   return (
     <Dialog
@@ -99,19 +115,25 @@ useLayoutEffect(() => {
 
        <form
   className="space-y-4"
-  onSubmit={form.handleSubmit((data) => {
-    const payload: Experience = {
-      ...data,
-      skills: data.skills
-        ? data.skills
-            .split(",")
-            .map(s => s.trim())
-            .filter(Boolean)
-        : [],
-    };
+ onSubmit={form.handleSubmit((data) => {
+  const payload: Experience = {
+    ...data,
+    startDate: data.startDate.toISOString(),
+    endDate: data.endDate
+      ? data.endDate.toISOString()
+      : undefined,
+    skills: data.skills
+      ? data.skills
+          .split(",")
+          .map(s => s.trim())
+          .filter(Boolean)
+      : [],
+  };
 
-    onSubmit(payload);
-  })}
+  onSubmit(payload);
+})}
+
+
 >
           {/* Company */}
           <div>
@@ -213,12 +235,13 @@ useLayoutEffect(() => {
                 <Calendar
                   mode="single"
                   selected={form.watch("startDate")}
-                  onSelect={(date) =>
-                    form.setValue("startDate", date!, {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                    })
-                  }
+                  onSelect={(date) => {
+  if (!date) return;
+  form.setValue("startDate", date, {
+    shouldValidate: true,
+    shouldDirty: true,
+  });
+}}
                 />
               </PopoverContent>
             </Popover>

@@ -10,6 +10,7 @@ import { RecruiterFinalizeApplicationActions } from "../components/application/F
 import { InterviewTimeline } from "../components/application/interviewTimeLine";
 import { useRecruiterInterviewTimeline } from "../hooks/useRecruiterApplicationInterviews";
 import { toast } from "sonner";
+import { SectionSkeleton } from "@/components/Loaders";
 
 export default function ApplicantionDetailPage() {
   const { applicationId } = useParams();
@@ -19,7 +20,7 @@ export default function ApplicantionDetailPage() {
   const { data, isLoading } = useRecruiterApplicantDetails(applicationId);
   const {data:interviews,isLoading:interviewIsLoading}=useRecruiterInterviewTimeline(applicationId!)
 
-  if (isLoading||interviewIsLoading) return <p>Loading...</p>;
+  if (isLoading||interviewIsLoading) return <SectionSkeleton/>
   if (!data) return <p>No application found.</p>;
   
 

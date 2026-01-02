@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import { AdmingetJobsListApi } from "@/api/admin.api"
 
-export function useAdminJobsList(params?: {
-  page?: number
-  limit?: number
+export function useAdminJobsList(params: {
+  page: number
+  limit: number
   status?: "active" | "blocked" | "closed" | "all"
   search?: string
 }) {

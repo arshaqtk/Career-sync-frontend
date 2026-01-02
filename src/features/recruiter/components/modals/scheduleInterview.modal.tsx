@@ -55,7 +55,6 @@ export function ScheduleInterviewModal({
   const form = useForm<ScheduleInterviewFormValues>({
     resolver: zodResolver(scheduleInterviewSchema),
     defaultValues: {
-      timezone: "Asia/Kolkata",
       mode: "Online",
       roundType: "Hr",
       ...defaultValues,
@@ -84,9 +83,7 @@ export function ScheduleInterviewModal({
         date: defaultValues?.date ?? undefined,
         startTime: defaultValues?.startTime ?? "",
         endTime: defaultValues?.endTime ?? "",
-        durationMinutes: defaultValues?.durationMinutes ?? undefined,
         roundNumber: defaultValues?.roundNumber ?? undefined,
-        timezone: defaultValues?.timezone ?? "Asia/Kolkata",
         mode: defaultValues?.mode ?? "Online",
         roundType: defaultValues?.roundType ?? "Hr",
         meetingLink: defaultValues?.meetingLink ?? "",
@@ -113,14 +110,12 @@ export function ScheduleInterviewModal({
       startTime,
       endTime,
       roundNumber: data.roundNumber,
-      timezone: data.timezone,
       mode: data.mode,
       roundType: data.roundType,
-      durationMinutes: data.durationMinutes,
       meetingLink: data.mode === "Online" ? data.meetingLink : undefined,
       location: data.mode === "Offline" ? data.location : undefined,
     }
-
+console.log(payload)
     onSubmit(payload)
   }
 
@@ -175,32 +170,20 @@ export function ScheduleInterviewModal({
           </div>
 
           <Input type="time" {...register("startTime")} />
+          {errors.startTime && (
+              <p className="text-xs text-red-500">{errors.startTime.message}</p>
+            )}
           <Input type="time" {...register("endTime")} />
-
-          <Input
-            type="number"
-            placeholder="Duration (minutes)"
-            {...register("durationMinutes", { valueAsNumber: true })}
-          />
+{errors.endTime && (
+              <p className="text-xs text-red-500">{errors.endTime.message}</p>
+            )}
+         
 
           <Input
             type="number"
             placeholder="Round number"
             {...register("roundNumber", { valueAsNumber: true })}
           />
-
-          <Select
-            value={watch("timezone")}
-            onValueChange={(v) => setValue("timezone", v)}
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Asia/Kolkata">IST</SelectItem>
-              <SelectItem value="UTC">UTC</SelectItem>
-            </SelectContent>
-          </Select>
 
           <Select
             value={roundType}

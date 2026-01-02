@@ -8,6 +8,7 @@ import { SystemHealth } from "../components/dashboard/SystemHealth";
 import { ConfirmStatusDialog } from "../components/dialogs/ConfirmBlockUser";
 import { useAdminDashboard } from "../hooks/useAdminDashboard";
 import { useRecruiterStatusAction } from "../hooks/useToggleRecruiterStatus";
+import { AppLoader } from "@/components/Loaders";
 
 export default function AdminDashboardPage() {
 
@@ -23,7 +24,8 @@ export default function AdminDashboardPage() {
     ): "active" | "blocked" =>
         status === "Active" ? "active" : "blocked"
 
-    if (isLoading) return <div>isLoading.....</div>
+    if (isLoading) return <AppLoader/>
+
     const mapStatsToCards = (stats?: {
         totalUsers: number
         recruiters: number

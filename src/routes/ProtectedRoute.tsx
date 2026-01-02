@@ -1,11 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
 import useUserData from "@/hooks/useUserData";
 import { toast } from "sonner";
+import { SectionSkeleton } from "@/components/Loaders";
 
 export default function ProtectedRoute({ role }: { role: "candidate" | "recruiter"|"admin" }) {
   const { data: user, isLoading } = useUserData();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <SectionSkeleton/>
 
   if (!user) {
     toast.warning("You are not logged in");

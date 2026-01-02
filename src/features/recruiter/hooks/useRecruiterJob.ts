@@ -9,14 +9,14 @@ export default function useRecruiterJob({ page, limit,filters }: {
     limit: number;
     filters:JobFilters
 }){
-     console.log("page inside hook:", page);
+    
     
     return useQuery<RecruiterJobsResponse>({
-        queryKey: [QUERY_KEYS.jobs.list({
+        queryKey: QUERY_KEYS.jobs.list({
             page,
             limit,
             filters
-        })],
+        }),
         queryFn:()=>RecruiterJobs({
             page,
             limit,

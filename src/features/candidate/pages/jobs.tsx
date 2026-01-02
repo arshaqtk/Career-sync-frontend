@@ -7,6 +7,7 @@ import { useState } from "react";
 import { JobsPagination } from "../components/jobs/JobsPagination";
 import { JobFilter } from "../components/jobs/jobFilter";
 import type { JobFilters } from "../types/jobFilter.types";
+import { SectionSkeleton } from "@/components/Loaders";
 
 export default function JobPage() {
 
@@ -18,10 +19,12 @@ export default function JobPage() {
 });
 
   const { selectedJob, setSelectedJob } = useJobStore();
-  const { data: jobs, isLoading } = useCandidateJobData({ page, limit: 5,filters})
+  const { data: jobs, isLoading,isFetching } = useCandidateJobData({ page, limit: 5,filters})
 
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+     return <SectionSkeleton />
+   }
 
 
   return (
@@ -31,7 +34,7 @@ export default function JobPage() {
   onChange={setFilters}
 />
       <div className="flex w-full h-[calc(100vh-70px)] my-3">
-        <JobList jobs={jobs?.jobs} onSelect={(job) => setSelectedJob(job)} />
+        <JobList jobs={jobs?.jobs} onSelect={(job) => setSelectedJob(job)} isFetching={isFetching} />
         <JobDetails job={selectedJob} />
       </div>
       <JobsPagination

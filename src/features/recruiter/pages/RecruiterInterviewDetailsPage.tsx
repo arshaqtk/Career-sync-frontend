@@ -16,6 +16,8 @@ import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
 import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types";
 import { toast } from "sonner";
 import { useRescheduleInterview } from "../hooks/useRecruiterRescheduleInterview";
+import { SectionSkeleton } from "@/components/Loaders";
+import { BlockingLoader } from "@/components/Loaders/BlockingLoader";
 
 
 
@@ -25,29 +27,28 @@ export default function RecruiterInterviewDetailsPage() {
 
   const { data: interview, isLoading } = useRecruiterInterviewDetail(interviewId!);
 const {selectedInterview}=useInterviewScheduleModalStore()
-  const{mutate:updateInterviewStatus} =useRecruiterUpdateInterviewStatus()
+  const{mutate:updateInterviewStatus,isPending} =useRecruiterUpdateInterviewStatus()
 const { mutate: scheduleInterview, isPending: isScheduling } =
   useScheduleInterview()
 
-const { mutate: rescheduleInterview, isPending: isRescheduling } =
-  useRescheduleInterview()
+const { mutate: rescheduleInterview, isPending: isRescheduling } =useRescheduleInterview()
 
   //-------------------Modal--stores------------------------
   const interviewStatusStore=useUpdateInterviewStatusStore()
   const interviewScheduleModalStore=useInterviewScheduleModalStore()
 
-  
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <SectionSkeleton/>
   if (!interview) return <p>Interview not found</p>;
 
 
-
+//handle complete and cancel
 const handleConfirm = ({ status, notes,roundNumber}: UpdateStatusPayloadDto) => {
   if(interviewId){
     updateInterviewStatus({interviewId,payload:{status,notes,roundNumber}})
   }
 };
+
 
 const handleScheduleSubmit = (
   data: Omit<ScheduleInterviewPayload, "scheduleMode">
@@ -79,10 +80,15 @@ const handleScheduleSubmit = (
   })
 }
 
+console.log(interview)
 
 
   return (
     <div className="space-y-6">
+      <BlockingLoader
+        show={isPending}
+        message="Updating interview..."
+      />
       <InterviewHeader interview={interview.data} />
       <ScheduleInterviewModal
               isPending={isScheduling||isRescheduling}
@@ -102,6 +108,7 @@ const handleScheduleSubmit = (
     roundNumber={interviewStatusStore.roundNumber}
     onConfirm={handleConfirm}
   />)}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* LEFT */}
         <div className="lg:col-span-2 space-y-6">

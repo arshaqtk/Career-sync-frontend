@@ -1,7 +1,7 @@
 "use client";
 
 import { useSendResetPasswordEmail, useVerifyResetPasswordOtp } from "@/queries/auth/usePassword";
-import React, { useState } from "react";
+import  { useState } from "react";
 import VerifyOtp from "../components/VerifyOtp";
 
 import { Input } from "@/components/ui/shadcn/input";

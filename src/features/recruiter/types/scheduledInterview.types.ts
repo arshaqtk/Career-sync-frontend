@@ -5,11 +5,9 @@ export type ScheduleInterviewPayload = {
   applicationId?: string;
   startTime: string;   // ISO
   endTime: string;     // ISO
-  timezone: string;
   roundNumber:number;
 
   roundType: InterviewRoundType;
-  durationMinutes?: number;
   mode: "Online" | "Offline";
   meetingLink?: string;
   location?: string;
@@ -43,7 +41,6 @@ export type ResecheduleInterviewPayload = {
   meetingLink?: string;
 roundNumber:number;
   status?: InterviewStatus;
- timezone?: string;
   statusHistory?: {
     status: InterviewStatus;
     changedAt: string;
