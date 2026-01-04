@@ -5,6 +5,7 @@ export const getMyNotifications=async()=>{
   return res.data.data
 }
 export const markAllNotificationsAsRead=async()=>{
-    const  res=await api.patch("/notification/read-all")
+    console.log("called")
+    const  res=await api.patch("/notifications/read-all")
     return res.data
 }

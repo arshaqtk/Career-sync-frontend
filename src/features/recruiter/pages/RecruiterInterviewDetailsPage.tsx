@@ -63,7 +63,7 @@ const handleScheduleSubmit = (
       toast.error("Interview not found")
       return
     }
-
+    
     rescheduleInterview({
       interviewId: selectedInterview._id,
       payload: data,
@@ -80,7 +80,6 @@ const handleScheduleSubmit = (
   })
 }
 
-console.log(interview)
 
 
   return (

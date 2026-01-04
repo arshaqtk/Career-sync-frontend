@@ -34,7 +34,9 @@ export default function RecruiterTopNavbar() {
       <div className="flex items-center gap-6">
 
         {/* Notification icon */}
-        <Bell className="h-5 w-5 cursor-pointer" />
+        <button onClick={() => navigate("notifications")}>
+  <Bell className="cursor-pointer" />
+</button>
 
         {/* Profile dropdown */}
         <DropdownMenu>

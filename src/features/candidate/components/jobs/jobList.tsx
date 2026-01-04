@@ -9,7 +9,9 @@ interface JobListProps {
 }
 
 export function JobList({ jobs, onSelect,isFetching }: JobListProps) {
-  if(isFetching)return <InlineSpinner/>
+  if(isFetching)return <div className="w-1/2 h-full flex justify-center items-center">
+<InlineSpinner/>
+  </div> 
   return (
     <div className="w-[45%] h-full overflow-y-auto border-r p-4 space-y-3 scrollbar-hide">
       {jobs?.map((job, i) => (

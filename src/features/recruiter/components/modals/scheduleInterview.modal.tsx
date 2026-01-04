@@ -29,13 +29,12 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import type { ScheduleInterviewPayload } from "../../types/scheduledInterview.types"
-import type { InterviewRoundType } from "../../types/interview.type"
-import { Spinner } from "@/components/ui/shadcn/spinner"
 import {
-  scheduleInterviewSchema,
+  scheduleInterviewSchemaWithTimeCheck,
   type ScheduleInterviewFormValues,
 } from "../../schemas/scheduleInterview.schema"
-import { toast } from "sonner"
+import { Spinner } from "@/components/ui/shadcn/spinner"
+import type { InterviewRoundType } from "../../types/interview.type"
 
 type Props = {
   open: boolean
@@ -52,59 +51,72 @@ export function ScheduleInterviewModal({
   isPending,
   defaultValues,
 }: Props) {
-  const form = useForm<ScheduleInterviewFormValues>({
-    resolver: zodResolver(scheduleInterviewSchema),
-    defaultValues: {
+const form = useForm<ScheduleInterviewFormValues>({
+  resolver: zodResolver(scheduleInterviewSchemaWithTimeCheck),
+  mode: "onChange", // ← Critical: instant validation
+  defaultValues: {
       mode: "Online",
       roundType: "Hr",
+      roundNumber: 1,
+      startTime: "",
+      endTime: "",
+      meetingLink: "",
+      location: "",
       ...defaultValues,
     },
   })
-
+    
+    
+console.log(defaultValues)
   const {
     register,
     handleSubmit,
     setValue,
     watch,
     reset,
+    trigger,
     formState: { errors },
   } = form
 
-  const date = watch("date")
   const mode = watch("mode")
-  const roundType = watch("roundType")
 
-  /** 🔁 Reset form when modal opens */
-  useEffect(() => {
-    if (!open) return
+  // Reset form when modal opens or defaultValues change
+ useEffect(() => {
+  if (open) {
+    const baseDefaults = {
+      date: defaultValues?.date ?? undefined,
+      startTime: defaultValues?.startTime ?? "",
+      endTime: defaultValues?.endTime ?? "",
+      roundNumber: defaultValues?.roundNumber ?? 1,
+      roundType: (defaultValues?.roundType ?? "Hr") as InterviewRoundType,
+    };
 
-    reset(
-      {
-        date: defaultValues?.date ?? undefined,
-        startTime: defaultValues?.startTime ?? "",
-        endTime: defaultValues?.endTime ?? "",
-        roundNumber: defaultValues?.roundNumber ?? undefined,
-        mode: defaultValues?.mode ?? "Online",
-        roundType: defaultValues?.roundType ?? "Hr",
+    const mode = defaultValues?.mode ?? "Online";
+
+    if (mode === "Online") {
+      reset({
+        ...baseDefaults,
+        mode: "Online",
         meetingLink: defaultValues?.meetingLink ?? "",
+        location: undefined, // explicitly undefined or omit
+      });
+    } else {
+      reset({
+        ...baseDefaults,
+        mode: "Offline",
         location: defaultValues?.location ?? "",
-      },
-      {
-        keepDirty: false,
-        keepTouched: false,
-      }
-    )
-  }, [open, defaultValues, reset])
-
-  /** ✅ Submit handler */
-  const handleFormSubmit = (data: ScheduleInterviewFormValues) => {
-    const startTime = combineDateAndTime(data.date, data.startTime)
-    const endTime = combineDateAndTime(data.date, data.endTime)
-
-    if (endTime <= startTime) {
-      toast.error("End time must be after start time")
-      return
+        meetingLink: undefined,
+      });
     }
+  }
+}, [open, defaultValues, reset]);
+console.log(errors)
+
+  // Remove manual register() calls — not needed for controlled components
+
+ const onFormSubmit = (data: ScheduleInterviewFormValues) => {
+  const startTime = combineDateAndTime(data.date, data.startTime); 
+  const endTime = combineDateAndTime(data.date, data.endTime);
 
     const payload: ScheduleInterviewPayload = {
       startTime,
@@ -112,20 +124,16 @@ export function ScheduleInterviewModal({
       roundNumber: data.roundNumber,
       mode: data.mode,
       roundType: data.roundType,
-      meetingLink: data.mode === "Online" ? data.meetingLink : undefined,
-      location: data.mode === "Offline" ? data.location : undefined,
+      meetingLink: data.mode === "Online" ? data.meetingLink?.trim() || undefined : undefined,
+      location: data.mode === "Offline" ? data.location?.trim() || undefined : undefined,
     }
-console.log(payload)
+
     onSubmit(payload)
+    onClose() // Optional: close modal on success
   }
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(isOpen) => {
-        if (!isOpen) onClose()
-      }}
-    >
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent className="max-w-md max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
@@ -133,103 +141,140 @@ console.log(payload)
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
-          {/* Date */}
-          <div>
-            <label className="text-sm font-medium">Date</label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className={cn(
-                    "w-full justify-start text-left font-normal",
-                    !date && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date ? format(date, "PPP") : "Pick a date"}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="p-0">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={(d) => d && setValue("date", d)}
-                  disabled={(d) => {
-                    const today = new Date()
-                    today.setHours(0, 0, 0, 0)
-                    return d < today
-                  }}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-            {errors.date && (
-              <p className="text-xs text-red-500">{errors.date.message}</p>
-            )}
+        <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-4">
+          {/* Date Picker */}
+         <div className="space-y-1">
+  <label className="text-sm font-medium">Date</label>
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button
+        variant="outline"
+        className={cn(
+          "w-full justify-start text-left font-normal",
+          !watch("date") && "text-muted-foreground"
+        )}
+      >
+        <CalendarIcon className="mr-2 h-4 w-4" />
+        {watch("date") ? format(watch("date"), "PPP") : "Pick a date"}
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-auto p-0" align="start">
+      <Calendar
+        mode="single"
+        selected={watch("date") as Date | undefined} // ← Fixes TS error
+        onSelect={(date) => {
+          setValue("date", date ?? new Date(), { shouldValidate: true })
+        }}
+        disabled={(date) =>
+          date < new Date(new Date().setHours(0, 0, 0, 0))
+        }
+        initialFocus
+      />
+    </PopoverContent>
+  </Popover>
+  {errors.date && <p className="text-xs text-red-500">{errors.date.message}</p>}
+</div>
+
+          {/* Start Time */}
+          <div className="space-y-1">
+            <label className="text-sm font-medium">Start Time</label>
+            <Input type="time" {...register("startTime")} />
+            {errors.startTime && <p className="text-xs text-red-500">{errors.startTime.message}</p>}
           </div>
 
-          <Input type="time" {...register("startTime")} />
-          {errors.startTime && (
-              <p className="text-xs text-red-500">{errors.startTime.message}</p>
-            )}
-          <Input type="time" {...register("endTime")} />
-{errors.endTime && (
-              <p className="text-xs text-red-500">{errors.endTime.message}</p>
-            )}
-         
+          {/* End Time */}
+          <div className="space-y-1">
+            <label className="text-sm font-medium">End Time</label>
+            <Input type="time" {...register("endTime")} />
+            {errors.endTime && <p className="text-xs text-red-500">{errors.endTime.message}</p>}
+          </div>
 
-          <Input
-            type="number"
-            placeholder="Round number"
-            {...register("roundNumber", { valueAsNumber: true })}
-          />
+          {/* Round Number */}
+          <div className="space-y-1">
+            <label className="text-sm font-medium">Round Number</label>
+            <Input
+              type="number"
+              min="1"
+              placeholder="e.g. 1"
+              {...register("roundNumber", { valueAsNumber: true })}
+            />
+            {errors.roundNumber && <p className="text-xs text-red-500">{errors.roundNumber.message}</p>}
+          </div>
 
-          <Select
-            value={roundType}
-            onValueChange={(v) =>
-              setValue("roundType", v as InterviewRoundType)
-            }
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Hr">HR</SelectItem>
-              <SelectItem value="Technical">Technical</SelectItem>
-              <SelectItem value="Managerial">Managerial</SelectItem>
-              <SelectItem value="Final">Final</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* Round Type */}
+          <div className="space-y-1">
+            <label className="text-sm font-medium">Round Type</label>
+            <Select
+              value={watch("roundType")}
+              onValueChange={(value) => setValue("roundType", value as InterviewRoundType,{
+    shouldValidate: true,
+  })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select round type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Hr">HR</SelectItem>
+                <SelectItem value="Technical">Technical</SelectItem>
+                <SelectItem value="Managerial">Managerial</SelectItem>
+                <SelectItem value="Final">Final</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.roundType && <p className="text-xs text-red-500">{errors.roundType.message}</p>}
+          </div>
 
-          <Select
-            value={mode}
-            onValueChange={(v) =>
-              setValue("mode", v as "Online" | "Offline")
-            }
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Online">Online</SelectItem>
-              <SelectItem value="Offline">Offline</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* Mode */}
+          <div className="space-y-1">
+            <label className="text-sm font-medium">Mode</label>
+           <Select
+  value={mode}
+  onValueChange={(value) => {
+    const newMode = value as "Online" | "Offline";
+    setValue("mode", newMode);
 
+    // Clear the opposite field — no need for shouldValidate or clearErrors
+    if (newMode === "Online") {
+      setValue("location", undefined); // or ""
+    } else {
+      setValue("meetingLink", undefined); // or ""
+    }
+
+    // Optional: trigger validation for instant feedback
+    trigger();
+  }}
+>
+              <SelectTrigger>
+                <SelectValue placeholder="Select mode" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Online">Online</SelectItem>
+                <SelectItem value="Offline">Offline</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.mode && <p className="text-xs text-red-500">{errors.mode.message}</p>}
+          </div>
+
+          {/* Conditional Field */}
           {mode === "Online" ? (
-            <Input placeholder="Meeting link" {...register("meetingLink")} />
-          ) : (
-            <Input placeholder="Location" {...register("location")} />
-          )}
-
+  <div className="space-y-1">
+    <label className="text-sm font-medium">Meeting Link</label>
+    <Input placeholder="https://meet.google.com/..." {...register("meetingLink")} />
+    {errors.meetingLink && <p className="text-xs text-red-500">{errors.meetingLink.message}</p>}
+  </div>
+) : (
+  <div className="space-y-1">
+    <label className="text-sm font-medium">Location</label>
+    <Input placeholder="Office address or venue" {...register("location")} />
+    {errors.location && <p className="text-xs text-red-500">{errors.location.message}</p>}
+  </div>
+)}
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
               Cancel
             </Button>
             <Button type="submit" disabled={isPending}>
               {isPending ? (
-                <span className="flex gap-2">
+                <span className="flex items-center gap-2">
                   <Spinner className="h-4 w-4" />
                   Saving...
                 </span>

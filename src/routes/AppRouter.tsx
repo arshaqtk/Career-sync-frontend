@@ -71,6 +71,7 @@ export default function AppRouter() {
                 <Route path="/recruiter" element={<RecruiterLayout />}>
                     <Route element={<ProtectedRoute role="recruiter" />}>
                         <Route index element={<RecruiterDashboard />} />
+                        <Route path="notifications" element={<NotificationPage />} />
                         <Route path="profile" element={<RecruiterProfilePage />} />
                         <Route path="profile/edit" element={< RecruiterEditProfilePage/>} />
                         <Route path="jobs" element={<RecruiterJobsPage />} />

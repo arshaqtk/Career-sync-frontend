@@ -16,7 +16,7 @@ return (
         <h1 className="text-xl font-semibold">Notifications</h1>
 
         <button
-          onClick={()=>markAllAsRead}
+          onClick={()=>markAllAsRead()}
           className="text-sm text-blue-600 hover:underline"
         >
           Mark all as read
