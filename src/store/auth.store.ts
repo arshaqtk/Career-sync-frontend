@@ -31,6 +31,7 @@ export const useAuthStore = create<AuthStore>()(
           user,
           isAuthenticated: !!user,
         }),
+        
 
       logout: () => {
         LogoutApi()

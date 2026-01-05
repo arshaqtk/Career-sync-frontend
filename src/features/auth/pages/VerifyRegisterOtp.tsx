@@ -1,4 +1,4 @@
-import { useVerifyRegisterOtp} from '@/queries/auth/useAuth';
+import { useVerifyRegisterOtp} from '@/hooks/useAuth';
 import { useLocation } from 'react-router-dom';
 import VerifyOtp from '../components/VerifyOtp';
 

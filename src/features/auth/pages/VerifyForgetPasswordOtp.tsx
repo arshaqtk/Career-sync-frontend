@@ -1,6 +1,6 @@
 "use client";
 
-import { useSendResetPasswordEmail, useVerifyResetPasswordOtp } from "@/queries/auth/usePassword";
+import { useSendResetPasswordEmail, useVerifyResetPasswordOtp } from "@/hooks/usePassword";
 import  { useState } from "react";
 import VerifyOtp from "../components/VerifyOtp";
 

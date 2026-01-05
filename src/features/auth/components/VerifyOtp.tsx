@@ -4,8 +4,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/shadcn/input-otp"
-import { useResendRegisterOtpMutation } from "@/queries/auth/useAuth"
-import { useResendResetPasswordOtpMutation } from "@/queries/auth/usePassword"
+import { useResendRegisterOtpMutation } from "@/hooks/useAuth"
+import { useResendResetPasswordOtpMutation } from "@/hooks/usePassword"
 import { useEffect, useState } from "react"
 
 interface OtpVerifyProps {

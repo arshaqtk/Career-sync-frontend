@@ -48,12 +48,12 @@ export const useLogin=()=>{
         mutationFn:LoginApi,
         onSuccess(data){
             setUser(data.user)
-
             if(!data.user.isVerified){
                 toast.success(data?.message);
                 navigate("/auth/verify-otp",{ state: { email: data.user.email } })
                 return
             }
+
             
             if(data.user.role=="recruiter"){
                 navigate("/recruiter")
@@ -62,6 +62,7 @@ export const useLogin=()=>{
                 else{
                 navigate("/")
             }
+            
         },
         onError(error: unknown) {
         type ErrorWithResponse = {

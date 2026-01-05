@@ -6,7 +6,7 @@ import CSButton from "@/components/ui/cs-button";
 import CSDivider from "@/components/ui/cs-divider";
 import { loginSchema, type LoginFormValues } from "../validators/auth.schema";
 import { useRoleStore } from "@/store/role.store";
-import { useLogin } from "@/queries/auth/useAuth";
+import { useLogin } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 

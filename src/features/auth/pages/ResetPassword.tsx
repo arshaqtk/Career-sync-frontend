@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/shadcn/form"
-import { useResetPassword } from "@/queries/auth/usePassword"
+import { useResetPassword } from "@/hooks/usePassword"
 import { passwordSchema } from "@/features/auth/validators/auth.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Lock } from "lucide-react"

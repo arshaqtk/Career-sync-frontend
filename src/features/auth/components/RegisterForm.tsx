@@ -23,7 +23,7 @@ import {
 import { Separator } from "@/components/ui/shadcn/separator";
 
 import { registerSchema, type RegisterFormValues } from "../validators/auth.schema";
-import { useRegister } from "@/queries/auth/useAuth";
+import { useRegister } from "@/hooks/useAuth";
 import { useRegisterRoleStore } from "@/store/role.store";
 
 type RegisterFormInputs = Omit<RegisterFormValues, "role">;

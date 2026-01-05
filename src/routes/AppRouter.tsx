@@ -44,15 +44,16 @@ import JobsListPage from "@/features/admin/pages/AdminJobsListPage";
 import AdminJobDetailPage from "@/features/admin/pages/AdminJobDetailPage";
 import AdminDashboardPage from "@/features/admin/pages/AdminDashboardPage";
 import { NotificationPage } from "@/features/notifications/pages/notificationPage";
+import SocketTest from "@/pages/sockettest";
 
 export default function AppRouter() {
     return (
         <BrowserRouter>
             <Routes>
-
                 {/* ---------- Candidate Routes ---------- */}
                 <Route element={<CandidateLayout />}>
                     <Route element={<ProtectedRoute role="candidate" />}>
+<Route path="/socket-test" element={<SocketTest />} />
                         <Route path="/" element={<LandingPage />} />
                         <Route path="/notifications" element={<NotificationPage />} />
                         <Route path="/jobs" element={<CandidateJobsPage />} />
@@ -70,6 +71,8 @@ export default function AppRouter() {
                 {/* ---------- Recruiter Routes ---------- */}
                 <Route path="/recruiter" element={<RecruiterLayout />}>
                     <Route element={<ProtectedRoute role="recruiter" />}>
+<Route path="socket-test" element={<SocketTest />} />
+
                         <Route index element={<RecruiterDashboard />} />
                         <Route path="notifications" element={<NotificationPage />} />
                         <Route path="profile" element={<RecruiterProfilePage />} />
