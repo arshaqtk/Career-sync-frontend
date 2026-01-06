@@ -24,9 +24,12 @@ export const useChatStore=create<ChatState>((set)=>({
     setActiveChatId:(id)=>set({activeChatId:id}),
     setConversationId:(id)=>set({conversationId:id}),
 
-    addMessage:(msg)=>set((state)=>({
-        messages:[...state.messages,msg]
-    })),
+    addMessage:(msg)=>set((state) => {
+    if (state.messages.some((m) => m._id === msg._id)) {
+      return state
+    }
+    return { messages: [...state.messages, msg] }
+  }),
     setMessages:(msgs)=>set({messages:msgs}),
     resetChat:()=>set({
         activeChatId:null,

@@ -5,7 +5,7 @@ export default function MessageBubble({
   text: string
   mine: boolean
 }) {
-  console.log(mine)
+
   return (
     <div className={`mb-2 flex ${mine ? "justify-end" : "justify-start"}`}>
       <div

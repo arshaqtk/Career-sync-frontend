@@ -5,41 +5,53 @@ import MessageInput from "./MessageInput"
 import { useEffect } from "react"
 import type { ChatMessage } from "../types/chat.types"
 import { useAuthStore } from "@/store/auth.store"
+import { useMessageHistory } from "../hooks/useMessages"
 
 
 
 export default function ChatWindow() {
     const socket = getSocket()
     const userId=useAuthStore((s)=>s.user?.id)
-  const { messages, addMessage, activeChatId } = useChatStore()
-  console.log(userId)
-  console.log(messages)
+  const { messages, addMessage, activeChatId,conversationId,setMessages } = useChatStore()
+  console.log(conversationId)
+  const {data:messageHistory,isLoading,isError}=useMessageHistory(conversationId!)
+  
   useEffect(()=>{
     const handler=(msg:ChatMessage)=>{
         addMessage(msg)
     }
 
     socket.on("chat:newMessage",handler)
-
+    
     return ()=>{
-        socket.off("chat:newMessage",handler)
+      socket.off("chat:newMessage",handler)
     }
   },[])
+  useEffect(()=>{
+    if(messageHistory){
+      setMessages(messageHistory)
+    }
+  },[messageHistory])
   
+  // console.log("🧠 Zustand messages:", messages)
   if (!activeChatId) {
     return <div>Select a chat</div>
   }
-
+  if(isLoading){
+    return <div>Chat loading</div>
+  }
+    if (isError) return <div>Failed to load chats</div>
+// console.log(messages)
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b font-bold">
-        Chat
+        Chat{}
       </div>
 
       {/* Messages */}
       <div className="flex-1 p-4 overflow-y-auto">
-        {messages.map((msg,i) => (
+        {messages?.map((msg,i) => (
           <MessageBubble key={i} text={msg.content} mine={msg.senderId===userId} />
         ))}
       </div>

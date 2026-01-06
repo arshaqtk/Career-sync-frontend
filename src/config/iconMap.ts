@@ -9,7 +9,7 @@ import {
   BarChart3,
   LayoutDashboard,
   Search,
-  User
+  User,MessageCircle
 } from "lucide-react";
 
 export const iconMap = {
@@ -22,6 +22,7 @@ export const iconMap = {
   BarChart3,
   LayoutDashboard,
   Search,
-  User
+  User,
+  MessageCircle
 };
 export type SidebarIconName = keyof typeof iconMap;

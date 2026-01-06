@@ -14,3 +14,11 @@ export const getConversationListApi = async (
   })
   return data
 }
+
+
+export const getMessagesHistoryApi = async (conversationId:string) => {
+  const { data } = await api.get(`/chat/conversations/${conversationId}/messages`, {
+})
+
+  return data.data
+}

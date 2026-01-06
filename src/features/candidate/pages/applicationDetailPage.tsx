@@ -52,6 +52,7 @@ export const CandidateApplicationDetailPage = () => {
         <div className="space-y-6 sticky top-25 self-start">
           <ApplicationStatusCard application={application.application} />
           <RecruiterInfoCard
+          id={application.recruiter.id}
             name={application.recruiter.name}
             email={application.recruiter.email}
           />

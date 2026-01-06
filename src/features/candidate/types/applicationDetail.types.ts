@@ -37,6 +37,7 @@ export interface CandidateApplicationDetailResponse {
   }
 
   recruiter: {
+    id:string
     name: string
     email: string
 

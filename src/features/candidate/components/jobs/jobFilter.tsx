@@ -5,11 +5,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select";
-// import { Button } from "@/components/ui/shadcn/button";
+import { Button } from "@/components/ui/shadcn/button";
 // import { Input } from "@/components/ui/shadcn/input";
-// import { SlidersHorizontal, Search } from "lucide-react";
+import { SlidersHorizontal, Search } from "lucide-react";
 import type { JobFilters } from "../../types/jobFilter.types";
-import { Search } from "lucide-react";
 import { AutoCompleteInput } from "@/components/ui/AutoCompleteInput"
 import { fetchJobSuggestions } from "@/api/job.api"
 type JobFilterProps = {
@@ -63,7 +62,7 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="all">Job Status [All]</SelectItem>
             <SelectItem value="open">Active</SelectItem>
             <SelectItem value="closed">Closed</SelectItem>
           </SelectContent>
@@ -80,7 +79,7 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
             <SelectValue placeholder="Job Type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="all">Job Type [All]</SelectItem>
             <SelectItem value="full-time">Full Time</SelectItem>
             <SelectItem value="part-time">Part Time</SelectItem>
             <SelectItem value="internship">Internship</SelectItem>
@@ -89,10 +88,10 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
       </div>
 
       {/* Right action */}
-      {/* <Button variant="outline" size="sm">
+      <Button variant="outline" size="sm">
         <SlidersHorizontal className="mr-2 h-4 w-4" />
         More filters
-      </Button> */}
+      </Button>
     </div>
   );
 };
