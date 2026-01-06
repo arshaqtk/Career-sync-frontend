@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/shadcn/select"
 import { SectionSkeleton } from "@/components/Loaders"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 type Status = "active" | "blocked" | "all"
 
@@ -28,7 +29,7 @@ export default function CandidatesListPage() {
   const [status, setStatus] = useState<Status>("all")
   const [search, setSearch] = useState("")
 
-  const { data, isLoading } = useAdminCandidatesList({
+  const { data, isLoading,error } = useAdminCandidatesList({
     page,
     limit,
     status,
@@ -44,6 +45,7 @@ export default function CandidatesListPage() {
     useState<"active" | "blocked" | null>(null)
 
   if (isLoading) return <SectionSkeleton/>
+   if(error)handleRQError(error)
  
 
   const candidates = data.data.candidates

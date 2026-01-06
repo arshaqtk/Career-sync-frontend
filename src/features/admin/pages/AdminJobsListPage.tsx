@@ -16,6 +16,7 @@ import { useAdminJobsList } from "../hooks/useAdminJobsList"
 import { useAdminJobStatusAction } from "../hooks/useJobStatusAction"
 import { PageHeader } from "../components/shared/PageHeader"
 import { SectionSkeleton } from "@/components/Loaders"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 type JobStatus = "active" | "blocked" | "closed"
 
@@ -26,7 +27,7 @@ export default function JobsListPage() {
   const [page, setPage] = useState(1)
   const limit = 10
 
-  const { data, isLoading } = useAdminJobsList({
+  const { data, isLoading,error } = useAdminJobsList({
     page,
     limit,
   })
@@ -39,6 +40,7 @@ export default function JobsListPage() {
     useState<JobStatus | null>(null)
 
  if (isLoading) return <SectionSkeleton/>
+  if(error)handleRQError(error)
 
   const jobs = data?.data.jobs ?? []
   const pagination = data?.data.pagination

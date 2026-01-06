@@ -5,12 +5,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select";
-import { Button } from "@/components/ui/shadcn/button";
+// import { Button } from "@/components/ui/shadcn/button";
 // import { Input } from "@/components/ui/shadcn/input";
-import { SlidersHorizontal, Search } from "lucide-react";
+import {  Search } from "lucide-react";
 import type { JobFilters } from "../../types/jobFilter.types";
 import { AutoCompleteInput } from "@/components/ui/AutoCompleteInput"
 import { fetchJobSuggestions } from "@/api/job.api"
+import { JobAdvancedFilterPopover } from "./AdvancedFilterPopover";
 type JobFilterProps = {
   filters: JobFilters;
   onChange: (filters: JobFilters) => void;
@@ -88,10 +89,14 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
       </div>
 
       {/* Right action */}
-      <Button variant="outline" size="sm">
+      {/* <Button variant="outline" size="sm">
         <SlidersHorizontal className="mr-2 h-4 w-4" />
         More filters
-      </Button>
+      </Button> */}
+      <JobAdvancedFilterPopover
+  filters={filters}
+  onChange={onChange}
+/>
     </div>
   );
 };

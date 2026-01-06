@@ -15,7 +15,7 @@ export function ProfileTabs({ user }: { user: UserDto }) {
  const {isOpen:isSkillModalOpen,closeModal:setSkillModalClose}=SkillModalStore()
 
  const handleUpdateSkill=(skills:string[])=>{
- console.log(skills)
+ 
    updateSkill.mutate(skills)
  }
   return (

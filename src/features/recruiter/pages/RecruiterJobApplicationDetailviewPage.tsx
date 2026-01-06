@@ -12,16 +12,18 @@ import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types
 import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
 import { toast } from "sonner";
 import { SectionSkeleton } from "@/components/Loaders";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function JobApplicantionDetailPage() {
   const { applicationId } = useParams();
-  const { data, isLoading } = useRecruiterApplicantDetails(applicationId!);
+  const { data, isLoading,error } = useRecruiterApplicantDetails(applicationId!);
   const {closeModal,open}=useInterviewScheduleModalStore()
    const {mutate:scheduleInterview,isPending}=useScheduleInterview()
 
 
   if (isLoading) return <SectionSkeleton/>
   if (!data) return <p>No application found.</p>;
+    if(error)handleRQError(error)
   
   const handleScheduleSubmit=(data:Omit<ScheduleInterviewPayload,"scheduleMode">)=>{
     if(applicationId){

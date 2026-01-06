@@ -5,16 +5,19 @@ import type { RecruiterApplicationDTO } from "../types/application.dto";
 import { Inbox, Users } from "lucide-react";
 import { Button } from "@/components/ui/shadcn/button";
 import { TableSkeleton } from "@/components/Skelton/TableSkelton";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 
 export default function RecruiterApplicantionsPage() {
-  const { data: applications, isLoading,isError } = useRecruiterFetchApplications();
+  const { data: applications, isLoading,isError,error } = useRecruiterFetchApplications();
 
   if (isLoading) {
      return <TableSkeleton rows={6} columns={7} />;
   }
 
   if (isError) {
+      if(error)handleRQError(error)
+    
     return (
       <div className="flex items-center justify-center py-20">
         <p className="text-destructive">Failed to load applicants. Please try again later.</p>

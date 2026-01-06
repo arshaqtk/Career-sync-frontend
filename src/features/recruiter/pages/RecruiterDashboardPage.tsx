@@ -7,12 +7,14 @@ import { TodaysInterviews } from "../components/dashboard/TodaysInterviews"
 import { HiringFunnel } from "../components/dashboard/HiringFunnel"
 import { useRecruiterDashboard } from "../hooks/useRecruiterDashboard"
 import { SectionSkeleton } from "@/components/Loaders"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 export default function RecruiterDashboardPage() {
-  const { data, isLoading, isError } = useRecruiterDashboard()
+  const { data, isLoading, isError,error } = useRecruiterDashboard()
 
   if (isError) return <p>Failed to load dashboard</p>
   if (isLoading) return <SectionSkeleton/>
+  if(error)handleRQError(error)
 
   return (
     <div className="grid grid-cols-12 gap-6 p-6">

@@ -81,7 +81,8 @@ export const useLogin=()=>{
         ) {
             const err = error as ErrorWithResponse;
             console.log("RQ ERROR:", err.response?.data);
-            toast.error(err.response?.data?.message);
+            toast.error(err.response?.data?.message?? "Something went wrong");
+            
         } else {
             console.log("RQ ERROR:", error);
             toast.error("An unexpected error occurred.");

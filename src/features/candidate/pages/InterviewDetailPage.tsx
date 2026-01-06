@@ -5,17 +5,19 @@ import { InterviewJoinSection } from "../components/interview/InterviewJoinSecti
 import { InterviewTimeline } from "../components/interview/InterviewTimeline"
 import { InterviewNotes } from "../components/interview/InterviewNotes"
 import { SectionSkeleton } from "@/components/Loaders"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 export default function InterviewDetailPage() {
   const { interviewId } = useParams()
-  const { data, isLoading } = useCandidateInterviewDetail(interviewId!)
+  const { data, isLoading,error } = useCandidateInterviewDetail(interviewId!)
 
    if (isLoading) {
       return <SectionSkeleton />
     }
 
   const { interview, timeline } = data
-  console.log(timeline)
+    if(error)handleRQError(error)
+  
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">

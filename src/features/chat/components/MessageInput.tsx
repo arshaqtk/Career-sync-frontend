@@ -8,8 +8,6 @@ export default function MessageInput() {
     const [text, setText] = useState("")
 
   const send = () => {
-    console.log("called")
-    console.log(text,conversationId,activeChatId)
     if (!text || !conversationId || !activeChatId) return
     socket.emit("chat:sendMessage",{
         conversationId,

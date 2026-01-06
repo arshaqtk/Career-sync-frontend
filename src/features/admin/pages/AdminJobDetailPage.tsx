@@ -13,12 +13,13 @@ import { JobStatsCard } from "../components/jobs/DetailView/JobStatsCard"
 import { RecruiterInfoCard } from "../components/jobs/DetailView/RecruiterInfoCard"
 import { JobActionCard } from "../components/jobs/DetailView/JobActionCard"
 import {  SectionSkeleton } from "@/components/Loaders"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 type Status = "active" | "blocked" | "closed"
 
 export default function AdminJobDetailPage() {
   const { id } = useParams()
-  const { data, isLoading } = useAdminJobDetail(id!)
+  const { data, isLoading,error } = useAdminJobDetail(id!)
   const { mutate, isPending } = useAdminJobStatusAction()
 
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -26,6 +27,7 @@ export default function AdminJobDetailPage() {
     useState<Status | null>(null)
 
   if (isLoading) return <SectionSkeleton/>
+  if(error)handleRQError(error)
 
   const job = data.data
 

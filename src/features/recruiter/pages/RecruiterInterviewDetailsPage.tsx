@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { useRescheduleInterview } from "../hooks/useRecruiterRescheduleInterview";
 import { SectionSkeleton } from "@/components/Loaders";
 import { BlockingLoader } from "@/components/Loaders/BlockingLoader";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 
 
@@ -31,7 +32,7 @@ const {selectedInterview}=useInterviewScheduleModalStore()
 const { mutate: scheduleInterview, isPending: isScheduling } =
   useScheduleInterview()
 
-const { mutate: rescheduleInterview, isPending: isRescheduling } =useRescheduleInterview()
+const { mutate: rescheduleInterview, isPending: isRescheduling,error } =useRescheduleInterview()
 
   //-------------------Modal--stores------------------------
   const interviewStatusStore=useUpdateInterviewStatusStore()
@@ -39,6 +40,8 @@ const { mutate: rescheduleInterview, isPending: isRescheduling } =useRescheduleI
 
 
   if (isLoading) return <SectionSkeleton/>
+    if(error)handleRQError(error)
+  
   if (!interview) return <p>Interview not found</p>;
 
 

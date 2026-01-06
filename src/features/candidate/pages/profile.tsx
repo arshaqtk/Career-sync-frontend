@@ -7,13 +7,14 @@ import { FileText, Video, Award, Clock } from "lucide-react";
 import useUserData from "@/hooks/useUserData";
 import useFetchCandidateProfileStats from "../hooks/useProfileStats";
 import { SectionSkeleton } from "@/components/Loaders";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function CandidateProfilePage() {
   const { data: user, isLoading, error } = useUserData();
   const {data:stats, isLoading:statsLoading, error:statsError }=useFetchCandidateProfileStats()
   if (isLoading||statsLoading) return  <SectionSkeleton />
      
-  if (error||statsError) return <p>Failed to load user</p>;
+  if (error||statsError) return handleRQError(error),<p>Failed to load user</p>;
   if (!user) return <p>No user found</p>;
 
   const { name, email, phone, profilePictureUrl } = user;

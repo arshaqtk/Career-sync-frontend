@@ -7,10 +7,11 @@ import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { Button } from "@/components/ui/shadcn/button";
 import { Inbox, Users } from "lucide-react";
 import { Spinner } from "@/components/ui/shadcn/spinner";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function JobApplicantsPage() {
   const { jobId } = useParams<{ jobId: string }>();
-  const { data: applicants = [], isLoading, isError } = useRecruiterJobApplications(jobId as string);
+  const { data: applicants = [], isLoading, isError,error } = useRecruiterJobApplications(jobId as string);
 
   if (isLoading) {
     return (
@@ -21,6 +22,7 @@ export default function JobApplicantsPage() {
   }
 
   if (isError) {
+    handleRQError(error)
     return (
       <div className="flex items-center justify-center py-20">
         <p className="text-destructive">Failed to load applicants. Please try again later.</p>

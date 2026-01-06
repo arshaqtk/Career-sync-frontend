@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import type { ChatMessage } from "../types/chat.types"
 import { useAuthStore } from "@/store/auth.store"
 import { useMessageHistory } from "../hooks/useMessages"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 
 
@@ -14,7 +15,7 @@ export default function ChatWindow() {
     const userId=useAuthStore((s)=>s.user?.id)
   const { messages, addMessage, activeChatId,conversationId,setMessages } = useChatStore()
   console.log(conversationId)
-  const {data:messageHistory,isLoading,isError}=useMessageHistory(conversationId!)
+  const {data:messageHistory,isLoading,isError,error}=useMessageHistory(conversationId!)
   
   useEffect(()=>{
     const handler=(msg:ChatMessage)=>{
@@ -33,15 +34,15 @@ export default function ChatWindow() {
     }
   },[messageHistory])
   
-  // console.log("🧠 Zustand messages:", messages)
+ 
   if (!activeChatId) {
     return <div>Select a chat</div>
   }
   if(isLoading){
     return <div>Chat loading</div>
   }
-    if (isError) return <div>Failed to load chats</div>
-// console.log(messages)
+    if (isError) {handleRQError(error); return <div>Failed to load chats</div>}
+
   return (
     <div className="flex flex-col h-full">
       {/* Header */}

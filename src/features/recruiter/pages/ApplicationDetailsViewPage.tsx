@@ -11,16 +11,20 @@ import { InterviewTimeline } from "../components/application/interviewTimeLine";
 import { useRecruiterInterviewTimeline } from "../hooks/useRecruiterApplicationInterviews";
 import { toast } from "sonner";
 import { SectionSkeleton } from "@/components/Loaders";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function ApplicantionDetailPage() {
   const { applicationId } = useParams();
   if(!applicationId){
     toast.error("Something went wrong...")
   }
-  const { data, isLoading } = useRecruiterApplicantDetails(applicationId);
-  const {data:interviews,isLoading:interviewIsLoading}=useRecruiterInterviewTimeline(applicationId!)
+  const { data, isLoading,error } = useRecruiterApplicantDetails(applicationId);
+  const {data:interviews,isLoading:interviewIsLoading,error:timeLineError}=useRecruiterInterviewTimeline(applicationId!)
 
   if (isLoading||interviewIsLoading) return <SectionSkeleton/>
+    if(error)handleRQError(error)
+    if(timeLineError)handleRQError(timeLineError)
+  
   if (!data) return <p>No application found.</p>;
   
 

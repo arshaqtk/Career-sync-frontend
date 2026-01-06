@@ -17,6 +17,7 @@ import { JobFilter } from "../components/job/JobFilter";
 import { useState } from "react";
 import type { JobFilters } from "../types/jobFilter.types";
 import { RecruitereJobsPagination } from "../components/job/JobsPagination";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function RecruiterJobPage() {
   const [page, setPage] = useState(1);
@@ -27,11 +28,12 @@ export default function RecruiterJobPage() {
     search: "",
   });
 
-  const { data, isLoading } = useRecruiterJob({
+  const { data, isLoading,error } = useRecruiterJob({
     page,
     limit: 5,
     filters,
   });
+  if(error)handleRQError(error)
 
   const { mutate: addJob } = useAddJob();
   const { mutate: updateJob } = useUpdateJob();

@@ -9,13 +9,16 @@ import ResumeCard from "../components/candidate-profile/ResumeCard";
 import PortfolioCard from "../components/candidate-profile/PortfolioCard";
 import useRecruiterFetchCandidateProfile from "../hooks/useFetchCandidateProfile";
 import { SectionSkeleton } from "@/components/Loaders";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function RecruiterCandidateProfilePage() {
   const { candidateId } = useParams();
  
-  const { data, isLoading } = useRecruiterFetchCandidateProfile(candidateId!);
+  const { data, isLoading,error } = useRecruiterFetchCandidateProfile(candidateId!);
 
   if (isLoading) return <SectionSkeleton/>
+    if(error)handleRQError(error)
+  
   if (!data) return <p>No candidate found.</p>;
 
   return (

@@ -3,14 +3,15 @@ import  useCandidateData  from "@/hooks/useUserData";
 
 import { EditProfileForm } from "../components/profile/EditProfileForm";
 import { SectionSkeleton } from "@/components/Loaders";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function EditProfilePage() {
-  const { data: user, isLoading, error } = useCandidateData();
+  const { data: user, isLoading, error ,isError} = useCandidateData();
 
    if (isLoading) {
       return <SectionSkeleton />
     }
-  if (error) return <p>Failed to load profile</p>;
+   if(isError)handleRQError(error)
   if (!user) return <p>No user data available</p>;
 
   return (

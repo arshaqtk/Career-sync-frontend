@@ -6,6 +6,7 @@ import { InterviewsPagination } from "../components/interview/list/InterviewsPag
 import { useRecruiterInterviews } from "../hooks/useRecruiterInterviews";
 import type { InterviewListFilters } from "../types/interview.type";
 import { useAuthStore } from "@/store/auth.store";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function RecruiterInterviewsPage() {
   const [filters, setFilters] = useState<InterviewListFilters>({
@@ -16,7 +17,8 @@ export default function RecruiterInterviewsPage() {
 const {user}=useAuthStore()
   const [page, setPage] = useState(1);
 
-  const { data:interviews, isLoading } = useRecruiterInterviews(user?.id as string,{ ...filters, page, });
+  const { data:interviews, isLoading,error } = useRecruiterInterviews(user?.id as string,{ ...filters, page, });
+  if(error)handleRQError(error)
 
 
   return (

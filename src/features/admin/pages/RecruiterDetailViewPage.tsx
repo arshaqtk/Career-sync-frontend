@@ -10,12 +10,13 @@ import { PersonalInfoCard } from "../components/Recruiter/Detailview/PersonalInf
 import { CompanyInfoCard } from "../components/Recruiter/Detailview/CompanyInfoCard"
 import { RecruiterActivityCard } from "../components/Recruiter/Detailview/RecruiterActivityCard"
 import { SectionSkeleton } from "@/components/Loaders"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 type Status = "active" | "blocked"
 
 export default function RecruiterDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const { data, isLoading, isError } = useAdminRecruiterDetail(id!)
+  const { data, isLoading, isError,error } = useAdminRecruiterDetail(id!)
   const { mutate, isPending } = useRecruiterStatusAction()
 
   // ✅ dialog state
@@ -26,6 +27,7 @@ export default function RecruiterDetailPage() {
  
 
   if (isError || !data) {
+    handleRQError(error)
     return (
       <p className="text-center text-red-500">
         Failed to load recruiter details

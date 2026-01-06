@@ -7,6 +7,7 @@ import type { Chatlist } from "../types/chat.types"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar"
 import { ScrollArea } from "@/components/ui/shadcn/scroll-area"
 import { cn } from "@/lib/utils"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 export default function ChatList() {
   const socket = getSocket()
@@ -38,11 +39,12 @@ export default function ChatList() {
     )
   }
 
-  const { data: conversations, isLoading, isError } =
+  const { data: conversations, isLoading, isError,error } =
     useConversationList({ page, limit })
 
   if (isLoading) return <CardSkeleton />
-  if (isError) return <div className="p-4 text-red-500">Failed to load chats</div>
+  if (isError) {handleRQError(error) 
+    return <div className="p-4 text-red-500">Failed to load chats</div>}
 
   return (
     <div className="h-full border-r bg-background">

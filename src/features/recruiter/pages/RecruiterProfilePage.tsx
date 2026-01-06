@@ -1,4 +1,5 @@
 
+import { handleRQError } from "@/lib/react-query/errorHandler";
 import { RecruiterProfileDetails } from "../components/profile/ProfileDetails";
 import { RecruiterProfileHeader } from "../components/profile/profileHeader";
 // import { RecruiterActivity } from "../components/profile/RecruiterActivity";
@@ -14,6 +15,7 @@ export default function RecruiterProfilePage() {
         return <div>Loading</div>
     }
     if(error){
+      handleRQError(error)
       return <div>Error</div>
     }
   return (

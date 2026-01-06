@@ -9,10 +9,11 @@ import { ConfirmStatusDialog } from "../components/dialogs/ConfirmBlockUser";
 import { useAdminDashboard } from "../hooks/useAdminDashboard";
 import { useRecruiterStatusAction } from "../hooks/useToggleRecruiterStatus";
 import { AppLoader } from "@/components/Loaders";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function AdminDashboardPage() {
 
-    const { data: dashboardData, isLoading } = useAdminDashboard()
+    const { data: dashboardData, isLoading ,error} = useAdminDashboard()
     const { isPending, mutate } = useRecruiterStatusAction()
     const [dialogOpen, setDialogOpen] = useState(false)
     const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -25,6 +26,7 @@ export default function AdminDashboardPage() {
         status === "Active" ? "active" : "blocked"
 
     if (isLoading) return <AppLoader/>
+  if(error)handleRQError(error)
 
     const mapStatsToCards = (stats?: {
         totalUsers: number

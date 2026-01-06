@@ -9,6 +9,7 @@ import { useApplicationDetailViewData } from "../hooks/useApplicationDetails"
 import { useParams } from "react-router-dom"
 import { toast } from "sonner"
 import { SectionSkeleton } from "@/components/Loaders"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 export const CandidateApplicationDetailPage = () => {
   const { applicationId } = useParams()
@@ -17,6 +18,7 @@ export const CandidateApplicationDetailPage = () => {
     data: application,
     isLoading,
     isError,
+    error
   } = useApplicationDetailViewData(applicationId!)
 
   if (isLoading) {
@@ -27,6 +29,7 @@ export const CandidateApplicationDetailPage = () => {
     toast.error("Failed to fetch application")
     return <div>Unable to load application</div>
   }
+  if(error)handleRQError(error)
 
  
 

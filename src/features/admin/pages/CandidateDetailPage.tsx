@@ -10,18 +10,20 @@ import { CandidateSkillsCard } from "../components/Candidates/DetailView/Candida
 import { CandidateExperienceCard } from "../components/Candidates/DetailView/CandidateExperienceCard"
 import { CandidateActionCard } from "../components/Candidates/DetailView/CandidateActionCard"
 import { SectionSkeleton } from "@/components/Loaders"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 type Status = "active" | "blocked"
 
 export default function CandidateDetailPage() {
   const { id } = useParams()
-  const { data ,isLoading} = useAdminCandidateDetail(id!)
+  const { data ,isLoading,error} = useAdminCandidateDetail(id!)
   const { mutate, isPending } = useCandidateStatusAction()
 
 
   const [dialogOpen, setDialogOpen] = useState(false)
   const [currentStatus, setCurrentStatus] = useState<Status | null>(null)
  if (isLoading) return <SectionSkeleton/>
+  if(error)handleRQError(error)
 
   if (!data) return null
 
