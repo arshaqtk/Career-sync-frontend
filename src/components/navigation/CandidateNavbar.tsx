@@ -15,7 +15,7 @@ import useLogout from "@/hooks/useLogout";
 import useUserData from "@/hooks/useUserData";
 import { Spinner } from "../ui/shadcn/spinner";
 
-export default function CandidateNavbar() {
+export  function CandidateNavbar() {
   const navigate = useNavigate();
   const handleLogout = useLogout();
   const { data: user, isLoading } = useUserData();

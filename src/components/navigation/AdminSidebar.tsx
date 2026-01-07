@@ -9,7 +9,7 @@ const navItems = [
   // { label: "System Logs", icon: Shield, to: "/admin/logs" },
 ]
 
-export default function AdminSidebar({ isOpen }: { isOpen: boolean }) {
+export  function AdminSidebar({ isOpen }: { isOpen: boolean }) {
   return (
     <div className="h-full w-full bg-background border-r px-3 py-6">
       <div className="mb-8 text-center font-bold">

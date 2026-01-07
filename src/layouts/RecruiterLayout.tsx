@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import RecruiterSidebar from "@/components/Navigation/RecruiterSidebar";
-import RecruiterTopNavbar from "@/components/Navigation/RecruiterTopNavbar";
-import SidebarToggle from "@/components/Navigation/SidebarToggle";
+import {RecruiterSidebar} from "@/components/Navigation/RecruiterSidebar";
+import {RecruiterTopNavbar} from "@/components/Navigation/RecruiterTopNavbar";
+import {SidebarToggle} from "@/components/Navigation/SidebarToggle";
 import { useState } from "react";
 
 export default function RecruiterLayout() {

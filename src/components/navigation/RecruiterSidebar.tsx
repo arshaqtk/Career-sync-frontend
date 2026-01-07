@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { recruiterSidebar } from "@/config/recruiterSidebar.config";
 import { iconMap } from "@/config/iconMap";
 
-export default function RecruiterSidebar({ isOpen }: { isOpen: boolean }) {
+export  function RecruiterSidebar({ isOpen }: { isOpen: boolean }) {
   return (
     <aside
       className={`

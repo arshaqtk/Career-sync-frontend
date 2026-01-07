@@ -3,7 +3,7 @@ import { AboutSection } from "./AboutSection";
 import type { UserDto } from "@/types/userDto.type";
 import { ExperienceSection } from "./ExperienceSection";
 import { SkillsSection } from "./SkillSection";
-import { SkillsEditModal } from "../Modals/skillModal";
+import { SkillModal } from "../Modals/skillModal";
 import { SkillModalStore } from "../../store/SkillModal";
 import { useUpdateProfileSkill } from "../../hooks/useUpdateProfile";
 import { EducationSection } from "./EducationSection";
@@ -30,7 +30,7 @@ export function ProfileTabs({ user }: { user: UserDto }) {
 
       <TabsContent value="overview"><AboutSection about={user.candidateData?.about||""}/></TabsContent>
       <TabsContent value="experience"><ExperienceSection experience={user.candidateData?.experience||[]}/></TabsContent>
-      <SkillsEditModal
+      <SkillModal
         open={isSkillModalOpen}
         onClose={() => setSkillModalClose()}
         initialSkills={user.candidateData?.skills||[]}

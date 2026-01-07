@@ -3,7 +3,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { LogOut } from "lucide-react"
 import useLogout from "@/hooks/useLogout";
 
-export default function AdminTopNavbar() {
+export  function AdminTopNavbar() {
   const handleLogout = useLogout();
   return (
     <div className="h-full flex items-center justify-between px-6">

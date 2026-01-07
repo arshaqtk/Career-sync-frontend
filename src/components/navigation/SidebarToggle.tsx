@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/shadcn/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-export default function SidebarToggle({
+export  function SidebarToggle({
   isOpen,
   toggle,
 }: {

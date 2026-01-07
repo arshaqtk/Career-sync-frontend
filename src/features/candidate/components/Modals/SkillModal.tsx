@@ -18,12 +18,12 @@ interface SkillsEditModalProps {
   onSave: (skills: string[]) => void;
 }
 
-export function SkillsEditModal({
+export const SkillModal=({
   open,
   onClose,
   initialSkills,
   onSave,
-}: SkillsEditModalProps) {
+}: SkillsEditModalProps)=> {
   const [skills, setSkills] = useState(initialSkills);
   const [inputValue, setInputValue] = useState("");
 
