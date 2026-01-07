@@ -3,7 +3,7 @@ import { AboutSection } from "./AboutSection";
 import type { UserDto } from "@/types/userDto.type";
 import { ExperienceSection } from "./ExperienceSection";
 import { SkillsSection } from "./SkillSection";
-import { SkillFormModal } from "../Modals/skillModal";
+import { SkillFormModal } from "../Modals/SkillModal";
 import { SkillModalStore } from "../../store/SkillModal";
 import { useUpdateProfileSkill } from "../../hooks/useUpdateProfile";
 import { EducationSection } from "./EducationSection";

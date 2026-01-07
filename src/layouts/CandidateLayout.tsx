@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import {CandidateNavbar} from "../components/Navigation/CandidateNavbar";
+import {CandidateNavbar} from "../components/navigation/CandidateNavbar";
 
 export default function CandidateLayout() {
   return (
