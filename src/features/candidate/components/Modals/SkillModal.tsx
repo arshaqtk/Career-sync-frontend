@@ -18,7 +18,7 @@ interface SkillsEditModalProps {
   onSave: (skills: string[]) => void;
 }
 
-export const SkillModal=({
+export const SkillFormModal=({
   open,
   onClose,
   initialSkills,
