@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/shadcn/button";
 import { useUpdateResume } from "../../hooks/useUpdateProfile";
 import { useEffect, useRef } from "react";
 
-export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, onOpenChange, }: {
-    jobIds: string; candidateResumeUrl?: string; onSubmit: (payload: ApplyJobDTO) => void; open: boolean; onOpenChange: (val: boolean) => void;
+export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, OpenChange, }: {
+    jobIds: string; candidateResumeUrl?: string; onSubmit: (payload: ApplyJobDTO) => void; open: boolean; OpenChange: (val: boolean) => void;
 }) => {
 
     const { mutate, isPending } = useUpdateResume()
@@ -63,7 +63,7 @@ export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, on
     };
 
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog open={open} onOpenChange={OpenChange}>
             <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Apply Job</DialogTitle>

@@ -3,38 +3,58 @@ import { JobList } from "../components/jobs/jobList";
 import { JobDetails } from "../components/jobs/JobDetails";
 import useCandidateJobData from "../hooks/useCandidateJobs";
 import { useJobStore } from "../store/selectedjob.store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { JobsPagination } from "../components/jobs/JobsPagination";
 import { JobFilter } from "../components/jobs/jobFilter";
 import type { JobFilters } from "../types/jobFilter.types";
 import { SectionSkeleton } from "@/components/Loaders";
 import { handleRQError } from "@/lib/react-query/errorHandler";
+import type { Job } from "@/features/recruiter/types/job.type";
 
 export default function JobPage() {
 
   const [page, setPage] = useState(1);
- const [filters, setFilters] = useState<JobFilters>({
-  status: "all",
-  jobType: "all",
-  search: "",
-});
+  const [filters, setFilters] = useState<JobFilters>({
+    status: "all",
+    jobType: "all",
+    search: "",
+  });
 
   const { selectedJob, setSelectedJob } = useJobStore();
-  const { data: jobs, isLoading,isFetching,isError,error } = useCandidateJobData({ page, limit: 5,filters})
+  const { data: jobs, isLoading, isFetching, isError, error } = useCandidateJobData({ page, limit: 5, filters })
+
+
+  useEffect(() => {
+    if (!jobs?.jobs?.length) {
+      setSelectedJob(null);
+      return;
+    }
+
+    const stillExists = jobs.jobs.find((job: Job) =>
+      job._id === selectedJob?._id)
+
+    if (!stillExists) {
+      setSelectedJob(jobs.jobs[0])
+    }
+  }, [jobs?.jobs, selectedJob, setSelectedJob])
+
 
 
   if (isLoading) {
-     return <SectionSkeleton />
-   }
-   if(isError)handleRQError(error)
+    return <SectionSkeleton />
+  }
+  if (isError) handleRQError(error)
 
+
+
+    
   return (
     <div className="my-2">
-     <JobFilter
-  filters={filters}
-  onChange={setFilters}
-/>
-  {/* Empty State */}
+      <JobFilter
+        filters={filters}
+        onChange={setFilters}
+      />
+      {/* Empty State */}
       {!isLoading && jobs?.jobs.length === 0 ? (
         <div className="py-20 flex flex-col items-center text-center space-y-4">
           <div className="text-5xl">📭</div>
@@ -43,19 +63,19 @@ export default function JobPage() {
             Try adjusting filters
           </p>
         </div>
-      ):(<>
-      <div className="flex w-full h-[calc(100vh-70px)] my-3">
-        <JobList jobs={jobs?.jobs} onSelect={(job) => setSelectedJob(job)} isFetching={isFetching} />
-        <JobDetails job={selectedJob} />
-      </div>
-      <JobsPagination
-        page={page}
-        totalPages={jobs?.pagination?.totalPages}
-        onPageChange={setPage}
-      />
+      ) : (<>
+        <div className="flex w-full h-[calc(100vh-70px)] my-3">
+          <JobList jobs={jobs?.jobs} onSelect={(job) => setSelectedJob(job)} isFetching={isFetching} />
+          <JobDetails job={selectedJob} />
+        </div>
+        <JobsPagination
+          page={page}
+          totalPages={jobs?.pagination?.totalPages}
+          onPageChange={setPage}
+        />
       </>
       )}
-      
+
     </div>
 
   );

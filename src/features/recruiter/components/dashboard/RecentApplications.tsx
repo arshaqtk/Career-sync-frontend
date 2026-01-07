@@ -26,39 +26,39 @@ interface Application {
 }
 
 interface RecentApplicationsProps {
-  data?: Application[]
+  data: Application[]
   loading?: boolean
 }
 
-const DUMMY_APPLICATIONS: Application[] = [
-  {
-    id: "1",
-    candidateName: "Arjun Nair",
-    jobTitle: "React Developer",
-    experience: "2.5 yrs",
-    status: "Applied",
-  },
-  {
-    id: "2",
-    candidateName: "Fathima Minsha",
-    jobTitle: "Backend Developer",
-    experience: "3 yrs",
-    status: "Shortlisted",
-  },
-  {
-    id: "3",
-    candidateName: "Rahul Das",
-    jobTitle: "Full Stack Developer",
-    experience: "1.8 yrs",
-    status: "Applied",
-  },
-]
+// const DUMMY_APPLICATIONS: Application[] = [
+//   {
+//     id: "1",
+//     candidateName: "Arjun Nair",
+//     jobTitle: "React Developer",
+//     experience: "2.5 yrs",
+//     status: "Applied",
+//   },
+//   {
+//     id: "2",
+//     candidateName: "Fathima Minsha",
+//     jobTitle: "Backend Developer",
+//     experience: "3 yrs",
+//     status: "Shortlisted",
+//   },
+//   {
+//     id: "3",
+//     candidateName: "Rahul Das",
+//     jobTitle: "Full Stack Developer",
+//     experience: "1.8 yrs",
+//     status: "Applied",
+//   },
+// ]
 
 export function RecentApplications({
   data,
   loading,
 }: RecentApplicationsProps) {
-  const applications = data ?? DUMMY_APPLICATIONS
+  const applications = data 
 
   return (
     <Card>

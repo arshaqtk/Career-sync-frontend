@@ -21,7 +21,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { jobSchema } from "../../validators/job.schema";
 import { useJobModalStore } from "../../store/openJobModalStore";
-import type { Job } from "@/types/job.type";
+import type { Job } from "@/features/recruiter/types/job.type";
 import type { JSX } from "react";
 import { useEffect } from "react";
 import type { z } from "zod";
@@ -62,7 +62,6 @@ export function AddJobModal({
   location: "",
   remote: false,
   jobType: "full-time",
-  status: "open",
   field: "",
 },
 
@@ -82,7 +81,6 @@ export function AddJobModal({
   location: selectedJob.location ?? "",
   remote: selectedJob.remote ?? false,
   jobType: selectedJob.jobType ?? "full-time",
-  status: selectedJob.status ?? "open",
   field: selectedJob.field ?? "",
 });
     } else {
@@ -142,7 +140,7 @@ export function AddJobModal({
   >
     <SelectTrigger className="h-10">
       <SelectValue placeholder="Select field" />
-    </SelectTrigger>
+    </SelectTrigger> 
 
     <SelectContent>
       {FIELD_OPTIONS.map((item) => (
@@ -248,7 +246,7 @@ export function AddJobModal({
           </div>
 
           {/* Status */}
-          <div>
+          {/* <div>
             <label className="text-sm font-medium">Status</label>
             <Select
               onValueChange={(val) => form.setValue("status", val as "open" | "closed" | "paused")}
@@ -267,7 +265,7 @@ export function AddJobModal({
             {errors.status && (
               <p className="text-red-500 text-sm">{errors.status.message}</p>
             )}
-          </div>
+          </div> */}
           <DialogFooter>
             <Button type="submit">Submit Job</Button>
           </DialogFooter>

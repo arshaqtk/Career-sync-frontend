@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
-import type { Job } from "@/types/job.type";
+import type{ Job } from "@/features/candidate/types/candidateJob.type";
 import { ApplyToJobModal } from "../Modals/applyToJobModal";
 import { useState } from "react";
 import type { ApplyJobDTO } from "../../types/application.types";
@@ -14,7 +14,7 @@ interface JobDetailsProps {
 
 export function JobDetails({ job }: JobDetailsProps) {
   const [open, setIsOpen] = useState(false)
-  const applyNowJOb = useApplyNow()
+  const {mutate:applyNowJOb,isSuccess} = useApplyNow()
   const { data: userData } = useUserData()
   if (!job)
     return (
@@ -24,15 +24,22 @@ export function JobDetails({ job }: JobDetailsProps) {
     );
 
   const handleApplyToJOb = (data: ApplyJobDTO) => {
-    applyNowJOb.mutate(data)
+    applyNowJOb(data)
+    closeModal()
   }
-const isClosed = job.status === "closed";
-const isPaused=job.status==="paused"
-const isApplied = job.hasApplied;
+  const isClosed = job.status === "closed";
+  const isPaused=job.status==="paused"
+  let isApplied = job.hasApplied;
+  if(isSuccess){
+    isApplied=true
+  }
+const closeModal=()=>{
+  setIsOpen(false)
+}
 
   return (
     <div className="w-[65%] h-full overflow-y-auto p-4">
-      <ApplyToJobModal jobIds={job._id as string} open={open} onSubmit={handleApplyToJOb} onOpenChange={setIsOpen} candidateResumeUrl={userData?.candidateData?.resume?.url}></ApplyToJobModal>
+      <ApplyToJobModal jobIds={job._id as string} open={open} onSubmit={handleApplyToJOb} OpenChange={closeModal} candidateResumeUrl={userData?.candidateData?.resume?.url}></ApplyToJobModal>
       <Card>
         <CardContent className="p-4 space-y-3">
           <h2 className="text-2xl font-bold">{job.title}</h2>

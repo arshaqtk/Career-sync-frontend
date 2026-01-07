@@ -8,14 +8,23 @@ import { HiringFunnel } from "../components/dashboard/HiringFunnel"
 import { useRecruiterDashboard } from "../hooks/useRecruiterDashboard"
 import { SectionSkeleton } from "@/components/Loaders"
 import { handleRQError } from "@/lib/react-query/errorHandler"
+import { AddJobModal } from "../components/job/jobModal"
+import { useAddJob } from "../hooks/useAddJob"
+import type { Job } from "../types/job.type"
 
 export default function RecruiterDashboardPage() {
   const { data, isLoading, isError,error } = useRecruiterDashboard()
+  const { mutate: addJob } = useAddJob();
 
   if (isError) return <p>Failed to load dashboard</p>
   if (isLoading) return <SectionSkeleton/>
   if(error)handleRQError(error)
 
+ const handleModalSubmission = (payload: {
+    job: Job;
+  }) => {
+      addJob({ data: payload.job });
+  };
   return (
     <div className="grid grid-cols-12 gap-6 p-6">
       <div className="col-span-12">
@@ -33,10 +42,10 @@ export default function RecruiterDashboardPage() {
       <div className="col-span-12 lg:col-span-4">
         <QuickActions />
       </div>
-
+<AddJobModal onSubmit={handleModalSubmission} />
       <div className="col-span-12 lg:col-span-8">
         <RecentApplications
-          data={data?.recentApplications}
+          data={data?.recentApplications||[]}
           loading={isLoading}
         />
       </div>

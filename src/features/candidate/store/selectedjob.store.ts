@@ -1,9 +1,9 @@
-import type { Job } from "@/types/job.type";
+import type { Job } from "@/features/recruiter/types/job.type";
 import { create } from "zustand";
 
 interface JobStore {
   selectedJob: Job|null;
-  setSelectedJob: (job: Job) => void;
+  setSelectedJob: (job: Job|null) => void;
 }
 
 export const useJobStore = create<JobStore>((set) => ({

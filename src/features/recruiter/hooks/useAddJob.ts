@@ -1,6 +1,6 @@
 import { RecruiterAddJobApi } from "@/api/job.api";
 import { QUERY_KEYS } from "@/config/queryKeys";
-import type { Job } from "@/types/job.type";
+import type { Job } from "@/features/recruiter/types/job.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useJobModalStore } from "../store/openJobModalStore";

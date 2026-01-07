@@ -44,7 +44,6 @@ export const jobSchema = z
     remote: z.boolean(),
 
     jobType: z.enum(["full-time", "part-time", "internship"]),
-    status: z.enum(["open", "closed", "paused"]),
   })
   .refine(
     (data) => data.experienceMax >= data.experienceMin,

@@ -1,4 +1,4 @@
-import type { Job } from "@/types/job.type"
+import type { Job } from "@/features/recruiter/types/job.type"
 import api from "./apiClient"
 import type { JobFilters } from "@/features/candidate/types/jobFilter.types";
 
@@ -29,8 +29,8 @@ export const RecruiterJobs=async({page=1, limit=5,filters}: {
       page: number;
       limit: number; 
     filters:JobFilters})=>{
-        const {jobType,status,search}=filters
-     const res= await api.get(`/job/employer/jobs?page=${page}&limit=${limit}&status=${status}&search=${search}&jobType=${jobType}`)
+       
+     const res= await api.get(`/job/employer/jobs?page=${page}&limit=${limit}`,{params:filters})
     return res.data
      
 }

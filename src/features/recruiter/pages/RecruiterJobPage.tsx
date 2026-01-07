@@ -6,7 +6,7 @@ import { JobSkills } from "../components/job/jobSkills";
 import { JobActions } from "../components/job/jobActions";
 import useRecruiterJob from "../hooks/useRecruiterJob";
 import { Separator } from "@/components/ui/shadcn/separator";
-import type { Job } from "@/types/job.type";
+import type { Job } from "@/features/recruiter/types/job.type";
 import { Button } from "@/components/ui/shadcn/button";
 import { Plus } from "lucide-react";
 import { AddJobModal } from "../components/job/jobModal";

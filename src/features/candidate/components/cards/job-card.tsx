@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { MapPin, Clock, Users } from "lucide-react";
-import type{ Job } from "@/types/job.type";
+import type{ Job } from "@/features/recruiter/types/job.type";
 
 interface JobCardProps {
   job: Job;

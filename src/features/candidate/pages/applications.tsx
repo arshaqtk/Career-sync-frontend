@@ -35,13 +35,13 @@ export default function ApplicationsPage() {
   if(error)handleRQError(error)
 
   const { applications, pagination } = data;
-console.log(applications)
+
   return (
     <div className="space-y-6">
       <ApplicationsFilter
         filters={filters}
         onChange={(f) => {
-          setPage(1); // 🔥 reset page on filter change
+          setPage(1);
           setFilters(f);
         }}
       />

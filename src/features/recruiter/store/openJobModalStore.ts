@@ -1,4 +1,4 @@
-import type { Job } from "@/types/job.type";
+import type { Job } from "@/features/recruiter/types/job.type";
 import { create } from "zustand";
 
 interface JobModalStore {

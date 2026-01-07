@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/shadcn/badge";
-import type{ Job } from "@/types/job.type";
+import type{ Job } from "@/features/recruiter/types/job.type";
 
 interface JobHeaderProps {
   title: string;

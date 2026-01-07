@@ -1,6 +1,6 @@
 import { InlineSpinner } from "@/components/Loaders";
 import { JobCard } from "../cards/job-card";
-import type{ Job } from "@/types/job.type";
+import type{ Job } from "@/features/candidate/types/candidateJob.type";
 
 interface JobListProps {
   jobs: Job[];

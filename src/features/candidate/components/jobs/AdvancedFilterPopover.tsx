@@ -23,6 +23,18 @@ const FIELD_OPTIONS = [
   { label: "Finance", value: "Finance" },
   { label: "Other", value: "Other" },
 ];
+
+const DEFAULT_FILTERS: JobFilters = {
+  status: "all",
+  jobType: "all",
+  search: "",
+  field: undefined,
+  location: "",
+  experienceMin: undefined,
+  remote:undefined,
+};
+
+
 export function JobAdvancedFilterPopover({ filters, onChange }: Props) {
   const update = <K extends keyof JobFilters>(
     key: K,
@@ -46,7 +58,7 @@ export function JobAdvancedFilterPopover({ filters, onChange }: Props) {
         {/* Field */}
         <div className="space-y-2">
            
-              <Select onValueChange={(value) => update("field",value)} value={filters.field ?? ""}>
+              <Select onValueChange={(value) => update("field",value)} value={filters.field}>
                   <SelectTrigger className="h-10 w-[100%]">
                     <SelectValue placeholder="Select your field" />
                   </SelectTrigger>
@@ -59,11 +71,7 @@ export function JobAdvancedFilterPopover({ filters, onChange }: Props) {
                 </SelectContent>
               </Select>
           <label className="text-sm">Field</label>
-          {/* <Input
-            placeholder="Frontend, Backend..."
-            value={filters.field ?? ""}
-            onChange={(e) => update("field", e.target.value)}
-          /> */}
+         
         </div>
 
         {/* Location */}
@@ -88,14 +96,14 @@ export function JobAdvancedFilterPopover({ filters, onChange }: Props) {
                 update("experienceMin", Number(e.target.value))
               }
             />
-            <Input
+            {/* <Input
               type="number"
               placeholder="Max"
               value={filters.experienceMax ?? ""}
               onChange={(e) =>
                 update("experienceMax", Number(e.target.value))
               }
-            />
+            /> */}
           </div>
         </div>
 
@@ -107,6 +115,8 @@ export function JobAdvancedFilterPopover({ filters, onChange }: Props) {
           />
           <span className="text-sm">Remote only</span>
         </div>
+        <Button  variant="ghost"
+  size="sm" onClick={()=>onChange(DEFAULT_FILTERS)}>Clear Filters</Button>
       </PopoverContent>
     </Popover>
   )

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/shadcn/button";
 import { Pencil, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import type { Job } from "@/types/job.type";
+import type { Job } from "@/features/recruiter/types/job.type";
 import { useJobModalStore } from "../../store/openJobModalStore";
 import { useUpdateJobstatus } from "../../hooks/useUpdateJobStatus";
 

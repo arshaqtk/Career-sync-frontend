@@ -36,10 +36,10 @@ export const useApplyNow=()=>{
     return useMutation({
         mutationFn:applyToJobApi,
         onSuccess:(response)=>{
-            console.log(response)
             toast.success(response.message)            
-            queryClient.invalidateQueries({queryKey:[QUERY_KEYS.jobs]});
-            queryClient.invalidateQueries({queryKey:[QUERY_KEYS.applications]});
+            
+            queryClient.invalidateQueries({queryKey:QUERY_KEYS.jobs.all});
+            queryClient.invalidateQueries({queryKey:QUERY_KEYS.applications.all});
         },
          onError(error: unknown) {handleRQError(error)}
     })

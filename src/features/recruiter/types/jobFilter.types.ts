@@ -4,4 +4,5 @@ export type JobFilters = {
   location?: string;
   experience?: string;
   search?: string;
+  sortByApplication?: "most_applied" | "least_applied";
 };
