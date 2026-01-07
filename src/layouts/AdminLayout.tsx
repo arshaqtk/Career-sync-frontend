@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
 
-import {AdminSidebar} from "@/components/Navigation/AdminSidebar"
-import {AdminTopNavbar} from "@/components/Navigation/AdminTopNavbar"
-import {SidebarToggle} from "@/components/Navigation/SidebarToggle"
+import {AdminSidebar} from "../components/Navigation/AdminSidebar"
+import {AdminTopNavbar} from "../components/Navigation/AdminTopNavbar"
+import {SidebarToggle} from "../components/Navigation/SidebarToggle"
 
 export default function AdminLayout() {
   const [isOpen, setIsOpen] = useState(true)
