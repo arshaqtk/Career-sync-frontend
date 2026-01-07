@@ -4,4 +4,5 @@ export const candidateNav = [
   { label: "Applications", path: "/applications" },
   { label: "Interviews", path: "/interviews" },
   { label: "Profile", path: "/profile" },
+  {label:"message", path:"/chat"}
 ];

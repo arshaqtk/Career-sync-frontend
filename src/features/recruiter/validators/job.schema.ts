@@ -38,7 +38,7 @@ export const jobSchema = z
 
     field: z.string().min(1, "Field is required"),
 
-    salary: z.string().min(1, "Salary is required"),
+    salary: z.number().min(0, "Salary is required and should not be negative"),
     location: z.string().min(1, "Location is required"),
 
     remote: z.boolean(),

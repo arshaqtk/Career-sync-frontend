@@ -15,11 +15,16 @@ export const RecruiterInfoCard=({ name,email,id }: Props)=> {
   const socket=getSocket()
 const {setConversationId,setMessages,setActiveChatId}=useChatStore()
  const openChat = (receiverId: string) => {
+  console.log(receiverId)
+  if(!socket.connected){
+    socket.connect()
+  }
     setActiveChatId(receiverId)
     socket.emit(
       "chat:joinConversation",
       receiverId,
       (res: { success: boolean; conversationId?: string }) => {
+        console.log(res)
         if (res.success && res.conversationId) {
           setConversationId(res.conversationId)
           setMessages([])

@@ -17,26 +17,40 @@ export const JobActions: React.FC<JobActionsProps> = ({ id, status,job}) => {
   const {mutate}=useUpdateJobstatus()
   return (
     <div className="flex gap-4 mt-8">
-      <Button onClick={() =>openModal(job)} className="flex gap-2">
-        <Pencil className="w-4 h-4" /> Edit Job
-      </Button>
+  <Button onClick={() => openModal(job)} className="flex gap-2">
+    <Pencil className="w-4 h-4" /> Edit Job
+  </Button>
 
-      <Button
-        onClick={() => navigate(`/recruiter/jobs/${id}/applicants`)}
-        variant="secondary"
-        className="flex gap-2"
-      >
-        <Users className="w-4 h-4" /> Applicants {job?.applicationCount}
-      </Button>
+  <Button
+    onClick={() => navigate(`/recruiter/jobs/${id}/applicants`)}
+    variant="secondary"
+    className="flex gap-2"
+  >
+    <Users className="w-4 h-4" />
+    Applicants {job?.applicationCount}
+  </Button>
 
-      {status === "open" ? (
-        <Button variant="destructive" onClick={() => mutate({jobId:id,status:"closed"})}>
-          Close Job
-        </Button>
-      ) : (
-        <Button onClick={() =>mutate({jobId:id,status:"open"})}>Reopen Job</Button>
-      )}
-    </div>
+  {status === "paused" && (
+    <Button disabled variant="destructive">
+      Blocked
+    </Button>
+  )}
+
+  {status === "open" && (
+    <Button
+      variant="destructive"
+      onClick={() => mutate({ jobId: id, status: "closed" })}
+    >
+      Close Job
+    </Button>
+  )}
+
+  {status === "closed" && (
+    <Button onClick={() => mutate({ jobId: id, status: "open" })}>
+      Reopen Job
+    </Button>
+  )}
+</div>
   );
 };
 

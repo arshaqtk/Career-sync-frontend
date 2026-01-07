@@ -9,16 +9,61 @@ import { JobFilter } from "../components/jobs/jobFilter";
 import type { JobFilters } from "../types/jobFilter.types";
 import { SectionSkeleton } from "@/components/Loaders";
 import { handleRQError } from "@/lib/react-query/errorHandler";
-import type { Job } from "@/features/recruiter/types/job.type";
+import type { CandidateJob } from "../types/candidateJob.type";
+import { useSearchParams } from "react-router-dom";
+import { getValidParams } from "@/lib/utils";
+
 
 export default function JobPage() {
 
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams()
+  const pageFromUrl = Number(searchParams.get("page") ?? 1)
+  const [page, setPage] = useState(pageFromUrl)
+
+const updateFilters = (nextFilters: JobFilters) => {
+  setFilters(nextFilters)
+
+  const params = new URLSearchParams()
+
+  Object.entries(nextFilters).forEach(([key, value]) => {
+    if (value && value !== "all") {
+      params.set(key, String(value))
+    }
+  })
+
+  setSearchParams(params)
+  setPage(1)
+}
+
+const updatePage = (nextPage: number) => {
+  setPage(nextPage)
+
+  const params = new URLSearchParams(searchParams)
+  params.set("page", String(nextPage))
+  setSearchParams(params)
+}
+  
   const [filters, setFilters] = useState<JobFilters>({
     status: "all",
     jobType: "all",
     search: "",
+    location: "",
   });
+  const STATUS_VALUES = ["all", "open", "closed", "draft"] as const
+const JOB_TYPE_VALUES = ["all", "full-time", "part-time", "internship"] as const
+useEffect(() => {
+  const nextFilters: JobFilters = {
+    status: getValidParams(searchParams.get("status"),STATUS_VALUES,"all" ) ,
+    jobType: getValidParams(searchParams.get("jobType"),JOB_TYPE_VALUES,"all"),
+    search: searchParams.get("search") ?? "",
+    location: searchParams.get("location") ?? "",
+  }
+  setFilters((prev) =>
+    JSON.stringify(prev) === JSON.stringify(nextFilters)
+      ? prev
+      : nextFilters
+  )
+}, [searchParams])
 
   const { selectedJob, setSelectedJob } = useJobStore();
   const { data: jobs, isLoading, isFetching, isError, error } = useCandidateJobData({ page, limit: 5, filters })
@@ -30,7 +75,7 @@ export default function JobPage() {
       return;
     }
 
-    const stillExists = jobs.jobs.find((job: Job) =>
+    const stillExists = jobs.jobs.find((job: CandidateJob) =>
       job._id === selectedJob?._id)
 
     if (!stillExists) {
@@ -52,7 +97,7 @@ export default function JobPage() {
     <div className="my-2">
       <JobFilter
         filters={filters}
-        onChange={setFilters}
+        onChange={updateFilters}
       />
       {/* Empty State */}
       {!isLoading && jobs?.jobs.length === 0 ? (
@@ -71,7 +116,7 @@ export default function JobPage() {
         <JobsPagination
           page={page}
           totalPages={jobs?.pagination?.totalPages}
-          onPageChange={setPage}
+          onPageChange={updatePage}
         />
       </>
       )}

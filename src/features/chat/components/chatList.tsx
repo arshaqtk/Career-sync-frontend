@@ -9,7 +9,7 @@ import { ScrollArea } from "@/components/ui/shadcn/scroll-area"
 import { cn } from "@/lib/utils"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 
-export default function ChatList() {
+export default function ChatList({onChange}:{onChange:(value:string)=>void}) {
   const socket = getSocket()
 
   const {
@@ -22,9 +22,9 @@ export default function ChatList() {
   const page = 1
   const limit = 10
 
-  const openChat = (receiverId: string) => {
+  const openChat = (receiverId: string,recieverName:string) => {
+onChange(recieverName)
     if (receiverId === activeChatId) return
-
     setActiveChatId(receiverId)
 
     socket.emit(
@@ -57,7 +57,7 @@ export default function ChatList() {
           return (
             <div
               key={conv._id}
-              onClick={() => openChat(conv.receiver._id)}
+              onClick={() => openChat(conv.receiver._id,conv.receiver.name)}
               className={cn(
                 "flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors",
                 "hover:bg-muted/60",

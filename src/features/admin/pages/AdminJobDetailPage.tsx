@@ -14,6 +14,7 @@ import { RecruiterInfoCard } from "../components/jobs/DetailView/RecruiterInfoCa
 import { JobActionCard } from "../components/jobs/DetailView/JobActionCard"
 import {  SectionSkeleton } from "@/components/Loaders"
 import { handleRQError } from "@/lib/react-query/errorHandler"
+import { JobBlockedInfoCard } from "../components/jobs/DetailView/jobBlockedInfoCard"
 
 type Status = "active" | "blocked" | "closed"
 
@@ -52,6 +53,14 @@ export default function AdminJobDetailPage() {
             createdAt={job.createdAt}
           />
           <RecruiterInfoCard recruiter={job.recruiter} />
+
+           {job.status === "blocked" && (
+    <JobBlockedInfoCard
+      blockedAt={job.blockedAt}
+      blockedReason={job.blockReason}
+    />
+  )}
+
           <JobActionCard
             status={job.status}
             onAction={(status) => {

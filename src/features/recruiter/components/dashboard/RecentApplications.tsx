@@ -1,4 +1,4 @@
-import { Eye, CheckCircle, XCircle } from "lucide-react"
+import { Eye } from "lucide-react"
 import {
   Card,
   CardContent,
@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/shadcn/button"
 import { Badge } from "@/components/ui/shadcn/badge"
 import { Skeleton } from "@/components/ui/shadcn/skeleton"
+import { useNavigate } from "react-router-dom"
 
 interface Application {
   id: string
@@ -30,36 +31,12 @@ interface RecentApplicationsProps {
   loading?: boolean
 }
 
-// const DUMMY_APPLICATIONS: Application[] = [
-//   {
-//     id: "1",
-//     candidateName: "Arjun Nair",
-//     jobTitle: "React Developer",
-//     experience: "2.5 yrs",
-//     status: "Applied",
-//   },
-//   {
-//     id: "2",
-//     candidateName: "Fathima Minsha",
-//     jobTitle: "Backend Developer",
-//     experience: "3 yrs",
-//     status: "Shortlisted",
-//   },
-//   {
-//     id: "3",
-//     candidateName: "Rahul Das",
-//     jobTitle: "Full Stack Developer",
-//     experience: "1.8 yrs",
-//     status: "Applied",
-//   },
-// ]
-
 export function RecentApplications({
   data,
   loading,
 }: RecentApplicationsProps) {
   const applications = data 
-
+const navigate=useNavigate()
   return (
     <Card>
       <CardHeader>
@@ -99,17 +76,17 @@ export function RecentApplications({
                   </TableCell>
 
                   <TableCell className="text-right space-x-2">
-                    <Button size="icon" variant="ghost">
+                    <Button size="icon" variant="ghost" onClick={()=>navigate(`/recruiter/jobs/:jobId/applicants/${app.id}`)}>
                       <Eye className="h-4 w-4" />
                     </Button>
 
-                    <Button size="icon" variant="ghost">
+                    {/* <Button size="icon" variant="ghost">
                       <CheckCircle className="h-4 w-4 text-green-600" />
                     </Button>
 
                     <Button size="icon" variant="ghost">
                       <XCircle className="h-4 w-4 text-red-600" />
-                    </Button>
+                    </Button> */}
                   </TableCell>
                 </TableRow>
               ))}

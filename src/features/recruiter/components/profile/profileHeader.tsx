@@ -18,7 +18,7 @@ interface RecruiterProfileHeaderProps {
 
 export function RecruiterProfileHeader({
   recruiter,
-  onSecurity,
+  // onSecurity,
 }: RecruiterProfileHeaderProps) {
   const initials = recruiter.name
     .split(" ")
@@ -50,14 +50,14 @@ export function RecruiterProfileHeader({
         </div>
 
         <div className="flex gap-2">
-          <Button variant="outline" onClick={
+          <Button  onClick={
            ()=>navigate("edit")
           }>
             Edit Profile
           </Button>
-          <Button onClick={onSecurity}>
+          {/* <Button onClick={onSecurity}>
             Security
-          </Button>
+          </Button> */}
         </div>
       </CardContent>
     </Card>

@@ -40,6 +40,9 @@ export function useRecruiterStatusAction() {
      queryClient.invalidateQueries({
   queryKey: QUERY_KEYS.admin.dashboard,
 })
+queryClient.invalidateQueries({
+  queryKey:["admin","recruiters"]
+})
       queryClient.invalidateQueries({
         queryKey: ["admin", "recruiter", recruiterId],
       })

@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
-import type{ Job } from "@/features/candidate/types/candidateJob.type";
+import type{ CandidateJob } from "@/features/candidate/types/candidateJob.type";
 import { ApplyToJobModal } from "../Modals/applyToJobModal";
 import { useState } from "react";
 import type { ApplyJobDTO } from "../../types/application.types";
@@ -9,7 +9,7 @@ import { useApplyNow } from "../../hooks/useApplication";
 import useUserData from "@/hooks/useUserData";
 
 interface JobDetailsProps {
-  job?: Job | null;
+  job?: CandidateJob | null;
 }
 
 export function JobDetails({ job }: JobDetailsProps) {

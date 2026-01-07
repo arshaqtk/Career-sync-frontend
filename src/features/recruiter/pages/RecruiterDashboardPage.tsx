@@ -3,7 +3,7 @@ import { StatsCards } from "../components/dashboard/StatsCards"
 import { ActionCenter } from "../components/dashboard/ActionCenter"
 import { QuickActions } from "../components/dashboard/QuickActions"
 import { RecentApplications } from "../components/dashboard/RecentApplications"
-import { TodaysInterviews } from "../components/dashboard/TodaysInterviews"
+// import { TodaysInterviews } from "../components/dashboard/TodaysInterviews"
 import { HiringFunnel } from "../components/dashboard/HiringFunnel"
 import { useRecruiterDashboard } from "../hooks/useRecruiterDashboard"
 import { SectionSkeleton } from "@/components/Loaders"
@@ -43,19 +43,19 @@ export default function RecruiterDashboardPage() {
         <QuickActions />
       </div>
 <AddJobModal onSubmit={handleModalSubmission} />
-      <div className="col-span-12 lg:col-span-8">
+      <div className="col-span-12 lg:col-span-12">
         <RecentApplications
           data={data?.recentApplications||[]}
           loading={isLoading}
         />
       </div>
 
-      <div className="col-span-12 lg:col-span-4">
+      {/* <div className="col-span-12 lg:col-span-4">
         <TodaysInterviews
           data={data?.todaysInterviews}
           loading={isLoading}
         />
-      </div>
+      </div> */}
 
       <div className="col-span-12">
         <HiringFunnel data={data?.funnel} loading={isLoading} />

@@ -34,6 +34,8 @@ export interface CandidateApplicationDetailResponse {
     location?: string
     remote?: boolean
     jobType: "full-time" | "part-time" | "internship"
+     hasApplied?:boolean;
+     status?: "open" | "closed" | "paused";
   }
 
   recruiter: {
@@ -65,16 +67,16 @@ export interface JobDetails {
   company: string;
   field:string;
   description?: string;
-  skills: string[];
-  experienceMin: number;
-  experienceMax: number;
+  skills?: string[];
+  experienceMin?: number;
+  experienceMax?: number;
   salary?: string
-  location: string;
-  remote: boolean;
-  jobType: "full-time" | "part-time" | "internship";
-  status: "open" | "closed" | "paused";
+  location?: string;
+  remote?: boolean;
+  jobType?: "full-time" | "part-time" | "internship";
+  status?: "open" | "closed" | "paused";
   applicationCount?: number;
-  hasApplied:boolean;
+  hasApplied?:boolean;
   createdAt?: Date;
 }
 
@@ -86,7 +88,7 @@ export interface ApplicationDetails{
   experience:string;
   currentRole:string;
   resumeUrl:string;
-  decisionNote:string;
+  decisionNote?:string;
 }
 
 export const STATUS_FLOW = ["Pending", "Shortlisted", "Interview","Selected", "Rejected"] as const

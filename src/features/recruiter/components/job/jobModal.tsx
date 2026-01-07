@@ -58,7 +58,7 @@ export function AddJobModal({
   skills: "",
   experienceMin: undefined,
   experienceMax: undefined,
-  salary: "",
+  salary: 0,
   location: "",
   remote: false,
   jobType: "full-time",
@@ -77,7 +77,7 @@ export function AddJobModal({
   skills: selectedJob.skills ? selectedJob.skills.join(", ") : "",
   experienceMin: selectedJob.experienceMin ?? undefined,
   experienceMax: selectedJob.experienceMax ?? undefined,
-  salary: selectedJob.salary ?? "",
+  salary: selectedJob.salary ?? 0,
   location: selectedJob.location ?? "",
   remote: selectedJob.remote ?? false,
   jobType: selectedJob.jobType ?? "full-time",
@@ -200,7 +200,7 @@ export function AddJobModal({
 
           {/* Salary */}
           <div>
-            <Input placeholder="Salary" {...form.register("salary")} />
+            <Input type="number" placeholder="Salary" {...form.register("salary",{ valueAsNumber: true })} />
             {errors.salary && (
               <p className="text-red-500 text-sm">{errors.salary.message}</p>
             )}

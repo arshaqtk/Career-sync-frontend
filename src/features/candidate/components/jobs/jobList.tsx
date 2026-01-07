@@ -1,10 +1,10 @@
 import { InlineSpinner } from "@/components/Loaders";
 import { JobCard } from "../cards/job-card";
-import type{ Job } from "@/features/candidate/types/candidateJob.type";
+import type{ CandidateJob } from "@/features/candidate/types/candidateJob.type";
 
 interface JobListProps {
-  jobs: Job[];
-  onSelect: (job: Job) => void;
+  jobs: CandidateJob[];
+  onSelect: (job: CandidateJob) => void;
   isFetching:boolean;
 }
 

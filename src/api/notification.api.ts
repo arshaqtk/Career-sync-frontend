@@ -1,7 +1,7 @@
 import api from "./apiClient"
 
-export const getMyNotifications=async()=>{
-  const res = await api.get("/notifications/")
+export const getMyNotifications=async({params}:{params:{page:number,limit:number}})=>{
+  const res = await api.get("/notifications/",{params})
   return res.data.data
 }
 export const markAllNotificationsAsRead=async()=>{

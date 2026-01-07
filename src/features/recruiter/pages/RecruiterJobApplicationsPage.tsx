@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ApplicantCard } from "../components/application/applicationList";
 import { useRecruiterJobApplications } from "../hooks/useFetchJobBasedApplicants";
 import type { RecruiterApplicationDTO } from "../types/application.dto";
@@ -12,7 +12,7 @@ import { handleRQError } from "@/lib/react-query/errorHandler";
 export default function JobApplicantsPage() {
   const { jobId } = useParams<{ jobId: string }>();
   const { data: applicants = [], isLoading, isError,error } = useRecruiterJobApplications(jobId as string);
-
+const navigate=useNavigate()
   if (isLoading) {
     return (
       <div className="flex justify-center py-20">
@@ -47,7 +47,7 @@ export default function JobApplicantsPage() {
             <ApplicantCard
               key={app.id}
               applicant={app}
-              onView={() => window.location.assign(`/recruiter/jobs/:jobId/applicants/${app.id}`)}
+              onView={() =>navigate(`/recruiter/jobs/:jobId/applicants/${app.id}`)}
             />
           ))}
         </div>

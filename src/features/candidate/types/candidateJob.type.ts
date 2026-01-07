@@ -1,4 +1,4 @@
-export interface Job {
+export interface CandidateJob {
   _id?:string
   title: string;
   company: string;
@@ -7,7 +7,7 @@ export interface Job {
   skills: string[];
   experienceMin: number;
   experienceMax: number;
-  salary?: string
+  salary?: number
   location: string;
   remote: boolean;
   jobType: "full-time" | "part-time" | "internship";
