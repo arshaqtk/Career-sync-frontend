@@ -29,7 +29,12 @@ export const QUERY_KEYS = {
 
   applications: {
     all: ["applications"] as const,
-
+list: (params: {
+      page: number;
+      limit: number;
+      filters?: ApplicationFilters;
+    }) =>
+      [...QUERY_KEYS.jobs.lists(), params] as const,
     byCandidate: (
       candidateId: string,page:number,limit:number,
       filters?: ApplicationFilters,

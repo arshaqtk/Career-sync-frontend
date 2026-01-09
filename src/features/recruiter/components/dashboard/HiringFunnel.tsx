@@ -52,11 +52,11 @@ export function HiringFunnel({ data, loading }: HiringFunnelProps) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <FunnelRow label="Applied" value={funnel.applied} />
+        <FunnelRow label="Pending" value={funnel.applied} />
         <FunnelRow label="Shortlisted" value={funnel.shortlisted} />
         <FunnelRow label="Interviewed" value={funnel.interviewed} />
-        <FunnelRow label="selected" value={funnel.selected} />
-        <FunnelRow label="Hired" value={funnel.hired} />
+        <FunnelRow label="Hired" value={funnel.selected} />
+        {/* <FunnelRow label="Hired" value={funnel.hired} /> */}
       </CardContent>
     </Card>
   )

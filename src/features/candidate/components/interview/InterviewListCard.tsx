@@ -33,7 +33,7 @@ export function InterviewListCard({
     Boolean(interview.meetingLink) &&
     Boolean(start) &&
     Boolean(end) &&
-    now >= start! &&
+    // now >= start! &&
     now <= end!
 
   const tooltipMessage = (() => {
@@ -45,8 +45,8 @@ export function InterviewListCard({
       return "Meeting link not available"
     if (!start || !end)
       return "Interview time not scheduled"
-    if (now < start)
-      return "You can join when the interview starts"
+    // if (now < start)
+    //   return "You can join when the interview starts"
     if (now > end)
       return "Interview has already ended"
     return ""

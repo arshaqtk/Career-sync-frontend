@@ -1,7 +1,7 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/shadcn/avatar";
 import CSButton from "@/components/ui/cs-button";
 
-import { Mail, Phone } from "lucide-react";
+import { Briefcase, Mail, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUpdateProfileImage } from "../../hooks/useUpdateProfile";
 
@@ -10,6 +10,7 @@ export interface UserDetails {
   email: string;
   phone: string;
   profilePictureUrl?: string;
+  field: string;
 }
 
 interface ProfileHeaderProps {
@@ -17,12 +18,12 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ user }: ProfileHeaderProps) {
-   const { mutate } = useUpdateProfileImage();
-  const navigate=useNavigate()
-   const handleSelectImage = (file: File) => {
+  const { mutate } = useUpdateProfileImage();
+  const navigate = useNavigate()
+  const handleSelectImage = (file: File) => {
     const formData = new FormData();
     formData.append("profilePicture", file);
-  
+
     mutate(formData);
   };
   return (
@@ -53,10 +54,14 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Phone size={16} /> {user.phone}
           </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Briefcase size={16} />
+            {user.field}
+          </div>
         </div>
       </div>
 
-      <CSButton onClick={()=>{
+      <CSButton onClick={() => {
         navigate("/edit-profile")
       }}>Edit Profile</CSButton>
     </div>

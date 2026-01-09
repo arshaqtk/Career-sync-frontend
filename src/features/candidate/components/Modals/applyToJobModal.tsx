@@ -25,7 +25,7 @@ export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, Op
             resumeUrl: candidateResumeUrl || "",
             expectedSalary: 0,
             noticePeriod: "",
-            experience: "",
+            experience: 0,
             currentRole: ""
         },
     });
@@ -38,7 +38,7 @@ export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, Op
                 coverLetter: "",
                 expectedSalary: 0,
                 noticePeriod: "",
-                experience: "",
+                experience: 0,
                 currentRole: ""
             });
         }
@@ -155,7 +155,10 @@ export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, Op
                     {/* Experience */}
                     <div>
                         <p className="font-medium">Experience</p>
-                        <Input placeholder="Experience" {...register("experience")} required />
+                    
+                        <Input
+                        type="number" 
+                        placeholder="Experience" {...register("experience",{ valueAsNumber: true })} required />
                         {errors.experience && (
                             <p className="text-red-500 text-sm">{errors.experience.message}</p>
                         )}

@@ -6,10 +6,25 @@ import { Inbox, Users } from "lucide-react";
 import { Button } from "@/components/ui/shadcn/button";
 import { TableSkeleton } from "@/components/Skelton/TableSkelton";
 import { handleRQError } from "@/lib/react-query/errorHandler";
+import { useState } from "react";
+import { ApplicationFilter } from "../components/application/applicationFilter";
+import type { ApplicationFilters } from "../types/applicationFilters";
+import { PageHeader } from "../components/shared/PageHeader";
 
 
 export default function RecruiterApplicantionsPage() {
-  const { data: applications, isLoading,isError,error } = useRecruiterFetchApplications();
+   const [page, setPage] = useState(1);
+  
+    const [filters, setFilters] = useState<ApplicationFilters>({
+      status: "all",
+      sortBy:"newest"
+    });
+
+  const { data, isLoading,isError,error } = useRecruiterFetchApplications(
+   { page,
+    limit:5,
+    filters}
+  );
 
   if (isLoading) {
      return <TableSkeleton rows={6} columns={7} />;
@@ -24,16 +39,29 @@ export default function RecruiterApplicantionsPage() {
       </div>
     );
   }
-  const hasApplicants = applications.length > 0;
+
+  const applications=data?.applications
+  const hasApplicants = applications?.length > 0;
+   const pagination = data?.pagination
   return (
    
        <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">Applicants</h2>
-        <p className="text-muted-foreground">
+      {/* <div className="flex items-center justify-between"> */}
+         <PageHeader
+                title="Applications"
+                description="View interview scheduled, selected, and rejected applications"
+              />
+        
+          <ApplicationFilter
+                    filters={filters}
+                    onChange={(next) => {
+                      setPage(1); // ✅ reset pagination on filter/search
+                      setFilters(next);
+                    }}
+                  />
           {applications.length} {applications.length === 1 ? "application" : "applications"}
-        </p>
-      </div>
+      
+      {/* </div> */}
 
       {hasApplicants ? (
         <div className="grid grid-cols-1 gap-4">
@@ -41,6 +69,7 @@ export default function RecruiterApplicantionsPage() {
             <ApplicantCard
               key={app.id}
               applicant={app}
+              
               onView={() => window.location.assign(`/recruiter/applicants/${app.id}`)}
             />
           ))}
@@ -65,6 +94,29 @@ export default function RecruiterApplicantionsPage() {
           </CardContent>
         </Card>
       )}
+      {pagination && (
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              variant="outline"
+              disabled={page === 1}
+              onClick={() => setPage((p) => p - 1)}
+            >
+              Previous
+            </Button>
+
+            <span className="flex items-center text-sm text-muted-foreground">
+              Page {pagination.page} of {pagination.totalPages}
+            </span>
+
+            <Button
+              variant="outline"
+              disabled={page === pagination.totalPages}
+              onClick={() => setPage((p) => p + 1)}
+            >
+              Next
+            </Button>
+          </div>
+        )}
     </div>
   );
 }

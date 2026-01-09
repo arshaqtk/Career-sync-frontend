@@ -21,9 +21,9 @@ export default function ChatLayout() {
             {conversationId ? "Active conversation" : "Select a chat"}
           </p>
         </div>
-        <div className="flex-1 overflow-hidden">
-          <ChatList onChange={setSelectedUser} />
-        </div>
+        <div className="flex-1 overflow-y-auto">
+  <ChatList onChange={setSelectedUser} />
+</div>
       </aside>
 
       {/* Main Chat Area */}

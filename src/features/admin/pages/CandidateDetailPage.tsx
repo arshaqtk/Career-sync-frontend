@@ -11,6 +11,7 @@ import { CandidateExperienceCard } from "../components/Candidates/DetailView/Can
 import { CandidateActionCard } from "../components/Candidates/DetailView/CandidateActionCard"
 import { SectionSkeleton } from "@/components/Loaders"
 import { handleRQError } from "@/lib/react-query/errorHandler"
+import { CandidateBlockedInfoCard } from "../components/Candidates/DetailView/candidateBlockedInfo"
 
 type Status = "active" | "blocked"
 
@@ -33,7 +34,7 @@ export default function CandidateDetailPage() {
     <>
       <PageHeader title={candidate.name} subtitle={candidate.email} />
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-6 mb-3">
         <div className="lg:col-span-2 space-y-6">
           <CandidateProfileCard candidate={candidate} />
           <CandidateSkillsCard skills={candidate.candidateData.skills} />
@@ -52,6 +53,10 @@ export default function CandidateDetailPage() {
               setDialogOpen(true) 
             }}
           />
+          
+           {!candidate.isActive && (
+          <CandidateBlockedInfoCard blockedAt={candidate.blockedAt} blockedReason={candidate.blockReason} />
+           )}
         </div>
       </div>
 

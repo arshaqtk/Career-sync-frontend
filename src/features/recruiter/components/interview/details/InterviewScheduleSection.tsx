@@ -31,7 +31,7 @@ export function InterviewScheduleSection({
     !isOffline &&
     start &&
     end &&
-    now >= start &&
+    // now >= start &&
     now <= end &&
     Boolean(interview.meetingLink)
 
@@ -39,7 +39,7 @@ export function InterviewScheduleSection({
     if (isOffline) return "This is an offline interview"
     if (!interview.meetingLink) return "Meeting link not available"
     if (!start || !end) return "Interview time not scheduled"
-    if (now < start) return "You can join when the interview starts"
+    // if (now < start) return "You can join when the interview starts"
     if (now > end) return "Interview has already ended"
     return ""
   })()

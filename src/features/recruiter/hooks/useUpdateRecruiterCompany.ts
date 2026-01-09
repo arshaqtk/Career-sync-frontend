@@ -10,9 +10,10 @@ export function useUpdateRecruiterCompany() {
   return useMutation({
     mutationFn: updateRecruiterCompanyApi,
 
-    onSuccess: (updatedUser) => {
+    onSuccess: () => {
       toast.success("Company details updated successfully")
-     queryClient.setQueryData([QUERY_KEYS.recruiter.profile], updatedUser)
+      queryClient.invalidateQueries({queryKey:[QUERY_KEYS.recruiter.profile]})
+    //  queryClient.setQueryData(QUERY_KEYS.recruiter.profile(), updatedUser)
     },
 
     onError: (error) => handleRQError(error)

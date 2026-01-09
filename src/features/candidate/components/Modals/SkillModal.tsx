@@ -58,15 +58,14 @@ export const SkillFormModal=({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-xl rounded-2xl p-6">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">
-            Key skills
-          </DialogTitle>
-          <p className="text-sm text-gray-500">
-            Recruiters look for candidates with specific key skills. Add them
-            here to appear in searches.
-          </p>
-        </DialogHeader>
-
+  <DialogTitle className="text-xl font-semibold">
+    Key Skills
+  </DialogTitle>
+  <p className="text-sm text-gray-500">
+    Add the key skills recruiters search for when reviewing profiles. 
+    Press <strong>Enter</strong> after each skill to add it before saving.
+  </p>
+</DialogHeader>
         {/* Skill Chips */}
         <div className="border rounded-xl p-4 min-h-10 flex flex-wrap gap-2">
           {skills.map((skill) => (

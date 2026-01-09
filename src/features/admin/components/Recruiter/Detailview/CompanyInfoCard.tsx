@@ -11,6 +11,8 @@ export function CompanyInfoCard({ company }: { company:RecruiterCompany  }) {
       <CardContent className="space-y-3">
         <InfoRow label="Company" value={company?.companyName} />
         <InfoRow label="Location" value={company?.companyLocation} />
+        <InfoRow label="WebSite" value={company?.companyWebsite} />
+
       </CardContent>
     </Card>
   )

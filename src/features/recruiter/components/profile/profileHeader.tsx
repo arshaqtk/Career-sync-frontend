@@ -44,7 +44,9 @@ export function RecruiterProfileHeader({
             <p className="text-sm text-muted-foreground">
               {recruiter.role} · {recruiter.recruiterData?.companyName||"Company not defined"}
             </p>
-
+<p className="text-sm text-muted-foreground">
+              Field:{recruiter.field}
+            </p>
             
           </div>
         </div>

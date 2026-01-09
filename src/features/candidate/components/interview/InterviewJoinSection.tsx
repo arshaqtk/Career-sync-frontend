@@ -7,12 +7,12 @@ export function InterviewJoinSection({
 }: {
   interview: CandidateInterview
 }) {
-  const now = new Date()
+  // const now = new Date()
   const start = new Date(interview.startTime)
 
-  const canJoin =
-    interview.status === "Scheduled" &&
-    start.getTime() - now.getTime() <= 10 * 60 * 1000
+  const canJoin = interview.status === "Scheduled"
+    //  &&
+    // start.getTime() - now.getTime() <= 10 * 60 * 1000
 
   // ✅ Status-based messages
   if (interview.status === "Completed") {
@@ -65,7 +65,7 @@ export function InterviewJoinSection({
     <Button disabled={!canJoin} className="w-full" onClick={() =>
                           canJoin &&
                           window.open(interview.meetingLink!, "_blank")
-                        }>
+                        }>Join interview
   
     </Button>
   )

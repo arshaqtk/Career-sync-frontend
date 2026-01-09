@@ -246,7 +246,11 @@ useLayoutEffect(() => {
               </PopoverContent>
             </Popover>
           </div>
-
+{errors.startDate && (
+              <p className="text-red-500 text-sm">
+                {errors.startDate.message}
+              </p>
+            )}
           {/* End Date */}
           <div>
             <label className="text-sm font-medium">
@@ -281,7 +285,11 @@ useLayoutEffect(() => {
               </PopoverContent>
             </Popover>
           </div>
-
+{errors.endDate && (
+              <p className="text-red-500 text-sm">
+                {errors.endDate.message}
+              </p>
+            )}
           <DialogFooter>
             <Button
   type="submit"

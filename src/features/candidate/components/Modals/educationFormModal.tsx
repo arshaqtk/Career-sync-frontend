@@ -147,7 +147,11 @@ export function EducationFormModal({
               <p className="text-red-500 text-sm">{errors.startDate.message}</p>
             )}
           </div>
-
+{errors.startDate && (
+              <p className="text-red-500 text-sm">
+                {errors.startDate.message}
+              </p>
+            )}
           {/* End Date */}
           <div>
             <label className="text-sm font-medium">End Date</label>
@@ -177,7 +181,11 @@ export function EducationFormModal({
               </PopoverContent>
             </Popover>
           </div>
-
+{errors.endDate && (
+              <p className="text-red-500 text-sm">
+                {errors.endDate.message}
+              </p>
+            )}
           {/* Location */}
           <div>
             <Input placeholder="Location" {...form.register("location")} />

@@ -44,7 +44,7 @@ export default function ChatHeader({ user }: Props) {
         {/* Avatar */}
         <Avatar>
           <AvatarImage src="/user.jpg" />
-          <AvatarFallback>{}</AvatarFallback>
+          <AvatarFallback>{user.charAt(0).toUpperCase()||selectedUser.charAt(0).toUpperCase()}</AvatarFallback>
         </Avatar>
 
         {/* Name + status */}

@@ -1,5 +1,6 @@
 import type { IUser, ProfileUpdatePayload } from "@/types/profileUpdate.type"
 import api from "./apiClient"
+import type { ApplicationFilters } from "@/features/recruiter/types/applicationFilters"
 export interface UpdateCompanyPayload {
   companyName: string
   companyWebsite?: string
@@ -11,8 +12,11 @@ export const recruiterGetCandidateProfileApi=async(candidateId:string)=>{
     return res.data
 }
 
-export const recruiterGetAllApplicationsApi=async()=>{
-    const res=await api.get("/application/recruiter")
+export const recruiterGetAllApplicationsApi=async({page=1, limit=5,filters}: {
+      page: number;
+      limit: number; 
+    filters:ApplicationFilters})=>{
+    const res=await api.get(`/application/recruiter?page=${page}&limit=${limit}`,{params:filters})
     return res.data
 }
 

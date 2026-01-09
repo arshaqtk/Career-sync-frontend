@@ -16,7 +16,7 @@ export const educationSchema = z.object({
       "Postgraduate",
       "Doctorate",
       "Other",
-    ],"Please select education roundNumber",  
+    ],"Please select education level",  
 ),
 
   startDate: z

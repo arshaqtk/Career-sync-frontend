@@ -17,7 +17,7 @@ export default function CandidateProfilePage() {
   if (error||statsError) return handleRQError(error),<p>Failed to load user</p>;
   if (!user) return <p>No user found</p>;
 
-  const { name, email, phone, profilePictureUrl } = user;
+  const { name, email, phone, profilePictureUrl,field } = user;
 
   return (
     
@@ -27,6 +27,7 @@ export default function CandidateProfilePage() {
             name,
             email,
             phone,
+            field,
             profilePictureUrl,
           }}
         />

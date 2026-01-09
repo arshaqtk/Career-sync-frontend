@@ -33,7 +33,7 @@ export function RecruiterProfileDetails({ profile }: RecruiterProfileDetailsProp
             <InfoRow label="Email" value={profile.email} />
             <InfoRow label="Phone" value={profile.phone} />
             <InfoRow label="Role" value={profile.role} />
-            <InfoRow label="Location" value={profile.location} />
+            {/* <InfoRow label="Location" value={profile.location} /> */}
           </CardContent>
         </Card>
 

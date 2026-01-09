@@ -53,9 +53,9 @@ export function EducationSection({ Education }: EducationSectionProps) {
           <p className="text-sm text-muted-foreground mb-3">
             No Education added yet
           </p>
-          <Button onClick={() => alert("Open Add Education Modal")}>
+          {/* <Button onClick={() => alert("Open Add Education Modal")}>
             Add Education
-          </Button>
+          </Button> */}
         </div>
       ) : (
         <div className="space-y-4">

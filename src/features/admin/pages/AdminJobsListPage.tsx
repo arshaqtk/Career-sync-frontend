@@ -6,7 +6,7 @@ import {
   // CardHeader,
   // CardTitle,
 } from "@/components/ui/shadcn/card"
-import { Input } from "@/components/ui/shadcn/input"
+// import { Input } from "@/components/ui/shadcn/input"
 import { Button } from "@/components/ui/shadcn/button"
 
 import { JobTable } from "../components/jobs/ListView/JobTable"
@@ -58,10 +58,10 @@ export default function JobsListPage() {
       </CardHeader> */}
 
       <CardContent className="space-y-4">
-        <Input
+        {/* <Input
           placeholder="Search job title or company..."
           className="max-w-sm"
-        />
+        /> */}
 
         <JobTable
           jobs={jobs}

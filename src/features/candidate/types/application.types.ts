@@ -5,7 +5,7 @@ export interface ApplyJobDTO {
   coverLetter?: string;
   expectedSalary?: number; 
   noticePeriod?: string;
-  experience:string
+  experience:number
   currentRole:string
 }
 

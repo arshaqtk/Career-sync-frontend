@@ -17,7 +17,7 @@ export const experienceFormSchema = z
       message: "Start date is required",
     }),
 
-    endDate: z.date().optional(),
+    endDate: z.date("end Date should be greaterthan start date").optional(),
   })
   .superRefine((data, ctx) => {
     if (data.endDate && data.endDate < data.startDate) {

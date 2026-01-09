@@ -1,12 +1,17 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import  { profileUpdateSchema,type ProfileUpdatePayload,type IUser } from "../../../../types/profileUpdate.type";
-import  CSInput  from "@/components/ui/cs-input";
-import CSButton  from "@/components/ui/cs-button";
-import  {useUpdateProfile}  from "../../hooks/useUpdateProfile";
+import {
+  profileUpdateSchema,
+  type ProfileUpdatePayload,
+  type IUser,
+} from "../../../../types/profileUpdate.type";
+
+import CSInput from "@/components/ui/cs-input";
+import { Button } from "@/components/ui/shadcn/button";
+import { useUpdateProfile } from "../../hooks/useUpdateProfile";
 
 interface EditProfileFormProps {
-  user: IUser; 
+  user: IUser;
 }
 
 export const EditProfileForm = ({ user }: EditProfileFormProps) => {
@@ -14,7 +19,10 @@ export const EditProfileForm = ({ user }: EditProfileFormProps) => {
 
   const form = useForm<ProfileUpdatePayload>({
     resolver: zodResolver(profileUpdateSchema),
-    defaultValues: user,
+    defaultValues: {
+      name: user.name,
+      phone: user.phone,
+    },
   });
 
   const onSubmit = (data: ProfileUpdatePayload) => {
@@ -23,6 +31,7 @@ export const EditProfileForm = ({ user }: EditProfileFormProps) => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 max-w-xl">
+      
       {/* Name */}
       <div>
         <label className="text-sm font-medium">Full Name</label>
@@ -31,20 +40,23 @@ export const EditProfileForm = ({ user }: EditProfileFormProps) => {
           placeholder="Enter your name"
         />
         {form.formState.errors.name && (
-          <p className="text-red-500 text-sm">{form.formState.errors.name.message}</p>
+          <p className="text-red-500 text-sm">
+            {form.formState.errors.name.message}
+          </p>
         )}
       </div>
 
-      {/* Email */}
+      {/* Email (Read-only) */}
       <div>
         <label className="text-sm font-medium">Email</label>
         <CSInput
-          {...form.register("email")}
-          placeholder="Enter your email"
+          value={user.email}
+          disabled
+          className="cursor-not-allowed bg-muted"
         />
-        {form.formState.errors.email && (
-          <p className="text-red-500 text-sm">{form.formState.errors.email.message}</p>
-        )}
+        <p className="text-xs text-muted-foreground mt-1">
+          Email cannot be changed
+        </p>
       </div>
 
       {/* Phone */}
@@ -55,13 +67,16 @@ export const EditProfileForm = ({ user }: EditProfileFormProps) => {
           placeholder="Enter your phone number"
         />
         {form.formState.errors.phone && (
-          <p className="text-red-500 text-sm">{form.formState.errors.phone.message}</p>
+          <p className="text-red-500 text-sm">
+            {form.formState.errors.phone.message}
+          </p>
         )}
       </div>
 
-      <CSButton type="submit" disabled={isPending} className="w-full">
+      {/* Submit */}
+      <Button type="submit" disabled={isPending} className="w-full">
         {isPending ? "Updating..." : "Save Changes"}
-      </CSButton>
+      </Button>
     </form>
   );
 };

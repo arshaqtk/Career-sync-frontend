@@ -21,6 +21,7 @@ export default function JobPage() {
   const [page, setPage] = useState(pageFromUrl)
 
 const updateFilters = (nextFilters: JobFilters) => {
+  setPage(1)
   setFilters(nextFilters)
 
   const params = new URLSearchParams()
@@ -31,9 +32,14 @@ const updateFilters = (nextFilters: JobFilters) => {
     }
   })
 
+  params.set("page", "1")
   setSearchParams(params)
-  setPage(1)
 }
+// useEffect(() => {
+//   const pageFromUrl = Number(searchParams.get("page") ?? 1)
+//   setPage(pageFromUrl)
+// }, [searchParams])
+
 
 const updatePage = (nextPage: number) => {
   setPage(nextPage)
@@ -49,21 +55,28 @@ const updatePage = (nextPage: number) => {
     search: "",
     location: "",
   });
+
   const STATUS_VALUES = ["all", "open", "closed", "draft"] as const
 const JOB_TYPE_VALUES = ["all", "full-time", "part-time", "internship"] as const
+
 useEffect(() => {
-  const nextFilters: JobFilters = {
-    status: getValidParams(searchParams.get("status"),STATUS_VALUES,"all" ) ,
-    jobType: getValidParams(searchParams.get("jobType"),JOB_TYPE_VALUES,"all"),
+  setFilters({
+    status: getValidParams(searchParams.get("status"), STATUS_VALUES, "all"),
+    jobType: getValidParams(searchParams.get("jobType"), JOB_TYPE_VALUES, "all"),
+    field:searchParams.get("field")??"",
     search: searchParams.get("search") ?? "",
     location: searchParams.get("location") ?? "",
-  }
-  setFilters((prev) =>
-    JSON.stringify(prev) === JSON.stringify(nextFilters)
-      ? prev
-      : nextFilters
-  )
-}, [searchParams])
+  });
+}, [searchParams]);
+
+
+
+
+useEffect(() => {
+  console.log("Filters changed:", filters);
+}, [filters]);
+
+
 
   const { selectedJob, setSelectedJob } = useJobStore();
   const { data: jobs, isLoading, isFetching, isError, error } = useCandidateJobData({ page, limit: 5, filters })
@@ -90,7 +103,7 @@ useEffect(() => {
   }
   if (isError) handleRQError(error)
 
-
+console.log(jobs)
 
     
   return (
@@ -103,9 +116,9 @@ useEffect(() => {
       {!isLoading && jobs?.jobs.length === 0 ? (
         <div className="py-20 flex flex-col items-center text-center space-y-4">
           <div className="text-5xl">📭</div>
-          <h2 className="text-xl font-semibold">No jobs found</h2>
+          <h2 className="text-xl font-semibold">No jobs found for your field</h2>
           <p className="text-muted-foreground max-w-sm">
-            Try adjusting filters
+            Try adjusting filters Or change the field
           </p>
         </div>
       ) : (<>

@@ -15,7 +15,7 @@ export default function RecruiterLayout() {
         <SidebarToggle isOpen={open} toggle={() => setOpen(!open)} />
       </div>
 
-      <div className={`flex-1 transition-all ${open ? "lg:ml-64" : "lg:ml-20"}`}>
+      <div className={`flex-1 transition-all ${open ? "lg:ml-64" : "lg:ml-20"}`}> 
         <div className="fixed top-0 left-0 right-0 bg-white border-b z-40 lg:left-64">
           <RecruiterTopNavbar />
         </div>

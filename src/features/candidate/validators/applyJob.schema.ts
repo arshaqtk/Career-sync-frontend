@@ -4,7 +4,7 @@ export const applyJobSchema=z.object({
     jobId:z.string(),
 resumeUrl: z.string({error: "Resume is required" }).min(1, "Resume must not be empty"),
     coverLetter:z.string().max(2000).optional(),
-    experience:z.string({error: "Experience is required" }),
+    experience:z.number({error: "Experience is required" }).min(0,"Expected salary should be positive"),
     expectedSalary: z.number("Expected salary Should be number").min(0,"Expected salary should be positive").optional(),
   noticePeriod:z.string().optional(),
   currentRole: z

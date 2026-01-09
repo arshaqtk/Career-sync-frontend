@@ -2,6 +2,7 @@ export interface RecruiterProfile {
   id: string
   name: string
   email: string
+  field:string
   role: string
    recruiterData?: {
     companyName?: string

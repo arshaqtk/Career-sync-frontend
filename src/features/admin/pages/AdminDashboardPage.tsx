@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { AdminHeader } from "../components/dashboard/AdminHeader";
-import { JobModeration } from "../components/dashboard/JobModeration";
+// import { JobModeration } from "../components/dashboard/JobModeration";
 import { PlatformStatsCards } from "../components/dashboard/PlatformStatsCards";
-import { RecentSystemLogs } from "../components/dashboard/RecentSystemLogs";
+// import { RecentSystemLogs } from "../components/dashboard/RecentSystemLogs";
 import { RecruiterOverview } from "../components/dashboard/RecruiterOverview";
 import { SystemHealth } from "../components/dashboard/SystemHealth";
 import { ConfirmStatusDialog } from "../components/dialogs/ConfirmBlockUser";
@@ -102,13 +102,13 @@ export default function AdminDashboardPage() {
                 <SystemHealth loading={isLoading} data={dashboardData?.systemHealth} />
             </div>
 
-            <div className="col-span-12">
+            {/* <div className="col-span-12">
                 <JobModeration loading={isLoading} data={dashboardData?.jobModeration} />
             </div>
 
             <div className="col-span-12">
                 <RecentSystemLogs loading={isLoading} />
-            </div>
+            </div> */}
         </div>
     )
 }

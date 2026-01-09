@@ -86,6 +86,7 @@ export default function ResumeUpload({
         {/* UPLOAD NEW RESUME */}
         <div className="mt-4">
           <input
+          disabled={isPending}
             type="file"
             id="resume-upload"
             className="hidden"

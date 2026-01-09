@@ -1,6 +1,6 @@
 import heroillustration from "../../../assets/images/amico.svg"
-import { Briefcase, Building2, Users, BriefcaseBusiness } from 'lucide-react';
-import { StatCard } from '../components/Landing/Home/StatCard';
+// import { Briefcase, Building2, Users, BriefcaseBusiness } from 'lucide-react';
+// import { StatCard } from '../components/Landing/Home/StatCard';
 import { SearchHero } from '../components/Landing/Home/SearchHero';
 
 
@@ -51,14 +51,14 @@ export default function LandingPage() {
       </main>
 
       {/* Stats Section */}
-      <div className="bg-slate-50/50 py-12 border-t">
+      {/* <div className="bg-slate-50/50 py-12 border-t">
         <div className="max-w-7xl mx-auto px-8 flex flex-wrap justify-between gap-8">
           <StatCard icon={Briefcase} value="23,456" label="Live Job" />
           <StatCard icon={Building2} value="60,453" label="Companies" />
           <StatCard icon={Users} value="3,45,879" label="Candidates" />
           <StatCard icon={BriefcaseBusiness} value="3,45,879" label="New Job" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

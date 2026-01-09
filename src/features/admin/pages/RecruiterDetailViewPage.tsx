@@ -11,6 +11,7 @@ import { CompanyInfoCard } from "../components/Recruiter/Detailview/CompanyInfoC
 import { RecruiterActivityCard } from "../components/Recruiter/Detailview/RecruiterActivityCard"
 import { SectionSkeleton } from "@/components/Loaders"
 import { handleRQError } from "@/lib/react-query/errorHandler"
+import { RecruiterBlockedInfoCard } from "../components/Recruiter/Detailview/RecruiterBlockedInfoCard"
 
 type Status = "active" | "blocked"
 
@@ -39,7 +40,7 @@ export default function RecruiterDetailPage() {
 
   return (
     <>
-      <div className="space-y-6">
+      <div className="space-y-6 mb-3">
         <RecruiterHeader
           name={recruiter.name}
           status={recruiter.isActive?"active":"blocked"}
@@ -56,6 +57,9 @@ export default function RecruiterDetailPage() {
         </div>
 
         <RecruiterActivityCard recruiter={recruiter} />
+         {!recruiter.isActive && (
+                  <RecruiterBlockedInfoCard blockedAt={recruiter.blockedAt} blockedReason={recruiter.blockReason} />
+                   )}
       </div>
 
      

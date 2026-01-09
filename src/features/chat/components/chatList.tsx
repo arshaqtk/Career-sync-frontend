@@ -45,7 +45,6 @@ onChange(recieverName)
   if (isLoading) return <CardSkeleton />
   if (isError) {handleRQError(error) 
     return <div className="p-4 text-red-500">Failed to load chats</div>}
-
   return (
     <div className="h-full border-r bg-background">
       <h3 className="px-4 py-3 text-lg font-semibold border-b">Chats</h3>
@@ -79,7 +78,7 @@ onChange(recieverName)
                     {conv.receiver.name}
                   </p>
 
-                  {conv.lastMessageAt && (
+                  {conv.lastMessageAt &&  (
                     <span className="text-xs text-muted-foreground">
                       {new Date(conv.lastMessageAt).toLocaleTimeString("en-IN", {
                         hour: "2-digit",
@@ -89,9 +88,9 @@ onChange(recieverName)
                   )}
                 </div>
 
-                <p className="text-sm text-muted-foreground truncate">
-                  {conv.lastMessage || "No messages yet"}
-                </p>
+              <p className="text-sm text-muted-foreground line-clamp-2">
+  {conv.lastMessage || "No messages yet"}
+</p>
               </div>
             </div>
           )
