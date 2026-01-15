@@ -82,7 +82,7 @@ export const RecruiterEditProfileForm = ({ user }: EditProfileFormProps) => {
         <div className="space-y-1">
           <label className="text-sm font-medium">Email Address</label>
           <Input
-            {...register("email")}
+      placeholder={user.email}
             disabled
             className="bg-muted cursor-not-allowed"
           />
