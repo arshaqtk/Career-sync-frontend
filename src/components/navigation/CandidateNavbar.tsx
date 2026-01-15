@@ -70,7 +70,7 @@ export  function CandidateNavbar() {
 >
   <Bell className="cursor-pointer" />
 
-  {user.notificationCount > 0 && (
+  {user?.notificationCount > 0 && (
     <span className="
       absolute 
       -top-1 
@@ -86,7 +86,7 @@ export  function CandidateNavbar() {
       justify-center 
       rounded-full
     ">
-      {user.notificationCount}
+      {user?.notificationCount}
     </span>
   )}
 </button>
