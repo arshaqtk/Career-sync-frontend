@@ -1,5 +1,6 @@
 
 import { LogoutApi } from "@/api/auth.api";
+import { toast } from "sonner";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -16,7 +17,7 @@ interface AuthStore {
   isAuthenticated: boolean;
 
   setUser: (user: User | null) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 
@@ -33,8 +34,12 @@ export const useAuthStore = create<AuthStore>()(
         }),
         
 
-      logout: () => {
-        LogoutApi()
+      logout: async() => {
+        try{
+          await LogoutApi()
+        }catch{
+          toast.error("Logout failed")
+        }
         set({ user: null, isAuthenticated: false });
         
       },

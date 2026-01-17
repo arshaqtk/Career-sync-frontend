@@ -11,7 +11,7 @@ export default function useLogout() {
     
     queryClient.clear();
 
-    logout();
+    await logout();
     navigate("/auth/login");
   };
 
