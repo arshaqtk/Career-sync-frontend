@@ -1,4 +1,4 @@
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, EyeOff, Eye } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CSInput from "@/components/ui/cs-input";
@@ -8,6 +8,7 @@ import { loginSchema, type LoginFormValues } from "../validators/auth.schema";
 import { useRoleStore } from "@/store/role.store";
 import { useLogin } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 
 type LoginFormInputs = Omit<LoginFormValues, "role">;
@@ -15,6 +16,8 @@ type LoginFormInputs = Omit<LoginFormValues, "role">;
 export default function LoginForm() {
     const navigate=useNavigate()
     const loginMutation = useLogin();
+     const [showPassword, setShowPassword] = useState(false);
+  
     const role = useRoleStore((s) => s.role)
     const { register, handleSubmit, formState: { errors }, } = useForm<LoginFormInputs>(
         { resolver: zodResolver(loginSchema.omit({ role: true })), });
@@ -24,7 +27,7 @@ export default function LoginForm() {
     const onSubmit = (data: LoginFormInputs) => {
         const finalData = { ...data, role };
         loginMutation.mutate(finalData)
-        console.log("VALID FORM:", finalData);
+        
     };
  
     return (
@@ -44,9 +47,22 @@ export default function LoginForm() {
                 {/* PASSWORD */}
                 <CSInput
                     label="Password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     icon={<Lock className="w-5 h-5" />}
+                     rightIcon={
+                                <button
+                                  type="button"
+                                  onClick={() => setShowPassword((p) => !p)}
+                                  className="text-muted-foreground hover:text-foreground"
+                                >
+                                  {showPassword ? (
+                                    <EyeOff className="h-4 w-4" />
+                                  ) : (
+                                    <Eye className="h-4 w-4" />
+                                  )}
+                                </button>
+                              }
                     error={errors.password?.message}
                     {...register("password")}
                 />

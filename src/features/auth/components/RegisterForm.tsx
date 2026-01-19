@@ -1,8 +1,8 @@
-import { Mail, Lock, User } from "lucide-react";
+import { Mail, Lock, User,Eye, EyeOff, } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-
 import {
   Form,
   FormControl,
@@ -42,6 +42,8 @@ export default function RegisterForm() {
   const registerMutation = useRegister();
   const role = useRegisterRoleStore((s) => s.role);
 
+  const [showPassword, setShowPassword] = useState(false);
+const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const form = useForm<RegisterFormInputs>({
     resolver: zodResolver(registerSchema.omit({ role: true })),
     defaultValues: {
@@ -119,33 +121,71 @@ export default function RegisterForm() {
 
         {/* PASSWORD */}
         <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="••••••••" icon={<Lock className="h-4 w-4" />} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+  control={form.control}
+  name="password"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Password</FormLabel>
+      <FormControl>
+        <Input
+          type={showPassword ? "text" : "password"}
+          placeholder="••••••••"
+          icon={<Lock className="h-4 w-4" />}
+          rightIcon={
+            <button
+              type="button"
+              onClick={() => setShowPassword((p) => !p)}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              {showPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
+            </button>
+          }
+          {...field}
         />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
 
         {/* CONFIRM PASSWORD */}
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="••••••••" icon={<Lock className="h-4 w-4" />} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+       <FormField
+  control={form.control}
+  name="confirmPassword"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Confirm Password</FormLabel>
+      <FormControl>
+        <Input
+          type={showConfirmPassword ? "text" : "password"}
+          placeholder="••••••••"
+          icon={<Lock className="h-4 w-4" />}
+          rightIcon={
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword((p) => !p)}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              {showConfirmPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
+            </button>
+          }
+          {...field}
         />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
 
         {/* SUBMIT */}
         <Button type="submit" className="w-full" disabled={registerMutation.isPending}>

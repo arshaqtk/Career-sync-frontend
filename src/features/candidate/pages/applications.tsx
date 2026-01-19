@@ -1,5 +1,4 @@
 import {ApplicationsFilter} from "../components/applications/applicationFilter";
-import ApplicationsTable from "../components/applications/applicationTable";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/shadcn/card";
 import { useApplicationData } from "../hooks/useApplication";
 import type { ApplicationFilters } from "../types/applicationFilter.types";
@@ -9,6 +8,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { SectionSkeleton } from "@/components/Loaders";
 import { handleRQError } from "@/lib/react-query/errorHandler";
 import EmptyApplications from "../components/applications/emptyApplications";
+import ApplicationsCardList from "../components/applications/applicationCard";
 
 export default function ApplicationsPage() {
   const [filters, setFilters] = useState<ApplicationFilters>({
@@ -53,7 +53,7 @@ export default function ApplicationsPage() {
         </CardHeader>
 
         <CardContent className="space-y-4">
-          <ApplicationsTable applications={applications} />
+          <ApplicationsCardList applications={applications} />
 
           
           {pagination.totalPages > 1 && (

@@ -37,7 +37,7 @@ export  function RecruiterTopNavbar() {
         <button onClick={() => navigate("notifications")} className="relative">
  <Bell className="cursor-pointer" />
 
-  {user.notificationCount > 0 && (
+  {user?.notificationCount > 0 && (
     <span className="
       absolute 
       -top-1 
