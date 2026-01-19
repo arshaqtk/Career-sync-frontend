@@ -165,8 +165,8 @@ export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, Op
                     </div>
 
                     <DialogFooter>
-                        
-                        <Button type="submit" disabled={!form.watch("resumeUrl")}>Apply</Button>
+                        {/* disabled={!form.watch("resumeUrl")} */}
+                        <Button type="submit">Apply</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

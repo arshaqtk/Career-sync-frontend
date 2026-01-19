@@ -46,6 +46,7 @@ import AdminDashboardPage from "@/features/admin/pages/AdminDashboardPage";
 import { NotificationPage } from "@/features/notifications/pages/notificationPage";
 import SocketTest from "@/pages/sockettest";
 import ChatPage from "@/features/chat/page/chatPage";
+import NotFound from "@/features/notFound/notFoundPage";
 
 export default function AppRouter() {
     return (
@@ -119,7 +120,7 @@ export default function AppRouter() {
                 </Route>
                 
                 {/* 404 */}
-                <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+                <Route path="*" element={<NotFound/>} />
 
             </Routes>
         </BrowserRouter>

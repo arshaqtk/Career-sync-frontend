@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store/auth.store";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/shadcn/pagination";
 import { SectionSkeleton } from "@/components/Loaders";
 import { handleRQError } from "@/lib/react-query/errorHandler";
+import EmptyApplications from "../components/applications/emptyApplications";
 
 export default function ApplicationsPage() {
   const [filters, setFilters] = useState<ApplicationFilters>({
@@ -45,8 +46,8 @@ export default function ApplicationsPage() {
           setFilters(f);
         }}
       />
-
-      <Card>
+{applications.length==0?(<EmptyApplications/>):(
+<Card>
         <CardHeader>
           <CardTitle>My Applications</CardTitle>
         </CardHeader>
@@ -104,6 +105,8 @@ export default function ApplicationsPage() {
           )}
         </CardContent>
       </Card>
+)}
+      
     </div>
   );
 }

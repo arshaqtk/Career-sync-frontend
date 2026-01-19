@@ -34,7 +34,7 @@ return (
       )}
 
 {/* Pagination */}
-      <div className="flex justify-between items-center mt-6">
+{data.length>10&&(<div className="flex justify-between items-center mt-6">
         <button
           disabled={page === 1}
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
@@ -54,7 +54,8 @@ return (
         >
           Next
         </button>
-      </div>
+      </div>)}
+      
     </div>
 
 )
