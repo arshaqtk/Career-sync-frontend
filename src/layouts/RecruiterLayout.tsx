@@ -3,8 +3,10 @@ import {RecruiterSidebar} from "../components/navigation/RecruiterSidebar";
 import {RecruiterTopNavbar} from "../components/navigation/RecruiterTopNavbar";
 import {SidebarToggle} from "../components/navigation/SidebarToggle";
 import { useState } from "react";
+import { useNotificationSocket } from "@/hooks/useNotificationSocket";
 
 export default function RecruiterLayout() {
+  useNotificationSocket();
   const [open, setOpen] = useState(true);
 
   return (

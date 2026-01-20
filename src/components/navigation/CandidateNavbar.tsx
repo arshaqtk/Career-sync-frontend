@@ -14,13 +14,32 @@ import useLogout from "@/hooks/useLogout";
 import useUserData from "@/hooks/useUserData";
 import { Spinner } from "../ui/shadcn/spinner";
 import { CandidateMobileSidebar } from "./CandidateMobileSidebar";
+import { useNotificationStore } from "@/store/notification.store";
+import { useEffect } from "react";
 
 export function CandidateNavbar() {
+  
+  const { data: user, isLoading } = useUserData();
+  
+  
   const navigate = useNavigate();
   const handleLogout = useLogout();
-  const { data: user, isLoading } = useUserData();
+  const notificationCount = useNotificationStore(
+    (state) => state.notificationCount
+  );
+  const setNotificationCount = useNotificationStore(
+    (state) => state.setNotificationCount
+  );
+
+  useEffect(() => {
+    if (user?.notificationCount !== undefined) {
+      setNotificationCount(user.notificationCount);
+    }
+  }, [user?.notificationCount, setNotificationCount]);
+
 
   if (isLoading) return <Spinner />;
+ 
 
   return (
     <header className="w-full flex items-center justify-between px-6 py-4 bg-white border-b h-16">
@@ -57,9 +76,9 @@ export function CandidateNavbar() {
         <button onClick={() => navigate("/notifications")} className="relative">
           <Bell />
 
-          {user?.notificationCount > 0 && (
+          {notificationCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-semibold w-5 h-5 flex items-center justify-center rounded-full">
-              {user.notificationCount}
+              {notificationCount}
             </span>
           )}
         </button>

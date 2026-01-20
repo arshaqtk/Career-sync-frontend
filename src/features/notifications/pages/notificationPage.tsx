@@ -4,14 +4,19 @@ import { NotificationList } from "../components/NotificationList"
 import NotificationSkeleton from "../components/NotificationSkelton"
 import { useFetchNotifications } from "../hooks/useGetNotifications"
 import useMarkAllNotificationsRead from "../hooks/useMarkAllNotificationsRead"
-import { useState } from "react"
+import {  useState } from "react"
+
 
 export function NotificationPage(){
+
   const [page, setPage] = useState(1)
    const limit = 10
  const { data, isLoading ,error} = useFetchNotifications(page, limit)
   const { mutate:markAllAsRead } = useMarkAllNotificationsRead()
- if (isLoading) return <NotificationSkeleton />
+
+ 
+
+  if (isLoading) return <NotificationSkeleton />
   if(error)handleRQError(error)
   const hasNextPage = data.length === limit
 return (

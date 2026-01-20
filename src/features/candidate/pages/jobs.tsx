@@ -72,9 +72,6 @@ useEffect(() => {
 
 
 
-useEffect(() => {
-  console.log("Filters changed:", filters);
-}, [filters]);
 
 
 
@@ -103,7 +100,7 @@ useEffect(() => {
   }
   if (isError) handleRQError(error)
 
-console.log(jobs)
+
 
     
   return (

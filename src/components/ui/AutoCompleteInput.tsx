@@ -55,7 +55,6 @@ export function AutoCompleteInput({
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-  console.log(suggestions)
 
   return (
     <div ref={containerRef} className="relative w-[220px]">
