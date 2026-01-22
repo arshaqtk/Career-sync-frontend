@@ -4,7 +4,7 @@ import heroillustration from "../../../assets/images/amico.svg"
 import { SearchHero } from '../components/Landing/Home/SearchHero';
 
 
-export default function LandingPage() {
+export default function HomePage() {
   return (
     <div className="min-h-screen bg-white font-sans">
       {/* Navbar */}

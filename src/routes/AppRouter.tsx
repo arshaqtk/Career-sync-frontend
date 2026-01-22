@@ -31,7 +31,6 @@ import VerifyForgetPasswordOtp from "@/features/auth/pages/VerifyForgetPasswordO
 import JobApplicantionDetailPage from "@/features/recruiter/pages/RecruiterJobApplicationDetailviewPage";
 import MyInterviewsPage from "@/features/candidate/pages/MyInterviewsPage";
 import InterviewDetailPage from "@/features/candidate/pages/InterviewDetailPage";
-import LandingPage from "@/features/candidate/pages/LandingPage";
 import RecruiterProfilePage from "@/features/recruiter/pages/RecruiterProfilePage";
 import { CandidateApplicationDetailPage } from "@/features/candidate/pages/applicationDetailPage";
 import RecruiterEditProfilePage from "@/features/recruiter/pages/RecruiterEditProfile";
@@ -47,18 +46,24 @@ import { NotificationPage } from "@/features/notifications/pages/notificationPag
 import SocketTest from "@/pages/sockettest";
 import ChatPage from "@/features/chat/page/chatPage";
 import NotFound from "@/features/notFound/notFoundPage";
+import HomePage from "@/features/candidate/pages/Home";
+import { LandingPage } from "@/features/landingPage/pages/landingPage";
+import { AboutPage } from "@/features/landingPage/pages/AboutPage";
 
 export default function AppRouter() {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/" element={<LandingPage/>}/>
+                <Route path="/about" element={<AboutPage/>}/>
+
                 {/* ---------- Candidate Routes ---------- */}
                 <Route element={<CandidateLayout />}>
                     <Route element={<ProtectedRoute role="candidate" />}>
 <Route path="/socket-test" element={<SocketTest />} />
 <Route path="/chat" element={<ChatPage />} />
 
-                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/home" element={<HomePage />} />
                         <Route path="/notifications" element={<NotificationPage />} />
                         <Route path="/jobs" element={<CandidateJobsPage />} />
                         <Route path="/applications" element={<ApplicationsPage />} />
