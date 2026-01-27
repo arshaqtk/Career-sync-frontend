@@ -6,10 +6,12 @@ import type { Chatlist } from "../types/chat.types"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar"
 import { ScrollArea } from "@/components/ui/shadcn/scroll-area"
+import { Input } from "@/components/ui/shadcn/input"
+import { Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 
-export default function ChatList({onChange}:{onChange:(value:string)=>void}) {
+export default function ChatList({ onChange }: { onChange: (value: string) => void }) {
   const socket = getSocket()
 
   const {
@@ -22,8 +24,8 @@ export default function ChatList({onChange}:{onChange:(value:string)=>void}) {
   const page = 1
   const limit = 10
 
-  const openChat = (receiverId: string,recieverName:string) => {
-onChange(recieverName)
+  const openChat = (receiverId: string, recieverName: string) => {
+    onChange(recieverName)
     if (receiverId === activeChatId) return
     setActiveChatId(receiverId)
 
@@ -39,63 +41,104 @@ onChange(recieverName)
     )
   }
 
-  const { data: conversations, isLoading, isError,error } =
+  const { data: conversations, isLoading, isError, error } =
     useConversationList({ page, limit })
 
   if (isLoading) return <CardSkeleton />
-  if (isError) {handleRQError(error) 
-    return <div className="p-4 text-red-500">Failed to load chats</div>}
+  if (isError) {
+    handleRQError(error)
+    return <div className="p-4 text-red-500">Failed to load chats</div>
+  }
   return (
-    <div className="h-full border-r bg-background">
-      <h3 className="px-4 py-3 text-lg font-semibold border-b">Chats</h3>
+    <div className="flex flex-col h-full bg-white">
+      <div className="p-4 pb-2 space-y-3">
+        <div className="relative">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
+          <Input
+            placeholder="Search conversations..."
+            className="pl-9 bg-slate-50 border-slate-200 focus-visible:ring-blue-500 rounded-lg"
+          />
+        </div>
+        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider pl-1 font-sans">
+          Recent
+        </p>
+      </div>
 
-      <ScrollArea className="h-[calc(100vh-64px)]">
-        {conversations.data.map((conv: Chatlist) => {
-          const isActive = activeChatId === conv.receiver._id
+      <ScrollArea className="flex-1 px-2">
+        <div className="space-y-1 pb-4">
+          {conversations.data.map((conv: Chatlist) => {
+            const isActive = activeChatId === conv.receiver._id
 
-          return (
-            <div
-              key={conv._id}
-              onClick={() => openChat(conv.receiver._id,conv.receiver.name)}
-              className={cn(
-                "flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors",
-                "hover:bg-muted/60",
-                isActive && "bg-muted"
-              )}
-            >
-              {/* Avatar */}
-              <Avatar className="h-10 w-10">
-                <AvatarImage src={conv.receiver.profilePictureUrl} />
-                <AvatarFallback>
-                  {conv.receiver.name?.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-
-              {/* Chat Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between">
-                  <p className="font-medium truncate">
-                    {conv.receiver.name}
-                  </p>
-
-                  {conv.lastMessageAt &&  (
-                    <span className="text-xs text-muted-foreground">
-                      {new Date(conv.lastMessageAt).toLocaleTimeString("en-IN", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </span>
-                  )}
+            return (
+              <div
+                key={conv._id}
+                onClick={() => openChat(conv.receiver._id, conv.receiver.name)}
+                className={cn(
+                  "group flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all duration-200 border",
+                  isActive
+                    ? "bg-blue-50/50 border-blue-200 ring-1 ring-blue-100"
+                    : "bg-white border-transparent hover:bg-slate-50 hover:border-slate-200"
+                )}
+              >
+                {/* Avatar */}
+                <div className="relative">
+                  <Avatar className={cn(
+                    "h-12 w-12 border transition-all",
+                    isActive ? "border-blue-200" : "border-slate-100"
+                  )}>
+                    <AvatarImage src={conv.receiver.profilePictureUrl} className="object-cover" />
+                    <AvatarFallback className={cn(
+                      "text-sm font-bold",
+                      isActive ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-600"
+                    )}>
+                      {conv.receiver.name?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  {/* Status Indicator */}
+                  {/* <div className={cn(
+                    "absolute bottom-0.5 right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white",
+                    "bg-green-500"
+                  )} /> */}
                 </div>
 
-              <p className="text-sm text-muted-foreground line-clamp-2">
-  {conv.lastMessage || "No messages yet"}
-</p>
+                {/* Chat Info */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-0.5">
+                    <p className={cn(
+                      "font-bold truncate text-[14px] transition-colors",
+                      isActive ? "text-blue-700" : "text-slate-900 group-hover:text-blue-600"
+                    )}>
+                      {conv.receiver.name}
+                    </p>
+
+                    {conv.lastMessageAt && (
+                      <span className="text-[10px] font-medium text-slate-400">
+                        {new Date(conv.lastMessageAt).toLocaleTimeString("en-IN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <p className={cn(
+                      "text-[13px] truncate pr-2 line-clamp-1 h-5",
+                      isActive ? "text-blue-600/80 font-medium" : "text-slate-500 group-hover:text-slate-600"
+                    )}>
+                      {conv.lastMessage || <span className="italic text-xs opacity-70">Start a conversation</span>}
+                    </p>
+                    {isActive && (
+                      <div className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </ScrollArea>
     </div>
+
   )
 }

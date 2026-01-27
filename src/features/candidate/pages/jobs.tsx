@@ -119,8 +119,8 @@ useEffect(() => {
           </p>
         </div>
       ) : (<>
-        <div className="flex w-full h-[calc(100vh-70px)] my-3">
-          <JobList jobs={jobs?.jobs} onSelect={(job) => setSelectedJob(job)} isFetching={isFetching} />
+        <div className="flex w-full h-[calc(100vh-70px)] my-3 gap-6 ">
+          <JobList jobs={jobs?.jobs} onSelect={(job) => setSelectedJob(job)} isFetching={isFetching} selectedJobId={selectedJob?._id} />
           <JobDetails job={selectedJob} />
         </div>
         <JobsPagination

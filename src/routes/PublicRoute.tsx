@@ -11,7 +11,7 @@ export default function PublicRoute() {
   toast.warning("You are already logged in");
   return (
     <Navigate
-      to={user.role === "candidate" ? "/" : "/recruiter"}
+      to={user.role === "candidate" ? "/home" : "/recruiter"}
       replace
     />
   );

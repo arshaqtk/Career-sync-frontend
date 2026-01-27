@@ -7,73 +7,67 @@ import { useState } from "react"
 
 export default function ChatLayout() {
   const conversationId = useChatStore((s) => s.conversationId)
-  const [selectedUser,setSelectedUser]=useState("")
-  return (
-    <div className="h-[calc(100vh-64px)] flex bg-gradient-to-br from-gray-50 to-gray-100/50">
+  const [selectedUser, setSelectedUser] = useState("")
+   return (
+    <div className="h-[calc(100dvh-64px)] flex overflow-hidden bg-white">
       {/* Desktop Sidebar */}
-      <aside className="w-[360px] border-r border-gray-200 bg-white hidden md:flex flex-col shadow-sm">
-        <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
-          <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-            <MessageSquare className="h-5 w-5 text-blue-600" />
+      <aside className="w-[380px] border-r border-slate-200 bg-white hidden md:flex flex-col z-10">
+        <div className="p-6 border-b border-slate-100 bg-white">
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-blue-50 text-blue-600">
+              <MessageSquare className="h-6 w-6" />
+            </div>
             Messages
           </h1>
-          <p className="text-sm text-gray-600 mt-1">
-            {conversationId ? "Active conversation" : "Select a chat"}
+          <p className="text-sm font-medium text-slate-500 mt-2 px-1">
+            {conversationId ? "Active Conversation" : "Connect & Chat"}
           </p>
         </div>
-        <div className="flex-1 overflow-y-auto">
-  <ChatList onChange={setSelectedUser} />
-</div>
+        <div className="flex-1 overflow-y-auto scrollbar-hide">
+          <ChatList onChange={setSelectedUser} />
+        </div>
       </aside>
 
       {/* Main Chat Area */}
-      <main className="flex-1 flex flex-col bg-white md:bg-transparent">
+      <main className="flex-1 flex flex-col relative overflow-hidden bg-white">
         {/* Mobile Header */}
-        <div className="md:hidden">
+        <div className="md:hidden sticky top-0 z-50 bg-white border-b border-slate-200">
           <ChatHeader user={selectedUser} />
         </div>
 
         {conversationId ? (
-          <div className="flex-1 flex flex-col md:m-4 md:rounded-xl md:shadow-lg md:border md:border-gray-200 bg-white overflow-hidden">
-            <ChatWindow  selectedUser={selectedUser}/>
+          <div className="flex-1 flex flex-col h-full relative z-0">
+            <ChatWindow selectedUser={selectedUser} />
           </div>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center p-8">
-            <div className="max-w-md text-center space-y-6">
-              {/* Icon with gradient background */}
-              <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
-                <MessageSquare className="h-10 w-10 text-white" />
+          <div className="flex-1 flex flex-col items-center justify-center p-8 bg-slate-50/30">
+            <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center space-y-8 animate-in fade-in zoom-in duration-500">
+              <div className="relative mx-auto w-24 h-24">
+                <div className="relative w-full h-full rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg">
+                  <MessageSquare className="h-10 w-10 text-white" />
+                </div>
               </div>
-              
-              {/* Text content */}
-              <div className="space-y-2">
-                <h2 className="text-2xl font-bold text-gray-900">
+
+              <div className="space-y-3">
+                <h2 className="text-3xl font-bold text-slate-900 tracking-tight">
                   Welcome to Messages
                 </h2>
-                <p className="text-gray-600">
-                  Select a conversation from the sidebar to start chatting
+                <p className="text-slate-500 text-lg leading-relaxed">
+                  Select a conversation from the sidebar to start chatting with your network.
                 </p>
               </div>
 
-              {/* Tips section */}
-              <div className="bg-blue-50 rounded-lg p-4 text-left space-y-2">
-                <p className="text-sm font-semibold text-blue-900">
-                  Quick tips:
-                </p>
-                <ul className="text-sm text-blue-800 space-y-1">
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Click on any conversation to view messages</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Real-time updates when new messages arrive</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-0.5">•</span>
-                    <span>Search and filter your conversations easily</span>
-                  </li>
-                </ul>
+              <div className="grid gap-3 pt-4 text-left">
+                {[
+                  "Real-time messaging",
+                  "Secure conversations",
+                  "Instant notifications"
+                ].map((tip, i) => (
+                  <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 hover:bg-white hover:shadow-sm transition-all duration-200">
+                    <div className="h-2 w-2 rounded-full bg-blue-500" />
+                    <span className="font-medium text-sm">{tip}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

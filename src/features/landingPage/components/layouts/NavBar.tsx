@@ -13,7 +13,7 @@ export function Navbar() {
                 </div>
 
                 <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
-                    <Link to="/" className="hover:text-primary transition-colors">Find Jobs</Link>
+                    <Link to="/jobs" className="hover:text-primary transition-colors">Find Jobs</Link>
                     <Link to="/" className="hover:text-primary transition-colors">For Employers</Link>
                     <Link to="/" className="hover:text-primary transition-colors">Resources</Link>
                     <Link to="/about" className="hover:text-primary transition-colors">About</Link>

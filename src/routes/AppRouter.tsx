@@ -59,13 +59,13 @@ export default function AppRouter() {
 
                 {/* ---------- Candidate Routes ---------- */}
                 <Route element={<CandidateLayout />}>
+                <Route path="/jobs" element={<CandidateJobsPage />} />
                     <Route element={<ProtectedRoute role="candidate" />}>
 <Route path="/socket-test" element={<SocketTest />} />
 <Route path="/chat" element={<ChatPage />} />
 
                         <Route path="/home" element={<HomePage />} />
                         <Route path="/notifications" element={<NotificationPage />} />
-                        <Route path="/jobs" element={<CandidateJobsPage />} />
                         <Route path="/applications" element={<ApplicationsPage />} />
                         <Route path="/applications/:applicationId" element={<CandidateApplicationDetailPage />} />
                         <Route path="/profile" element={<CandidateProfilePage />} />

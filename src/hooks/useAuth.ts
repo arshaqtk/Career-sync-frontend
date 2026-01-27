@@ -60,7 +60,7 @@ export const useLogin=()=>{
             }else if(data.user.role=="admin"){
                 navigate("/admin")}
                 else{
-                navigate("/")
+                navigate("/home")
             }
             
         },

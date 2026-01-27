@@ -5,13 +5,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select";
-// import { Button } from "@/components/ui/shadcn/button";
-// import { Input } from "@/components/ui/shadcn/input";
-import {  Search } from "lucide-react";
+import { Search } from "lucide-react";
 import type { JobFilters } from "../../types/jobFilter.types";
 import { AutoCompleteInput } from "@/components/ui/AutoCompleteInput"
 import { fetchJobSuggestions } from "@/api/job.api"
 import { JobAdvancedFilterPopover } from "./AdvancedFilterPopover";
+import { cn } from "@/lib/utils";
+
 type JobFilterProps = {
   filters: JobFilters;
   onChange: (filters: JobFilters) => void;
@@ -29,29 +29,27 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border bg-card p-3 shadow-sm">
-      {/* Left filters */}
-      <div className="flex flex-wrap items-center gap-3">
-
-        {/* 🔍 Search */}
-        <div className="relative">
-          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-          {/* <Input
-            placeholder="Search jobs..."
-            className="pl-8 w-[220px]"
-            value={filters.search ?? ""}
-            onChange={(e) =>
-              updateFilter("search", e.target.value)
-            }
-          /> */}
-          <AutoCompleteInput
-  value={filters.search ?? ""}
-  onChange={(value) => updateFilter("search", value)}
-  placeholder="Search jobs..."
-  fetchSuggestions={fetchJobSuggestions}
-/>
+    <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 py-1 px-4 md:px-0 bg-transparent">
+      {/* 🔍 Search Input */}
+      <div className="relative flex-1 group">
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-blue-600 transition-colors z-20">
+          <Search size={18} />
         </div>
+        <div className={cn(
+          "relative transition-all rounded-md",
+          "bg-white border border-slate-300 focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-100 z-10"
+        )}>
+          <AutoCompleteInput
+            value={filters.search ?? ""}
+            onChange={(value) => updateFilter("search", value)}
+            placeholder="Work title, skills, or company"
+            fetchSuggestions={fetchJobSuggestions}
+            className="pl-10 h-11 bg-white border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-[15px] font-normal placeholder:text-slate-400"
+          />
+        </div>
+      </div>
 
+      <div className="flex flex-wrap items-center gap-3">
         {/* Status */}
         <Select
           value={filters.status}
@@ -59,12 +57,12 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
             updateFilter("status", value as JobFilters["status"])
           }
         >
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-[140px] h-11 bg-white border-slate-300 rounded-md hover:border-slate-400 transition-all focus:ring-2 focus:ring-blue-100 focus:border-blue-600 text-[14px] font-medium text-slate-700 shadow-none">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Job Status [All]</SelectItem>
-            <SelectItem value="open">Active</SelectItem>
+          <SelectContent className="rounded-md border-slate-200">
+            <SelectItem value="all">All listings</SelectItem>
+            <SelectItem value="open">Open</SelectItem>
             <SelectItem value="closed">Closed</SelectItem>
           </SelectContent>
         </Select>
@@ -76,27 +74,22 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
             updateFilter("jobType", value as JobFilters["jobType"])
           }
         >
-          <SelectTrigger className="w-40">
-            <SelectValue placeholder="Job Type" />
+          <SelectTrigger className="w-[140px] h-11 bg-white border-slate-300 rounded-md hover:border-slate-400 transition-all focus:ring-2 focus:ring-blue-100 focus:border-blue-600 text-[14px] font-medium text-slate-700 shadow-none">
+            <SelectValue placeholder="Job type" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Job Type [All]</SelectItem>
-            <SelectItem value="full-time">Full Time</SelectItem>
-            <SelectItem value="part-time">Part Time</SelectItem>
+          <SelectContent className="rounded-md border-slate-200">
+            <SelectItem value="all">All types</SelectItem>
+            <SelectItem value="full-time">Full-time</SelectItem>
+            <SelectItem value="part-time">Part-time</SelectItem>
             <SelectItem value="internship">Internship</SelectItem>
           </SelectContent>
         </Select>
-      </div>
 
-      {/* Right action */}
-      {/* <Button variant="outline" size="sm">
-        <SlidersHorizontal className="mr-2 h-4 w-4" />
-        More filters
-      </Button> */}
-      <JobAdvancedFilterPopover
-  filters={filters}
-  onChange={onChange}
-/>
+        <JobAdvancedFilterPopover
+          filters={filters}
+          onChange={onChange}
+        />
+      </div>
     </div>
   );
 };

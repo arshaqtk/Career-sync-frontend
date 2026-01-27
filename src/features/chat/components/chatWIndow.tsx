@@ -7,22 +7,32 @@ import type { ChatMessage } from "../types/chat.types"
 import { useAuthStore } from "@/store/auth.store"
 import { useMessageHistory } from "../hooks/useMessages"
 import { handleRQError } from "@/lib/react-query/errorHandler"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar"
+import { Button } from "@/components/ui/shadcn/button"
+import { MoreVertical } from "lucide-react"
+import useUserData from "@/hooks/useUserData"
 
-export default function ChatWindow({selectedUser}:{selectedUser:string}) {
+export default function ChatWindow({ selectedUser }: { selectedUser: string }) {
   const socket = getSocket()
   const bottomRef = useRef<HTMLDivElement | null>(null)
-  const userId = useAuthStore((s) => s.user?.id)
+
+  // Handle both id and _id to ensure compatibility with different backend responses
+  const { data: profile } = useUserData()
+  const storedUser = useAuthStore((s) => s.user)
+
+  const userId = storedUser?.id|| profile?.id
+
   const { messages, addMessage, activeChatId, conversationId, setMessages } = useChatStore()
-  
+
   const { data: messageHistory, isLoading, isError, error } = useMessageHistory(conversationId!)
-  
+
   useEffect(() => {
     const handler = (msg: ChatMessage) => {
       addMessage(msg)
     }
 
     socket.on("chat:newMessage", handler)
-    
+
     return () => {
       socket.off("chat:newMessage", handler)
     }
@@ -37,7 +47,7 @@ export default function ChatWindow({selectedUser}:{selectedUser:string}) {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
- 
+
   if (!activeChatId) {
     return (
       <div className="flex items-center justify-center h-full text-gray-500">
@@ -64,28 +74,57 @@ export default function ChatWindow({selectedUser}:{selectedUser:string}) {
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-white">
       {/* Header */}
-      <div className="flex-shrink-0 px-6 py-4 border-b bg-white">
-        <h2 className="text-lg font-semibold text-gray-900">{selectedUser?selectedUser:"Chat"}</h2>
+      <div className="flex-shrink-0 px-6 py-3 bg-white border-b border-slate-100 flex items-center justify-between z-10">
+        <div className="flex items-center gap-4">
+          <Avatar className="h-10 w-10 border border-slate-100 shadow-sm">
+            <AvatarImage src="/user-placeholder.jpg" />
+            <AvatarFallback className="bg-blue-50 text-blue-700 font-bold">
+              {selectedUser ? selectedUser.charAt(0).toUpperCase() : "?"}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h2 className="text-base font-bold text-slate-900">
+              {selectedUser || "Chat"}
+            </h2>
+            {/* <p className="text-[11px] text-green-600 font-medium">Online</p> */}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+            <MoreVertical className="h-5 w-5" />
+          </Button>
+        </div>
       </div>
 
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto bg-gray-50">
-        <div className="px-4 py-6 space-y-2">
-          {messages?.map((msg, i) => (
-            <MessageBubble 
-              key={i} 
-              text={msg.content} 
-              mine={msg.senderId === userId} 
-            />
-          ))}
+      <div className="flex-1 overflow-y-auto bg-slate-50/50 scrollbar-hide">
+        <div className="px-6 py-6 space-y-4 min-h-full flex flex-col justify-end">
+          {messages?.map((msg, i) => {
+            const msgSenderId = msg.senderId
+             
+            const isMine =
+              msgSenderId && (
+                (userId && msgSenderId === userId) ||
+                (activeChatId && msgSenderId !== activeChatId)
+              );
+
+            return (
+              <MessageBubble
+                key={msg._id || i}
+                text={msg.content}
+                mine={!!isMine}
+              />
+            )
+          })}
           <div ref={bottomRef} />
         </div>
       </div>
 
       {/* Input */}
-      <div className="flex-shrink-0 border-t bg-white">
+      <div className="flex-shrink-0 bg-white border-t border-slate-100 p-3 md:p-4">
         <MessageInput />
       </div>
     </div>

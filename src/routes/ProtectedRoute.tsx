@@ -13,7 +13,7 @@ export default function ProtectedRoute({ role }: { role: "candidate" | "recruite
     return <Navigate to="/auth/login" replace />;}
 
   if (user.role !== role)
-    return <Navigate to={user.role === "candidate" ? "/" : "/recruiter"} replace />;
+    return <Navigate to={user.role === "candidate" ? "/home" : "/recruiter"} replace />;
 
   return <Outlet />;
 }
