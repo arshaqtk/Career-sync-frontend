@@ -29,38 +29,41 @@ export const CandidateApplicationDetailPage = () => {
     toast.error("Failed to fetch application")
     return <div>Unable to load application</div>
   }
-  if(error)handleRQError(error)
+  if (error) handleRQError(error)
 
- 
+
 
   return (
-    <div>
-      <ApplicationHeader 
-        jobTitle={application.job.title}
-        company={application.job.company}
-        status={application.application.status}
-        appliedAt={application.application.appliedAt}
-      />
+    <div className="min-h-screen bg-white pb-20">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6 pt-6">
+        <ApplicationHeader
+          jobTitle={application.job.title}
+          company={application.job.company}
+          status={application.application.status}
+          appliedAt={application.application.appliedAt}
+        />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left */}
-        <div className="lg:col-span-2 space-y-6">
-          <JobDetailsCard job={application.job} />
-          <CandidateDetailsCard application={application.application} />
-          <Documentscard application={application.application} />
-          <ApplicationTimeline status={application.application.status} />
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column: Details */}
+          <div className="lg:col-span-2 space-y-8">
+            <JobDetailsCard job={application.job} />
+            <CandidateDetailsCard application={application.application} />
+            <Documentscard application={application.application} />
+            <ApplicationTimeline status={application.application.status} />
+          </div>
 
-        {/* Right */}
-        <div className="space-y-6 sticky top-25 self-start">
-          <ApplicationStatusCard application={application.application} />
-          <RecruiterInfoCard
-          id={application.recruiter.id}
-            name={application.recruiter.name}
-            email={application.recruiter.email}
-          />
+          {/* Right Column: Status & Contact */}
+          <div className="space-y-8 sticky top-24 self-start">
+            <ApplicationStatusCard application={application.application} />
+            <RecruiterInfoCard
+              id={application.recruiter.id}
+              name={application.recruiter.name}
+              email={application.recruiter.email}
+            />
+          </div>
         </div>
       </div>
     </div>
   )
 }
+

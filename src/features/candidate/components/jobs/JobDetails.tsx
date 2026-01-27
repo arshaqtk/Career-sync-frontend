@@ -46,11 +46,6 @@ export function JobDetails({ job }: JobDetailsProps) {
     setIsOpen(false);
   };
 
-   const today=new Date().getTime()
-  const inputDate=job.createdAt?new Date(job.createdAt)?.getTime():undefined
-  const diffInMs = inputDate?today-inputDate:0; // milliseconds
-const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-
   return (
     <div className="flex-1 bg-white h-full flex flex-col overflow-hidden">
       <ApplyToJobModal
@@ -113,7 +108,7 @@ const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
               {isClosed ? "Job Closed" : isPaused ? "Job Blocked" : isApplied ? "Applied" : "Apply Now"}
             </Button>
             <span className="text-[12px] text-slate-400 font-medium italic sm:ml-2">
-             {diffInDays<=2?"Posted recently":(diffInDays<7)?`Posted ${diffInDays} days ago`:"Posted Few Weeks ago"}
+              Posted recently
             </span>
           </div>
         </div>
