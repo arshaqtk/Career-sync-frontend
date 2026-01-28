@@ -8,23 +8,28 @@ import { useAuthStore } from "@/store/auth.store"
 import { useMessageHistory } from "../hooks/useMessages"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar"
-import { Button } from "@/components/ui/shadcn/button"
-import { MoreVertical } from "lucide-react"
+
 import useUserData from "@/hooks/useUserData"
+import { ChatActionsDropdown } from "./chatActionsDropdown"
+import { useClearChat } from "../hooks/useClearMessage"
+import { useDeleteConversation } from "../hooks/useDeleteConversation"
 
 export default function ChatWindow({ selectedUser }: { selectedUser: string }) {
   const socket = getSocket()
   const bottomRef = useRef<HTMLDivElement | null>(null)
 
   // Handle both id and _id to ensure compatibility with different backend responses
+
   const { data: profile } = useUserData()
   const storedUser = useAuthStore((s) => s.user)
 
   const userId = storedUser?.id|| profile?.id
 
   const { messages, addMessage, activeChatId, conversationId, setMessages } = useChatStore()
-
   const { data: messageHistory, isLoading, isError, error } = useMessageHistory(conversationId!)
+  const { mutate: clearChat, isPending } = useClearChat()
+  const { mutate: deleteChat, isPending:deletePending } = useDeleteConversation()
+
 
   useEffect(() => {
     const handler = (msg: ChatMessage) => {
@@ -93,9 +98,14 @@ export default function ChatWindow({ selectedUser }: { selectedUser: string }) {
         </div>
 
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors">
-            <MoreVertical className="h-5 w-5" />
-          </Button>
+         <ChatActionsDropdown disabled={!storedUser && !selectedUser ||isPending||deletePending}
+           onClear={() => {
+             clearChat(conversationId!)
+           }}
+           onDelete={() => {
+             deleteChat(conversationId!)
+           }}
+         />
         </div>
       </div>
 

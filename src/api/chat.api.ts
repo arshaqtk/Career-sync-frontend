@@ -22,3 +22,15 @@ export const getMessagesHistoryApi = async (conversationId:string) => {
 
   return data.data
 }
+
+
+export const clearMessageApi=async(conversationId:string)=>{
+  const response=await api.delete(`/chat/conversations/${conversationId}/messages`)
+  return response
+}
+
+export const deleteConversationApi=async(conversationId:string)=>{
+  alert("delete chat called")
+  const response=await api.delete(`/chat/conversations/${conversationId}`)
+  return response
+}

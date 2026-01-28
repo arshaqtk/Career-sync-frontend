@@ -1,4 +1,4 @@
-import { Bell, Briefcase, LogOut, MessageSquare, User } from "lucide-react";
+import { Bell, LogOut, MessageSquare, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { candidateNav } from "@/config/candidateNav.config";
 import {
@@ -17,11 +17,11 @@ import { useNotificationStore } from "@/store/notification.store";
 import { useEffect } from "react";
 import { NavbarSkeleton } from "../Loaders/NavSkelton";
 import { Button } from "../ui/shadcn/button";
+import { AlertDialogComponent } from "../Dialogs/alertDialog";
 
 export function CandidateNavbar() {
 
   const { data: user, isLoading } = useUserData();
-
 
   const navigate = useNavigate();
   const handleLogout = useLogout();
@@ -43,8 +43,8 @@ export function CandidateNavbar() {
 
   return (
     <header className="w-full flex items-center justify-between px-6 py-4 bg-white border-b h-16">
-      {/* MobileLogo */}
-      <div className="lg:hidden ">
+      
+      <div>
         <img src="/careerSyncNavName.png" alt="careerSync" className="h-6 mt-1" onClick={() => navigate("/")} />
       </div>
 
@@ -52,10 +52,10 @@ export function CandidateNavbar() {
       {/* <div className="hidden lg:flex">
         <img src="/careerSyncNavLogo.png" alt="careerSync" className="h-12" onClick={() => navigate("/")} />
       </div> */}
-      <div className="flex items-center gap-2 font-bold text-xl text-primary">
+      {/* <div className="flex items-center gap-2 font-bold text-xl text-primary">
                     <Briefcase className="h-6 w-6" />
                     <span>CareerSync</span>
-                </div>
+                </div> */}
 
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex gap-8 text-sm font-medium">
@@ -112,13 +112,20 @@ export function CandidateNavbar() {
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem
-                onClick={handleLogout}
-                className="text-red-600 focus:text-red-600"
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout 
-              </DropdownMenuItem>
+              <AlertDialogComponent
+  alertTitle="Logout confirmation"
+  alertDescription="Are you sure you want to logout?"
+  onConfirm={handleLogout}
+   trigger={
+    <DropdownMenuItem
+      onSelect={(e) => e.preventDefault()}
+      className="text-red-600 focus:text-red-600"
+    >
+      <LogOut className="mr-2 h-4 w-4" />
+      Logout
+    </DropdownMenuItem>
+  }
+/>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

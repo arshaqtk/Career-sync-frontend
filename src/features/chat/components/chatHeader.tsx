@@ -5,9 +5,12 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/shadcn/sheet"
-import { Menu, MoreVertical } from "lucide-react"
+import { Menu } from "lucide-react"
 import ChatList from "./chatList"
 import { useState } from "react"
+import { ChatActionsDropdown } from "./chatActionsDropdown"
+import { useClearChat } from "../hooks/useClearMessage"
+import { useChatStore } from "../store/chat.store"
 
 type Props = {
   user: string
@@ -17,6 +20,10 @@ type Props = {
 export default function ChatHeader({ user }: Props) {
   //   const status = isOnline ? "Online" : "Offline"
   const [selectedUser, setSelectedUser] = useState("")
+    const {conversationId } = useChatStore()
+  
+  const { mutate: clearChat, isPending } = useClearChat()
+
 
 
   return (
@@ -61,9 +68,17 @@ export default function ChatHeader({ user }: Props) {
 
       {/* RIGHT SECTION */}
       <div className="flex items-center gap-1">
-        <Button size="icon" variant="ghost" className="text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full">
+        {/* <Button size="icon" variant="ghost" className="text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full">
           <MoreVertical className="h-5 w-5" />
-        </Button>
+        </Button> */}
+        <ChatActionsDropdown disabled={!user && !selectedUser ||isPending}
+  onClear={() => {
+    clearChat(conversationId!)
+  }}
+  onDelete={() => {
+    console.log("Chat deleted");
+  }}
+/>
       </div>
     </div>
 

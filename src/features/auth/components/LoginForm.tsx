@@ -59,7 +59,7 @@ export default function LoginForm() {
         </button> */}
       </div>
 
-      <CSDivider label="or continue with email" />
+      <CSDivider label=""/>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 mt-8">
         {/* EMAIL */}
@@ -103,7 +103,7 @@ export default function LoginForm() {
         </div>
 
         {/* REMEMBER ME */}
-        <div className="flex items-center gap-2 px-1">
+        {/* <div className="flex items-center gap-2 px-1">
           <input 
             type="checkbox" 
             id="remember"
@@ -112,7 +112,7 @@ export default function LoginForm() {
           <label htmlFor="remember" className="text-sm text-gray-500 dark:text-gray-400 cursor-pointer select-none">
             Keep me logged in
           </label>
-        </div>
+        </div> */}
 
        <CSButton 
   type="submit" 

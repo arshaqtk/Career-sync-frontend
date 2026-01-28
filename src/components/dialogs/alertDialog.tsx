@@ -9,25 +9,30 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/shadcn/alert-dialog"
-import { Button } from "@/components/ui/shadcn/button"
-
-export function AlertDialogComponent() {
+type AlertDialogComponentProps = {
+  trigger: React.ReactNode;
+  alertTitle: string;
+  alertDescription: string;
+  onConfirm: () => void;
+};
+export function AlertDialogComponent(
+  {trigger,alertTitle,alertDescription,onConfirm}:
+  AlertDialogComponentProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Dialog</Button>
+      {trigger}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>{alertTitle}</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            {alertDescription}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={()=>onConfirm()}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

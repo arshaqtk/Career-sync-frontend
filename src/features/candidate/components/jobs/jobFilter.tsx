@@ -11,6 +11,7 @@ import { AutoCompleteInput } from "@/components/ui/AutoCompleteInput"
 import { fetchJobSuggestions } from "@/api/job.api"
 import { JobAdvancedFilterPopover } from "./AdvancedFilterPopover";
 import { cn } from "@/lib/utils";
+import { JobMobileFilterPopover } from "./mobileFilter";
 
 type JobFilterProps = {
   filters: JobFilters;
@@ -29,9 +30,9 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 py-1 px-4 md:px-0 bg-transparent">
+    <div className="flex flex-col flex-row items-stretch md:items-center gap-4 py-1 px-4 md:px-0 bg-transparent">
       {/* 🔍 Search Input */}
-      <div className="relative flex-1 group">
+      <div className="relative w-4/5 md:flex-1 group">
         <div className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-blue-600 transition-colors z-20">
           <Search size={18} />
         </div>
@@ -49,7 +50,13 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
+<div  className="w-1/5 h-11 md:hidden flex items-center justify-center rounded-md border border-slate-300 bg-white hover:border-slate-400 transition">
+<JobMobileFilterPopover filters={filters} onChange={onChange} />
+</div >
+      
+       
+
+      <div className="hidden md:flex flex-wrap items-center gap-3">
         {/* Status */}
         <Select
           value={filters.status}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LogOut, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/shadcn/sheet";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { candidateMobileSideBarNav } from "@/config/candidateNav.config";
 import { Separator } from "../ui/shadcn/separator";
 import useLogout from "@/hooks/useLogout";
@@ -9,7 +9,7 @@ import useLogout from "@/hooks/useLogout";
 export function CandidateMobileSidebar() {
   const [open, setOpen] = useState(false);
   const handleLogout = useLogout();
-  const navigate=useNavigate()
+  // const navigate=useNavigate()
   return (
     
     <Sheet open={open} onOpenChange={setOpen}>
@@ -21,14 +21,14 @@ export function CandidateMobileSidebar() {
 
      <SheetContent side="right" className="flex flex-col h-full">
   {/* Logo */}
-  <div>
+  {/* <div>
     <img
       src="/careerSyncNavLogo.png"
       alt="careerSync"
       className="h-12 cursor-pointer"
       onClick={() => navigate("/")}
     />
-  </div>
+  </div> */}
 
   {/* Navigation */}
   <nav className="flex flex-col gap-4 mt-6">

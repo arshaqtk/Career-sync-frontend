@@ -12,6 +12,8 @@ import { handleRQError } from "@/lib/react-query/errorHandler";
 import type { CandidateJob } from "../types/candidateJob.type";
 import { useSearchParams } from "react-router-dom";
 import { getValidParams } from "@/lib/utils";
+import { Sheet } from "@/components/ui/shadcn/sheet";
+import { SheetContent } from "@/components/ui/shadcn/sheet";
 
 
 export default function JobPage() {
@@ -19,6 +21,7 @@ export default function JobPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const pageFromUrl = Number(searchParams.get("page") ?? 1)
   const [page, setPage] = useState(pageFromUrl)
+  const [isMobileDetailOpen, setIsMobileDetailOpen] = useState(false)
 
 const updateFilters = (nextFilters: JobFilters) => {
   setPage(1)
@@ -35,20 +38,13 @@ const updateFilters = (nextFilters: JobFilters) => {
   params.set("page", "1")
   setSearchParams(params)
 }
-// useEffect(() => {
-//   const pageFromUrl = Number(searchParams.get("page") ?? 1)
-//   setPage(pageFromUrl)
-// }, [searchParams])
-
 
 const updatePage = (nextPage: number) => {
   setPage(nextPage)
-
   const params = new URLSearchParams(searchParams)
   params.set("page", String(nextPage))
   setSearchParams(params)
 }
-  
   const [filters, setFilters] = useState<JobFilters>({
     status: "all",
     jobType: "all",
@@ -69,31 +65,31 @@ useEffect(() => {
   });
 }, [searchParams]);
 
-
-
-
-
-
-
   const { selectedJob, setSelectedJob } = useJobStore();
   const { data: jobs, isLoading, isFetching, isError, error } = useCandidateJobData({ page, limit: 5, filters })
 
-
   useEffect(() => {
-    if (!jobs?.jobs?.length) {
-      setSelectedJob(null);
-      return;
-    }
+    // On desktop, auto-select first job if none selected
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
 
-    const stillExists = jobs.jobs.find((job: CandidateJob) =>
-      job._id === selectedJob?._id)
-
-    if (!stillExists) {
-      setSelectedJob(jobs.jobs[0])
+    if (jobs?.jobs?.length&& !selectedJob && isDesktop) {
+      setSelectedJob(jobs?.jobs[0]);
     }
+    // const stillExists = jobs.jobs.find((job: CandidateJob) =>
+    //   job._id === selectedJob?._id)
+
+    // if (!stillExists) {
+    //   setSelectedJob(jobs.jobs[0])
+    // }
   }, [jobs?.jobs, selectedJob, setSelectedJob])
 
-
+// Handle mobile selection
+  const handleJobSelect = (job: CandidateJob) => {
+    setSelectedJob(job);
+    if (window.innerWidth < 768) {
+      setIsMobileDetailOpen(true);
+    }
+  };
 
   if (isLoading) {
     return <SectionSkeleton />
@@ -120,8 +116,23 @@ useEffect(() => {
         </div>
       ) : (<>
         <div className="flex w-full h-[calc(100vh-70px)] my-3 gap-6 ">
-          <JobList jobs={jobs?.jobs} onSelect={(job) => setSelectedJob(job)} isFetching={isFetching} selectedJobId={selectedJob?._id} />
-          <JobDetails job={selectedJob} />
+          <JobList jobs={jobs?.jobs} 
+          onSelect={handleJobSelect}
+           isFetching={isFetching} 
+           selectedJobId={selectedJob?._id} />
+         {/* Desktop Job Details */}
+            <div className="hidden md:block flex-1 h-full overflow-hidden border border-slate-200 rounded-lg">
+              <JobDetails job={selectedJob} />
+            </div>
+            {/* Mobile Job Details Sheet */}
+            <Sheet open={isMobileDetailOpen} onOpenChange={setIsMobileDetailOpen}>
+              <SheetContent side="bottom" className="h-[100vh] p-0 border-none bg-white">
+                <div className="h-full">
+                  <div className="w-12 h-1 bg-slate-200 rounded-full mx-auto my-3" />
+                  <JobDetails job={selectedJob} />
+                </div>
+              </SheetContent>
+            </Sheet>
         </div>
         <JobsPagination
           page={page}
