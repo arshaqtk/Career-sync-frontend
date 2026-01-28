@@ -33,28 +33,34 @@ export function ChatActionsDropdown({
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-44">
-        <AlertDialogComponent alertTitle="Clear Message" alertDescription="Are You Sure ?" onConfirm={onClear}
-        trigger={
- <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-          <Eraser className="mr-2 h-4 w-4" />
-          Clear chat
-        </DropdownMenuItem>
-        }
-        />
+       <AlertDialogComponent
+  alertTitle="Clear chat history?"
+  alertDescription="This will remove all messages from this chat. You can’t undo this action."
+  onConfirm={onClear}
+  trigger={
+    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+      <Eraser className="mr-2 h-4 w-4" />
+      Clear chat
+    </DropdownMenuItem>
+  }
+/>
        
 
         <DropdownMenuSeparator />
-<AlertDialogComponent alertTitle="Delete Message" alertDescription="Are You Sure ?" onConfirm={onDelete}
-        trigger={
- <DropdownMenuItem onSelect={(e) => e.preventDefault()}
-
-          className="text-red-600 focus:text-red-600"
-        >
-          <Trash2 className="mr-2 h-4 w-4" />
-          Delete chat
-        </DropdownMenuItem>
-        }
-        />
+<AlertDialogComponent
+  alertTitle="Delete this chat?"
+  alertDescription="This will permanently delete the chat and all its messages. This action cannot be undone."
+  onConfirm={onDelete}
+  trigger={
+    <DropdownMenuItem
+      onSelect={(e) => e.preventDefault()}
+      className="text-red-600 focus:text-red-600"
+    >
+      <Trash2 className="mr-2 h-4 w-4" />
+      Delete chat
+    </DropdownMenuItem>
+  }
+/>
        
       </DropdownMenuContent>
     </DropdownMenu>

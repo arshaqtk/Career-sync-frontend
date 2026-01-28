@@ -11,6 +11,7 @@ import { useState } from "react"
 import { ChatActionsDropdown } from "./chatActionsDropdown"
 import { useClearChat } from "../hooks/useClearMessage"
 import { useChatStore } from "../store/chat.store"
+import { useDeleteConversation } from "../hooks/useDeleteConversation"
 
 type Props = {
   user: string
@@ -23,6 +24,7 @@ export default function ChatHeader({ user }: Props) {
     const {conversationId } = useChatStore()
   
   const { mutate: clearChat, isPending } = useClearChat()
+  const { mutate: deleteChat, isPending:deletePending } = useDeleteConversation()
 
 
 
@@ -71,12 +73,12 @@ export default function ChatHeader({ user }: Props) {
         {/* <Button size="icon" variant="ghost" className="text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full">
           <MoreVertical className="h-5 w-5" />
         </Button> */}
-        <ChatActionsDropdown disabled={!user && !selectedUser ||isPending}
+        <ChatActionsDropdown disabled={!user && !selectedUser ||isPending||deletePending}
   onClear={() => {
     clearChat(conversationId!)
   }}
   onDelete={() => {
-    console.log("Chat deleted");
+    deleteChat(conversationId!)
   }}
 />
       </div>
