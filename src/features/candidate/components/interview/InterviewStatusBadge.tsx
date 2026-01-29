@@ -1,14 +1,21 @@
 import { Badge } from "@/components/ui/shadcn/badge"
-import type{ InterviewStatus } from "../../types/interview.types"
+import type { InterviewStatus } from "../../types/interview.types"
 
-const statusColor: Record<InterviewStatus, string> = {
-  Scheduled: "bg-blue-100 text-blue-700",
-  InProgress: "bg-yellow-100 text-yellow-700",
-  Completed: "bg-green-100 text-green-700",
-  Cancelled: "bg-red-100 text-red-700",
-  Rescheduled: "bg-purple-100 text-purple-700",
+const statusStyles: Record<InterviewStatus, string> = {
+  Scheduled: "bg-blue-50 text-blue-700 border-blue-200",
+  InProgress: "bg-amber-50 text-amber-700 border-amber-200",
+  Completed: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  Cancelled: "bg-rose-50 text-rose-700 border-rose-200",
+  Rescheduled: "bg-indigo-50 text-indigo-700 border-indigo-200",
 }
 
 export function InterviewStatusBadge({ status }: { status: InterviewStatus }) {
-  return <Badge className={statusColor[status]}>{status}</Badge>
+  return (
+    <Badge
+      className={`${statusStyles[status]} px-2.5 py-0.5 rounded-md border text-[11px] font-bold uppercase tracking-wider`}
+    >
+      {status}
+    </Badge>
+  )
 }
+
