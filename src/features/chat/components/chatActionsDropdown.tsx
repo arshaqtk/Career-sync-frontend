@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/shadcn/dropdown-menu";
 import { Button } from "@/components/ui/shadcn/button";
-import { AlertDialogComponent } from "@/components/Dialogs/alertDialog";
+import { AlertDialogComponent } from "@/components/dialogs/alertDialog";
 
 export function ChatActionsDropdown({
   onClear,

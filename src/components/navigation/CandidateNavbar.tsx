@@ -17,7 +17,7 @@ import { useNotificationStore } from "@/store/notification.store";
 import { useEffect } from "react";
 import { NavbarSkeleton } from "../Loaders/NavSkelton";
 import { Button } from "../ui/shadcn/button";
-import { AlertDialogComponent } from "../Dialogs/alertDialog";
+import { AlertDialogComponent } from "../dialogs/alertDialog";
 
 export function CandidateNavbar() {
 

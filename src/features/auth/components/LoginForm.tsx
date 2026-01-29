@@ -26,7 +26,7 @@ export default function LoginForm() {
     loginMutation.mutate(finalData);
   };
 
-  const GOOGLE_LOGIN_URL = "http://localhost:8000/api/auth/google";
+  const GOOGLE_LOGIN_URL = `${import.meta.env.VITE_API_URL}/auth/google`;
 
   const handleGoogleLogin = () => {
     window.location.href = GOOGLE_LOGIN_URL;
