@@ -57,7 +57,7 @@ export const ApplyToJobModal = ({ jobIds, candidateResumeUrl, onSubmit, open, Op
         formData.append("resume", file);
         mutate(formData, {
             onSuccess: (data) => {
-                form.setValue("resumeUrl", data.candidateData?.resumeUrl as string);
+                form.setValue("resumeUrl", data.candidateData?.resume?.url as string);
             }
         })
     };
