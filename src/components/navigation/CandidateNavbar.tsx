@@ -94,7 +94,7 @@ export function CandidateNavbar() {
           <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer hidden lg:flex">
               <Avatar>
-                <AvatarImage src={user?.profilePictureUrl} />
+                <AvatarImage src={user?.profilePicture.url} />
                 <AvatarFallback>
                   {user?.name?.charAt(0)?.toUpperCase() || "U"}
                 </AvatarFallback>

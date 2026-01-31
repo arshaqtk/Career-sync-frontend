@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Layouts
 import CandidateLayout from "@/layouts/CandidateLayout";
@@ -49,12 +49,30 @@ import NotFound from "@/features/notFound/notFoundPage";
 import HomePage from "@/features/candidate/pages/Home";
 import { LandingPage } from "@/features/landingPage/pages/landingPage";
 import { AboutPage } from "@/features/landingPage/pages/AboutPage";
+import { SectionSkeleton } from "@/components/Loaders";
+import useUserData from "@/hooks/useUserData";
 
+function RootRoute() {
+    const { data: user, isLoading } = useUserData();
+
+    if (isLoading) return <SectionSkeleton />;
+
+    if (user) {
+        const roleRoutes = {
+            candidate: "/home",
+            recruiter: "/recruiter",
+            admin: "/admin",
+        };
+        return <Navigate to={roleRoutes[user.role as keyof typeof roleRoutes] || "/home"} replace />;
+    }
+
+    return <LandingPage />;
+}
 export default function AppRouter() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<LandingPage/>}/>
+                <Route path="/" element={<RootRoute />} />
                 <Route path="/about" element={<AboutPage/>}/>
 
                 {/* ---------- Candidate Routes ---------- */}

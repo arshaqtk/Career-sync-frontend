@@ -9,7 +9,11 @@ export const profileUpdateSchema = z.object({
 export type ProfileUpdatePayload = z.infer<typeof profileUpdateSchema>;
 
 export interface CandidateData {
-  resumeUrl?: string;
+   resume?: {
+    url: string;
+    originalName: string;
+    uploadedAt: string;
+  };
   experience?: Experience[];
    companyName?: string;
   skills?: string[];
@@ -30,9 +34,14 @@ export interface IUser {
   name: string;
   email: string;
   phone: string;
+  field?: string;
+  location?: string;
+  isVerified?: boolean;
+  isActive?: boolean;
   profilePictureUrl:string
   candidateData?: CandidateData;
     recruiterData?: RecruiterData;
+      notificationCount?: number;
 }
 
 

@@ -12,8 +12,13 @@ export default function ProtectedRoute({ role }: { role: "candidate" | "recruite
     toast.warning("You are not logged in");
     return <Navigate to="/auth/login" replace />;}
 
-  if (user.role !== role)
-    return <Navigate to={user.role === "candidate" ? "/home" : "/recruiter"} replace />;
-
+  if (user.role !== role){
+    const roleRoutes = {
+      candidate: "/home",
+      recruiter: "/recruiter",
+      admin: "/admin",
+    };
+    return <Navigate to={roleRoutes[user.role as keyof typeof roleRoutes] || "/"} replace />;
+  }
   return <Outlet />;
 }

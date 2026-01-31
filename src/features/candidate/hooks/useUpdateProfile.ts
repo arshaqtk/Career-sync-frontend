@@ -1,4 +1,4 @@
-import { addProfileEducationApi, addProfileExperienceApi, updateAvatarApi, updateProfileAboutApi, updateProfileApi, updateProfileEducationApi, updateProfileExperienceApi, updateProfileSkillApi, updateResumeApi } from "@/api/profile.api";
+import { addProfileEducationApi, addProfileExperienceApi, deleteResumeApi, updateAvatarApi, updateProfileAboutApi, updateProfileApi, updateProfileEducationApi, updateProfileExperienceApi, updateProfileSkillApi, updateResumeApi } from "@/api/profile.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { IUser, ProfileUpdatePayload, UpdateAboutPayload } from "@/types/profileUpdate.type";
 import { QUERY_KEYS } from "../../../config/queryKeys";
@@ -131,6 +131,19 @@ export const useUpdateResume=()=>{
         onSuccess:()=>{
             queryClient.invalidateQueries({queryKey:[QUERY_KEYS.user]})
                 toast.success("Resume Updated Successfully")
+             },
+             onError:(error: unknown)=>{ErrorHandler(error) }
+     })
+}
+
+//--------------------Delete Resume-----------------------------------------
+export const useDeleteResume=()=>{
+     const queryClient=useQueryClient()
+    return useMutation({
+        mutationFn:deleteResumeApi,
+        onSuccess:()=>{
+            queryClient.invalidateQueries({queryKey:[QUERY_KEYS.user]})
+                toast.success("Resume deleted Successfully")
              },
              onError:(error: unknown)=>{ErrorHandler(error) }
      })

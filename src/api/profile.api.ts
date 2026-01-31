@@ -30,12 +30,10 @@ export const addProfileExperienceApi=async(payload:Experience):Promise<IUser>=>{
 }
 
 export const updateProfileExperienceApi=async({payload,experienceId}:{payload:Experience,experienceId:string}):Promise<IUser>=>{
-    console.log(payload)
     const res=await api.put(`/candidate/profile/experience/${experienceId}`,{experience:payload})
     return res.data.data
 }
 export const updateProfileSkillApi=async(payload:string[]):Promise<IUser>=>{
-    console.log(payload)
     const res=await api.put("/candidate/profile/skill",payload)
     return res.data.data
 }
@@ -55,6 +53,20 @@ export const getCandidateProfileStatsApi=async()=>{
     return res.data
 }
 
+export const getResumeUrlApi=async()=>{
+    const res=await api.get("/candidate/profile/resume?mode=view")
+    return res.data
+}
+
+export const getResumeDownloadUrlApi=async()=>{
+    const res=await api.get("/candidate/profile/resume?mode=download")
+    return res.data
+}
+
+export const deleteResumeApi=async()=>{
+    const res=await api.delete("/candidate/profile/resume")
+    return res
+}
 
 export const updateResumeApi = async (formData: FormData): Promise<IUser> => {
   const res = await api.put(`/candidate/profile/resume`, formData, {
@@ -62,6 +74,7 @@ export const updateResumeApi = async (formData: FormData): Promise<IUser> => {
       "Content-Type": "multipart/form-data",
     },
   });
+
 
   return res.data.data;
 };
