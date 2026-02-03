@@ -9,37 +9,44 @@ import { InterviewStatusBadge } from "./InterviewStatusBadge";
 
 export function InterviewTableRow({
   interview,
+  index=0
 }: {
   interview: InterviewListItem;
+  index?: number
 }) {
   const navigate = useNavigate();
-console.log(interview)
-  return (
-    <TableRow>
-      <TableCell>{interview.candidateName}</TableCell>
-      <TableCell>{interview.jobTitle}</TableCell>
-      <TableCell>{interview.roundType}</TableCell>
 
-      <TableCell>
-        {/* {interview.startTime
-          ? new Date(interview.startTime).toLocaleString()
-          : "Not scheduled"} */}
-          {interview.roundNumber}
+   return (
+    <TableRow className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+      <TableCell className="py-4">
+        <span className="font-semibold text-gray-950">{index}</span>
+      </TableCell>
+      <TableCell className="py-4">
+        <span className="font-semibold text-gray-900">{interview.candidateName}</span>
       </TableCell>
 
-      {/* <TableCell>{interview.mode}</TableCell> */}
+      <TableCell>
+        <span className="text-sm font-medium text-gray-700">{interview.jobTitle}</span>
+      </TableCell>
+
+      <TableCell>
+        <span className="text-sm text-gray-600">{interview.roundType}</span>
+      </TableCell>
+
+      <TableCell>
+        <span className="text-sm font-medium text-gray-700">Round {interview.roundNumber}</span>
+      </TableCell>
 
       <TableCell>
         <InterviewStatusBadge status={interview.status} />
       </TableCell>
 
-      <TableCell>
+      <TableCell className="text-right">
         <Button
           variant="outline"
           size="sm"
-          onClick={() =>
-            navigate(`/recruiter/interviews/${interview.id}`)
-          }
+          className="h-8"
+          onClick={() => navigate(`/recruiter/interviews/${interview.id}`)}
         >
           View
         </Button>

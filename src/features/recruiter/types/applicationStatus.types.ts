@@ -3,6 +3,7 @@ export const APPLICATION_STATUS = {
   SHORTLISTED: "Shortlisted",
   REJECTED: "Rejected",
   INTERVIEW: "Interview",
+  SELECTED:"Selected"
 } as const;
 
 export type ApplicationStatus =

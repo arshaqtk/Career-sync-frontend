@@ -14,7 +14,7 @@ export interface ApplicantDTO{
     name: string,
     email: string,
     phone: string,
-    profilePictureUrl: string,
+    profilePicture:{url:string},
     location: string,
     experience: number
   },

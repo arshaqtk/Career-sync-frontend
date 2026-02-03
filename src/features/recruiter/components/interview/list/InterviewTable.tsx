@@ -22,16 +22,19 @@ export function InterviewTable({
   }
 
   return (
-    <Table>
-      <InterviewTableHeader />
-      <TableBody>
-        {interviews.map((interview) => (
-          <InterviewTableRow
-            key={interview.id}
-            interview={interview}
-          />
-        ))}
-      </TableBody>
-    </Table>
+    <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+      <Table>
+        <InterviewTableHeader />
+        <TableBody>
+          {interviews.map((interview, index) => (
+            <InterviewTableRow
+              key={interview.id}
+              interview={interview}
+              index={index+1}
+            />
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }

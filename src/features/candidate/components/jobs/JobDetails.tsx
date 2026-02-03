@@ -53,7 +53,7 @@ export function JobDetails({ job }: JobDetailsProps) {
         open={open}
         onSubmit={handleApplyToJOb}
         OpenChange={closeModal}
-        candidateResumeUrl={userData?.candidateData?.resumeUrl}
+        candidateresumeUrl={userData?.candidateData?.resume.key}
       />
 
       <div className="flex-1 overflow-y-auto px-6 py-4 md:px-10 scrollbar-hide">

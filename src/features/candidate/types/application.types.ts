@@ -1,7 +1,7 @@
 
 export interface ApplyJobDTO {
   jobId: string;
-  resumeUrl: string;
+  resumeKey: string;
   coverLetter?: string;
   expectedSalary?: number; 
   noticePeriod?: string;

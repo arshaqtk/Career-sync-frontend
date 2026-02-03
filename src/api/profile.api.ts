@@ -69,6 +69,8 @@ export const deleteResumeApi=async()=>{
 }
 
 export const updateResumeApi = async (formData: FormData): Promise<IUser> => {
+    console.log("formData==================>",formData)
+    
   const res = await api.put(`/candidate/profile/resume`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",

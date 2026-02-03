@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function InterviewFilters({ filters, onChange }: Props) {
-  return (
+   return (
     <div className="flex flex-wrap gap-3 rounded-lg border p-3">
       <Select
         value={filters.status}

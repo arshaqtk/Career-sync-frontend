@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
 import { Mail } from "lucide-react";
 import type { RecruiterApplicationDTO } from "../../types/application.dto";
-import { ResumeModal } from "./resumeModal";
+import { ResumeModal } from "../modals/resumeModal";
 
 interface ApplicantCard{
   applicant:RecruiterApplicationDTO,
@@ -41,7 +41,7 @@ export function ApplicantCard({ applicant, onView }:ApplicantCard ) {
           <Button size="sm" onClick={onView}>
             View Profile
           </Button>
-          <ResumeModal resumeUrl={applicant.candidate.resumeUrl} />
+          <ResumeModal resumeKey={applicant.candidate.resume} applicationId={applicant.id}/>
 
           {/* <Button variant="outline" size="sm" onClick={onView}>
             <FileText size={14} /> Resume

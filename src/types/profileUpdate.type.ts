@@ -10,7 +10,7 @@ export type ProfileUpdatePayload = z.infer<typeof profileUpdateSchema>;
 
 export interface CandidateData {
    resume?: {
-    url: string;
+    key: string;
     originalName: string;
     uploadedAt: string;
   };

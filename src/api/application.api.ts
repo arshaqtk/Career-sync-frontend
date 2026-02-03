@@ -5,6 +5,19 @@ import type { ApplicationFilters } from "@/features/candidate/types/applicationF
 import type { CandidateApplicationDetailResponse } from "@/features/candidate/types/applicationDetail.types"
 
 
+//-------------------Resume Preview-----------------------------------------
+export const getResumeUrlApi=async({applicationId,key}:{applicationId:string,key:string})=>{
+    console.log(key)
+    const res=await api.post(`/application/${applicationId}/resume?mode=view`,{data:key})
+    return res.data.resumeUrl
+}
+
+export const getResumeDownloadUrlApi=async()=>{
+    const res=await api.get("/candidate/profile/resume?mode=download")
+    return res.data
+}
+
+
 //---------------------Candidate----------------------------------------------
 export const applyToJobApi=async(data:ApplyJobDTO)=>{
     const res=await api.post("/application/apply",data)
@@ -32,7 +45,6 @@ export const candidateApplicationDetailViewApi=async({applicationId}:{applicatio
 
 export const recruiterJobApplicationsApi=async(jobId:string)=>{
     const res=await api.get(`/application/job/${jobId}`)
-    console.log(res.data)
     return res.data
 }
 

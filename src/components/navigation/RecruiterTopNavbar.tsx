@@ -1,6 +1,5 @@
-import { Bell, LogOut, User } from "lucide-react";
+import { Bell, LogOut, Menu, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Input } from "@/components/ui/shadcn/input";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -13,32 +12,49 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avat
 import useUserData from "@/hooks/useUserData";
 import useLogout from "@/hooks/useLogout";
 import { Spinner } from "../ui/shadcn/spinner";
+import { Button } from "@/components/ui/shadcn/button";
 
-export  function RecruiterTopNavbar() {
+interface RecruiterTopNavbarProps {
+  onMenuClick?: () => void;
+}
+
+export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
   const navigate = useNavigate();
-   const handleLogout = useLogout();
-  const {data:user,isLoading}=useUserData()
+  const handleLogout = useLogout();
+  const { data: user, isLoading } = useUserData()
 
-  
- if (isLoading) return  <Spinner /> ;
+
+  if (isLoading) return <Spinner />;
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-white">
+    <header className="flex items-center justify-between px-6 py-4 bg-white border-b h-20">
+      <div className="flex items-center gap-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:hidden"
+          onClick={onMenuClick}
+        >
+          <Menu className="h-6 w-6" />
+        </Button>
 
-      {/* Search bar */}
-      <Input
-        placeholder="Search candidates, jobs, interviews..."
-        className="max-w-lg"
-      />
+        {/* Search bar - hidden on very small screens, or scaled */}
+        {/* <div className="hidden sm:block">
+          <Input
+            placeholder="Search candidates, jobs, interviews..."
+            className="w-[300px] lg:w-[450px] bg-gray-50 border-none transition-all focus:bg-white focus:ring-1"
+          />
+        </div> */}
+      </div>
 
       {/* Right side */}
       <div className="flex items-center gap-6">
 
         {/* Notification icon */}
         <button onClick={() => navigate("notifications")} className="relative">
- <Bell className="cursor-pointer" />
+          <Bell className="cursor-pointer" />
 
-  {user?.notificationCount > 0 && (
-    <span className="
+          {user?.notificationCount > 0 && (
+            <span className="
       absolute 
       -top-1 
       -right-1 
@@ -53,10 +69,10 @@ export  function RecruiterTopNavbar() {
       justify-center 
       rounded-full
     ">
-      {user.notificationCount}
-    </span>
-  )}
-</button>
+              {user.notificationCount}
+            </span>
+          )}
+        </button>
 
         {/* Profile dropdown */}
         <DropdownMenu>
