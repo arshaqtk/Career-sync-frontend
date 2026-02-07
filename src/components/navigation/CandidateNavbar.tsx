@@ -58,7 +58,8 @@ export function CandidateNavbar() {
                 </div> */}
 
       {/* Desktop Navigation */}
-      <nav className="hidden lg:flex gap-8 text-sm font-medium">
+      {
+        user?(<nav className="hidden lg:flex gap-8 text-sm font-medium">
         {candidateNav.map((item) => (
           <Link
             key={item.path}
@@ -68,7 +69,9 @@ export function CandidateNavbar() {
             {item.label}
           </Link>
         ))}
-      </nav>
+      </nav>):("")
+      }
+      
 
       {/* Right Side */}
       {user ?  (

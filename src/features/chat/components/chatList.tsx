@@ -6,14 +6,14 @@ import type { Chatlist } from "../types/chat.types"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar"
 import { ScrollArea } from "@/components/ui/shadcn/scroll-area"
-import { Input } from "@/components/ui/shadcn/input"
-import { Search } from "lucide-react"
+
 import { cn } from "@/lib/utils"
 import { handleRQError } from "@/lib/react-query/errorHandler"
+import { usePresenceStore } from "../store/presence.store"
 
-export default function ChatList({ onChange }: { onChange: (value: string) => void }) {
+export default function ChatList({ onChange }: { onChange: (value: {name:string,id:string}) => void }) {
   const socket = getSocket()
-
+  const { presence } = usePresenceStore()
   const {
     setActiveChatId,
     setConversationId,
@@ -25,7 +25,7 @@ export default function ChatList({ onChange }: { onChange: (value: string) => vo
   const limit = 10
 
   const openChat = (receiverId: string, recieverName: string) => {
-    onChange(recieverName)
+    onChange({name:recieverName,id:receiverId})
     if (receiverId === activeChatId) return
     setActiveChatId(receiverId)
 
@@ -52,13 +52,13 @@ export default function ChatList({ onChange }: { onChange: (value: string) => vo
   return (
     <div className="flex flex-col h-full bg-white">
       <div className="p-4 pb-2 space-y-3">
-        <div className="relative">
+        {/* <div className="relative">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
           <Input
             placeholder="Search conversations..."
             className="pl-9 bg-slate-50 border-slate-200 focus-visible:ring-blue-500 rounded-lg"
           />
-        </div>
+        </div> */}
         <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider pl-1 font-sans">
           Recent
         </p>
@@ -67,6 +67,9 @@ export default function ChatList({ onChange }: { onChange: (value: string) => vo
       <ScrollArea className="flex-1 px-2">
         <div className="space-y-1 pb-4">
           {conversations.data.map((conv: Chatlist) => {
+            const receiverId = conv.receiver._id;
+            const status = presence[receiverId];
+            const isOnline = status?.isOnline === true;
             const isActive = activeChatId === conv.receiver._id
 
             return (
@@ -95,10 +98,10 @@ export default function ChatList({ onChange }: { onChange: (value: string) => vo
                     </AvatarFallback>
                   </Avatar>
                   {/* Status Indicator */}
-                  {/* <div className={cn(
+                  <div className={cn(
                     "absolute bottom-0.5 right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white",
-                    "bg-green-500"
-                  )} /> */}
+                    isOnline ? "bg-green-500" : "bg-slate-400"
+                  )} />
                 </div>
 
                 {/* Chat Info */}

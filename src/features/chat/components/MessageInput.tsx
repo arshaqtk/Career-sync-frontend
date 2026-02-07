@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getSocket } from "@/lib/socket";
 import { useChatStore } from "../store/chat.store";
-import { Send, Paperclip, Smile } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/shadcn/button";
 
 export default function MessageInput() {
@@ -29,9 +29,9 @@ export default function MessageInput() {
 
    return (
     <div className="flex items-center gap-1.5 md:gap-2 bg-slate-50 p-1.5 md:p-2 rounded-xl border border-slate-200 focus-within:bg-white focus-within:shadow-sm focus-within:border-blue-400 transition-all duration-300">
-      <Button variant="ghost" size="icon" className="text-slate-400 hover:text-blue-600 hover:bg-white rounded-full h-10 w-10 shrink-0">
+      {/* <Button variant="ghost" size="icon" className="text-slate-400 hover:text-blue-600 hover:bg-white rounded-full h-10 w-10 shrink-0">
         <Paperclip className="h-5 w-5" />
-      </Button>
+      </Button> */}
 
       <input
         className="flex-1 bg-transparent border-none focus:outline-none py-2 md:py-2.5 text-[15px] text-slate-800 placeholder:text-slate-400 max-h-32"
@@ -46,9 +46,9 @@ export default function MessageInput() {
         }}
       />
 
-      <Button variant="ghost" size="icon" className="text-slate-400 hover:text-blue-600 hover:bg-white rounded-full h-10 w-10 shrink-0">
+      {/* <Button variant="ghost" size="icon" className="text-slate-400 hover:text-blue-600 hover:bg-white rounded-full h-10 w-10 shrink-0">
         <Smile className="h-5 w-5" />
-      </Button>
+      </Button> */}
 
       <Button
         onClick={send}

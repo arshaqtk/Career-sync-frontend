@@ -2,7 +2,7 @@ import { getSocket } from "@/lib/socket"
 import { useChatStore } from "../store/chat.store"
 import MessageBubble from "./MessageBubble"
 import MessageInput from "./MessageInput"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, type Dispatch, type SetStateAction } from "react"
 import type { ChatMessage } from "../types/chat.types"
 import { useAuthStore } from "@/store/auth.store"
 import { useMessageHistory } from "../hooks/useMessages"
@@ -13,13 +13,20 @@ import useUserData from "@/hooks/useUserData"
 import { ChatActionsDropdown } from "./chatActionsDropdown"
 import { useClearChat } from "../hooks/useClearMessage"
 import { useDeleteConversation } from "../hooks/useDeleteConversation"
-
-export default function ChatWindow({ selectedUser }: { selectedUser: string }) {
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/shadcn/sheet"
+import { Button } from "@/components/ui/shadcn/button"
+import { Menu } from "lucide-react"
+import ChatList from "./chatList"
+export default function ChatWindow({ isOnline,setSelectedUser,selectedUser }: 
+  {isOnline:boolean,setSelectedUser:Dispatch<SetStateAction<{ name: string; id: string; }>>,selectedUser: string }) {
+  
+  
   const socket = getSocket()
   const bottomRef = useRef<HTMLDivElement | null>(null)
-
-  // Handle both id and _id to ensure compatibility with different backend responses
-
   const { data: profile } = useUserData()
   const storedUser = useAuthStore((s) => s.user)
 
@@ -35,9 +42,7 @@ export default function ChatWindow({ selectedUser }: { selectedUser: string }) {
     const handler = (msg: ChatMessage) => {
       addMessage(msg)
     }
-
     socket.on("chat:newMessage", handler)
-
     return () => {
       socket.off("chat:newMessage", handler)
     }
@@ -83,6 +88,24 @@ export default function ChatWindow({ selectedUser }: { selectedUser: string }) {
       {/* Header */}
       <div className="flex-shrink-0 px-6 py-3 bg-white border-b border-slate-100 flex items-center justify-between z-10">
         <div className="flex items-center gap-4">
+           <div className="flex items-center gap-3">
+                  {/* Mobile toggle */}
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="md:hidden -ml-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50"
+                      >
+                        <Menu className="h-6 w-6" />
+                      </Button>
+                    </SheetTrigger>
+          
+                    <SheetContent side="left" className="p-0 w-[320px]">
+                      <ChatList onChange={({name,id})=>setSelectedUser({name,id})} />
+                    </SheetContent>
+                  </Sheet>
+                </div>
           <Avatar className="h-10 w-10 border border-slate-100 shadow-sm">
             <AvatarImage src="/user-placeholder.jpg" />
             <AvatarFallback className="bg-blue-50 text-blue-700 font-bold">
@@ -93,7 +116,9 @@ export default function ChatWindow({ selectedUser }: { selectedUser: string }) {
             <h2 className="text-base font-bold text-slate-900">
               {selectedUser || "Chat"}
             </h2>
-            {/* <p className="text-[11px] text-green-600 font-medium">Online</p> */}
+              {isOnline?<p className="text-[11px] text-green-600 font-medium">Online</p>:
+              <p className="text-[11px] text-gray-600 font-medium">Offline</p>}
+            
           </div>
         </div>
 

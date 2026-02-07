@@ -1,8 +1,22 @@
 import { Button } from "@/components/ui/shadcn/button"
 import { Input } from "@/components/ui/shadcn/input"
 import { Search, MapPin } from "lucide-react"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export function Hero() {
+     const navigate=useNavigate()
+      const [location,setLocation]=useState("")
+      const [jobTitle,setJobTitle]=useState("")
+      const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+      const params = new URLSearchParams()
+    
+      if (jobTitle) params.append("search", jobTitle)
+      if (location) params.append("location", location)
+    
+      navigate(`/jobs?${params.toString()}`)
+    }
     return (
         <section className="relative py-20 lg:py-32 overflow-hidden">
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-background to-background"></div>
@@ -20,25 +34,40 @@ export function Hero() {
                     Connect with top employers and land your dream job in record time.
                 </p>
 
-                <div className="w-full max-w-3xl p-4 bg-card rounded-2xl shadow-lg border border-border/50 flex flex-col md:flex-row gap-4 mt-8">
-                    <div className="relative flex-1">
-                        <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                        <Input
-                            placeholder="Job title, keywords, or company"
-                            className="pl-10 h-12 border-0 bg-secondary/50 focus-visible:ring-0 focus-visible:bg-background transition-colors"
-                        />
-                    </div>
-                    <div className="relative flex-1">
-                        <MapPin className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                        <Input
-                            placeholder="Location or 'Remote'"
-                            className="pl-10 h-12 border-0 bg-secondary/50 focus-visible:ring-0 focus-visible:bg-background transition-colors"
-                        />
-                    </div>
-                    <Button size="lg" className="h-12 px-8 text-lg font-medium shadow-md">
-                        Find Jobs
-                    </Button>
-                </div>
+                    <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-3xl p-4 bg-card rounded-2xl shadow-lg border border-border/50 flex flex-col md:flex-row gap-4 mt-8"
+        >
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+            <Input
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+              placeholder="Job title, keywords, or company"
+              className="pl-10 h-12 border-0 bg-secondary/50 focus-visible:ring-0 focus-visible:bg-background transition-colors"
+            />
+          </div>
+
+          <div className="relative flex-1">
+            <MapPin className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+            <Input
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Location or 'Remote'"
+              className="pl-10 h-12 border-0 bg-secondary/50 focus-visible:ring-0 focus-visible:bg-background transition-colors"
+            />
+          </div>
+
+          {/* submit type is important */}
+          <Button
+            type="submit"
+            size="lg"
+            className="h-12 px-8 text-lg font-medium shadow-md"
+          >
+            Find Jobs
+          </Button>
+        </form>
+                
 
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mt-4">
                     <span>Popular:</span>

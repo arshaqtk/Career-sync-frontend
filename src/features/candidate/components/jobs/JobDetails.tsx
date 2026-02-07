@@ -37,6 +37,7 @@ export function JobDetails({ job }: JobDetailsProps) {
 
   const isClosed = job.status === "closed";
   const isPaused = job.status === "paused";
+  const isLoggedIn=userData
   let isApplied = job.hasApplied;
   if (isSuccess) {
     isApplied = true;
@@ -102,10 +103,10 @@ export function JobDetails({ job }: JobDetailsProps) {
                   ? "bg-blue-600 hover:bg-blue-700 text-white shadow-sm"
                   : "bg-slate-200 text-slate-500 cursor-not-allowed"
               )}
-              disabled={isClosed || isApplied || isPaused}
+              disabled={isClosed || isApplied || isPaused||!isLoggedIn}
               onClick={() => setIsOpen(true)}
             >
-              {isClosed ? "Job Closed" : isPaused ? "Job Blocked" : isApplied ? "Applied" : "Apply Now"}
+              {!isLoggedIn?"Log in": isClosed ? "Job Closed" : isPaused ? "Job Blocked" : isApplied ? "Applied" : "Apply Now"}
             </Button>
             <span className="text-[12px] text-slate-400 font-medium italic sm:ml-2">
               Posted recently

@@ -22,12 +22,12 @@ export default function JobPage() {
   const pageFromUrl = Number(searchParams.get("page") ?? 1)
   const [page, setPage] = useState(pageFromUrl)
   const [isMobileDetailOpen, setIsMobileDetailOpen] = useState(false)
-
-const updateFilters = (nextFilters: JobFilters) => {
-  setPage(1)
-  setFilters(nextFilters)
-
-  const params = new URLSearchParams()
+  
+  const updateFilters = (nextFilters: JobFilters) => {
+    setPage(1)
+    setFilters(nextFilters)
+    const params = new URLSearchParams()
+    
 
   Object.entries(nextFilters).forEach(([key, value]) => {
     if (value && value !== "all") {
@@ -69,23 +69,20 @@ useEffect(() => {
   const { data: jobs, isLoading, isFetching, isError, error } = useCandidateJobData({ page, limit: 5, filters })
 
   useEffect(() => {
-    // On desktop, auto-select first job if none selected
+  
     const isDesktop = window.matchMedia("(min-width: 768px)").matches;
 
     if (jobs?.jobs?.length&& !selectedJob && isDesktop) {
       setSelectedJob(jobs?.jobs[0]);
     }
-    // const stillExists = jobs.jobs.find((job: CandidateJob) =>
-    //   job._id === selectedJob?._id)
-
-    // if (!stillExists) {
-    //   setSelectedJob(jobs.jobs[0])
-    // }
   }, [jobs?.jobs, selectedJob, setSelectedJob])
 
 // Handle mobile selection
   const handleJobSelect = (job: CandidateJob) => {
     setSelectedJob(job);
+  const params = new URLSearchParams(searchParams)
+  params.set("id",job._id!)
+setSearchParams(params)
     if (window.innerWidth < 768) {
       setIsMobileDetailOpen(true);
     }

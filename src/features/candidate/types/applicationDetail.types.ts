@@ -2,7 +2,7 @@
 export interface CandidateApplicationDetailResponse {
   application: {
     id: string
-    status: "Pending" | "Shortlisted" | "Selected" | "Rejected"
+    status: "Pending" | "Shortlisted" | "Selected" | "Rejected"|"Viewed"
 
 
     experience: string
@@ -81,7 +81,7 @@ export interface JobDetails {
 }
 
 export interface ApplicationDetails{
-    status:"Pending" | "Shortlisted" | "Selected" | "Rejected";
+    status:"Pending" | "Shortlisted" | "Selected" | "Rejected"|"Viewed";
      coverLetter?: string;
   expectedSalary?: number; 
   noticePeriod?: string;
@@ -91,4 +91,4 @@ export interface ApplicationDetails{
   decisionNote?:string;
 }
 
-export const STATUS_FLOW = ["Pending", "Shortlisted", "Interview","Selected", "Rejected"] as const
+export const STATUS_FLOW = ["Pending","Viewed", "Shortlisted", "Interview","Selected", "Rejected"] as const

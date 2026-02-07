@@ -1,13 +1,13 @@
-import { recruiterGetApplicantDetailsApi } from "@/api/application.api";
+import { recruiterGetApplicationDetailsApi } from "@/api/application.api";
 import { QUERY_KEYS } from "@/config/queryKeys";
 import { useQuery } from "@tanstack/react-query";
 
-export function useRecruiterApplicantDetails(applicationId?: string) {
+export function useRecruiterApplicationDetails(applicationId?: string) {
   return useQuery({
     queryKey: QUERY_KEYS.applications.detail(applicationId as string),
 
     queryFn: () =>
-      recruiterGetApplicantDetailsApi(applicationId as string),
+      recruiterGetApplicationDetailsApi(applicationId as string),
 
     enabled: !!applicationId, 
 

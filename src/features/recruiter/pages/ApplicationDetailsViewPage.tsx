@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecruiterApplicantDetails } from "../hooks/useGetApplicantDetails";
+import { useRecruiterApplicationDetails } from "../hooks/useGetApplicantDetails";
 
 import { CandidateProfileCard } from "../components/application/CandidateProfileCard";
 import { JobInfoCard } from "../components/application/JobInfoCard";
@@ -31,7 +31,7 @@ export default function ApplicantionDetailPage() {
     toast.error("Something went wrong...")
   }
 
-  const { data, isLoading, error } = useRecruiterApplicantDetails(applicationId);
+  const { data, isLoading, error } = useRecruiterApplicationDetails(applicationId);
   const { data: interviews, isLoading: interviewIsLoading, error: timeLineError } = useRecruiterInterviewTimeline(applicationId!)
   const { closeModal, open } = useInterviewScheduleModalStore();
   const { mutate: scheduleInterview, isPending: isScheduling } = useScheduleInterview();

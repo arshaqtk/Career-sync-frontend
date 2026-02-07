@@ -1,13 +1,18 @@
 import ChatList from "../components/chatList"
 import ChatWindow from "../components/chatWIndow"
-import ChatHeader from "../components/chatHeader"
 import { useChatStore } from "../store/chat.store"
 import { MessageSquare } from "lucide-react"
 import { useState } from "react"
+import { usePresenceStore } from "../store/presence.store"
+
 
 export default function ChatLayout() {
   const conversationId = useChatStore((s) => s.conversationId)
-  const [selectedUser, setSelectedUser] = useState("")
+  const [selectedUser, setSelectedUser] = useState({name:"",id:""})
+     const {presence}=usePresenceStore()
+     const status = presence[selectedUser.id];
+const isOnline = status?.isOnline === true;
+  
    return (
     <div className="h-[calc(100dvh-64px)] flex overflow-hidden bg-white">
       {/* Desktop Sidebar */}
@@ -24,20 +29,16 @@ export default function ChatLayout() {
           </p>
         </div>
         <div className="flex-1 overflow-y-auto scrollbar-hide">
-          <ChatList onChange={setSelectedUser} />
+          <ChatList onChange={({name,id})=>setSelectedUser({name,id})} />
         </div>
       </aside>
 
       {/* Main Chat Area */}
       <main className="flex-1 flex flex-col relative overflow-hidden bg-white">
         {/* Mobile Header */}
-        <div className="md:hidden sticky top-0 z-50 bg-white border-b border-slate-200">
-          <ChatHeader user={selectedUser} />
-        </div>
-
         {conversationId ? (
           <div className="flex-1 flex flex-col h-full relative z-0">
-            <ChatWindow selectedUser={selectedUser} />
+            <ChatWindow isOnline={isOnline} setSelectedUser={setSelectedUser} selectedUser={selectedUser.name} />
           </div>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center p-8 bg-slate-50/30">

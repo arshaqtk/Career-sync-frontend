@@ -48,7 +48,7 @@ export const recruiterJobApplicationsApi=async(jobId:string)=>{
     return res.data
 }
 
-export const recruiterGetApplicantDetailsApi=async(applicantionId:string)=>{
+export const recruiterGetApplicationDetailsApi=async(applicantionId:string)=>{
     const res=await api.get(`/application/${applicantionId}`)
     return res.data
 }

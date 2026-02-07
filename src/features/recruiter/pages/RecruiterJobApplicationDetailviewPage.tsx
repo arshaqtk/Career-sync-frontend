@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecruiterApplicantDetails } from "../hooks/useGetApplicantDetails";
+import { useRecruiterApplicationDetails } from "../hooks/useGetApplicantDetails";
 
 import { CandidateProfileCard } from "../components/application/CandidateProfileCard";
 import { JobInfoCard } from "../components/application/JobInfoCard";
@@ -21,7 +21,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/shadcn
 export default function JobApplicantionDetailPage() {
   const { applicationId, jobId } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading, error } = useRecruiterApplicantDetails(applicationId!);
+  const { data, isLoading, error } = useRecruiterApplicationDetails(applicationId!);
   const { closeModal, open } = useInterviewScheduleModalStore();
   const { mutate: scheduleInterview, isPending } = useScheduleInterview();
 
