@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/shadcn/badge";
 import { Separator } from "@/components/ui/shadcn/separator";
 import { cn } from "@/lib/utils";
 
+
 interface JobDetailsProps {
   job?: CandidateJob | null;
 }
@@ -46,6 +47,18 @@ export function JobDetails({ job }: JobDetailsProps) {
   const closeModal = () => {
     setIsOpen(false);
   };
+  const handleShare = async () => {
+      const url = `${window.location.origin}/jobs?id=${job._id}`;
+    if (navigator.share) {
+      await navigator.share({
+        title: "Check out this job",
+        url,
+      });
+    } else {
+      await navigator.clipboard.writeText(url);
+      alert("Job link copied!");
+    }
+  };
 
   return (
     <div className="flex-1 bg-white h-full flex flex-col overflow-hidden">
@@ -79,7 +92,7 @@ export function JobDetails({ job }: JobDetailsProps) {
               <Button variant="ghost" size="icon" className="h-9 w-9 border border-slate-200 hover:bg-slate-50">
                 <Bookmark className="w-4 h-4 text-slate-400" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-9 w-9 border border-slate-200 hover:bg-slate-50">
+              <Button onClick={handleShare} variant="ghost" size="icon" className="h-9 w-9 border border-slate-200 hover:bg-slate-50">
                 <Share2 className="w-4 h-4 text-slate-400" />
               </Button>
             </div>

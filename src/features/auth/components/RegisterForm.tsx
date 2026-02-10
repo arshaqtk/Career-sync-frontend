@@ -1,4 +1,4 @@
-import { Mail, Lock, User,Eye, EyeOff, } from "lucide-react";
+import { Mail, Lock, User,Eye, EyeOff, Loader2, ArrowRight, } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,6 @@ import {
   FormMessage,
 } from "@/components/ui/shadcn/form";
 import  Input  from "@/components/ui/cs-input";
-import { Button } from "@/components/ui/shadcn/button";
 import {
   Select,
   SelectContent,
@@ -25,6 +24,7 @@ import { Separator } from "@/components/ui/shadcn/separator";
 import { registerSchema, type RegisterFormValues } from "../validators/auth.schema";
 import { useRegister } from "@/hooks/useAuth";
 import { useRegisterRoleStore } from "@/store/role.store";
+import CSButton from "@/components/ui/cs-button";
 
 type RegisterFormInputs = Omit<RegisterFormValues, "role">;
 
@@ -188,9 +188,25 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 
         {/* SUBMIT */}
-        <Button type="submit" className="w-full" disabled={registerMutation.isPending}>
-          {registerMutation.isPending ? "Signing up..." : "Sign up"}
-        </Button>
+       <CSButton 
+         type="submit" 
+         fullWidth
+         className="relative h-12 overflow-hidden shadow-lg shadow-primary/25 transition-all active:scale-[0.98] group"
+         disabled={registerMutation.isPending}
+       >
+         {registerMutation.isPending ? (
+    <div className="flex items-center justify-center gap-2">
+      <Loader2 className="h-5 w-5 animate-spin text-white" />
+      <span>Authenticating...</span>
+    </div>
+  ) : (
+    <div className="flex items-center justify-center gap-2">
+      <span>Register</span>
+      {/* Arrow appears on hover and slides slightly to the right */}
+      <ArrowRight className="h-4 w-4 transition-all duration-300 group-hover:translate-x-1 opacity-70" />
+    </div>
+  )}
+        </CSButton>
       </form>
 
       <Separator className="my-6" />

@@ -49,13 +49,13 @@ import NotFound from "@/features/notFound/notFoundPage";
 import HomePage from "@/features/candidate/pages/Home";
 import { LandingPage } from "@/features/landingPage/pages/landingPage";
 import { AboutPage } from "@/features/landingPage/pages/AboutPage";
-import { SectionSkeleton } from "@/components/Loaders";
+import { AppLoader } from "@/components/Loaders";
 import useUserData from "@/hooks/useUserData";
 
 function RootRoute() {
     const { data: user, isLoading } = useUserData();
 
-    if (isLoading) return <SectionSkeleton />;
+    if (isLoading) return <AppLoader />;
 
     if (user) {
         const roleRoutes = {
