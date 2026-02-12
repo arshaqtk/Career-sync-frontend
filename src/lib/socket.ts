@@ -8,13 +8,12 @@ export const getSocket = () => {
       withCredentials: true,
       autoConnect: false,
 
-        reconnection: true,
-      reconnectionAttempts: Infinity,
-      reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000,
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 2000,
+      reconnectionDelayMax: 10000,
       timeout: 20000,
-
-      transports: ["websocket"], 
+      transports: ["polling", "websocket"],
     })
   }
   return socket
