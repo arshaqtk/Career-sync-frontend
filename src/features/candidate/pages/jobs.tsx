@@ -14,88 +14,104 @@ import { useSearchParams } from "react-router-dom";
 import { getValidParams } from "@/lib/utils";
 import { Sheet } from "@/components/ui/shadcn/sheet";
 import { SheetContent } from "@/components/ui/shadcn/sheet";
+import type { Job } from "@/features/recruiter/types/job.type";
 
 
 export default function JobPage() {
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const pageFromUrl = Number(searchParams.get("page") ?? 1)
-  const [page, setPage] = useState(pageFromUrl)
+  // const pageFromUrl = Number(searchParams.get("page") ?? 1)
+  // const [page, setPage] = useState(pageFromUrl)
+  const page = Number(searchParams.get("page") ?? 1);
   const [isMobileDetailOpen, setIsMobileDetailOpen] = useState(false)
-  
-  const updateFilters = (nextFilters: JobFilters) => {
-    setPage(1)
-    setFilters(nextFilters)
-    const params = new URLSearchParams()
-    
-
-  Object.entries(nextFilters).forEach(([key, value]) => {
-    if (value && value !== "all") {
-      params.set(key, String(value))
-    }
-  })
-
-  params.set("page", "1")
-  setSearchParams(params)
-}
-
-const updatePage = (nextPage: number) => {
-  setPage(nextPage)
-  const params = new URLSearchParams(searchParams)
-  params.set("page", String(nextPage))
-  setSearchParams(params)
-}
-  const [filters, setFilters] = useState<JobFilters>({
-    status: "all",
-    jobType: "all",
-    search: "",
-    location: "",
-  });
-
+  const { selectedJob, setSelectedJob } = useJobStore();
+  // const [filters, setFilters] = useState<JobFilters>({
+  //   status: "all",
+  //   jobType: "all",
+  //   search: "",
+  //   location: "",
+  // });
   const STATUS_VALUES = ["all", "open", "closed", "draft"] as const
-const JOB_TYPE_VALUES = ["all", "full-time", "part-time", "internship"] as const
-
-useEffect(() => {
-  setFilters({
+  const JOB_TYPE_VALUES = ["all", "full-time", "part-time", "internship"] as const
+  const filters: JobFilters = {
     status: getValidParams(searchParams.get("status"), STATUS_VALUES, "all"),
     jobType: getValidParams(searchParams.get("jobType"), JOB_TYPE_VALUES, "all"),
-    field:searchParams.get("field")??"",
+    field: searchParams.get("field") ?? "",
     search: searchParams.get("search") ?? "",
     location: searchParams.get("location") ?? "",
-  });
-}, [searchParams]);
+  };
 
-  const { selectedJob, setSelectedJob } = useJobStore();
   const { data: jobs, isLoading, isFetching, isError, error } = useCandidateJobData({ page, limit: 5, filters })
 
-  useEffect(() => {
-  
-    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+  const updateFilters = (nextFilters: JobFilters) => {
+    const params = new URLSearchParams()
+    Object.entries(nextFilters).forEach(([key, value]) => {
+      if (value && value !== "all") {
+        params.set(key, String(value))
+      }
+    })
+    params.set("page", "1")
+    setSearchParams(params)
+  }
 
-    if (jobs?.jobs?.length&& !selectedJob && isDesktop) {
-      setSelectedJob(jobs?.jobs[0]);
-    }
-  }, [jobs?.jobs, selectedJob, setSelectedJob])
+  const updatePage = (nextPage: number) => {
+    const params = new URLSearchParams(searchParams)
+    params.set("page", String(nextPage))
+    setSearchParams(params)
+  }
 
-// Handle mobile selection
+
+  // useEffect(() => {
+
+  //     setFilters({
+  //       status: getValidParams(searchParams.get("status"), STATUS_VALUES, "all"),
+  //       jobType: getValidParams(searchParams.get("jobType"), JOB_TYPE_VALUES, "all"),
+  //       field:searchParams.get("field")??"",
+  //       search: searchParams.get("search") ?? "",
+  //       location: searchParams.get("location") ?? "",
+  //     });
+  // }, [searchParams]);
+
+const selectedJobId = searchParams.get("id");
+ useEffect(() => {
+  if (!jobs?.jobs?.length) return;
+
+  const jobFromUrl = jobs.jobs.find((j:Job)=> j._id === selectedJobId);
+
+  if (jobFromUrl) {
+    setSelectedJob(jobFromUrl);
+  } else {
+    setSelectedJob(jobs.jobs[0]);
+  }
+}, [jobs, selectedJobId, setSelectedJob]);
+
+//Handle Selected Job
   const handleJobSelect = (job: CandidateJob) => {
     setSelectedJob(job);
-  const params = new URLSearchParams(searchParams)
-  params.set("id",job._id!)
-setSearchParams(params)
+    const params = new URLSearchParams(searchParams)
+    params.set("id", job._id!)
+    setSearchParams(params)
     if (window.innerWidth < 768) {
       setIsMobileDetailOpen(true);
     }
   };
 
+
+  //Error Handling
+  useEffect(() => {
+    if (isError) {
+      handleRQError(error);
+    }
+  }, [isError, error]);
+
+
   if (isLoading) {
     return <SectionSkeleton />
   }
-  if (isError) handleRQError(error)
 
 
 
-    
+
   return (
     <div className="my-2">
       <JobFilter
@@ -113,23 +129,23 @@ setSearchParams(params)
         </div>
       ) : (<>
         <div className="flex w-full h-[calc(100vh-70px)] my-3 gap-6 ">
-          <JobList jobs={jobs?.jobs} 
-          onSelect={handleJobSelect}
-           isFetching={isFetching} 
-           selectedJobId={selectedJob?._id} />
-         {/* Desktop Job Details */}
-            <div className="hidden md:block flex-1 h-full overflow-hidden border border-slate-200 rounded-lg">
-              <JobDetails job={selectedJob} />
-            </div>
-            {/* Mobile Job Details Sheet */}
-            <Sheet open={isMobileDetailOpen} onOpenChange={setIsMobileDetailOpen}>
-              <SheetContent side="bottom" className="h-[100vh] p-0 border-none bg-white">
-                <div className="h-full">
-                  <div className="w-12 h-1 bg-slate-200 rounded-full mx-auto my-3" />
-                  <JobDetails job={selectedJob} />
-                </div>
-              </SheetContent>
-            </Sheet>
+          <JobList jobs={jobs?.jobs}
+            onSelect={handleJobSelect}
+            isFetching={isFetching}
+            selectedJobId={selectedJob?._id} />
+          {/* Desktop Job Details */}
+          <div className="hidden md:block flex-1 h-full overflow-hidden border border-slate-200 rounded-lg">
+            <JobDetails job={selectedJob} />
+          </div>
+          {/* Mobile Job Details Sheet */}
+          <Sheet open={isMobileDetailOpen} onOpenChange={setIsMobileDetailOpen}>
+            <SheetContent side="bottom" className="h-[100vh] p-0 border-none bg-white">
+              <div className="h-full">
+                <div className="w-12 h-1 bg-slate-200 rounded-full mx-auto my-3" />
+                <JobDetails job={selectedJob} />
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
         <JobsPagination
           page={page}

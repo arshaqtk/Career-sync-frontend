@@ -1,4 +1,4 @@
-import { Mail, Lock, User,Eye, EyeOff, Loader2, ArrowRight, } from "lucide-react";
+import { Mail, Lock, User, Eye, EyeOff, Loader2, ArrowRight, } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/shadcn/form";
-import  Input  from "@/components/ui/cs-input";
+import Input from "@/components/ui/cs-input";
 import {
   Select,
   SelectContent,
@@ -43,7 +43,7 @@ export default function RegisterForm() {
   const role = useRegisterRoleStore((s) => s.role);
 
   const [showPassword, setShowPassword] = useState(false);
-const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const form = useForm<RegisterFormInputs>({
     resolver: zodResolver(registerSchema.omit({ role: true })),
     defaultValues: {
@@ -121,91 +121,90 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
         {/* PASSWORD */}
         <FormField
-  control={form.control}
-  name="password"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Password</FormLabel>
-      <FormControl>
-        <Input
-          type={showPassword ? "text" : "password"}
-          placeholder="••••••••"
-          icon={<Lock className="h-4 w-4" />}
-          rightIcon={
-            <button
-              type="button"
-              onClick={() => setShowPassword((p) => !p)}
-              className="text-muted-foreground hover:text-foreground"
-            >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
-            </button>
-          }
-          {...field}
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  icon={<Lock className="h-4 w-4" />}
+                  rightIcon={
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((p) => !p)}
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </button>
+                  }
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
 
 
         {/* CONFIRM PASSWORD */}
-       <FormField
-  control={form.control}
-  name="confirmPassword"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Confirm Password</FormLabel>
-      <FormControl>
-        <Input
-          type={showConfirmPassword ? "text" : "password"}
-          placeholder="••••••••"
-          icon={<Lock className="h-4 w-4" />}
-          rightIcon={
-            <button
-              type="button"
-              onClick={() => setShowConfirmPassword((p) => !p)}
-              className="text-muted-foreground hover:text-foreground"
-            >
-              {showConfirmPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
-            </button>
-          }
-          {...field}
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  icon={<Lock className="h-4 w-4" />}
+                  rightIcon={
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((p) => !p)}
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </button>
+                  }
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
 
 
         {/* SUBMIT */}
-       <CSButton 
-         type="submit" 
-         fullWidth
-         className="relative h-12 overflow-hidden shadow-lg shadow-primary/25 transition-all active:scale-[0.98] group"
-         disabled={registerMutation.isPending}
-       >
-         {registerMutation.isPending ? (
-    <div className="flex items-center justify-center gap-2">
-      <Loader2 className="h-5 w-5 animate-spin text-white" />
-      <span>Authenticating...</span>
-    </div>
-  ) : (
-    <div className="flex items-center justify-center gap-2">
-      <span>Register</span>
-      {/* Arrow appears on hover and slides slightly to the right */}
-      <ArrowRight className="h-4 w-4 transition-all duration-300 group-hover:translate-x-1 opacity-70" />
-    </div>
-  )}
+        <CSButton
+          type="submit"
+          fullWidth
+          className="relative h-12 overflow-hidden shadow-lg shadow-primary/25 transition-all active:scale-[0.98] group"
+          disabled={registerMutation.isPending}
+        >
+          {registerMutation.isPending ? (
+            <div className="flex items-center justify-center gap-2">
+              <Loader2 className="h-5 w-5 animate-spin text-white" />
+              <span>Authenticating...</span>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center gap-2">
+              <span>Register</span>
+              <ArrowRight className="h-4 w-4 transition-all duration-300 group-hover:translate-x-1 opacity-70" />
+            </div>
+          )}
         </CSButton>
       </form>
 

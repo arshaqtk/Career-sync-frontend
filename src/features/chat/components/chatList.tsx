@@ -67,10 +67,10 @@ export default function ChatList({ onChange }: { onChange: (value: {name:string,
       <ScrollArea className="flex-1 px-2">
         <div className="space-y-1 pb-4">
           {conversations.data.map((conv: Chatlist) => {
-            const receiverId = conv.receiver._id;
+            const receiverId = conv.receiver?._id;
             const status = presence[receiverId];
             const isOnline = status?.isOnline === true;
-            const isActive = activeChatId === conv.receiver._id
+            const isActive = activeChatId === conv.receiver?._id
 
             return (
               <div
@@ -89,12 +89,12 @@ export default function ChatList({ onChange }: { onChange: (value: {name:string,
                     "h-12 w-12 border transition-all",
                     isActive ? "border-blue-200" : "border-slate-100"
                   )}>
-                    <AvatarImage src={conv.receiver.profilePictureUrl} className="object-cover" />
+                    <AvatarImage src={conv.receiver?.profilePictureUrl} className="object-cover" />
                     <AvatarFallback className={cn(
                       "text-sm font-bold",
                       isActive ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-600"
                     )}>
-                      {conv.receiver.name?.charAt(0).toUpperCase()}
+                      {conv.receiver?.name?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                   {/* Status Indicator */}
@@ -111,12 +111,12 @@ export default function ChatList({ onChange }: { onChange: (value: {name:string,
                       "font-bold truncate text-[14px] transition-colors",
                       isActive ? "text-blue-700" : "text-slate-900 group-hover:text-blue-600"
                     )}>
-                      {conv.receiver.name}
+                      {conv.receiver?.name}
                     </p>
 
                     {conv.lastMessageAt && (
                       <span className="text-[10px] font-medium text-slate-400">
-                        {new Date(conv.lastMessageAt).toLocaleTimeString("en-IN", {
+                        {new Date(conv?.lastMessageAt).toLocaleTimeString("en-IN", {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}

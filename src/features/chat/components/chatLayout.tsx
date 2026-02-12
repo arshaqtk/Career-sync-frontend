@@ -1,9 +1,11 @@
 import ChatList from "../components/chatList"
 import ChatWindow from "../components/chatWIndow"
 import { useChatStore } from "../store/chat.store"
-import { MessageSquare } from "lucide-react"
+import {  MessageSquare } from "lucide-react"
 import { useState } from "react"
 import { usePresenceStore } from "../store/presence.store"
+// import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/shadcn/sheet"
+// import { Button } from "@/components/ui/shadcn/button"
 
 
 export default function ChatLayout() {
@@ -15,6 +17,7 @@ const isOnline = status?.isOnline === true;
   
    return (
     <div className="h-[calc(100dvh-64px)] flex overflow-hidden bg-white">
+   
       {/* Desktop Sidebar */}
       <aside className="w-[380px] border-r border-slate-200 bg-white hidden md:flex flex-col z-10">
         <div className="p-6 border-b border-slate-100 bg-white">
@@ -32,6 +35,7 @@ const isOnline = status?.isOnline === true;
           <ChatList onChange={({name,id})=>setSelectedUser({name,id})} />
         </div>
       </aside>
+       
 
       {/* Main Chat Area */}
       <main className="flex-1 flex flex-col relative overflow-hidden bg-white">
@@ -41,8 +45,12 @@ const isOnline = status?.isOnline === true;
             <ChatWindow isOnline={isOnline} setSelectedUser={setSelectedUser} selectedUser={selectedUser.name} />
           </div>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center p-8 bg-slate-50/30">
-            <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center space-y-8 animate-in fade-in zoom-in duration-500">
+          <div>
+ <div className="md:hidden">
+             <ChatList onChange={({name,id})=>setSelectedUser({name,id})} />
+          </div>
+          <div className="flex-1 hidden md:flex flex-col items-center justify-center p-8 bg-slate-50/30">
+            <div className="max-w-md  w-full bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center space-y-8 animate-in fade-in zoom-in duration-500">
               <div className="relative mx-auto w-24 h-24">
                 <div className="relative w-full h-full rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg">
                   <MessageSquare className="h-10 w-10 text-white" />
@@ -71,6 +79,7 @@ const isOnline = status?.isOnline === true;
                 ))}
               </div>
             </div>
+          </div>
           </div>
         )}
       </main>
