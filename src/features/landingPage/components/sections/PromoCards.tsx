@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/shadcn/button"
 import { ArrowRight } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 export function PromoCards() {
+    const navigate=useNavigate()
     return (
         <section className="py-20">
             <div className="container mx-auto px-4 md:px-6">
@@ -13,7 +15,7 @@ export function PromoCards() {
                             <p className="text-blue-100 max-w-sm">
                                 Get access to exclusive job listings and premium career tools designed to fast-track your success.
                             </p>
-                            <Button variant="secondary" size="lg" className="mt-4 gap-2">
+                            <Button onClick={()=>navigate("/auth/login")} variant="secondary" size="lg" className="mt-4 gap-2">
                                 Find Work <ArrowRight className="w-4 h-4" />
                             </Button>
                         </div>
@@ -28,7 +30,7 @@ export function PromoCards() {
                             <p className="text-slate-300 max-w-sm">
                                 Streamline your hiring process with our AI-vetted candidate pools. Quality over quantity, always.
                             </p>
-                            <Button variant="outline" size="lg" className="mt-4 gap-2 bg-transparent text-white hover:bg-white hover:text-black border-white/40">
+                            <Button onClick={()=>navigate("/auth/login")} variant="outline" size="lg" className="mt-4 gap-2 bg-transparent text-white hover:bg-white hover:text-black border-white/40">
                                 Post a Job <ArrowRight className="w-4 h-4" />
                             </Button>
                         </div>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { ApplyJobDTO } from "../../types/application.types";
 import { useApplyNow } from "../../hooks/useApplication";
 import useUserData from "@/hooks/useUserData";
-import { Banknote, Briefcase, MapPin, Bookmark, Info, Share2, Building, Globe } from "lucide-react";
+import { Banknote, Briefcase, MapPin, Info, Share2, Building, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Separator } from "@/components/ui/shadcn/separator";
 import { cn } from "@/lib/utils";
@@ -67,7 +67,7 @@ export function JobDetails({ job }: JobDetailsProps) {
         open={open}
         onSubmit={handleApplyToJOb}
         OpenChange={closeModal}
-        candidateresumeUrl={userData?.candidateData?.resume.key}
+        candidateresumeUrl={userData?.candidateData?.resume?.key}
       />
 
       <div className="flex-1 overflow-y-auto px-6 py-4 md:px-10 scrollbar-hide">
@@ -89,9 +89,9 @@ export function JobDetails({ job }: JobDetailsProps) {
               </div>
             </div>
             <div className="hidden sm:flex gap-2">
-              <Button variant="ghost" size="icon" className="h-9 w-9 border border-slate-200 hover:bg-slate-50">
+              {/* <Button variant="ghost" size="icon" className="h-9 w-9 border border-slate-200 hover:bg-slate-50">
                 <Bookmark className="w-4 h-4 text-slate-400" />
-              </Button>
+              </Button> */}
               <Button onClick={handleShare} variant="ghost" size="icon" className="h-9 w-9 border border-slate-200 hover:bg-slate-50">
                 <Share2 className="w-4 h-4 text-slate-400" />
               </Button>
