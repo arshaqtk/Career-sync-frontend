@@ -11,6 +11,7 @@ export type ScheduleInterviewPayload = {
   mode: "Online" | "Offline";
   meetingLink?: string;
   location?: string;
+  interviewerEmail?:string;
     statusHistory?: {
       status: InterviewStatus;
       changedAt: string;

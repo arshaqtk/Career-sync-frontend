@@ -5,11 +5,16 @@ export interface RecruiterProfile {
   field:string
   role: string
    recruiterData?: {
-    companyName?: string
-    companyWebsite?: string
-    size?: string
-    companyDescription?: string
-    companyLocation?:string
+    company?: {
+      _id: string;
+      name: string;
+      logo?: { url: string };
+      website?: string;
+      location?: string;
+      industry?: string;
+      size?: string;
+      description?: string;
+    }
   }
   profilePictureUrl?: string
   status: "ACTIVE" | "INACTIVE"
@@ -23,25 +28,33 @@ export interface RecruiterProfileDetails {
   location?: string
 
   recruiterData: {
-    companyName: string
-    companyWebsite?: string
-    size?: string
-    companyDescription?: string
-    companyLocation?:string
+    company?: {
+      _id: string;
+      name: string;
+      logo?: { url: string };
+      website?: string;
+      location?: string;
+      industry?: string;
+      size?: string;
+      description?: string;
+    }
   }
 }
 
 
 export interface RecruiterCompany {
-  companyName: string
-  companyWebsite?: string
-  companyLocation?: string
-  companyDescription?: string
+ _id: string
+  name: string
+  website?: string
+  location?: string
+  description?: string
+  logo?: { url: string }
+  industry?: string
+  size?: string
+  foundedYear?: number
 }
 
 export interface UpdateRecruiterCompanyPayload {
-  companyName: string
-  companyWebsite?: string
-  companyLocation?: string
-  companyDescription?: string
+  companyId: string
+  updates: Partial<RecruiterCompany>
 }

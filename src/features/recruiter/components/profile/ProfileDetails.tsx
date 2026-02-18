@@ -54,21 +54,21 @@ export function RecruiterProfileDetails({ profile }: RecruiterProfileDetailsProp
           <CardContent className="space-y-3 text-sm">
             <InfoRow
               label="Name"
-              value={profile.recruiterData?.companyName || "—"}
+              value={profile.recruiterData?.company?.name || "—"}
             />
             <InfoRow
               label="Website"
-              value={profile.recruiterData?.companyWebsite || "—"}
+              value={profile.recruiterData?.company?.website || "—"}
             />
             <InfoRow
               label="Location"
-              value={profile.recruiterData?.companyLocation || "—"}
+              value={profile.recruiterData?.company?.location || "—"}
             />
 
             <Separator />
 
             <p className="text-muted-foreground text-sm leading-relaxed">
-              {profile.recruiterData?.companyDescription || "No company description provided."}
+              {profile.recruiterData?.company?.description || "No company description provided."}
             </p>
           </CardContent>
         </Card>
@@ -78,7 +78,7 @@ export function RecruiterProfileDetails({ profile }: RecruiterProfileDetailsProp
       <UpdateCompanyModal
         open={open}
         onClose={() => setOpen(false)}
-        company={profile.recruiterData}
+        company={profile.recruiterData?.company}
       />
     </>
   )

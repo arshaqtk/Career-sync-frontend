@@ -62,6 +62,7 @@ export function ScheduleInterviewModal({
       endTime: "",
       meetingLink: "",
       location: "",
+      interviewerEmail:"",
       ...defaultValues,
     },
   })
@@ -95,6 +96,7 @@ export function ScheduleInterviewModal({
           ...baseDefaults,
           mode: "Online",
           meetingLink: defaultValues?.meetingLink ?? "",
+          interviewerEmail:defaultValues?.interviewerEmail ?? "",
           location: undefined,
         });
       } else {
@@ -119,6 +121,7 @@ export function ScheduleInterviewModal({
       mode: data.mode,
       roundType: data.roundType,
       meetingLink: data.mode === "Online" ? data.meetingLink?.trim() || undefined : undefined,
+      interviewerEmail:data.interviewerEmail,
       location: data.mode === "Offline" ? data.location?.trim() || undefined : undefined,
     }
 
@@ -273,6 +276,12 @@ export function ScheduleInterviewModal({
                     </label>
                     <Input placeholder="Meet link" className="bg-white border-gray-200 h-9" {...register("meetingLink")} />
                     {errors.meetingLink && <p className="text-xs font-medium text-red-500">{errors.meetingLink.message}</p>}
+                    <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <LinkIcon className="h-3.5 w-3.5 text-gray-400" />
+                     Interviewer Email(optional)
+                    </label>
+                    <Input placeholder="email" className="bg-white border-gray-200 h-9" {...register("interviewerEmail")} />
+                    {errors.meetingLink && <p className="text-xs font-medium text-red-500">{errors.interviewerEmail?.message}</p>}
                   </>
                 ) : (
                   <>

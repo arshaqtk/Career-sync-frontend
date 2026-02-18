@@ -1,8 +1,8 @@
 export interface CandidateJob {
-  _id?:string
+  _id?: string
   title: string;
   company: string;
-  field:string;
+  field: string;
   description?: string;
   skills: string[];
   experienceMin: number;
@@ -13,6 +13,9 @@ export interface CandidateJob {
   jobType: "full-time" | "part-time" | "internship";
   status: "open" | "closed" | "paused";
   applicationCount?: number;
-  hasApplied:boolean;
+  hasApplied: boolean;
+  companyId?: string | null;
+  companyLogo?: string | null;
   createdAt?: Date;
+  updatedAt?: Date;
 }

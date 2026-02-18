@@ -10,6 +10,7 @@ const baseSchema = z.object({
   endTime: timeStringSchema.min(1, "End time is required"),
   roundNumber: z.number().int().positive("Round number must be positive"),
   roundType: z.enum(["Hr", "Technical", "Managerial", "Final"]),
+  interviewerEmail:z.email().optional()
 });
 
 const onlineSchema = baseSchema.extend({

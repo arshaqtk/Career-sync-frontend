@@ -71,11 +71,8 @@ const handleScheduleSubmit = (
       interviewId: selectedInterview._id,
       payload: data,
     })
-
-    return
-  }
-
- 
+     return}
+     
   scheduleInterview({
     ...data,
     applicationId: interview.data.applicationId,

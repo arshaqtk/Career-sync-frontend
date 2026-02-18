@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/shadcn/input"
 import { Textarea } from "@/components/ui/shadcn/textarea"
 import { Dialog, DialogContent, DialogTitle, DialogHeader, DialogFooter } from "@/components/ui/shadcn/dialog"
 import { Building2, Globe, MapPin, FileText } from "lucide-react"
-import type { RecruiterCompany, UpdateRecruiterCompanyPayload } from "../../types/Recruiter.type"
+import type { RecruiterCompany } from "../../types/Recruiter.type"
 import { Spinner } from "@/components/ui/shadcn/spinner"
 
 interface UpdateCompanyModalProps {
@@ -17,17 +17,18 @@ interface UpdateCompanyModalProps {
 export function UpdateCompanyModal({ open, onClose, company }: UpdateCompanyModalProps) {
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      companyName: company?.companyName || "",
-      companyWebsite: company?.companyWebsite || "",
-      companyLocation: company?.companyLocation || "",
-      companyDescription: company?.companyDescription || "",
+      name: company?.name || "",
+      website: company?.website || "",
+      location: company?.location || "",
+      description: company?.description || "",
     },
   })
 
   const { mutate, isPending } = useUpdateRecruiterCompany()
 
-  const onSubmit = (data: UpdateRecruiterCompanyPayload) => {
-    mutate(data, {
+  const onSubmit = (data: Partial<RecruiterCompany>) => {
+    if (!company?._id) return;
+    mutate({ companyId: company._id, updates: data }, {
       onSuccess: () => {
         onClose()
       },
@@ -51,7 +52,7 @@ export function UpdateCompanyModal({ open, onClose, company }: UpdateCompanyModa
                 <Building2 className="h-3.5 w-3.5 text-gray-400" />
                 Company Name
               </label>
-              <Input placeholder="e.g. Acme Corp" className="bg-white border-gray-200" {...register("companyName")} />
+              <Input placeholder="e.g. Acme Corp" className="bg-white border-gray-200" {...register("name")} />
             </div>
 
             <div className="space-y-1.5">
@@ -59,7 +60,7 @@ export function UpdateCompanyModal({ open, onClose, company }: UpdateCompanyModa
                 <Globe className="h-3.5 w-3.5 text-gray-400" />
                 Company Website
               </label>
-              <Input placeholder="e.g. https://acme.com" className="bg-white border-gray-200" {...register("companyWebsite")} />
+              <Input placeholder="e.g. https://acme.com" className="bg-white border-gray-200" {...register("website")} />
             </div>
 
             <div className="space-y-1.5">
@@ -67,7 +68,7 @@ export function UpdateCompanyModal({ open, onClose, company }: UpdateCompanyModa
                 <MapPin className="h-3.5 w-3.5 text-gray-400" />
                 Location
               </label>
-              <Input placeholder="e.g. San Francisco, CA" className="bg-white border-gray-200" {...register("companyLocation")} />
+              <Input placeholder="e.g. San Francisco, CA" className="bg-white border-gray-200" {...register("location")} />
             </div>
 
             <div className="space-y-1.5">
@@ -80,7 +81,7 @@ export function UpdateCompanyModal({ open, onClose, company }: UpdateCompanyModa
                   placeholder="Tell us about your company..."
                   rows={4}
                   className="bg-white border-gray-200 resize-none"
-                  {...register("companyDescription")}
+                  {...register("description")}
                 />
               </div>
             </div>

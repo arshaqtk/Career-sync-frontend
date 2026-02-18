@@ -79,7 +79,13 @@ export function JobDetails({ job }: JobDetailsProps) {
                 {job.title}
               </h1>
               <div className="flex flex-col gap-0.5">
-                <p className="text-base font-bold text-blue-600 hover:underline cursor-pointer transition-all">
+               <p
+                  className="text-base font-bold text-blue-600 hover:underline cursor-pointer transition-all flex items-center gap-2"
+                  onClick={() => job.companyId && window.open(`/companies/${job.companyId}`, '_blank')}
+                >
+                  {job.companyLogo && (
+                    <img src={job.companyLogo} alt={job.company} className="w-5 h-5 object-contain rounded-sm" />
+                  )}
                   {job.company}
                 </p>
                 <p className="text-[14px] font-medium text-slate-600 flex items-center gap-1.5">
@@ -116,10 +122,10 @@ export function JobDetails({ job }: JobDetailsProps) {
                   ? "bg-blue-600 hover:bg-blue-700 text-white shadow-sm"
                   : "bg-slate-200 text-slate-500 cursor-not-allowed"
               )}
-              disabled={isClosed || isApplied || isPaused||!isLoggedIn}
+              disabled={isClosed || isApplied || isPaused || !isLoggedIn}
               onClick={() => setIsOpen(true)}
             >
-              {!isLoggedIn?"Log in": isClosed ? "Job Closed" : isPaused ? "Job Blocked" : isApplied ? "Applied" : "Apply Now"}
+              {!isLoggedIn ? "Log in" : isClosed ? "Job Closed" : isPaused ? "Job Blocked" : isApplied ? "Applied" : "Apply Now"}
             </Button>
             <span className="text-[12px] text-slate-400 font-medium italic sm:ml-2">
               Posted recently

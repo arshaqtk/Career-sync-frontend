@@ -30,11 +30,14 @@ export interface CandidateData {
 }
 
 export interface RecruiterData {
-  companyName?: string;
-  companyWebsite?: string;
-  companyLogo?: string;
-  companyLocation?: string;
-  companyDescription?: string;
+  company?: {
+    _id: string;
+    name: string;
+    logo?: { url: string };
+    website?: string;
+    location?: string;
+    industry?: string;
+  }
 }
 
 export interface UserDto {
