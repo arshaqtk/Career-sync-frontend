@@ -16,7 +16,7 @@ export interface RecruiterProfile {
       description?: string;
     }
   }
-  profilePictureUrl?: string
+  profilePicture?: {url:string}
   status: "ACTIVE" | "INACTIVE"
 }
 
@@ -35,6 +35,7 @@ export interface RecruiterProfileDetails {
       website?: string;
       location?: string;
       industry?: string;
+      foundedYear?:string|number;
       size?: string;
       description?: string;
     }
@@ -51,7 +52,7 @@ export interface RecruiterCompany {
   logo?: { url: string }
   industry?: string
   size?: string
-  foundedYear?: number
+  foundedYear?: string|number
 }
 
 export interface UpdateRecruiterCompanyPayload {

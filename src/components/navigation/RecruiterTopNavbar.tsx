@@ -26,8 +26,8 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
 
 
   if (isLoading) return <div className="h-20 flex items-center justify-center bg-white border-b border-slate-100">
-      <Spinner />
-    </div>
+    <Spinner />
+  </div>
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white border-b h-20">
       <div className="flex items-center gap-4">
@@ -53,7 +53,7 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
 
 
       {/* Right side */}
-       <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
 
         {/* Notifications */}
         <div className="relative">
@@ -76,12 +76,12 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
         <div className="h-6 w-[1px] bg-slate-100 mx-2 hidden sm:block" />
 
         {/* User Profile Section */}
-       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="pl-1 pr-2 py-1 h-auto flex items-center gap-3 rounded-full hover:bg-slate-50 transition-all group">
               <div className="relative">
                 <Avatar className="h-9 w-9 border-2 border-white shadow-sm ring-1 ring-slate-100 transition-all group-hover:ring-blue-100">
-                  <AvatarImage src={user?.profilePictureUrl} alt={user?.name} className="object-cover" />
+                  <AvatarImage src={user?.profilePicture?.url} alt={user?.name} className="object-cover" />
                   <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-xs uppercase">
                     {user?.name?.substring(0, 2) || "RC"}
                   </AvatarFallback>
@@ -119,7 +119,7 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    
+
     </header>
   );
 }

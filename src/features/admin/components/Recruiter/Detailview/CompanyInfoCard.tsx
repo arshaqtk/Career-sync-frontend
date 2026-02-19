@@ -9,9 +9,9 @@ export function CompanyInfoCard({ company }: { company:RecruiterCompany  }) {
         <CardTitle>Company Information</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        <InfoRow label="Company" value={company?.companyName} />
-        <InfoRow label="Location" value={company?.companyLocation} />
-        <InfoRow label="WebSite" value={company?.companyWebsite} />
+        <InfoRow label="Company" value={company?.name} />
+        <InfoRow label="Location" value={company?.location} />
+        <InfoRow label="WebSite" value={company?.website} />
 
       </CardContent>
     </Card>

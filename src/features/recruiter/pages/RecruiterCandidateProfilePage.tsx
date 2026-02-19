@@ -9,7 +9,7 @@ import EducationCard from "../components/candidate-profile/EducationCard";
 import ResumeCard from "../components/candidate-profile/ResumeCard";
 import PortfolioCard from "../components/candidate-profile/PortfolioCard";
 import useRecruiterFetchCandidateProfile from "../hooks/useFetchCandidateProfile";
-import { SectionSkeleton } from "@/components/Loaders";
+import { CandidateProfileSkeleton } from "@/components/Loaders";
 import { handleRQError } from "@/lib/react-query/errorHandler";
 import { Button } from "@/components/ui/shadcn/button";
 import { ArrowLeft } from "lucide-react";
@@ -24,7 +24,7 @@ export default function RecruiterCandidateProfilePage() {
     if (error) handleRQError(error);
   }, [error]);
 
-  if (isLoading) return <SectionSkeleton />
+  if (isLoading) return <CandidateProfileSkeleton />
 
   if (!data) return (
     <div className="p-10 text-center">

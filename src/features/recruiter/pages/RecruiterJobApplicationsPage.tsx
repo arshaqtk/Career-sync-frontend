@@ -6,9 +6,9 @@ import { useRecruiterJobApplications } from "../hooks/useFetchJobBasedApplicants
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { Button } from "@/components/ui/shadcn/button";
 import { Inbox, Users } from "lucide-react";
-import { Spinner } from "@/components/ui/shadcn/spinner";
 import { handleRQError } from "@/lib/react-query/errorHandler";
 import { useEffect } from "react";
+import { TableSkeleton } from "@/components/Skelton/TableSkelton";
 
 export default function JobApplicantsPage() {
   const { jobId } = useParams<{ jobId: string }>();
@@ -18,11 +18,7 @@ export default function JobApplicantsPage() {
   }, [isError, error]);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <Spinner />
-      </div>
-    );
+    return <TableSkeleton rows={6} columns={5} />
   }
 
   if (isError) {

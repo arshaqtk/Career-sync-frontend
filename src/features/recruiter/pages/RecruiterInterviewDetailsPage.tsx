@@ -16,7 +16,7 @@ import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
 import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types";
 import { toast } from "sonner";
 import { useRescheduleInterview } from "../hooks/useRecruiterRescheduleInterview";
-import { SectionSkeleton } from "@/components/Loaders";
+import { InterviewDetailSkeleton } from "@/components/Loaders";
 import { BlockingLoader } from "@/components/Loaders/BlockingLoader";
 import { handleRQError } from "@/lib/react-query/errorHandler";
 
@@ -39,7 +39,7 @@ const { mutate: rescheduleInterview, isPending: isRescheduling,error } =useResch
   const interviewScheduleModalStore=useInterviewScheduleModalStore()
 
 
-  if (isLoading) return <SectionSkeleton/>
+  if (isLoading) return <InterviewDetailSkeleton />
     if(error)handleRQError(error)
   
   if (!interview) return <p>Interview not found</p>;

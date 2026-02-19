@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import type { JobFilters } from "../types/jobFilter.types";
 import { RecruitereJobsPagination } from "../components/job/JobsPagination";
 import { handleRQError } from "@/lib/react-query/errorHandler";
+import { TableSkeleton } from "@/components/Skelton/TableSkelton";
 
 export default function RecruiterJobPage() {
   const [page, setPage] = useState(1);
@@ -75,16 +76,8 @@ export default function RecruiterJobPage() {
 
       <AddJobModal onSubmit={handleModalSubmission} />
 
-      {/* Loading State */}
-      {isLoading && (
-        <div className="bg-white rounded-lg border border-gray-200 p-8">
-          <div className="animate-pulse space-y-3">
-            <div className="h-3 bg-gray-200 rounded"></div>
-            <div className="h-3 bg-gray-200 rounded w-5/6"></div>
-            <div className="h-3 bg-gray-200 rounded w-4/6"></div>
-          </div>
-        </div>
-      )}
+   {isLoading && <TableSkeleton rows={5} columns={6} />}
+
 
       {/* Empty State */}
       {!isLoading && data?.jobs.length === 0 && (

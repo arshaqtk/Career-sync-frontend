@@ -12,7 +12,7 @@ import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types
 import { useScheduleInterview } from "../hooks/useRecruiterScheduleInterview";
 import { RecruiterFinalizeApplicationActions } from "../components/application/FinalizeApplicationAction";
 import { toast } from "sonner";
-import { SectionSkeleton } from "@/components/Loaders";
+import { ApplicationDetailSkeleton } from "@/components/Loaders";
 import { handleRQError } from "@/lib/react-query/errorHandler";
 import { Button } from "@/components/ui/shadcn/button";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
@@ -25,7 +25,7 @@ export default function JobApplicantionDetailPage() {
   const { closeModal, open } = useInterviewScheduleModalStore();
   const { mutate: scheduleInterview, isPending } = useScheduleInterview();
 
-  if (isLoading) return <SectionSkeleton />;
+  if (isLoading) return <ApplicationDetailSkeleton />;
   if (!data) return <p className="p-10 text-center text-gray-500">No application found.</p>;
   if (error) handleRQError(error);
 

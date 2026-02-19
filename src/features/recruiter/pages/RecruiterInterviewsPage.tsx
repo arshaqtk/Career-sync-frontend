@@ -7,6 +7,7 @@ import type { InterviewListFilters } from "../types/interview.type";
 import { useAuthStore } from "@/store/auth.store";
 import { handleRQError } from "@/lib/react-query/errorHandler";
 import { EmptyInterviewsState } from "../components/interview/list/emptyInterviewState";
+import { TableSkeleton } from "@/components/Skelton/TableSkelton";
 
 export default function RecruiterInterviewsPage() {
   const [filters, setFilters] = useState<InterviewListFilters>({
@@ -37,7 +38,9 @@ const {user}=useAuthStore()
         />
       </div>
 
-      {!isLoading && interviews?.data?.length === 0 ? (
+    {isLoading ? (
+        <TableSkeleton rows={6} columns={5} />
+      ) : !isLoading && interviews?.data?.length === 0 ? (
         <EmptyInterviewsState />
       ) : (
         <>

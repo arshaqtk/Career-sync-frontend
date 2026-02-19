@@ -6,7 +6,7 @@ import { RecentApplications } from "../components/dashboard/RecentApplications"
 // import { TodaysInterviews } from "../components/dashboard/TodaysInterviews"
 import { HiringFunnel } from "../components/dashboard/HiringFunnel"
 import { useRecruiterDashboard } from "../hooks/useRecruiterDashboard"
-import { SectionSkeleton } from "@/components/Loaders"
+import { DashboardSkeleton } from "@/components/Loaders"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 import { AddJobModal } from "../components/job/jobModal"
 import { useAddJob } from "../hooks/useAddJob"
@@ -17,7 +17,7 @@ export default function RecruiterDashboardPage() {
   const { mutate: addJob } = useAddJob();
 
   if (isError) return <p>Failed to load dashboard</p>
-  if (isLoading) return <SectionSkeleton/>
+  if (isLoading) return <DashboardSkeleton />
   if(error)handleRQError(error)
 
  const handleModalSubmission = (payload: {

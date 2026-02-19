@@ -6,23 +6,24 @@ import { RecruiterProfileHeader } from "../components/profile/profileHeader";
 import { RecruiterStats } from "../components/profile/RecruiterStats";
 import useFetchRecruiterProfile from "../hooks/useFetchProfile";
 import useFetchRecruiterProfileStats from "../hooks/useRecruiterProfileStats";
+import { ProfilePageSkeleton } from "@/components/Loaders";
 
 export default function RecruiterProfilePage() {
-    const { data: user, isLoading, error } = useFetchRecruiterProfile();
-    const { data:stats,isLoading:statsIsLoading } = useFetchRecruiterProfileStats();
+  const { data: user, isLoading, error } = useFetchRecruiterProfile();
+  const { data: stats, isLoading: statsIsLoading } = useFetchRecruiterProfileStats();
 
-    if(isLoading||statsIsLoading){
-        return <div>Loading</div>
-    }
-    if(error){
-      handleRQError(error)
-      return <div>Error</div>
-    }
+  if (isLoading || statsIsLoading) {
+    return <div><ProfilePageSkeleton/></div>
+  }
+  if (error) {
+    handleRQError(error)
+    return <div>Error</div>
+  }
   return (
     <div className="space-y-6">
-      <RecruiterProfileHeader recruiter={user}  />
-      <RecruiterStats activeJobs={stats.activeJobs} applicationsCount={stats.applicationsCount} hiresCount={stats.hiresCount} 
-      interviewsCount={stats.interviewsCount} jobsPosted={stats.jobsPosted} />
+      <RecruiterProfileHeader recruiter={user} />
+      <RecruiterStats activeJobs={stats.activeJobs} applicationsCount={stats.applicationsCount}
+        interviewsCount={stats.interviewsCount} jobsPosted={stats.jobsPosted} />
       <RecruiterProfileDetails profile={user} />
       {/* <RecruiterActivity /> */}
     </div>

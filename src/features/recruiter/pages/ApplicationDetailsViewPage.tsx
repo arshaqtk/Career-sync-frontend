@@ -11,7 +11,7 @@ import { RecruiterActions } from "../components/application/recruiterAction";
 import { InterviewTimeline } from "../components/application/interviewTimeLine";
 import { useRecruiterInterviewTimeline } from "../hooks/useRecruiterApplicationInterviews";
 import { toast } from "sonner";
-import { SectionSkeleton } from "@/components/Loaders";
+import { ApplicationDetailSkeleton } from "@/components/Loaders";
 import { handleRQError } from "@/lib/react-query/errorHandler";
 import { Button } from "@/components/ui/shadcn/button";
 import { ArrowLeft, FileText, CheckCircle2 } from "lucide-react";
@@ -41,7 +41,7 @@ export default function ApplicantionDetailPage() {
     if (timeLineError) handleRQError(timeLineError);
   }, [error, timeLineError]);
 
-  if (isLoading || interviewIsLoading) return <SectionSkeleton />
+  if (isLoading || interviewIsLoading) return <ApplicationDetailSkeleton />
 
   if (!data) return <p className="p-10 text-center text-gray-500">No application found.</p>;
 
