@@ -55,6 +55,7 @@ import AdminCompanyListPage from "@/features/admin/pages/AdminCompanyListPage";
 import AdminCompanyDetailPage from "@/features/admin/pages/AdminCompanyDetailPage";
 import CompanyDetailsPage from "@/features/candidate/pages/CompanyDetailsPage";
 import RecruiterCompanyOnboardingPage from "@/features/recruiter/pages/RecruiterCompanyOnboardingPage";
+import ManageRecruitersPage from "@/features/recruiter/pages/ManageRecruitersPage";
 
 function RootRoute() {
     const { data: user, isLoading } = useUserData();
@@ -119,6 +120,7 @@ export default function AppRouter() {
                         <Route path="candidates/:candidateId" element={< RecruiterCandidateProfilePage />} />
                         <Route path="interviews" element={<RecruiterInterviewsPage />} />
                         <Route path="interviews/:interviewId" element={<RecruiterInterviewDetailsPage />} />
+                        <Route path="manage-recruiters" element={<ManageRecruitersPage />} />
 
                     </Route>
                 </Route>

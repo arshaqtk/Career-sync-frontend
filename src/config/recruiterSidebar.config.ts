@@ -4,6 +4,7 @@ export interface SidebarItem {
   label: string;
   icon: SidebarIconName;
   path: string;
+  ownerOnly?: boolean;
 }
 
 export const recruiterSidebar: SidebarItem[] = [
@@ -31,5 +32,11 @@ export const recruiterSidebar: SidebarItem[] = [
     label: "Messages",
     icon: "MessageSquare",
     path: "/recruiter/chat",
+  },
+  {
+    label: "Team",
+    icon: "ShieldCheck",
+    path: "/recruiter/manage-recruiters",
+    ownerOnly: true,
   },
 ];

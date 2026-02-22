@@ -88,7 +88,7 @@ export function JobDetailDrawer({ job, isOpen, onClose }: JobDetailDrawerProps) 
                                 </SheetTitle>
                                 <div className="flex items-center gap-2 text-slate-500 font-medium text-sm">
                                     <span className="bg-slate-100 px-2 py-0.5 rounded text-xs font-semibold text-slate-600 uppercase tracking-wide">
-                                        {job.company}
+                                        {typeof job?.company=="string"?job?.company:job?.company?.name}
                                     </span>
                                 </div>
                             </div>

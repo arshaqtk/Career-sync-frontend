@@ -9,47 +9,61 @@ export const profileUpdateSchema = z.object({
 export type ProfileUpdatePayload = z.infer<typeof profileUpdateSchema>;
 
 export interface CandidateData {
-   resume?: {
+  resume?: {
     key: string;
     originalName: string;
     uploadedAt: string;
   };
   experience?: Experience[];
-   companyName?: string;
+  companyName?: string;
   skills?: string[];
   education?: string[];
   portfolioUrl?: string;
-  about?:string;
+  about?: string;
 }
 
 export interface RecruiterData {
-  companyName?: string;
-  companyWebsite?: string;
-  companyLogo?: string;
-  companyLocation?: string;
-  companyDescription?: string;
+  company?: {
+    _id: string;
+    name: string;
+    logo?: { url: string };
+    website?: string;
+    location?: string;
+    description?: string;
+    industry?: string;
+    size?: string;
+    foundedYear?: number;
+    verificationStatus?: string;
+    isActive?: boolean;
+    owner: string;
+  };
+  companyApprovalStatus?: "pending" | "approved" | "rejected";
 }
 
 export interface IUser {
+  _id: string;
   name: string;
   email: string;
   phone: string;
+  role: "candidate" | "recruiter" | "admin";
   field?: string;
   location?: string;
   isVerified?: boolean;
   isActive?: boolean;
-  profilePictureUrl:string
+  profilePicture?: {
+    url: string;
+  };
   candidateData?: CandidateData;
-    recruiterData?: RecruiterData;
-      notificationCount?: number;
+  recruiterData?: RecruiterData;
+  notificationCount?: number;
 }
 
 
-export type ProfileUpdateAvatar= FormData | {
+export type ProfileUpdateAvatar = FormData | {
   profilePictureUrl: string;
 }
 export type UpdateAboutPayload = {
-  about: string|null;
+  about: string | null;
 };
 
 

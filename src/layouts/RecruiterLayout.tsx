@@ -20,11 +20,21 @@ export default function RecruiterLayout() {
 
   const hasCompany = !!user?.recruiterData?.company;
   const isApproved = user?.recruiterData?.companyApprovalStatus === "approved";
+  const isOwner = user?._id && user?.recruiterData?.company?.owner && user._id === user.recruiterData.company.owner;
+  const isVerified = !!user?.isVerified;
   const isOnboarding = location.pathname === "/recruiter/onboarding";
 
   useEffect(() => {
     if (!isLoading && user?.role === "recruiter") {
-      // If no company OR company is pending, they MUST be on the onboarding page
+      // If recruiter is verified or is an owner, they don't need onboarding
+      if (isVerified || isOwner) {
+        if (isOnboarding) {
+          navigate("/recruiter");
+        }
+        return;
+      }
+
+      // Default logic: If no company OR company is pending, they MUST be on the onboarding page
       if ((!hasCompany || !isApproved) && !isOnboarding) {
         navigate("/recruiter/onboarding");
       }
@@ -33,14 +43,14 @@ export default function RecruiterLayout() {
         navigate("/recruiter");
       }
     }
-  }, [user, isLoading, hasCompany, isApproved, isOnboarding, navigate]);
+  }, [user, isLoading, hasCompany, isApproved, isOwner, isVerified, isOnboarding, navigate]);
 
   if (isLoading) {
     return <SectionSkeleton />;
   }
 
   // If user needs onboarding or is pending approval, show simplified layout (just the outlet)
-  if (!hasCompany || !isApproved || isOnboarding) {
+  if (!isVerified && !isOwner && (!hasCompany || !isApproved || isOnboarding)) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Outlet />

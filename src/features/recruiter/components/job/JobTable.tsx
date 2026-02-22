@@ -62,7 +62,7 @@ export function JobTable({ jobs, isLoading }: JobTableProps) {
                                 <TableCell className="py-4">
                                     <div className="flex flex-col">
                                         <span className="font-semibold text-gray-900">{job.title}</span>
-                                        <span className="text-sm text-gray-500">{job.company}</span>
+                                        <span className="text-sm text-gray-500">{typeof job?.company=="string"?job?.company:job?.company?.name}</span>
                                     </div>
                                 </TableCell>
                                 <TableCell>

@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { recruiterSidebar } from "@/config/recruiterSidebar.config";
 import { iconMap } from "@/config/iconMap";
 import { cn } from "@/lib/utils";
+import useUserData from "@/hooks/useUserData";
 
 interface RecruiterSidebarProps {
   isOpen: boolean;
@@ -10,6 +11,9 @@ interface RecruiterSidebarProps {
 }
 
 export function RecruiterSidebar({ isOpen, isMobile, onNavItemClick }: RecruiterSidebarProps) {
+  const { data: user } = useUserData();
+  const isOwner = user?._id && user?.recruiterData?.company?.owner && user._id === user.recruiterData.company.owner;
+
   return (
     <aside
       className={cn(
@@ -35,41 +39,43 @@ export function RecruiterSidebar({ isOpen, isMobile, onNavItemClick }: Recruiter
       )}
 
       <nav className="flex-1 px-3 py-6 space-y-2 overflow-y-auto overflow-x-hidden">
-        {recruiterSidebar.map((item) => {
-          const Icon = iconMap[item.icon];
-          return (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              end={item.path === "/recruiter"}
-              onClick={onNavItemClick}
-              className={({ isActive }) =>
-                cn(
-                  "flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group relative",
-                  isActive
-                    ? "bg-primary/10 text-primary font-semibold shadow-sm"
-                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900",
-                  !isOpen && !isMobile && "justify-center p-3"
-                )
-              }
-            >
-              <Icon size={22} className={cn(
-                "transition-transform duration-200 group-hover:scale-110 shrink-0",
-                "group-[.active]:text-primary"
-              )} />
+        {recruiterSidebar
+          .filter(item => !item.ownerOnly || isOwner)
+          .map((item) => {
+            const Icon = iconMap[item.icon];
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path === "/recruiter"}
+                onClick={onNavItemClick}
+                className={({ isActive }) =>
+                  cn(
+                    "flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group relative",
+                    isActive
+                      ? "bg-primary/10 text-primary font-semibold shadow-sm"
+                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-900",
+                    !isOpen && !isMobile && "justify-center p-3"
+                  )
+                }
+              >
+                <Icon size={22} className={cn(
+                  "transition-transform duration-200 group-hover:scale-110 shrink-0",
+                  "group-[.active]:text-primary"
+                )} />
 
-              {(isOpen || isMobile) && (
-                <span className="truncate text-sm">{item.label}</span>
-              )}
+                {(isOpen || isMobile) && (
+                  <span className="truncate text-sm">{item.label}</span>
+                )}
 
-              {!isOpen && !isMobile && (
-                <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 whitespace-nowrap">
-                  {item.label}
-                </div>
-              )}
-            </NavLink>
-          );
-        })}
+                {!isOpen && !isMobile && (
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 whitespace-nowrap">
+                    {item.label}
+                  </div>
+                )}
+              </NavLink>
+            );
+          })}
       </nav>
 
       <div className="p-4 border-t">

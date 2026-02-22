@@ -67,3 +67,18 @@ export const getCompanyByIdApi = async (companyId: string): Promise<ApiResponse<
     const res = await api.get(`/companies/${companyId}`);
     return res.data;
 };
+
+export const getPendingRecruitersApi = async (companyId: string) => {
+    const res = await api.get(`/companies/${companyId}/pending-recruiters`);
+    return res.data;
+};
+
+export const approveRecruiterApi = async ({ companyId, recruiterId }: { companyId: string, recruiterId: string }) => {
+    const res = await api.post(`/companies/${companyId}/approve-recruiter`, { recruiterId });
+    return res.data;
+};
+
+export const rejectRecruiterApi = async ({ companyId, recruiterId }: { companyId: string, recruiterId: string }) => {
+    const res = await api.post(`/companies/${companyId}/reject-recruiter`, { recruiterId });
+    return res.data;
+};

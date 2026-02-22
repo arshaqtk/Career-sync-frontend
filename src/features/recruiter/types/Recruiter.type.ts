@@ -2,9 +2,9 @@ export interface RecruiterProfile {
   id: string
   name: string
   email: string
-  field:string
+  field: string
   role: string
-   recruiterData?: {
+  recruiterData?: {
     company?: {
       _id: string;
       name: string;
@@ -14,9 +14,10 @@ export interface RecruiterProfile {
       industry?: string;
       size?: string;
       description?: string;
+      owner?: string;
     }
   }
-  profilePicture?: {url:string}
+  profilePicture?: { url: string }
   status: "ACTIVE" | "INACTIVE"
 }
 
@@ -35,16 +36,17 @@ export interface RecruiterProfileDetails {
       website?: string;
       location?: string;
       industry?: string;
-      foundedYear?:string|number;
+      foundedYear?: string | number;
       size?: string;
       description?: string;
+      owner?: string;
     }
   }
 }
 
 
 export interface RecruiterCompany {
- _id: string
+  _id: string
   name: string
   website?: string
   location?: string
@@ -52,10 +54,18 @@ export interface RecruiterCompany {
   logo?: { url: string }
   industry?: string
   size?: string
-  foundedYear?: string|number
+  foundedYear?: string | number
 }
 
 export interface UpdateRecruiterCompanyPayload {
   companyId: string
   updates: Partial<RecruiterCompany>
+}
+
+export interface PendingRecruiter {
+  _id: string;
+  name: string;
+  email: string;
+  profilePicture?: { url: string };
+  createdAt?: string;
 }

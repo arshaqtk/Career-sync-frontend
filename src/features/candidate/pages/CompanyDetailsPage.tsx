@@ -105,7 +105,7 @@ export default function CompanyDetailsPage() {
                 {/* Main Content Area */}
                 <div className="lg:col-span-8 space-y-16">
                     <CompanyAbout name={company.name} description={company.description || "No description provided yet."} />
-                  {jobs && <CompanyActiveJobs jobs={jobs} />}
+                  {jobs && <CompanyActiveJobs jobs={jobs.data} />}
                 </div>
 
                 {/* Sticky Sidebar Area */}
