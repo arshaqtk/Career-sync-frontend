@@ -1,15 +1,16 @@
 import { NavLink } from "react-router-dom"
-import { Users, Briefcase, BarChart } from "lucide-react"
+import { Users, Briefcase, BarChart, Building2 } from "lucide-react"
 
 const navItems = [
   { label: "Dashboard", icon: BarChart, to: "/admin" },
   { label: "Recruiters", icon: Users, to: "/admin/recruiters" },
   { label: "Candidates", icon: Users, to: "/admin/candidates" },
   { label: "Jobs", icon: Briefcase, to: "/admin/jobs" },
+  { label: "Companies", icon: Building2, to: "/admin/companies" },
   // { label: "System Logs", icon: Shield, to: "/admin/logs" },
 ]
 
-export  function AdminSidebar({ isOpen }: { isOpen: boolean }) {
+export function AdminSidebar({ isOpen }: { isOpen: boolean }) {
   return (
     <div className="h-full w-full bg-background border-r px-3 py-6">
       <div className="mb-8 text-center font-bold">

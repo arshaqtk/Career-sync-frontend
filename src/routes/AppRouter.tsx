@@ -51,6 +51,10 @@ import { LandingPage } from "@/features/landingPage/pages/landingPage";
 import { AboutPage } from "@/features/landingPage/pages/AboutPage";
 import { AppLoader } from "@/components/Loaders";
 import useUserData from "@/hooks/useUserData";
+import AdminCompanyListPage from "@/features/admin/pages/AdminCompanyListPage";
+import AdminCompanyDetailPage from "@/features/admin/pages/AdminCompanyDetailPage";
+import CompanyDetailsPage from "@/features/candidate/pages/CompanyDetailsPage";
+import RecruiterCompanyOnboardingPage from "@/features/recruiter/pages/RecruiterCompanyOnboardingPage";
 
 function RootRoute() {
     const { data: user, isLoading } = useUserData();
@@ -73,14 +77,15 @@ export default function AppRouter() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<RootRoute />} />
-                <Route path="/about" element={<AboutPage/>}/>
+                <Route path="/about" element={<AboutPage />} />
 
                 {/* ---------- Candidate Routes ---------- */}
                 <Route element={<CandidateLayout />}>
-                <Route path="/jobs" element={<CandidateJobsPage />} />
+                    <Route path="/jobs" element={<CandidateJobsPage />} />
+                    <Route path="/companies/:companyId" element={<CompanyDetailsPage />} />
                     <Route element={<ProtectedRoute role="candidate" />}>
-<Route path="/socket-test" element={<SocketTest />} />
-<Route path="/chat" element={<ChatPage />} />
+                        <Route path="/socket-test" element={<SocketTest />} />
+                        <Route path="/chat" element={<ChatPage />} />
 
                         <Route path="/home" element={<HomePage />} />
                         <Route path="/notifications" element={<NotificationPage />} />
@@ -88,8 +93,8 @@ export default function AppRouter() {
                         <Route path="/applications/:applicationId" element={<CandidateApplicationDetailPage />} />
                         <Route path="/profile" element={<CandidateProfilePage />} />
                         <Route path="/edit-profile" element={<EditProfilePage />} />
-                        <Route path="/interviews" element={<MyInterviewsPage/>} />
-                        <Route path="/interviews/:interviewId" element={<InterviewDetailPage/>} />
+                        <Route path="/interviews" element={<MyInterviewsPage />} />
+                        <Route path="/interviews/:interviewId" element={<InterviewDetailPage />} />
 
 
                     </Route>
@@ -98,35 +103,38 @@ export default function AppRouter() {
                 {/* ---------- Recruiter Routes ---------- */}
                 <Route path="/recruiter" element={<RecruiterLayout />}>
                     <Route element={<ProtectedRoute role="recruiter" />}>
-<Route path="socket-test" element={<SocketTest />} />
-<Route path="chat" element={<ChatPage />} />
-
+                        <Route path="socket-test" element={<SocketTest />} />
+                        <Route path="chat" element={<ChatPage />} />
+                         <Route path="onboarding" element={<RecruiterCompanyOnboardingPage />} />
 
                         <Route index element={<RecruiterDashboard />} />
                         <Route path="notifications" element={<NotificationPage />} />
                         <Route path="profile" element={<RecruiterProfilePage />} />
-                        <Route path="profile/edit" element={< RecruiterEditProfilePage/>} />
+                        <Route path="profile/edit" element={< RecruiterEditProfilePage />} />
                         <Route path="jobs" element={<RecruiterJobsPage />} />
                         <Route path="jobs/:jobId/applicants" element={<JobApplicantsPage />} />
                         <Route path="jobs/:jobId/applicants/:applicationId" element={<JobApplicantionDetailPage />} />
-                        <Route path="applicants" element={<RecruiterApplicantionsPage/>} />
+                        <Route path="applicants" element={<RecruiterApplicantionsPage />} />
                         <Route path="applicants/:applicationId" element={<ApplicantDetailsPage />} />
                         <Route path="candidates/:candidateId" element={< RecruiterCandidateProfilePage />} />
-                        <Route path="interviews" element={<RecruiterInterviewsPage/>}/>
-                        <Route path="interviews/:interviewId" element={<RecruiterInterviewDetailsPage/>}/>
+                        <Route path="interviews" element={<RecruiterInterviewsPage />} />
+                        <Route path="interviews/:interviewId" element={<RecruiterInterviewDetailsPage />} />
 
                     </Route>
                 </Route>
-{/* -------------------Admin Routes----------------------------------- */}
+                {/* -------------------Admin Routes----------------------------------- */}
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route element={<ProtectedRoute role="admin" />}>
-                    <Route index element={<AdminDashboardPage />} />
+                        <Route index element={<AdminDashboardPage />} />
                         <Route path="recruiters" element={<RecruitersListPage />} />
                         <Route path="recruiters/:id" element={<RecruiterDetailPage />} />
                         <Route path="candidates" element={<CandidateListPage />} />
-                        <Route path="candidates/:id" element={<CandidateDetailPage/>} />
-                         <Route path="jobs" element={<JobsListPage />} />
-                        <Route path="jobs/:id" element={<AdminJobDetailPage/>} />
+                        <Route path="candidates/:id" element={<CandidateDetailPage />} />
+                        <Route path="jobs" element={<JobsListPage />} />
+                        <Route path="jobs/:id" element={<AdminJobDetailPage />} />
+                        <Route path="companies" element={<AdminCompanyListPage />} />
+                        <Route path="companies/:id" element={<AdminCompanyDetailPage />} />
+
 
 
 
@@ -137,13 +145,13 @@ export default function AppRouter() {
                 <Route element={<PublicRoute />}>
                     <Route path="/auth/login" element={<LoginPage />} />
                     <Route path="/auth/register" element={<RegisterPage />} />
-                    <Route path="/auth/verify-otp" element={<VerifyRegisterOtp/>}/>
-                    <Route path="/auth/forget-password" element ={<VerifyForgetPasswordOtp/>}/>
-                    <Route path="/auth/reset-password" element={<ResetPassword/>}/>
+                    <Route path="/auth/verify-otp" element={<VerifyRegisterOtp />} />
+                    <Route path="/auth/forget-password" element={<VerifyForgetPasswordOtp />} />
+                    <Route path="/auth/reset-password" element={<ResetPassword />} />
                 </Route>
-                
+
                 {/* 404 */}
-                <Route path="*" element={<NotFound/>} />
+                <Route path="*" element={<NotFound />} />
 
             </Routes>
         </BrowserRouter>

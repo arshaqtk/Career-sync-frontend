@@ -1,8 +1,8 @@
 export interface Job {
-  _id?:string
+  _id?: string
   title: string;
-  company: string;
-  field:string;
+  company?: string | { _id: string; name: string };
+  field: string;
   description?: string;
   skills: string[];
   experienceMin: number;

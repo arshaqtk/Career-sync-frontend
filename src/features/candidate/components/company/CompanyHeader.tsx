@@ -10,7 +10,7 @@ interface CompanyHeaderProps {
         industry: string;
         location: string;
         website: string;
-        bannerImage: string;
+        // bannerImage: string;
     };
 }
 
@@ -70,9 +70,9 @@ export const CompanyHeader: React.FC<CompanyHeaderProps> = ({ companyData }) => 
 
                         {/* Actions - Smaller Buttons */}
                         <div className="flex gap-2 w-full md:w-auto shrink-0">
-                            <Button className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 text-white font-black h-10 px-6 rounded-xl shadow-md shadow-blue-200 transition-all active:scale-95 text-xs">
+                            {/* <Button className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 text-white font-black h-10 px-6 rounded-xl shadow-md shadow-blue-200 transition-all active:scale-95 text-xs">
                                 Follow
-                            </Button>
+                            </Button> */}
                             <Button variant="outline" size="icon" className="h-10 w-10 rounded-xl border-slate-200 hover:border-blue-600 hover:bg-blue-50 text-slate-600 hover:text-blue-600 transition-all active:scale-95">
                                 <Mail size={16} />
                             </Button>

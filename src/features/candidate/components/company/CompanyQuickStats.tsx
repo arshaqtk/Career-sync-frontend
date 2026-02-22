@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Calendar, MapPin, Award, Linkedin, Twitter, Instagram, Mail } from 'lucide-react';
+import { Users, Calendar, MapPin, Briefcase, Linkedin, Twitter, Instagram, Mail, ExternalLink } from 'lucide-react';
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Separator } from "@/components/ui/shadcn/separator";
 
@@ -19,75 +19,71 @@ export const CompanyQuickStats: React.FC<CompanyQuickStatsProps> = ({
     specialties
 }) => {
     return (
-        <section className="bg-white rounded-[2.5rem] p-10 shadow-sm border border-slate-100 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/50 rounded-bl-[100%] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-            <h3 className="text-2xl font-black text-slate-900 mb-10">
-                Company Info
-            </h3>
-
-            <div className="space-y-8 relative z-10">
-                <div className="flex items-start gap-5 group/item">
-                    <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 transition-all duration-300 group-hover/item:scale-110 group-hover/item:rotate-6 shadow-sm border border-blue-100/50">
-                        <Users size={24} />
-                    </div>
-                    <div>
-                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] mb-1">Team Size</p>
-                        <p className="text-slate-900 font-black text-xl">{employees}</p>
-                    </div>
-                </div>
-
-                <div className="flex items-start gap-5 group/item">
-                    <div className="w-14 h-14 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600 transition-all duration-300 group-hover/item:scale-110 group-hover/item:-rotate-6 shadow-sm border border-orange-100/50">
-                        <Calendar size={24} />
-                    </div>
-                    <div>
-                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] mb-1">Founded</p>
-                        <p className="text-slate-900 font-black text-xl">{founded}</p>
-                    </div>
-                </div>
-
-                <div className="flex items-start gap-5 group/item">
-                    <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 transition-all duration-300 group-hover/item:scale-110 group-hover/item:rotate-6 shadow-sm border border-emerald-100/50">
-                        <MapPin size={24} />
-                    </div>
-                    <div>
-                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] mb-1">HQ Location</p>
-                        <p className="text-slate-900 font-black text-xl">{location}</p>
-                    </div>
-                </div>
-
-                <div className="flex items-start gap-5 group/item">
-                    <div className="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 transition-all duration-300 group-hover/item:scale-110 group-hover/item:-rotate-6 shadow-sm border border-purple-100/50">
-                        <Award size={24} />
-                    </div>
-                    <div>
-                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] mb-1">Job Field</p>
-                        <p className="text-slate-900 font-black text-xl">{industry}</p>
-                    </div>
-                </div>
+        <section className="bg-white rounded-2xl p-8 border border-slate-200 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+            {/* Header Area */}
+            <div className="flex items-center justify-between mb-8">
+                <h3 className="text-lg font-semibold text-slate-800 tracking-tight">
+                    Corporate Overview
+                </h3>
+                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" title="Active" />
             </div>
 
-            <Separator className="my-10 bg-slate-100" />
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 gap-y-6">
+                {[
+                    { label: "Headcount", value: employees, icon: Users, color: "text-blue-600" },
+                    { label: "Established", value: founded, icon: Calendar, color: "text-slate-600" },
+                    { label: "Headquarters", value: location, icon: MapPin, color: "text-slate-600" },
+                    { label: "Sector", value: industry, icon: Briefcase, color: "text-slate-600" },
+                ].map((item, idx) => (
+                    <div key={idx} className="flex items-center group transition-all">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:bg-white group-hover:border-slate-200 transition-colors">
+                            <item.icon size={18} className="text-slate-500" />
+                        </div>
+                        <div className="ml-4">
+                            <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">{item.label}</p>
+                            <p className="text-sm font-semibold text-slate-700">{item.value}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
 
-            <div className="space-y-6">
-                <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] mb-1 px-1">Expertise</p>
-                <div className="flex flex-wrap gap-2.5">
+            <Separator className="my-8 bg-slate-100" />
+
+            {/* Expertise Section */}
+            <div className="space-y-4">
+                <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Core Competencies</p>
+                <div className="flex flex-wrap gap-1.5">
                     {specialties.map((spec, i) => (
-                        <Badge key={i} variant="outline" className="border-slate-100 bg-slate-50/50 text-slate-500 px-4 py-2 font-bold rounded-xl text-xs hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-500 cursor-default">
+                        <Badge 
+                            key={i} 
+                            variant="secondary" 
+                            className="bg-slate-100/80 hover:bg-slate-200 text-slate-600 border-transparent px-3 py-1 text-[11px] font-medium transition-colors"
+                        >
                             {spec}
                         </Badge>
                     ))}
                 </div>
             </div>
 
-            <Separator className="my-10 bg-slate-100" />
+            <Separator className="my-8 bg-slate-100" />
 
-            <div className="flex justify-between items-center px-4">
-                <a href="#" className="w-12 h-12 rounded-2xl flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-all border border-transparent hover:border-blue-100"><Linkedin size={20} /></a>
-                <a href="#" className="w-12 h-12 rounded-2xl flex items-center justify-center text-slate-400 hover:bg-sky-50 hover:text-sky-500 transition-all border border-transparent hover:border-sky-100"><Twitter size={20} /></a>
-                <a href="#" className="w-12 h-12 rounded-2xl flex items-center justify-center text-slate-400 hover:bg-pink-50 hover:text-pink-600 transition-all border border-transparent hover:border-pink-100"><Instagram size={20} /></a>
-                <a href="#" className="w-12 h-12 rounded-2xl flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-all border border-transparent hover:border-blue-100"><Mail size={20} /></a>
+            {/* Professional Footer Links */}
+            <div className="flex items-center justify-between">
+                <div className="flex gap-2">
+                    {[Linkedin, Twitter, Instagram, Mail].map((Icon, i) => (
+                        <a 
+                            key={i}
+                            href="#" 
+                            className="p-2 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-all"
+                        >
+                            <Icon size={18} />
+                        </a>
+                    ))}
+                </div>
+                <button className="text-xs font-semibold text-blue-600 flex items-center gap-1 hover:underline">
+                    Visit Site <ExternalLink size={12} />
+                </button>
             </div>
         </section>
     );

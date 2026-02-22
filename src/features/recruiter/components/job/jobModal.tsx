@@ -16,7 +16,7 @@ import {
   SelectItem,
 } from "@/components/ui/shadcn/select";
 import { Checkbox } from "@/components/ui/shadcn/checkbox";
-import { Briefcase, Building2, MapPin, DollarSign, Cpu, Clock, LayoutGrid, Info } from "lucide-react";
+import { Briefcase, MapPin, DollarSign, Cpu, Clock, LayoutGrid, Info } from "lucide-react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -53,7 +53,7 @@ export function AddJobModal({
     resolver: zodResolver(jobSchema),
     defaultValues: {
       title: "",
-      company: "",
+      // company: "",
       description: "",
       skills: "",
       experienceMin: undefined,
@@ -70,7 +70,7 @@ export function AddJobModal({
     if (selectedJob) {
       form.reset({
         title: selectedJob.title ?? "",
-        company: selectedJob.company ?? "",
+        // company: selectedJob.company ?? "",
         description: selectedJob.description ?? "",
         skills: selectedJob.skills ? selectedJob.skills.join(", ") : "",
         experienceMin: selectedJob.experienceMin ?? undefined,
@@ -133,14 +133,14 @@ export function AddJobModal({
                 {errors.title && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.title.message}</p>}
               </div>
 
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
                   <Building2 className="h-3 w-3" />
                   Company Name
                 </label>
                 <Input placeholder="e.g. CareerSync Inc." className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100 transition-all" {...form.register("company")} />
                 {errors.company && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.company.message}</p>}
-              </div>
+              </div> */}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

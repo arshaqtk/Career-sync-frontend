@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useUserData from "@/hooks/useUserData";
 import { QUERY_KEYS } from "@/config/queryKeys";
 import type { AxiosError } from "axios";
+import { getCompanyJobsApi } from "@/api/company.api";
 
 export const useCreateCompany = () => {
     const queryClient = useQueryClient();
@@ -27,16 +28,15 @@ export const useCreateCompany = () => {
 
 export const useJoinCompany = () => {
     const queryClient = useQueryClient();
-    const navigate = useNavigate();
     const { refetch } = useUserData();
 
     return useMutation({
         mutationFn: joinCompanyApi,
         onSuccess: async () => {
-            toast.success("Successfully joined the company!");
+            toast.success("Join request sent successfully!");
             queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] });
             await refetch();
-            navigate("/recruiter");
+            // Automatically stays on the page to show the pending message
         },
         onError: (error: AxiosError<{ message: string }>) => {
             toast.error(error.response?.data?.message || "Failed to join company");
@@ -57,6 +57,14 @@ export const useCompanyDetails = (companyId: string) => {
     return useQuery({
         queryKey: ["companies", companyId],
         queryFn: () => getCompanyByIdApi(companyId),
+        enabled: !!companyId,
+    });
+};
+
+export const useCompanyJobDetails = (companyId: string) => {
+    return useQuery({
+        queryKey: ["companies", "jobs", companyId],
+        queryFn: () => getCompanyJobsApi(companyId),
         enabled: !!companyId,
     });
 };

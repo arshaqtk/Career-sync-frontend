@@ -9,6 +9,7 @@ import { Banknote, Briefcase, MapPin, Info, Share2, Building, Globe } from "luci
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Separator } from "@/components/ui/shadcn/separator";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 
 interface JobDetailsProps {
@@ -19,7 +20,7 @@ export function JobDetails({ job }: JobDetailsProps) {
   const [open, setIsOpen] = useState(false);
   const { mutate: applyNowJOb, isSuccess } = useApplyNow();
   const { data: userData } = useUserData();
-
+  const navigate = useNavigate()
   if (!job)
     return (
       <div className="flex-1 flex flex-col items-center justify-center text-slate-400 bg-white h-full min-h-[400px]">
@@ -38,7 +39,7 @@ export function JobDetails({ job }: JobDetailsProps) {
 
   const isClosed = job.status === "closed";
   const isPaused = job.status === "paused";
-  const isLoggedIn=userData
+  const isLoggedIn = userData
   let isApplied = job.hasApplied;
   if (isSuccess) {
     isApplied = true;
@@ -48,7 +49,7 @@ export function JobDetails({ job }: JobDetailsProps) {
     setIsOpen(false);
   };
   const handleShare = async () => {
-      const url = `${window.location.origin}/jobs?id=${job._id}`;
+    const url = `${window.location.origin}/jobs?id=${job._id}`;
     if (navigator.share) {
       await navigator.share({
         title: "Check out this job",
@@ -79,14 +80,17 @@ export function JobDetails({ job }: JobDetailsProps) {
                 {job.title}
               </h1>
               <div className="flex flex-col gap-0.5">
-               <p
+                <p
                   className="text-base font-bold text-blue-600 hover:underline cursor-pointer transition-all flex items-center gap-2"
-                  onClick={() => job.companyId && window.open(`/companies/${job.companyId}`, '_blank')}
+                  onClick={() => {
+                    const compId = typeof job.company === 'object' ? job.company._id : job.companyId;
+                    if (compId) navigate(`/companies/${compId}`);
+                  }}
                 >
                   {job.companyLogo && (
-                    <img src={job.companyLogo} alt={job.company} className="w-5 h-5 object-contain rounded-sm" />
+                    <img src={job.companyLogo} alt={typeof job.company === 'string' ? job.company : job.company.name} className="w-5 h-5 object-contain rounded-sm" />
                   )}
-                  {job.company}
+                  {typeof job.company === 'string' ? job.company : job.company.name}
                 </p>
                 <p className="text-[14px] font-medium text-slate-600 flex items-center gap-1.5">
                   <MapPin size={14} className="text-slate-400" />

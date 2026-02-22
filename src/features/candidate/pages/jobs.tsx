@@ -117,7 +117,7 @@ export default function JobPage() {
         onChange={updateFilters}
       />
       {/* Empty State */}
-      {!isLoading && jobs?.jobs.length === 0 ? (
+      {!isLoading && jobs?.jobs?.length === 0 ? (
         <div className="py-20 flex flex-col items-center text-center space-y-4">
           <div className="text-5xl">📭</div>
           <h2 className="text-xl font-semibold">No jobs found for your field</h2>

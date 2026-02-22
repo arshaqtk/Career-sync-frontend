@@ -10,7 +10,7 @@ interface JobListProps {
 }
 
 export function JobList({ jobs, selectedJobId, onSelect, isFetching }: JobListProps) {
-  if (isFetching && jobs.length === 0) return (
+  if (isFetching && jobs?.length === 0) return (
     <div className="w-full md:w-[45%] h-full flex justify-center items-center py-20">
       <InlineSpinner />
     </div>

@@ -5,16 +5,15 @@ import { CompanyHeader } from '../components/company/CompanyHeader';
 import { CompanyAbout } from '../components/company/CompanyAbout';
 import { CompanyActiveJobs } from '../components/company/CompanyActiveJobs';
 import { CompanyQuickStats } from '../components/company/CompanyQuickStats';
-import { CompanyBenefits } from '../components/company/CompanyBenefits';
 import { Button } from "@/components/ui/shadcn/button";
-import { useCompanyDetails } from '@/features/recruiter/hooks/useCompanyOnboarding';
+import { useCompanyDetails, useCompanyJobDetails } from '@/features/recruiter/hooks/useCompanyOnboarding';
 
 export default function CompanyDetailsPage() {
     const { companyId } = useParams<{ companyId: string }>();
     const navigate = useNavigate();
 
     const { data: response, isLoading, error } = useCompanyDetails(companyId || "");
-
+    const {data:jobs}=useCompanyJobDetails(companyId ||"")
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [companyId]);
@@ -55,53 +54,30 @@ export default function CompanyDetailsPage() {
 
     const company = response.data;
 
-    // Adapt data for components
-    const headerData = {
-        name: company.name,
-        logo: company.logo?.url || `https://api.dicebear.com/7.x/initials/svg?seed=${company.name}&backgroundColor=0066ff&textColor=ffffff`,
-        industry: company.industry || 'Global Enterprise',
-        location: company.location || 'Remote',
-        website: company.website || '#',
-        bannerImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200",
-    };
+ const headerData = {
+    name: company.name,
+    logo: company.logo?.url || `https://api.dicebear.com/7.x/initials/svg?seed=${company.name}`,
+    industry: company.industry || 'Global Enterprise',
+    location: company.location || 'Remote',
+    website: company.website || '#',
+    // bannerImage: "https://images.unsplash.com/photo-1497366216548-37526070297c"
+};
 
     const statsData = {
         employees: company.size || 'Not Specified',
         founded: company.foundedYear?.toString() || 'Established',
-        location: company.location || 'Main HQ',
-        industry: company.industry || 'Industry Leader',
-        specialties: [company.industry || 'Innovation', 'Technology', 'Growth']
+        location: company.location || 'Not Specified',
+        industry: company.industry || 'Not Specified',
+        specialties: [company.industry || 'Not Specified']
     };
 
-    // Dummy data for positions since backend doesn't have it yet or it's not in this API
-    const dummyJobs = [
-        {
-            id: "1",
-            title: "Senior Full Stack Engineer",
-            location: company.location || "Remote",
-            type: "Full-time",
-            salary: "₹25L - ₹45L",
-            posted: "2 days ago",
-            skills: ["React", "Node.js", "TypeScript", "AWS"]
-        },
-        {
-            id: "2",
-            title: "Product Designer",
-            location: company.location || "Bangalore",
-            type: "Full-time",
-            salary: "₹18L - ₹30L",
-            posted: "5 days ago",
-            skills: ["Figma", "UI/UX", "Product Strategy"]
-        }
-    ];
-
-    const benefits = [
-        "Competitive Compensation",
-        "Comprehensive Health Care",
-        "Flexible Working Hours",
-        "Professional Development",
-        "Modern Working Environment"
-    ];
+    // const benefits = [
+    //     "Competitive Compensation",
+    //     "Comprehensive Health Care",
+    //     "Flexible Working Hours",
+    //     "Professional Development",
+    //     "Modern Working Environment"
+    // ];
 
     return (
         <div className="max-w-7xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-1000 pb-20 px-4 md:px-8">
@@ -129,7 +105,7 @@ export default function CompanyDetailsPage() {
                 {/* Main Content Area */}
                 <div className="lg:col-span-8 space-y-16">
                     <CompanyAbout name={company.name} description={company.description || "No description provided yet."} />
-                    <CompanyActiveJobs jobs={dummyJobs} />
+                  {jobs && <CompanyActiveJobs jobs={jobs} />}
                 </div>
 
                 {/* Sticky Sidebar Area */}
@@ -142,7 +118,7 @@ export default function CompanyDetailsPage() {
                             industry={statsData.industry}
                             specialties={statsData.specialties}
                         />
-                        <CompanyBenefits benefits={benefits} />
+                        {/* <CompanyBenefits benefits={benefits} /> */}
                     </div>
                 </div>
             </div>

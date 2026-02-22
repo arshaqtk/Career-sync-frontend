@@ -11,10 +11,10 @@ interface JobCardProps {
 
 export function JobCard({ job, onClick, isSelected }: JobCardProps) {
 
-  const today=new Date().getTime()
-  const inputDate=job.createdAt?new Date(job.createdAt)?.getTime():undefined
-  const diffInMs = inputDate?today-inputDate:0; // milliseconds
-const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  const today = new Date().getTime()
+  const inputDate = job.createdAt ? new Date(job.createdAt)?.getTime() : undefined
+  const diffInMs = inputDate ? today - inputDate : 0; // milliseconds
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
   return (
     <Card
       onClick={onClick}
@@ -41,7 +41,7 @@ const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
               {job.title}
             </h3>
             <p className="text-[13px] font-medium text-slate-700 mt-1">
-              {job.company}
+              {typeof job.company === "string" ? job.company : job.company?.name}
             </p>
           </div>
           {job.jobType && (
@@ -78,8 +78,8 @@ const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
 
           <div className="pt-1">
             <span className="text-[11px] text-slate-400 font-medium italic">
-              {diffInDays<=2?"Posted recently":(diffInDays<7)?`Posted ${diffInDays} days ago`:"Posted Few Weeks ago"}
-              
+              {diffInDays <= 2 ? "Posted recently" : (diffInDays < 7) ? `Posted ${diffInDays} days ago` : "Posted Few Weeks ago"}
+
             </span>
           </div>
         </CardContent>
