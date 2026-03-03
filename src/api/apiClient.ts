@@ -9,7 +9,23 @@ const api = axios.create({
 api.interceptors.response.use(
   (res) => res,
   async (error) => {
-    if (error.response?.status === 401) {
+
+    const originalRequest = error.config;
+
+      if (!error.response || error.response.status !== 401) {
+      return Promise.reject(error);
+    }
+     if (originalRequest._retry) {
+      return Promise.reject(error);
+    }
+
+    //  Skip refresh endpoint itself
+    if (originalRequest.url === "/auth/refresh-token") {
+      return Promise.reject(error);
+    }
+
+    originalRequest._retry = true;
+
       try {
         await api.get("/auth/refresh-token", { withCredentials: true });
 
@@ -17,8 +33,6 @@ api.interceptors.response.use(
       } catch (refreshErr) {
         return Promise.reject(refreshErr);
       }
-    }
-    return Promise.reject(error);
   }
 );
 

@@ -74,11 +74,11 @@ export class ErrorBoundary extends Component<Props, State> {
                                         We apologize for the inconvenience. An unexpected error has occurred.
                                     </p>
 
-                                    {this.state.error && (
+                                    {/* {this.state.error && (
                                         <div className="bg-muted/50 p-4 rounded-lg mb-8 text-left text-xs font-mono text-muted-foreground overflow-auto max-h-32 border border-border">
                                             {this.state.error.toString()}
                                         </div>
-                                    )}
+                                    )} */}
 
                                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                         <Button onClick={this.handleReload} size="lg" className="gap-2 shadow-lg shadow-primary/20">
