@@ -10,7 +10,6 @@ type ErrorWithResponse = {
 }
 
 export const handleRQError = (error: unknown) => {
-    console.log("called")
   if (
     typeof error === "object" &&
     error !== null &&

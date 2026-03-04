@@ -19,15 +19,14 @@ export default function MessageInput() {
         receiverId: activeChatId,
         content: text.trim(),
       },
-      (res: { success: boolean; message?: string }) => {
-        console.log(res);
+      (_res: { success: boolean; message?: string }) => {
       }
     );
 
     setText("");
   };
 
-   return (
+  return (
     <div className="flex items-center gap-1.5 md:gap-2 bg-slate-50 p-1.5 md:p-2 rounded-xl border border-slate-200 focus-within:bg-white focus-within:shadow-sm focus-within:border-blue-400 transition-all duration-300">
       {/* <Button variant="ghost" size="icon" className="text-slate-400 hover:text-blue-600 hover:bg-white rounded-full h-10 w-10 shrink-0">
         <Paperclip className="h-5 w-5" />

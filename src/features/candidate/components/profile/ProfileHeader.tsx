@@ -10,8 +10,8 @@ export interface UserDetails {
   email: string;
   phone: string;
   profilePicture?: {
-    url:string;
-    updatedAt:string
+    url: string;
+    updatedAt: string
   };
   field: string;
 }
@@ -21,7 +21,6 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ user }: ProfileHeaderProps) {
-  console.log(user)
   const { mutate } = useUpdateProfileImage();
   const navigate = useNavigate()
   const handleSelectImage = (file: File) => {
@@ -30,7 +29,7 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
 
     mutate(formData);
   };
- return (
+  return (
     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-100">
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
         <div className="relative group">

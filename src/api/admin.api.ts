@@ -24,7 +24,6 @@ export const getRecruitersListApi = async ({ page, limit, status, search,
 
 export const getRecruiterDetailApi = async (id: string) => {
   const res = await api.get(`/admin/recruiters/${id}`)
-  console.log(res.data)
   return res.data
 }
 
@@ -50,7 +49,6 @@ export const getCandidatesListApi = async ({ page, limit, status, search, }: Lis
 }
 export const getCandidateDetailApi = async (id: string) => {
   const res = await api.get(`/admin/candidates/${id}`)
-  console.log(res.data)
   return res.data
 }
 
@@ -73,7 +71,6 @@ export const AdmingetJobsListApi = async (params: ListFilters) => {
 
 export const AdmingetJobDetailApi = async (id: string) => {
   const res = await api.get(`/admin/jobs/${id}`)
-  console.log(res.data)
   return res.data
 }
 

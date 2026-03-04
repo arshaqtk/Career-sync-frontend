@@ -5,10 +5,9 @@ export default function ChatTest() {
   const [conversationId, setConversationId] = useState("")
   const [receiverId, setReceiverId] = useState("")
   const [message, setMessage] = useState("")
-const socket = getSocket()
+  const socket = getSocket()
   useEffect(() => {
-    socket.on("chat:newMessage", (msg) => {
-      console.log("📩 New Message:", msg)
+    socket.on("chat:newMessage", (_msg) => {
     })
 
     return () => {
@@ -17,12 +16,10 @@ const socket = getSocket()
   }, [])
 
   const joinConversation = () => {
-      console.log("JOIN CLICKED, socket.connected =", socket.connected)
     socket.emit(
       "chat:joinConversation",
       receiverId,
       (res: { success: boolean; conversationId?: string; message?: string }) => {
-        console.log("JOIN RESPONSE:", res)
         if (res.success && res.conversationId) {
           setConversationId(res.conversationId)
         }
@@ -31,11 +28,6 @@ const socket = getSocket()
   }
 
   const sendMessage = () => {
-      console.log("🚀 Sending message", {
-    conversationId,
-    receiverId,
-    message,
-  })
     socket.emit(
       "chat:sendMessage",
       {
@@ -43,8 +35,7 @@ const socket = getSocket()
         receiverId,
         content: message,
       },
-      (res: { success: boolean; message?: string }) => {
-        console.log("SEND ACK:", res)
+      (_res: { success: boolean; message?: string }) => {
       }
     )
   }
@@ -61,7 +52,7 @@ const socket = getSocket()
 
       <br /><br />
 
-      <button onClick={()=>joinConversation()} className="border bg-red-700">Join Conversation</button>
+      <button onClick={() => joinConversation()} className="border bg-red-700">Join Conversation</button>
 
       <br /><br />
 

@@ -48,10 +48,8 @@ const ErrorHandler = (error: unknown) => {
         typeof (error as ErrorWithResponse).response === "object"
     ) {
         const err = error as ErrorWithResponse;
-        console.log("RQ ERROR:", err.response?.data);
         toast.error(err.response?.data?.message);
     } else {
-        console.log("RQ ERROR:", error);
         toast.error("An unexpected error occurred.");
     }
 }

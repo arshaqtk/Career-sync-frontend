@@ -6,7 +6,7 @@ export const SocketProvider = () => {
   const user = useAuthStore((s) => s.user)
   const socket = getSocket()
 
- useEffect(() => {
+  useEffect(() => {
     if (!user) return
 
     if (!socket.connected) {
@@ -14,19 +14,16 @@ export const SocketProvider = () => {
     }
 
     socket.on("connect", () => {
-      console.log("✅ Socket connected:", socket.id)
     })
 
     socket.on("disconnect", (reason) => {
       console.warn("⚠️ Socket disconnected:", reason)
     })
 
-    socket.on("reconnect_attempt", (attempt) => {
-      console.log("🔄 Reconnecting attempt:", attempt)
+    socket.on("reconnect_attempt", (_attempt) => {
     })
 
     socket.on("reconnect", () => {
-      console.log("✅ Socket reconnected")
 
       // 🔑 IMPORTANT: rejoin rooms here later
     })

@@ -23,7 +23,6 @@ export function ResumeModal({
       applicationId,
       key: resumeKey,
     });
-    console.log(url)
     setResumeUrl(url);
     setLoading(false);
   };

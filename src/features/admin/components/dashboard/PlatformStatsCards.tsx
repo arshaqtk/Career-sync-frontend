@@ -20,12 +20,11 @@ const DUMMY_STATS: PlatformStat[] = [
 ]
 
 export function PlatformStatsCards({
-    data,
-    loading,
+  data,
+  loading,
 }: PlatformStatsCardsProps) {
-    const stats = data ?? DUMMY_STATS
-    console.log(stats)
-    
+  const stats = data ?? DUMMY_STATS
+
   if (loading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">

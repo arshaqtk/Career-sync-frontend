@@ -22,7 +22,6 @@ export const getSocket = () => {
 
 export const registerSocketListeners = () => {
   socket?.on("connect", () => {
-    console.log("✅ Socket connected:", socket?.id)
   })
 
   socket?.on("connect_error", (err) => {

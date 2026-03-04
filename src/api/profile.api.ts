@@ -4,79 +4,77 @@ import { type ProfileUpdatePayload, type IUser, type UpdateAboutPayload, } from 
 import type { Experience } from "@/features/candidate/types/Experience.types";
 import type { Education } from "@/features/candidate/types/Education.types";
 
-export const fetchProfile=async()=>{
-   const res=await api.get("/user/profile")
-   return res.data
-}
-
-export const updateProfileApi=async(payload:ProfileUpdatePayload):Promise<IUser>=>{
-    const res=await api.put("/user/update-profile-basic",payload)
-    return res.data.data
-}
-
-export const updateAvatarApi=async(payload:FormData):Promise<IUser>=>{
-    const res=await api.put("/user/update-profile-avatar",payload)
-    return res.data.data
-} 
-
-export const updateProfileAboutApi=async(payload:UpdateAboutPayload):Promise<IUser>=>{
-    const res=await api.put("/user/update-profile-about",payload)
-    return res.data.data
-}
-
-export const addProfileExperienceApi=async(payload:Experience):Promise<IUser>=>{
-    const res=await api.post("/candidate/profile/experience",{experience:payload})
-    return res.data.data
-}
-
-export const updateProfileExperienceApi=async({payload,experienceId}:{payload:Experience,experienceId:string}):Promise<IUser>=>{
-    const res=await api.put(`/candidate/profile/experience/${experienceId}`,{experience:payload})
-    return res.data.data
-}
-export const updateProfileSkillApi=async(payload:string[]):Promise<IUser>=>{
-    const res=await api.put("/candidate/profile/skill",payload)
-    return res.data.data
-}
-
-export const addProfileEducationApi=async(payload:Education):Promise<IUser>=>{
-    const res=await api.post("/candidate/profile/education",{education:payload})
-    return res.data.data
-}
-
-export const updateProfileEducationApi=async({payload,educationId}:{payload:Education,educationId:string}):Promise<IUser>=>{
-    const res=await api.put(`/candidate/profile/education/${educationId}`,{education:payload})
-    return res.data.data
-}
-
-export const getCandidateProfileStatsApi=async()=>{
-    const res=await api.get("/candidate/profile/stats")
+export const fetchProfile = async () => {
+    const res = await api.get("/user/profile")
     return res.data
 }
 
-export const getResumeUrlApi=async()=>{
-    const res=await api.get("/candidate/profile/resume?mode=view")
+export const updateProfileApi = async (payload: ProfileUpdatePayload): Promise<IUser> => {
+    const res = await api.put("/user/update-profile-basic", payload)
+    return res.data.data
+}
+
+export const updateAvatarApi = async (payload: FormData): Promise<IUser> => {
+    const res = await api.put("/user/update-profile-avatar", payload)
+    return res.data.data
+}
+
+export const updateProfileAboutApi = async (payload: UpdateAboutPayload): Promise<IUser> => {
+    const res = await api.put("/user/update-profile-about", payload)
+    return res.data.data
+}
+
+export const addProfileExperienceApi = async (payload: Experience): Promise<IUser> => {
+    const res = await api.post("/candidate/profile/experience", { experience: payload })
+    return res.data.data
+}
+
+export const updateProfileExperienceApi = async ({ payload, experienceId }: { payload: Experience, experienceId: string }): Promise<IUser> => {
+    const res = await api.put(`/candidate/profile/experience/${experienceId}`, { experience: payload })
+    return res.data.data
+}
+export const updateProfileSkillApi = async (payload: string[]): Promise<IUser> => {
+    const res = await api.put("/candidate/profile/skill", payload)
+    return res.data.data
+}
+
+export const addProfileEducationApi = async (payload: Education): Promise<IUser> => {
+    const res = await api.post("/candidate/profile/education", { education: payload })
+    return res.data.data
+}
+
+export const updateProfileEducationApi = async ({ payload, educationId }: { payload: Education, educationId: string }): Promise<IUser> => {
+    const res = await api.put(`/candidate/profile/education/${educationId}`, { education: payload })
+    return res.data.data
+}
+
+export const getCandidateProfileStatsApi = async () => {
+    const res = await api.get("/candidate/profile/stats")
     return res.data
 }
 
-export const getResumeDownloadUrlApi=async()=>{
-    const res=await api.get("/candidate/profile/resume?mode=download")
+export const getResumeUrlApi = async () => {
+    const res = await api.get("/candidate/profile/resume?mode=view")
     return res.data
 }
 
-export const deleteResumeApi=async()=>{
-    const res=await api.delete("/candidate/profile/resume")
+export const getResumeDownloadUrlApi = async () => {
+    const res = await api.get("/candidate/profile/resume?mode=download")
+    return res.data
+}
+
+export const deleteResumeApi = async () => {
+    const res = await api.delete("/candidate/profile/resume")
     return res
 }
 
 export const updateResumeApi = async (formData: FormData): Promise<IUser> => {
-    console.log("formData==================>",formData)
-    
-  const res = await api.put(`/candidate/profile/resume`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+    const res = await api.put(`/candidate/profile/resume`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
 
 
-  return res.data.data;
+    return res.data.data;
 };

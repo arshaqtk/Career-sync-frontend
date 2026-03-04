@@ -1,9 +1,9 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle,} from "@/components/ui/shadcn/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/shadcn/dialog";
 import { Input } from "@/components/ui/shadcn/input";
 import { Textarea } from "@/components/ui/shadcn/textarea";
 import { Button } from "@/components/ui/shadcn/button";
-import {Select, SelectTrigger, SelectValue, SelectContent, SelectItem,} from "@/components/ui/shadcn/select";
-import { Popover, PopoverTrigger, PopoverContent,} from "@/components/ui/shadcn/popover";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, } from "@/components/ui/shadcn/select";
+import { Popover, PopoverTrigger, PopoverContent, } from "@/components/ui/shadcn/popover";
 import { Calendar } from "@/components/ui/shadcn/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -78,8 +78,6 @@ export function ExperienceFormModal({
   }, [isOpen, selectedExperience, form]);
 
   const errors = form.formState.errors;
-
-  console.log(form.formState.errors);
 
   return (
     <Dialog

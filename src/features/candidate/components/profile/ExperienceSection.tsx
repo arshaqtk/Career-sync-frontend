@@ -22,7 +22,6 @@ export function ExperienceSection({
   const updateExperience = useUpdateProfileExperience();
 
   const handleExperienceSubmit = (payload: Experience) => {
-    console.log(payload)
     if (!payload._id) {
       addExperience.mutate(payload);
     } else {
@@ -34,7 +33,7 @@ export function ExperienceSection({
     closeModal();
   };
 
- return (
+  return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-extrabold text-slate-900 uppercase tracking-tight">
