@@ -13,11 +13,7 @@ export function useLogout() {
     onSuccess: () => {
       queryClient.clear();
       navigate("/auth/login");
-      toast.success("Logouted")
-    },
-    onError: (err) => {
-      console.error("Logout failed:", err);
-      toast.error("Logout Failed.");
+      toast.success("Logged out successfully");
     }
   });
 }

@@ -12,10 +12,7 @@ export const useUpdateApplicantStatus=()=>{
     const queryClient=useQueryClient();
     return useMutation<UpdateApplicationResponse,unknown,{applicationId:string,status:ApplicationStatus}>({
         mutationFn:async({applicationId,status})=>RecruiterUpdateApplicationStatusApi({applicationId,status}),
-         onError:()=>{
-            toast.error("Status updation failed")
-        },
-        onSuccess:(data,Variable)=>{
+         onSuccess: (data, Variable) => {
             const {applicationId,status }=Variable
             toast.success(data?.message || "Status updated")
              queryClient.setQueryData(

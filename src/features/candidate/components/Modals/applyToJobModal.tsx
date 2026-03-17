@@ -6,16 +6,24 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Textarea } from "@/components/ui/shadcn/textarea";
 import { Input } from "@/components/ui/shadcn/input";
 import { Button } from "@/components/ui/shadcn/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/shadcn/select";
 import { useUpdateResume } from "../../hooks/useUpdateProfile";
-import { useEffect, useRef } from "react";
-import { FileText, Upload, Briefcase, DollarSign, Clock, User } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { FileText, Upload, Briefcase, DollarSign, Clock, User, Sparkles, Loader2, Ban } from "lucide-react";
+import { useCoverLetterLimit } from "../../hooks/useCoverLetterLimit";
+import { toast } from "sonner";
 
-export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, OpenChange, }: {
+type Tone = "professional" | "enthusiastic" | "concise";
+
+export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, OpenChange }: {
     jobIds: string; candidateresumeUrl?: string; onSubmit: (payload: ApplyJobDTO) => void; open: boolean; OpenChange: (val: boolean) => void;
 }) => {
 
-    const { mutate, isPending } = useUpdateResume()
+    const { mutate, isPending } = useUpdateResume();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [tone, setTone] = useState<Tone>("professional");
+    const [isGenerating, setIsGenerating] = useState(false);
+    const { limitState, updateFromHeaders, markAsLimited } = useCoverLetterLimit();
 
     const form = useForm<ApplyJobDTO>({
         resolver: zodResolver(applyJobSchema),
@@ -44,11 +52,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
         }
     }, [open, jobIds, candidateresumeUrl, form]);
 
-    const {
-        handleSubmit,
-        register,
-        formState: { errors },
-    } = form;
+    const { handleSubmit, register, formState: { errors } } = form;
 
     const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -59,7 +63,61 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
             onSuccess: (data) => {
                 form.setValue("resumeKey", data.candidateData?.resume?.key as string);
             }
-        })
+        });
+    };
+
+    // --- AI Cover Letter Generator ---
+    const handleGenerateCoverLetter = async () => {
+        if (limitState.isLimited) {
+    toast.error("Daily limit reached. Please try again tomorrow.");
+    return;
+  }
+        setIsGenerating(true);
+        form.setValue("coverLetter", ""); // clear before streaming
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/ai/coverletter/generate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jobId: jobIds, tone }),
+            // Important: include cookies for authentication
+            credentials: 'include' 
+        });
+
+        updateFromHeaders(response.headers);
+
+         if (response.status === 429) {
+      // Rate limited — mark as blocked
+      const resetHeader = response.headers.get("Ratelimit-Reset");
+      const resetTime = resetHeader ? new Date(parseInt(resetHeader) * 1000) : undefined;
+      markAsLimited(resetTime);
+      setIsGenerating(false);
+      return;
+    }
+
+        if (!response.ok) throw new Error("Failed to generate cover letter");
+
+
+            // Stream the response chunk by chunk
+            const reader = response.body?.getReader();
+            if (!reader) throw new Error("No reader available");
+            const decoder = new TextDecoder();
+            let accumulated = "";
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                const chunk = decoder.decode(value, { stream: true });
+                accumulated += chunk;
+                form.setValue("coverLetter", accumulated); // live update textarea
+            }
+
+        } catch (err) {
+            console.error("Cover letter generation failed:", err);
+            form.setValue("coverLetter", "Failed to generate. Please try again.");
+        } finally {
+            setIsGenerating(false);
+        }
     };
 
     return (
@@ -76,17 +134,17 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6">
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Current Role */}
                         <div className="space-y-2">
                             <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1 flex items-center gap-2">
                                 <User className="w-3.5 h-3.5" /> Current Role
                             </label>
-                            <Input 
-                                placeholder="e.g. Software Engineer" 
+                            <Input
+                                placeholder="e.g. Software Engineer"
                                 className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
-                                {...register("currentRole")} 
+                                {...register("currentRole")}
                             />
                             {errors.currentRole && (
                                 <p className="text-red-500 text-[12px] font-bold mt-1 px-1">⚠ {errors.currentRole.message}</p>
@@ -99,10 +157,10 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                                 <Briefcase className="w-3.5 h-3.5" /> Experience (Years)
                             </label>
                             <Input
-                                type="number" 
-                                placeholder="e.g. 3" 
+                                type="number"
+                                placeholder="e.g. 3"
                                 className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
-                                {...register("experience", { valueAsNumber: true })} 
+                                {...register("experience", { valueAsNumber: true })}
                             />
                             {errors.experience && (
                                 <p className="text-red-500 text-[12px] font-bold mt-1 px-1">⚠ {errors.experience.message}</p>
@@ -132,10 +190,10 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                             <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1 flex items-center gap-2">
                                 <Clock className="w-3.5 h-3.5" /> Notice Period
                             </label>
-                            <Input 
-                                placeholder="e.g. 30 Days" 
+                            <Input
+                                placeholder="e.g. 30 Days"
                                 className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
-                                {...register("noticePeriod")} 
+                                {...register("noticePeriod")}
                             />
                             {errors.noticePeriod && (
                                 <p className="text-red-500 text-[12px] font-bold mt-1 px-1">⚠ {errors.noticePeriod.message}</p>
@@ -148,7 +206,6 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                         <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1 flex items-center gap-2">
                             <FileText className="w-3.5 h-3.5" /> Resume
                         </label>
-                        
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border border-blue-100 rounded-xl bg-blue-50/30">
                             <div className="flex-1">
                                 {candidateresumeUrl ? (
@@ -160,7 +217,6 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                                     <p className="text-sm text-slate-500">No resume selected. Please upload one.</p>
                                 )}
                             </div>
-                            
                             <Button
                                 type="button"
                                 variant="outline"
@@ -172,7 +228,6 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                                 {isPending ? "Uploading..." : candidateresumeUrl ? "Update Resume" : "Upload Resume"}
                             </Button>
                         </div>
-
                         <input
                             ref={fileInputRef}
                             id="resumeFile"
@@ -181,17 +236,79 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                             className="hidden"
                             onChange={handleResumeUpload}
                         />
-
                         {errors.resumeKey && (
                             <p className="text-red-500 text-[12px] font-bold mt-1 px-1">⚠ {errors.resumeKey.message}</p>
                         )}
                     </div>
 
-                    {/* Cover Letter */}
+                    {/* ✅ Cover Letter Section with AI Generator */}
                     <div className="space-y-2">
-                        <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Cover Letter</label>
+                        <div className="flex items-center justify-between">
+                            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">
+                                Cover Letter
+                            </label>
+
+                            {/* Tone Dropdown + Generate Button */}
+                            <div className="flex items-center gap-2">
+                                <Select value={tone} onValueChange={(val) => setTone(val as Tone)}>
+                                    <SelectTrigger className="h-8 w-36 text-xs font-semibold border-slate-200 focus:ring-blue-600">
+                                        <SelectValue placeholder="Tone" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="professional">Professional</SelectItem>
+                                        <SelectItem value="enthusiastic">Enthusiastic</SelectItem>
+                                        <SelectItem value="concise">Concise</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Button
+                                    type="button"
+                                     disabled={isGenerating || !candidateresumeUrl || limitState.isLimited}
+                                    onClick={handleGenerateCoverLetter}
+                                    className={`h-8 px-3 text-xs font-bold 
+                                    ${limitState.isLimited ? "bg-gray-300 cursor-not-allowed" : "bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white gap-1.5 shadow-sm"}`}
+                                >
+                                    {isGenerating
+      ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Generating...</>
+      : limitState.isLimited
+        ? <><Ban className="w-3.5 h-3.5" /> Limit reached</>
+        : <><Sparkles className="w-3.5 h-3.5" /> AI Generate</>
+    }
+                                </Button>
+                            </div>
+                        </div>
+                        {/* Tooltip if limited */}
+{limitState.isLimited && (
+    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[11px] rounded-lg px-3 py-2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+      Daily limit reached
+      {limitState.resetTime && (
+        <span> · Resets at {limitState.resetTime.toLocaleTimeString()}</span>
+      )}
+    </div>
+  )}
+  {/* Usage counter below the label */}
+{!limitState.isLimited ? (
+  <p className="text-[11px] text-slate-400 px-1">
+    {limitState.remaining}/{limitState.total} generations remaining today
+  </p>
+) : (
+  <p className="text-[11px] text-red-500 font-semibold px-1">
+    ⚠ Daily limit reached.
+    {limitState.resetTime && (
+      <span> Resets at {limitState.resetTime.toLocaleTimeString()}</span>
+    )}
+  </p>
+)}
+                        {/* Tooltip if no resume */}
+                        {!candidateresumeUrl && (
+                            <p className="text-amber-500 text-[11px] font-semibold px-1">
+                                ⚠ Upload a resume to enable AI generation
+                            </p>
+                        )}
+                        
+
                         <Textarea
-                            placeholder="Write a brief cover letter explaining why you're a great fit for this role..."
+                            placeholder="Write a brief cover letter or click AI Generate above..."
                             className="min-h-[160px] border-slate-200 focus-visible:ring-blue-600 font-medium text-slate-700 placeholder:text-slate-400 resize-none rounded-xl p-4"
                             {...register("coverLetter")}
                         />
@@ -210,9 +327,9 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                         >
                             Cancel
                         </Button>
-                        <Button 
+                        <Button
                             type="submit"
-                            disabled={form.formState.isSubmitting || (isPending)}
+                            disabled={form.formState.isSubmitting || isPending || isGenerating}
                             className="bg-blue-600 hover:bg-blue-700 text-white font-extrabold px-10 h-12 shadow-lg shadow-blue-100 transition-all active:scale-95"
                         >
                             {form.formState.isSubmitting ? "Applying..." : "Submit Application"}
@@ -223,4 +340,3 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
         </Dialog>
     );
 };
-

@@ -21,6 +21,9 @@ export default function useCandidateJobData({
       filters.jobType,
       filters.search,
       filters.location,
+      filters.remote,
+      filters.experienceMin,
+      filters.experienceMax,
     ],
     queryFn: () =>
       fetchAllJobs({

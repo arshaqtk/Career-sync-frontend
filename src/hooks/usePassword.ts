@@ -7,28 +7,7 @@ export const useSendResetPasswordEmail = () => {
     const mutate = useMutation({
         mutationFn: SendResetPasswordEmail,
         onSuccess() {
-            toast.success("Otp Sented Successfully")
-        },
-        onError(error: unknown) {
-            type ErrorWithResponse = {
-                response?: {
-                    data?: {
-                        message?: string;
-                    };
-                };
-            };
-
-            if (
-                typeof error === "object" &&
-                error !== null &&
-                "response" in error &&
-                typeof (error as ErrorWithResponse).response === "object"
-            ) {
-                const err = error as ErrorWithResponse;
-                toast.error(err.response?.data?.message);
-            } else {
-                toast.error("An unexpected error occurred.");
-            }
+            toast.success("Otp Sent Successfully")
         }
     })
 
@@ -40,9 +19,6 @@ export const useResendResetPasswordOtpMutation = () => {
         mutationFn: ResendResetPasswordOtp,
         onSuccess: () => {
             toast.success("OTP resent successfully");
-        },
-        onError: () => {
-            toast.error("Something went wrong");
         }
     })
     return mutation
@@ -59,27 +35,6 @@ export const useVerifyResetPasswordOtp = () => {
                     resetToken: data.resetToken,
                 },
             });
-        },
-        onError(error: unknown) {
-            type ErrorWithResponse = {
-                response?: {
-                    data?: {
-                        message?: string;
-                    };
-                };
-            };
-
-            if (
-                typeof error === "object" &&
-                error !== null &&
-                "response" in error &&
-                typeof (error as ErrorWithResponse).response === "object"
-            ) {
-                const err = error as ErrorWithResponse;
-                toast.error(err.response?.data?.message);
-            } else {
-                toast.error("An unexpected error occurred.");
-            }
         }
     })
     return mutation
@@ -92,29 +47,8 @@ export const useResetPassword = () => {
         onSuccess() {
             toast.success("updated successfully")
             navigate("/auth/login")
-        },
-        onError(error: unknown) {
-            type ErrorWithResponse = {
-                response?: {
-                    data?: {
-                        message?: string;
-                    };
-                };
-            };
-
-            if (
-                typeof error === "object" &&
-                error !== null &&
-                "response" in error &&
-                typeof (error as ErrorWithResponse).response === "object"
-            ) {
-                const err = error as ErrorWithResponse;
-                toast.error(err.response?.data?.message);
-            } else {
-                toast.error("An unexpected error occurred.");
-            }
         }
 
     })
     return mutation
-}
+}

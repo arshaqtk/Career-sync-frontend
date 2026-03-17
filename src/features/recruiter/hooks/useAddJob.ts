@@ -24,10 +24,6 @@ export const useAddJob = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.jobs.all,
       });
-    },
-
-    onError: () => {
-      toast.error("Error occurred");
-    },
+    }
   });
 };

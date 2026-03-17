@@ -4,7 +4,6 @@ import { createNextRound, rescheduleInterview, scheduleInitialInterview } from "
 import { toast } from "sonner"
 import { QUERY_KEYS } from "@/config/queryKeys"
 import type { ScheduleInterviewPayload } from "../types/scheduledInterview.types"
-import { handleRQError } from "@/lib/react-query/errorHandler"
 
 type ScheduleInterviewResponse = {
   message: string
@@ -45,8 +44,5 @@ export const useScheduleInterview = () => {
         })
       }
     },
-    onError:(error)=>{
-           handleRQError(error)
-     },
   })
 }

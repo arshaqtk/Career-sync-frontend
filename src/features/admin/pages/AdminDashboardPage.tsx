@@ -13,7 +13,7 @@ import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function AdminDashboardPage() {
 
-    const { data: dashboardData, isLoading ,error} = useAdminDashboard()
+    const { data: dashboardData, isLoading, error } = useAdminDashboard()
     const { isPending, mutate } = useRecruiterStatusAction()
     const [dialogOpen, setDialogOpen] = useState(false)
     const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -25,8 +25,8 @@ export default function AdminDashboardPage() {
     ): "active" | "blocked" =>
         status === "Active" ? "active" : "blocked"
 
-    if (isLoading) return <AppLoader/>
-  if(error)handleRQError(error)
+    if (isLoading) return <AppLoader />
+    if (error) handleRQError(error)
 
     const mapStatsToCards = (stats?: {
         totalUsers: number
@@ -38,11 +38,12 @@ export default function AdminDashboardPage() {
         if (!stats) return undefined
 
         return [
-            { label: "Total Users", value: stats.totalUsers },
-            { label: "Recruiters", value: stats.recruiters },
-            { label: "Candidates", value: stats.candidates },
-            { label: "Job Posts", value: stats.jobs },
-            { label: "Applications (30d)", value: stats.applicationsLast30Days },
+            { label: "Total Users", value: stats.totalUsers,type: "users" },
+            { label: "Total Companies", value: stats.recruiters,type: "companies" },
+            { label: "Active Jobs", value: stats.jobs,type: "jobs" },
+            { label: "Total Apps", value: stats.applicationsLast30Days,type: "apps" },
+            { label: "New Users (WK)", value: stats.candidates,type: "new-users" },
+            { label: "Jobs Today", value: Math.floor(stats.jobs / 30),type: "jobs-today" },
         ]
     }
     const handleToggleRecruiterStatus = (

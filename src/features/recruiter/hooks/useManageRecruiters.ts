@@ -1,7 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getPendingRecruitersApi, approveRecruiterApi, rejectRecruiterApi } from "@/api/recruiter.api";
 import { toast } from "sonner";
-import type { AxiosError } from "axios";
 
 export function useManageRecruiters(companyId: string | undefined) {
     const queryClient = useQueryClient();
@@ -17,10 +16,7 @@ export function useManageRecruiters(companyId: string | undefined) {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["pending-recruiters", companyId] });
             toast.success("Recruiter approved successfully");
-        },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast.error(error.response?.data?.message || "Failed to approve recruiter");
-        },
+        }
     });
 
     const rejectMutation = useMutation({
@@ -28,10 +24,7 @@ export function useManageRecruiters(companyId: string | undefined) {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["pending-recruiters", companyId] });
             toast.success("Recruiter rejected");
-        },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast.error(error.response?.data?.message || "Failed to reject recruiter");
-        },
+        }
     });
 
     return {

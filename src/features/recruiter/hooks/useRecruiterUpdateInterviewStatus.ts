@@ -26,10 +26,6 @@ export const useRecruiterUpdateInterviewStatus = () => {
     mutationFn: ({ interviewId, payload }) =>
       recruiterUpdateInterviewStatusApi({ interviewId, payload }),
 
-    onError: (error) => {
-      toast.error(error.response?.data?.message || "Failed to update interview");
-    },
-
     onSuccess: (data, variables) => {
       toast.success(data.message || "Interview updated");
 

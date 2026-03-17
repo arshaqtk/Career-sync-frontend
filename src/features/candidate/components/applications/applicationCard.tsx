@@ -12,7 +12,7 @@ export default function ApplicationsCardList({
   applications: CandidateApplicationDTO[];
 }) {
   const navigate = useNavigate();
-
+console.log(applications)
   return (
     <div className="flex flex-col gap-3">
       {applications.map((app) => (
@@ -33,7 +33,7 @@ export default function ApplicationsCardList({
                   {app.job.title}
                 </h3>
                 <p className="text-[14px] font-bold text-slate-700 mt-1">
-                  {app.job.company}
+                  {app.job?.company?.name}
                 </p>
               </div>
               <ApplicationStatusBadge status={app.status || "Pending"} />

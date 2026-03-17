@@ -13,9 +13,6 @@ export const useFinalizeApplicantStatus=()=>{
     return useMutation<UpdateApplicationResponse,unknown,{applicationId:string,status:SelectedOrRejected,note:string}>({
       
         mutationFn:async({applicationId,status,note})=>RecruiterFinalizeApplicationStatusApi({applicationId,status,note}),
-         onError:()=>{
-            toast.error("Status updation failed")
-        },
         onSuccess:(data,Variable)=>{
             const {applicationId,status }=Variable
             toast.success(data?.message || "Status updated")

@@ -12,27 +12,6 @@ export const useRegister = () => {
         mutationFn: RegisterApi,
         onSuccess(data: { email: string }) {
             navigate("/auth/verify-otp", { state: { email: data.email } })
-        },
-        onError(error: unknown) {
-            type ErrorWithResponse = {
-                response?: {
-                    data?: {
-                        message?: string;
-                    };
-                };
-            };
-
-            if (
-                typeof error === "object" &&
-                error !== null &&
-                "response" in error &&
-                typeof (error as ErrorWithResponse).response === "object"
-            ) {
-                const err = error as ErrorWithResponse;
-                toast.error(err.response?.data?.message);
-            } else {
-                toast.error("An unexpected error occurred.");
-            }
         }
     })
     return mutation
@@ -62,28 +41,6 @@ export const useLogin = () => {
                 navigate("/home")
             }
 
-        },
-        onError(error: unknown) {
-            type ErrorWithResponse = {
-                response?: {
-                    data?: {
-                        message?: string;
-                    };
-                };
-            };
-
-            if (
-                typeof error === "object" &&
-                error !== null &&
-                "response" in error &&
-                typeof (error as ErrorWithResponse).response === "object"
-            ) {
-                const err = error as ErrorWithResponse;
-                toast.error(err.response?.data?.message ?? "Something went wrong");
-
-            } else {
-                toast.error("An unexpected error occurred.");
-            }
         }
     })
     return mutation
@@ -95,9 +52,6 @@ export const useResendRegisterOtpMutation = () => {
         mutationFn: ResendRegisterOtp,
         onSuccess: () => {
             toast.success("OTP resent successfully");
-        },
-        onError: () => {
-            toast.error("Something went wrong");
         }
     })
     return mutation
@@ -109,27 +63,6 @@ export const useVerifyRegisterOtp = () => {
         mutationFn: VerifyRegisterOtpApi,
         onSuccess() {
             navigate("/auth/login")
-        },
-        onError(error: unknown) {
-            type ErrorWithResponse = {
-                response?: {
-                    data?: {
-                        message?: string;
-                    };
-                };
-            };
-
-            if (
-                typeof error === "object" &&
-                error !== null &&
-                "response" in error &&
-                typeof (error as ErrorWithResponse).response === "object"
-            ) {
-                const err = error as ErrorWithResponse;
-                toast.error(err.response?.data?.message);
-            } else {
-                toast.error("An unexpected error occurred.");
-            }
         }
     })
     return mutation

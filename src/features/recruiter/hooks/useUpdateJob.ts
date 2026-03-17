@@ -12,9 +12,6 @@ export const useUpdateJob=()=>{
     const {  closeModal } = useJobModalStore();
     return useMutation<UpdateJobResponse,unknown,{jobId?:string,data:Job}>({
         mutationFn:async({jobId,data})=>RecruiterUpdateJobApi({jobId,data}),
-        onError:()=>{
-            toast.error(" updation failed")
-        },
         onSuccess:(data)=>{
             closeModal()
             toast.success(data?.message || "Job updated")

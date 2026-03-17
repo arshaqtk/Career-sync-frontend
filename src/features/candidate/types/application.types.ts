@@ -14,7 +14,7 @@ export interface CandidateApplicationDTO {
   job: {
     id: string;
     title: string;
-    company: string;
+    company: {name:string};
     location: string;
   };
   status: "Pending" | "Shortlisted" | "Selected" | "Rejected";

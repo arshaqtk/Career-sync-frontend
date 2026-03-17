@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import useUserData from "@/hooks/useUserData";
 import { QUERY_KEYS } from "@/config/queryKeys";
-import type { AxiosError } from "axios";
 import { getCompanyJobsApi } from "@/api/company.api";
 
 export const useCreateCompany = () => {
@@ -19,10 +18,7 @@ export const useCreateCompany = () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] });
             await refetch();
             navigate("/recruiter");
-        },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast.error(error.response?.data?.message || "Failed to create company");
-        },
+        }
     });
 };
 
@@ -37,10 +33,7 @@ export const useJoinCompany = () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] });
             await refetch();
             // Automatically stays on the page to show the pending message
-        },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast.error(error.response?.data?.message || "Failed to join company");
-        },
+        }
     });
 };
 

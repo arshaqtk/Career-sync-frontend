@@ -14,7 +14,7 @@ export const CompanyActiveJobs = ({ jobs }: { jobs: Job[] }) => {
                     <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-3">
                         Open Roles
                         <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50 border-blue-100 px-2.5">
-                            {jobs.length}
+                            {jobs?.length}
                         </Badge>
                     </h2>
                     <p className="text-sm text-slate-500 mt-1">Explore current opportunities to join our team</p>
@@ -25,7 +25,7 @@ export const CompanyActiveJobs = ({ jobs }: { jobs: Job[] }) => {
             </div>
 
             <div className="grid gap-4">
-                {jobs.map((job) => (
+                {jobs?.map((job) => (
                     <Card key={job._id} className="group overflow-hidden border-slate-200 transition-all duration-300 hover:border-blue-400 hover:shadow-md bg-white rounded-xl">
                         <CardContent className="p-0">
                             <div className="flex flex-col md:flex-row md:items-center p-5 md:p-6 gap-6">

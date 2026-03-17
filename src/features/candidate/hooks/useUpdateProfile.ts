@@ -26,7 +26,7 @@ export const useUpdateProfile = () => {
             queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
             toast.success("user Data updated successfully")
             navigate("/profile")
-        }, onError(error: unknown) { ErrorHandler(error) }
+        }
     })
 }
 
@@ -39,8 +39,7 @@ export const useUpdateProfileImage = () => {
             queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
             toast.success("Profile updated successfully")
             navigate("/profile")
-        },
-        onError(error: unknown) { { ErrorHandler(error) } }
+        }
     })
 }
 
@@ -51,8 +50,7 @@ export const useUpdateProfileAbout = () => {
         onSuccess: (updatedUser: IUser) => {
             queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
             toast.success("Profile updated successfully")
-        },
-        onError: (error: unknown) => { ErrorHandler(error) }
+        }
     })
 }
 
@@ -65,8 +63,7 @@ export const useAddProfileExperience = () => {
         onSuccess: (updatedUser: IUser) => {
             queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
             toast.success("Experience Added Successfully")
-        },
-        onError: (error: unknown) => { ErrorHandler(error) }
+        }
     })
 }
 
@@ -78,8 +75,7 @@ export const useUpdateProfileExperience = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
             toast.success("Experience Updated Successfully")
-        },
-        onError: (error: unknown) => { ErrorHandler(error) }
+        }
     })
 }
 
@@ -93,8 +89,7 @@ export const useUpdateProfileSkill = () => {
         onSuccess: (updatedUser: IUser) => {
             queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
             toast.success("Skill updated successfully")
-        },
-        onError: (error: unknown) => { ErrorHandler(error) }
+        }
     })
 }
 
@@ -107,8 +102,7 @@ export const useAddProfileEducation = () => {
         onSuccess: (updatedUser: IUser) => {
             queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
             toast.success("Education Added Successfully")
-        },
-        onError: (error: unknown) => { ErrorHandler(error) }
+        }
     })
 }
 
@@ -120,8 +114,7 @@ export const useUpdateProfileEducation = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
             toast.success("Education Updated Successfully")
-        },
-        onError: (error: unknown) => { ErrorHandler(error) }
+        }
     })
 }
 
@@ -132,8 +125,7 @@ export const useUpdateResume = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
             toast.success("Resume Updated Successfully")
-        },
-        onError: (error: unknown) => { ErrorHandler(error) }
+        }
     })
 }
 
@@ -145,29 +137,6 @@ export const useDeleteResume = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
             toast.success("Resume deleted Successfully")
-        },
-        onError: (error: unknown) => { ErrorHandler(error) }
+        }
     })
-}
-
-//--------------------Error Handler---------------------------------------
-const ErrorHandler = (error: unknown) => {
-    type ErrorWithResponse = {
-        response?: {
-            data?: {
-                message?: string;
-            };
-        };
-    };
-    if (
-        typeof error === "object" &&
-        error !== null &&
-        "response" in error &&
-        typeof (error as ErrorWithResponse).response === "object"
-    ) {
-        const err = error as ErrorWithResponse;
-        toast.error(err.response?.data?.message);
-    } else {
-        toast.error("An unexpected error occurred.");
-    }
-}
+}
