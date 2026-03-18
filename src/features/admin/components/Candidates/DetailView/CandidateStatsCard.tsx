@@ -1,4 +1,11 @@
-export function CandidateStatsCard({ stats }: any) {
+interface Stats {
+  total: number;
+  shortlisted: number;
+  rejected: number;
+  offers: number;
+}
+
+export function CandidateStatsCard({ stats }: { stats: Stats }) {
   return (
     <div className="grid grid-cols-2 gap-4">
       <Stat label="Applied" value={stats.total} />
@@ -9,7 +16,7 @@ export function CandidateStatsCard({ stats }: any) {
   )
 }
 
-function Stat({ label, value }: any) {
+function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="bg-white border rounded p-4">
       <p className="text-xs text-muted-foreground">{label}</p>

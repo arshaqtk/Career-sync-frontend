@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/shadcn/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar";
-import useLogout from "@/hooks/useLogout";
+import useLogout from "@/features/auth/hooks/useLogout";
 import useUserData from "@/hooks/useUserData";
 import { CandidateMobileSidebar } from "./CandidateMobileSidebar";
 import { useNotificationStore } from "@/store/notification.store";
@@ -43,7 +43,7 @@ export function CandidateNavbar() {
 
   return (
     <header className="w-full flex items-center justify-between px-6 py-4 bg-white border-b h-16">
-      
+
       <div>
         <img src="/careerSyncNavName.png" alt="careerSync" className="h-6 mt-1" onClick={() => navigate("/")} />
       </div>
@@ -59,22 +59,22 @@ export function CandidateNavbar() {
 
       {/* Desktop Navigation */}
       {
-        user?(<nav className="hidden lg:flex gap-8 text-sm font-medium">
-        {candidateNav.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className="hover:text-blue-600 transition"
-          >
-            {item.label}
-          </Link>
-        ))}
-      </nav>):("")
+        user ? (<nav className="hidden lg:flex gap-8 text-sm font-medium">
+          {candidateNav.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className="hover:text-blue-600 transition"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>) : ("")
       }
-      
+
 
       {/* Right Side */}
-      {user ?  (
+      {user ? (
         <div className="flex items-center gap-6">
 
           <button onClick={() => navigate("/chat")}>
@@ -116,29 +116,29 @@ export function CandidateNavbar() {
               <DropdownMenuSeparator />
 
               <AlertDialogComponent
-  alertTitle="Logout confirmation"
-  alertDescription="Are you sure you want to logout?"
-  onConfirm={handleLogout}
-   trigger={
-    <DropdownMenuItem
-      onSelect={(e) => e.preventDefault()}
-      className="text-red-600 focus:text-red-600"
-    >
-      <LogOut className="mr-2 h-4 w-4" />
-      Logout
-    </DropdownMenuItem>
-  }
-/>
+                alertTitle="Logout confirmation"
+                alertDescription="Are you sure you want to logout?"
+                onConfirm={handleLogout}
+                trigger={
+                  <DropdownMenuItem
+                    onSelect={(e) => e.preventDefault()}
+                    className="text-red-600 focus:text-red-600"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                }
+              />
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      ):(
+      ) : (
         <div className="flex items-center gap-4">
           <Button variant="ghost" className="hidden sm:inline-flex"
             onClick={() => navigate("/auth/login")}>Login</Button>
           <Button
             onClick={() => navigate("/auth/register")}>Get Started</Button>
-        </div>) }
+        </div>)}
 
 
     </header>

@@ -50,7 +50,7 @@ function Button({
 
   return (
     <Comp
-      data-slot="button"
+      data-slot="badge"
       data-variant={variant}
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
@@ -59,4 +59,5 @@ function Button({
   )
 }
 
+/* eslint-disable react-refresh/only-export-components */
 export { Button, buttonVariants }

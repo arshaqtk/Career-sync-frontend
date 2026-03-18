@@ -1,7 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/shadcn/card"
 import { StatusBadge } from "../../shared/StatusBadge"
 
-export function RecruiterInfoCard({ recruiter }: { recruiter: any }) {
+type RecruiterStatus = "active" | "blocked"
+
+interface Recruiter {
+  name: string;
+  email: string;
+  company: string;
+  status: RecruiterStatus;
+}
+
+export function RecruiterInfoCard({ recruiter }: { recruiter: Recruiter }) {
   return (
     <Card>
       <CardHeader>

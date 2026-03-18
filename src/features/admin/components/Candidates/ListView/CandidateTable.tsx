@@ -11,12 +11,20 @@ import { CandidateActions } from "./CandidateActions"
 
 type Status = "active" | "blocked"
 
+interface Candidate {
+  _id: string;
+  name: string;
+  email: string;
+  applicationCount: number;
+  status: Status;
+}
+
 export function CandidateTable({
   candidates,
   onView,
   onStatusAction,
 }: {
-  candidates: any[]
+  candidates: Candidate[]
   onView: (id: string) => void
   onStatusAction: (id: string, currentStatus: Status) => void
 }) {

@@ -19,7 +19,7 @@ export default function MessageInput() {
         receiverId: activeChatId,
         content: text.trim(),
       },
-      (_res: { success: boolean; message?: string }) => {
+      () => {
       }
     );
 

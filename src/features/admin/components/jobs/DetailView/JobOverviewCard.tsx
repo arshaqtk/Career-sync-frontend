@@ -1,6 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/shadcn/card"
 
-export function JobOverviewCard({ job }: { job: any }) {
+interface Job {
+  field: string;
+  jobType: string;
+  location: string;
+  remote: boolean;
+  experienceMin: number;
+  experienceMax: number;
+  salary?: string;
+}
+
+export function JobOverviewCard({ job }: { job: Job }) {
   return (
     <Card>
       <CardHeader>

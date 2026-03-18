@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface LimitState {
   remaining: number;       // how many left today
@@ -7,41 +7,42 @@ interface LimitState {
   isLimited: boolean;      // true if 0 remaining
 }
 
-export const useCoverLetterLimit=()=>{
-  const [limitState, setLimitState] = useState<LimitState>({
-  remaining: localStorage.getItem("coverLetterLimit")?JSON.parse(localStorage.getItem("coverLetterLimit")||"{}").remaining:5,
-  total: localStorage.getItem("coverLetterLimit")?JSON.parse(localStorage.getItem("coverLetterLimit")||"{}").total:5,
-  resetTime: localStorage.getItem("coverLetterLimit")?JSON.parse(localStorage.getItem("coverLetterLimit")||"{}").resetTime:null,
-  isLimited: localStorage.getItem("coverLetterLimit")?JSON.parse(localStorage.getItem("coverLetterLimit")||"{}").isLimited:false
-});
-
-useEffect(()=>{
-const stored=localStorage.getItem("coverLetterLimit")
-if(stored){
-   const parsed = JSON.parse(stored);
-      // Check if reset time has passed
-      if (parsed.resetTime && new Date(parsed.resetTime) < new Date()) {
-        // Reset has passed — clear stored limit
+export const useCoverLetterLimit = () => {
+  const [limitState, setLimitState] = useState<LimitState>(() => {
+    const stored = localStorage.getItem("coverLetterLimit");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        // Check if reset time has passed
+        if (parsed.resetTime && new Date(parsed.resetTime) < new Date()) {
+          localStorage.removeItem("coverLetterLimit");
+        } else {
+          return parsed;
+        }
+      } catch (e) {
+        console.error("Error parsing coverLetterLimit from localStorage", e);
         localStorage.removeItem("coverLetterLimit");
-      } else {
-        setLimitState(parsed);
       }
-}
-},[])
+    }
+    return {
+      remaining: 5,
+      total: 5,
+      resetTime: null,
+      isLimited: false
+    };
+  });
 
-const updateFromHeaders=(headers:Headers)=>{
-    console.log(headers)
-  const remaining=parseInt(headers.get("Ratelimit-Remaining")||"0")
-  const total=parseInt(headers.get("Ratelimit-Limit")||"0")
-  const resetUnix=parseInt(headers.get("Ratelimit-Reset")||"0")
-  const resetTime=resetUnix?new Date(resetUnix*1000):null
-  const newState={remaining,total,resetTime,isLimited:remaining<=0}
-  console.log(newState)
-    setLimitState(newState)
-    localStorage.setItem("coverLetterLimit",JSON.stringify(newState))
-  }
+  const updateFromHeaders = (headers: Headers) => {
+    const remaining = parseInt(headers.get("Ratelimit-Remaining") || "0");
+    const total = parseInt(headers.get("Ratelimit-Limit") || "0");
+    const resetUnix = parseInt(headers.get("Ratelimit-Reset") || "0");
+    const resetTime = resetUnix ? new Date(resetUnix * 1000) : null;
+    const newState = { remaining, total, resetTime, isLimited: remaining <= 0 };
+    setLimitState(newState);
+    localStorage.setItem("coverLetterLimit", JSON.stringify(newState));
+  };
 
-   const markAsLimited = (resetTime?: Date) => {
+  const markAsLimited = (resetTime?: Date) => {
     const newState = {
       remaining: 0,
       total: 5,
@@ -53,5 +54,4 @@ const updateFromHeaders=(headers:Headers)=>{
   };
 
   return { limitState, updateFromHeaders, markAsLimited };
-}
-
+};

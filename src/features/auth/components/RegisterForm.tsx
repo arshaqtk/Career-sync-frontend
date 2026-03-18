@@ -22,7 +22,7 @@ import {
 import { Separator } from "@/components/ui/shadcn/separator";
 
 import { registerSchema, type RegisterFormValues } from "../validators/auth.schema";
-import { useRegister } from "@/hooks/useAuth";
+import { useRegister } from "@/features/auth/hooks/useAuth";
 import { useRegisterRoleStore } from "@/store/role.store";
 import CSButton from "@/components/ui/cs-button";
 

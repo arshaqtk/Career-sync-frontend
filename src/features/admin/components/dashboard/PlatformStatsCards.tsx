@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/shadcn/card"
 import { Skeleton } from "@/components/ui/shadcn/skeleton"
-import { User, Building2, Briefcase, ClipboardList, Users, FileText, TrendingUp, TrendingDown } from "lucide-react"
+import { User, Building2, Briefcase, ClipboardList, Users, FileText } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface PlatformStat {
@@ -63,8 +63,6 @@ export function PlatformStatsCards({
 function StatCard({
   label,
   value,
-  trend,
-  trendUp,
   type,
 }: PlatformStat) {
 

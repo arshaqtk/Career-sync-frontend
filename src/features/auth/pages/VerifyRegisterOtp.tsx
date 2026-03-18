@@ -1,4 +1,4 @@
-import { useVerifyRegisterOtp} from '@/hooks/useAuth';
+import { useVerifyRegisterOtp } from '@/features/auth/hooks/useAuth';
 import { useLocation } from 'react-router-dom';
 import VerifyOtp from '../components/VerifyOtp';
 
@@ -10,8 +10,8 @@ export const VerifyRegisterOtp = () => {
 
 
     return (
-        <VerifyOtp email={email} purpose={"register"} mutateFn={mutate}  isPending={isPending} />
-        
-        
+        <VerifyOtp email={email} purpose={"register"} mutateFn={mutate} isPending={isPending} />
+
+
     )
 }

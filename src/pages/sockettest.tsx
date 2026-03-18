@@ -7,7 +7,7 @@ export default function ChatTest() {
   const [message, setMessage] = useState("")
   const socket = getSocket()
   useEffect(() => {
-    socket.on("chat:newMessage", (_msg) => {
+    socket.on("chat:newMessage", () => {
     })
 
     return () => {
@@ -35,7 +35,7 @@ export default function ChatTest() {
         receiverId,
         content: message,
       },
-      (_res: { success: boolean; message?: string }) => {
+      () => {
       }
     )
   }

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/shadcn/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/shadcn/avatar";
 import useUserData from "@/hooks/useUserData";
-import useLogout from "@/hooks/useLogout";
+import useLogout from "@/features/auth/hooks/useLogout";
 import { Spinner } from "../ui/shadcn/spinner";
 import { Button } from "@/components/ui/shadcn/button";
 import { Badge } from "../ui/shadcn/badge";

@@ -3,8 +3,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/shadcn/input-otp"
-import { useResendRegisterOtpMutation } from "@/hooks/useAuth"
-import { useResendResetPasswordOtpMutation } from "@/hooks/usePassword"
+import { useResendRegisterOtpMutation } from "@/features/auth/hooks/useAuth"
+import { useResendResetPasswordOtpMutation } from "@/features/auth/hooks/usePassword"
 import { useEffect, useState } from "react"
 import { Mail, ShieldCheck, RotateCcw, ArrowRight, Loader2 } from "lucide-react"
 

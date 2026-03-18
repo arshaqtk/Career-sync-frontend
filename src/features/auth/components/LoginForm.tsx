@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CSInput from "@/components/ui/cs-input";
 import { loginSchema, type LoginFormValues } from "../validators/auth.schema";
-import { useLogin } from "@/hooks/useAuth";
+import { useLogin } from "@/features/auth/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 

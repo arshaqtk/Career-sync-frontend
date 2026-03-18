@@ -20,7 +20,7 @@ export const SocketProvider = () => {
       console.warn("⚠️ Socket disconnected:", reason)
     })
 
-    socket.on("reconnect_attempt", (_attempt) => {
+    socket.on("reconnect_attempt", () => {
     })
 
     socket.on("reconnect", () => {

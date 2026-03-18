@@ -1,4 +1,4 @@
-import { useSendResetPasswordEmail, useVerifyResetPasswordOtp } from "@/hooks/usePassword";
+import { useSendResetPasswordEmail, useVerifyResetPasswordOtp } from "@/features/auth/hooks/usePassword";
 import { useState } from "react";
 import VerifyOtp from "../components/VerifyOtp";
 import { Input } from "@/components/ui/shadcn/input";
