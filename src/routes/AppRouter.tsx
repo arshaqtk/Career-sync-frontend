@@ -46,7 +46,6 @@ import { NotificationPage } from "@/features/notifications/pages/notificationPag
 import SocketTest from "@/pages/sockettest";
 import ChatPage from "@/features/chat/page/chatPage";
 import NotFound from "@/features/notFound/notFoundPage";
-import HomePage from "@/features/candidate/pages/Home";
 import { LandingPage } from "@/features/landingPage/pages/landingPage";
 import { AboutPage } from "@/features/landingPage/pages/AboutPage";
 import { AppLoader } from "@/components/Loaders";
@@ -64,16 +63,17 @@ function RootRoute() {
 
     if (user) {
         const roleRoutes = {
-            candidate: "/home",
+            candidate: "/jobs",
             recruiter: "/recruiter",
             admin: "/admin",
         };
-        return <Navigate to={roleRoutes[user.role as keyof typeof roleRoutes] || "/home"} replace />;
+        return <Navigate to={roleRoutes[user.role as keyof typeof roleRoutes] || "/jobs"} replace />;
     }
 
     return <LandingPage />;
 }
 export default function AppRouter() {
+
     return (
         <BrowserRouter>
             <Routes>
@@ -88,7 +88,6 @@ export default function AppRouter() {
                         <Route path="/socket-test" element={<SocketTest />} />
                         <Route path="/chat" element={<ChatPage />} />
 
-                        <Route path="/home" element={<HomePage />} />
                         <Route path="/notifications" element={<NotificationPage />} />
                         <Route path="/applications" element={<ApplicationsPage />} />
                         <Route path="/applications/:applicationId" element={<CandidateApplicationDetailPage />} />

@@ -22,7 +22,8 @@ export interface CandidateApplicationDetailResponse {
   job: {
     id: string
     title: string
-    company: string
+    company: {name:string,
+    _id:string}
     description?: string
 
     skills?: string[]
@@ -64,7 +65,7 @@ export interface CompanyData{
 export interface JobDetails {
   _id?:string
   title: string;
-  company: string;
+  company: string | { name: string; _id: string };
   field:string;
   description?: string;
   skills?: string[];

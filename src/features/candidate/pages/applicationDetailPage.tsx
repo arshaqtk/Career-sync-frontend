@@ -30,7 +30,7 @@ export const CandidateApplicationDetailPage = () => {
     return <div>Unable to load application</div>
   }
   if (error) handleRQError(error)
-
+console.log(application)
 
 
   return (

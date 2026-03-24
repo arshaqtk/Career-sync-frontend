@@ -17,6 +17,8 @@ import { getOnlineUsersApi } from "./api/users.api";
 const queryClient = new QueryClient();
 
 function App() {
+ 
+
 useEffect(() => {
     const socket = getSocket();
     initPresenceSocket();

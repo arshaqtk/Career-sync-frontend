@@ -1,5 +1,4 @@
 export const candidateNav = [
-  { label: "Home", path: "/home" },
   { label: "Jobs", path: "/jobs" },
   { label: "Applications", path: "/applications" },
   { label: "Interviews", path: "/interviews" },
@@ -7,7 +6,6 @@ export const candidateNav = [
 ];
 
 export const candidateMobileSideBarNav = [
-  { label: "Home", path: "/" },
   { label: "Jobs", path: "/jobs" },
   { label: "Applications", path: "/applications" },
   { label: "Interviews", path: "/interviews" },

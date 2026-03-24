@@ -42,7 +42,7 @@ export function CandidateNavbar() {
 
 
   return (
-    <header className="w-full flex items-center justify-between px-6 py-4 bg-white border-b h-16">
+    <header className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 py-4 bg-white h-16">
 
       <div>
         <img src="/careerSyncNavName.png" alt="careerSync" className="h-6 mt-1" onClick={() => navigate("/")} />
