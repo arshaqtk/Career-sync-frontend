@@ -35,7 +35,8 @@ export function JobTable({
   onAction: (jobId: string, status: JobStatus) => void
 }) {
   return (
-    <div className="bg-white border rounded-md">
+    <div className="bg-card border border-border/50 rounded-xl overflow-hidden shadow-sm">
+
       <Table>
         <TableHeader>
           <TableRow>

@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { Users, Briefcase, BarChart, Building2 } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const navItems = [
   { label: "Dashboard", icon: BarChart, to: "/admin" },
@@ -10,11 +11,37 @@ const navItems = [
   // { label: "System Logs", icon: Shield, to: "/admin/logs" },
 ]
 
+import { motion, AnimatePresence } from "framer-motion"
+
+const springConfig = { stiffness: 300, damping: 30 }
+
 export function AdminSidebar({ isOpen }: { isOpen: boolean }) {
   return (
-    <div className="h-full w-full bg-background border-r px-3 py-6">
-      <div className="mb-8 text-center font-bold">
-        {isOpen ? "Admin Panel" : "A"}
+    <div className="h-full w-full bg-background/50 backdrop-blur-xl border-r border-border/50 px-3 py-6 relative overflow-hidden">
+      <div className={cn("mb-10 px-4 flex items-center", !isOpen && "justify-center")}>
+        <div className="flex items-center gap-3">
+            <motion.div 
+               layout
+               transition={springConfig}
+               className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-lg shadow-primary/20 shrink-0"
+            >
+                <BarChart className="text-primary-foreground h-5 w-5" />
+            </motion.div>
+            
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.span 
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10, transition: { duration: 0.1 } }}
+                        transition={{ ...springConfig, delay: 0.1 }}
+                        className="text-xl font-bold tracking-tight text-foreground bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent whitespace-nowrap"
+                    >
+                        CareerSync
+                    </motion.span>
+                )}
+            </AnimatePresence>
+        </div>
       </div>
 
       <nav className="space-y-2">
@@ -23,12 +50,31 @@ export function AdminSidebar({ isOpen }: { isOpen: boolean }) {
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-md px-3 py-2 text-sm transition
-              ${isActive ? "bg-muted font-medium" : "hover:bg-muted"}`
+              cn(
+                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-300 group relative",
+                isActive 
+                  ? "bg-primary/10 text-primary font-bold shadow-sm shadow-primary/5" 
+                  : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+              )
             }
           >
-            <Icon className="h-4 w-4" />
-            {isOpen && <span>{label}</span>}
+            <motion.div layout transition={springConfig} className="shrink-0 z-10">
+                <Icon className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+            </motion.div>
+            
+            <AnimatePresence mode="popLayout">
+                {isOpen && (
+                    <motion.span
+                        initial={{ opacity: 0, x: -5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -5, transition: { duration: 0.1 } }}
+                        transition={{ ...springConfig, delay: 0.05 }}
+                        className="whitespace-nowrap font-medium"
+                    >
+                        {label}
+                    </motion.span>
+                )}
+            </AnimatePresence>
           </NavLink>
         ))}
       </nav>

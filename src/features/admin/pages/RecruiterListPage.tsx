@@ -11,6 +11,7 @@ import { useRecruiterStatusAction } from "../hooks/useToggleRecruiterStatus"
 import { Input } from "@/components/ui/shadcn/input"
 import { Card, CardContent } from "@/components/ui/shadcn/card"
 import { Button } from "@/components/ui/shadcn/button"
+import { Search } from "lucide-react"
 import {
   Select,
   SelectContent,
@@ -63,19 +64,24 @@ export default function RecruitersListPage() {
         subtitle="Manage and review recruiter profiles"
       />
 
-      <Card>
-        <CardContent className="space-y-4">
+      <Card className="border-border/50 shadow-sm overflow-hidden">
+        <CardContent className="space-y-6 pt-6">
           {/* 🔍 Filters */}
-          <div className="flex flex-wrap gap-3">
-            <Input
-              placeholder="Search by name or email..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value)
-                setPage(1)
-              }}
-              className="max-w-sm"
-            />
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between pb-2 border-b border-border/10">
+            <div className="relative w-full max-w-sm">
+                <Input
+                placeholder="Search by name or email..."
+                value={search}
+                onChange={(e) => {
+                    setSearch(e.target.value)
+                    setPage(1)
+                }}
+                className="pl-9 h-11 rounded-xl bg-muted/30 border-none focus-visible:ring-primary/20"
+                />
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <Search className="h-4 w-4" />
+                </div>
+            </div>
 
             <Select
               value={status}
@@ -84,7 +90,7 @@ export default function RecruitersListPage() {
                 setPage(1)
               }}
             >
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-full md:w-48 h-11 rounded-xl bg-muted/30 border-none">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>

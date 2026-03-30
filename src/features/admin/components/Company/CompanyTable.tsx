@@ -60,35 +60,35 @@ export function CompanyTable({
                     </TableRow>
                 ) : (
                     companies.map((company) => (
-                        <TableRow key={company._id}>
+                        <TableRow key={company?._id}>
                             <TableCell className="font-medium">
                                 <div>
-                                    <div>{company.name}</div>
-                                    <div className="text-xs text-muted-foreground">{company.location}</div>
+                                    <div>{company?.name}</div>
+                                    <div className="text-xs text-muted-foreground">{company?.location}</div>
                                 </div>
                             </TableCell>
-                            <TableCell>{company.industry}</TableCell>
+                            <TableCell>{company?.industry}</TableCell>
                             <TableCell>
                                 <div>
-                                    <div className="text-sm">{company.owner.name}</div>
-                                    <div className="text-xs text-muted-foreground">{company.owner.email}</div>
+                                    <div className="text-sm">{company?.owner?.name}</div>
+                                    <div className="text-xs text-muted-foreground">{company?.owner?.email}</div>
                                 </div>
                             </TableCell>
                             <TableCell>
-                                <VerificationBadge status={company.verificationStatus} />
+                                <VerificationBadge status={company?.verificationStatus} />
                             </TableCell>
                             <TableCell>
-                                <ActiveBadge isActive={company.isActive} />
+                                <ActiveBadge isActive={company?.isActive} />
                             </TableCell>
                             <TableCell className="text-right">
                                 <CompanyActions
-                                    status={company.verificationStatus}
-                                    isActive={company.isActive}
-                                    onView={() => onView(company._id)}
-                                    onApprove={() => onApprove(company._id)}
-                                    onReject={() => onReject(company._id)}
-                                    onBlock={() => onBlock(company._id)}
-                                    onUnblock={() => onUnblock(company._id)}
+                                    status={company?.verificationStatus}
+                                    isActive={company?.isActive}
+                                    onView={() => onView(company?._id)}
+                                    onApprove={() => onApprove(company?._id)}
+                                    onReject={() => onReject(company?._id)}
+                                    onBlock={() => onBlock(company?._id)}
+                                    onUnblock={() => onUnblock(company?._id)}
                                 />
                             </TableCell>
                         </TableRow>

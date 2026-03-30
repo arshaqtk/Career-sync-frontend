@@ -10,34 +10,39 @@ export function PageHeader({
   onBack,
 }: PageHeaderProps) {
   return (
-    <div className="flex items-start justify-between mb-6 gap-4">
-      <div className="flex items-start gap-3">
+    <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 pb-6 border-b border-border/50 gap-6">
+      <div className="flex items-start gap-4">
         {onBack && (
           <Button
             size="icon"
-            variant="ghost"
+            variant="outline"
             onClick={onBack}
-            className="mt-1"
+            className="h-10 w-10 shrink-0 rounded-xl"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-5 w-5" />
           </Button>
         )}
 
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold">{title}</h1>
+        <div className="space-y-1">
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">{title}</h1>
+
             {statusBadge}
           </div>
 
           {subtitle && (
-            <p className="text-sm text-muted-foreground mt-0.5">
+            <p className="text-muted-foreground font-medium max-w-2xl">
               {subtitle}
             </p>
           )}
         </div>
       </div>
 
-      {actions && <div className="flex gap-2">{actions}</div>}
+      {actions && (
+        <div className="flex items-center gap-3 shrink-0">
+          {actions}
+        </div>
+      )}
     </div>
   )
 }

@@ -1,49 +1,71 @@
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
+import { motion } from "framer-motion"
 
 import {AdminSidebar} from "../components/navigation/AdminSidebar"
 import {AdminTopNavbar} from "../components/navigation/AdminTopNavbar"
-import {SidebarToggle} from "../components/navigation/SidebarToggle"
 
 export default function AdminLayout() {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
+
+  const sidebarVariants = {
+    open: { width: 256 },
+    closed: { width: 80 },
+  }
+
+  const contentVariants = {
+    open: { marginLeft: 256 },
+    closed: { marginLeft: 80 },
+  }
+
+  const sidebarTransition = {
+    stiffness: 300,
+    damping: 30,
+    mass: 1,
+  };
 
   return (
-    <div className="min-h-screen flex bg-muted/40">
-      {/* Sidebar */}
-      <aside
-        className={`hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex
-        ${isOpen ? "lg:w-64" : "lg:w-20"}
-        transition-all duration-300`}
+    <div className="dark min-h-screen flex bg-background text-foreground transition-colors duration-300">
+      {/* Sidebar with Hover Event */}
+      <motion.aside
+        initial={false}
+        animate={isOpen ? "open" : "closed"}
+        variants={sidebarVariants}
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+        transition={sidebarTransition}
+        className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex overflow-hidden z-50 border-r border-border/50"
       >
         <AdminSidebar isOpen={isOpen} />
-      </aside>
+      </motion.aside>
 
-      {/* Sidebar Toggle */}
-      <SidebarToggle
-        isOpen={isOpen}
-        toggle={() => setIsOpen((prev) => !prev)}
-      />
-
-      {/* Main Content */}
-      <div
-        className={`flex flex-col flex-1 transition-all duration-300
-        ${isOpen ? "lg:ml-64" : "lg:ml-20"}`}
+      {/* Main Content & Header */}
+      <motion.div
+        initial={false}
+        animate={isOpen ? "open" : "closed"}
+        variants={contentVariants}
+        transition={sidebarTransition}
+        className="flex flex-col flex-1 min-h-screen"
       >
         {/* Top Navbar */}
-        <header
-          className={`fixed top-0 right-0 z-40 h-16 bg-background border-b
-          ${isOpen ? "lg:left-64" : "lg:left-20"}
-          transition-all duration-300`}
+        <motion.header
+          initial={false}
+          animate={isOpen ? "open" : "closed"}
+          variants={{
+              open: { left: 256 },
+              closed: { left: 80 }
+          }}
+          transition={sidebarTransition}
+          className="fixed top-0 right-0 z-40 h-16 bg-background/80 backdrop-blur-md border-b"
         >
           <AdminTopNavbar />
-        </header>
+        </motion.header>
 
         {/* Page Content */}
         <main className="pt-20 px-6">
           <Outlet />
         </main>
-      </div>
+      </motion.div>
     </div>
   )
 }

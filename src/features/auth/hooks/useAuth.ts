@@ -38,7 +38,7 @@ export const useLogin = () => {
                 navigate("/admin")
             }
             else {
-                navigate("/home")
+                navigate("/")
             }
 
         }

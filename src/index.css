@@ -78,37 +78,37 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #0d1117;
+  --foreground: #f9fafb;
+  --card: #151823;
+  --card-foreground: #f9fafb;
+  --popover: #151823;
+  --popover-foreground: #f9fafb;
+  --primary: #3b82f6;
+  --primary-foreground: #f9fafb;
+  --secondary: #1e2330;
+  --secondary-foreground: #e5e7eb;
+  --muted: #1a1f2e;
+  --muted-foreground: #9ca3af;
+  --accent: #2d3a5e;
+  --accent-foreground: #93c5fd;
+  --destructive: #ef4444;
+  --border: #1e2330;
+  --input: #1e2330;
+  --ring: #3b4f85;
+  --chart-1: #3b82f6;
+  --chart-2: #10b981;
+  --chart-3: #fbbf24;
+  --chart-4: #ef4444;
+  --chart-5: #93c5fd;
+  --sidebar: #0d1117;
+  --sidebar-foreground: #f9fafb;
+  --sidebar-primary: #3b82f6;
+  --sidebar-primary-foreground: #f9fafb;
+  --sidebar-accent: #1e2330;
+  --sidebar-accent-foreground: #f9fafb;
+  --sidebar-border: #1e2330;
+  --sidebar-ring: #3b4f85;
 }
 
 .scrollbar-hide {

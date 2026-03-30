@@ -68,18 +68,18 @@ function StatCard({
 
   // Design properties based on type
   const styleConfig: Record<string, { icon: React.ElementType, bgClass: string, iconClass: string }> = {
-    "users": { icon: User, bgClass: "bg-blue-50", iconClass: "text-blue-600" },
-    "companies": { icon: Building2, bgClass: "bg-cyan-50", iconClass: "text-cyan-600" },
-    "jobs": { icon: Briefcase, bgClass: "bg-amber-50", iconClass: "text-amber-600" },
-    "apps": { icon: ClipboardList, bgClass: "bg-indigo-50", iconClass: "text-indigo-600" },
-    "new-users": { icon: Users, bgClass: "bg-fuchsia-50", iconClass: "text-fuchsia-600" },
-    "jobs-today": { icon: FileText, bgClass: "bg-emerald-50", iconClass: "text-emerald-600" },
+    "users": { icon: User, bgClass: "bg-blue-500/10", iconClass: "text-blue-500" },
+    "companies": { icon: Building2, bgClass: "bg-cyan-500/10", iconClass: "text-cyan-500" },
+    "jobs": { icon: Briefcase, bgClass: "bg-amber-500/10", iconClass: "text-amber-500" },
+    "apps": { icon: ClipboardList, bgClass: "bg-indigo-500/10", iconClass: "text-indigo-500" },
+    "new-users": { icon: Users, bgClass: "bg-fuchsia-500/10", iconClass: "text-fuchsia-500" },
+    "jobs-today": { icon: FileText, bgClass: "bg-emerald-500/10", iconClass: "text-emerald-500" },
   };
 
   const config = type && styleConfig[type] ? styleConfig[type] : styleConfig["users"];
   const Icon = config.icon;
 
-  // Formatting value elegantly (e.g. 12400 -> 12.4k if needed, but the image shows exact if possible, or we can use a helper)
+  // Formatting value elegantly
   const formatValue = (num: number) => {
     if (num >= 1000) {
       const k = num / 1000;
@@ -89,25 +89,19 @@ function StatCard({
   };
 
   return (
-    <Card className="hover:shadow-lg transition-all border-gray-100 shadow-sm rounded-xl">
+    <Card className="hover:shadow-lg transition-all border-border/50 shadow-sm rounded-xl">
       <CardContent className="p-5 flex flex-col justify-between h-full">
         {/* Top Section */}
         <div className="flex justify-between items-start mb-4">
           <div className={cn("p-2.5 rounded-lg", config.bgClass)}>
             <Icon className={cn("w-5 h-5", config.iconClass)} />
           </div>
-          {/* {trend && (
-            <div className={cn("flex items-center text-xs font-semibold", trendUp ? "text-emerald-500" : "text-rose-500")}>
-              {trend}
-              {trendUp ? <TrendingUp className="w-3 h-3 ml-1" /> : <TrendingDown className="w-3 h-3 ml-1" />}
-            </div>
-          )} */}
         </div>
 
         {/* Bottom Section */}
         <div className="mt-auto">
           <p className="text-[11px] font-bold tracking-wider text-muted-foreground uppercase mb-1">{label}</p>
-          <h3 className="text-2xl font-bold text-gray-900 tracking-tight">
+          <h3 className="text-2xl font-bold text-foreground tracking-tight">
             {formatValue(value)}
           </h3>
         </div>

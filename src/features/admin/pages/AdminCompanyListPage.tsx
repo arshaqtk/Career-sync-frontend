@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Users } from "lucide-react"
 import { PageHeader } from "../components/shared/PageHeader"
 import { CompanyTable } from "../components/Company/CompanyTable"
 import { useAdminCompanies } from "../hooks/useAdminCompanies"
@@ -72,54 +73,61 @@ export default function AdminCompanyListPage() {
                 subtitle="Manage and verify company profiles"
             />
 
-            <Card>
-                <CardContent className="space-y-4 pt-6">
+            <Card className="border-border/50 shadow-sm overflow-hidden">
+                <CardContent className="space-y-6 pt-6">
                     {/* 🔍 Filters */}
-                    <div className="flex flex-wrap gap-3">
-                        <Input
-                            placeholder="Search by company name..."
-                            value={search}
-                            onChange={(e) => {
-                                setSearch(e.target.value)
-                                setPage(1)
-                            }}
-                            className="max-w-sm"
-                        />
+                    <div className="flex flex-col md:flex-row gap-4 items-center justify-between pb-2 border-b border-border/10">
+                        <div className="relative w-full max-w-sm">
+                            <Input
+                                placeholder="Search by company name..."
+                                value={search}
+                                onChange={(e) => {
+                                    setSearch(e.target.value)
+                                    setPage(1)
+                                }}
+                                className="pl-9 h-11 rounded-xl bg-muted/30 border-none focus-visible:ring-primary/20"
+                            />
+                            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                                <Users className="h-4 w-4" />
+                            </div>
+                        </div>
 
-                        <Select
-                            value={verificationStatus}
-                            onValueChange={(val:"pending" | "approved" | "rejected" | "all") => {
-                                setVerificationStatus(val)
-                                setPage(1)
-                            }}
-                        >
-                            <SelectTrigger className="w-40">
-                                <SelectValue placeholder="Verification" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All Verification</SelectItem>
-                                <SelectItem value="pending">Pending</SelectItem>
-                                <SelectItem value="approved">Approved</SelectItem>
-                                <SelectItem value="rejected">Rejected</SelectItem>
-                            </SelectContent>
-                        </Select>
+                        <div className="flex gap-3 w-full md:w-auto">
+                            <Select
+                                value={verificationStatus}
+                                onValueChange={(val:"pending" | "approved" | "rejected" | "all") => {
+                                    setVerificationStatus(val)
+                                    setPage(1)
+                                }}
+                            >
+                                <SelectTrigger className="w-full md:w-48 h-11 rounded-xl bg-muted/30 border-none">
+                                    <SelectValue placeholder="Verification" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Verification</SelectItem>
+                                    <SelectItem value="pending">Pending</SelectItem>
+                                    <SelectItem value="approved">Approved</SelectItem>
+                                    <SelectItem value="rejected">Rejected</SelectItem>
+                                </SelectContent>
+                            </Select>
 
-                        <Select
-                            value={isActive}
-                            onValueChange={(val:"true" | "false" | "all") => {
-                                setIsActive(val)
-                                setPage(1)
-                            }}
-                        >
-                            <SelectTrigger className="w-40">
-                                <SelectValue placeholder="Status" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All Status</SelectItem>
-                                <SelectItem value="true">Active</SelectItem>
-                                <SelectItem value="false">Blocked</SelectItem>
-                            </SelectContent>
-                        </Select>
+                            <Select
+                                value={isActive}
+                                onValueChange={(val:"true" | "false" | "all") => {
+                                    setIsActive(val)
+                                    setPage(1)
+                                }}
+                            >
+                                <SelectTrigger className="w-full md:w-40 h-11 rounded-xl bg-muted/30 border-none">
+                                    <SelectValue placeholder="Status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Status</SelectItem>
+                                    <SelectItem value="true">Active</SelectItem>
+                                    <SelectItem value="false">Blocked</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
 
                     {/* 📋 Table */}

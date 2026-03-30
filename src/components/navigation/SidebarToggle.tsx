@@ -1,7 +1,8 @@
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/shadcn/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 
-export  function SidebarToggle({
+export function SidebarToggle({
   isOpen,
   toggle,
 }: {
@@ -9,23 +10,25 @@ export  function SidebarToggle({
   toggle: () => void
 }) {
   return (
-    <div
-      className={`hidden lg:flex fixed top-1/2 z-50
-      ${isOpen ? "left-64" : "left-20"}
-      transition-all duration-300`}
+    <motion.div
+      initial={false}
+      animate={{ left: isOpen ? 256 : 80 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className="hidden lg:flex fixed top-1/2 -translate-y-1/2 -ml-3 z-50 translate-x-1/2"
     >
       <Button
         size="icon"
         variant="secondary"
         onClick={toggle}
-        className="rounded-full shadow"
+        className="rounded-full h-6 w-6 shadow-md border border-border/50 bg-background text-foreground hover:bg-muted"
       >
-        {isOpen ? (
-          <ChevronLeft className="h-4 w-4" />
-        ) : (
-          <ChevronRight className="h-4 w-4" />
-        )}
+        <motion.div
+          animate={{ rotate: isOpen ? 0 : 180 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ChevronRight className={`h-3 w-3 ${isOpen ? 'rotate-180' : ''} transition-transform`} />
+        </motion.div>
       </Button>
-    </div>
+    </motion.div>
   )
 }

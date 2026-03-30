@@ -6,8 +6,8 @@ import useLogout from "@/features/auth/hooks/useLogout";
 export function AdminTopNavbar() {
   const handleLogout = useLogout();
   return (
-    <div className="h-full flex items-center justify-between px-6">
-      <h1 className="text-lg font-semibold">Admin Dashboard</h1>
+    <div className="h-full flex items-center justify-end px-6">
+
       <DropdownMenu>
         <DropdownMenuTrigger className="cursor-pointer">
           <Avatar>
