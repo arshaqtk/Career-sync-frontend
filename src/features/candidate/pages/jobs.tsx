@@ -12,8 +12,7 @@ import { handleRQError } from "@/lib/react-query/errorHandler";
 import type { CandidateJob } from "../types/candidateJob.type";
 import { useSearchParams } from "react-router-dom";
 import { getValidParams } from "@/lib/utils";
-import { Sheet, SheetContent, SheetClose } from "@/components/ui/shadcn/sheet";
-import { X } from "lucide-react";
+import { Sheet, SheetContent } from "@/components/ui/shadcn/sheet";
 
 
 export default function JobPage() {
@@ -70,18 +69,14 @@ export default function JobPage() {
   const { data: jobs, isLoading, isFetching, isError, error } = useCandidateJobData({ page, limit: 5, filters })
 
   useEffect(() => {
-    // On desktop, auto-select first job if none selected
+   
     const isDesktop = window.matchMedia("(min-width: 768px)").matches;
 
     if (jobs?.jobs?.length && !selectedJob && isDesktop) {
       setSelectedJob(jobs?.jobs[0]);
     }
-    // const stillExists = jobs.jobs.find((job: CandidateJob) =>
-    //   job._id === selectedJob?._id)
-
-    // if (!stillExists) {
-    //   setSelectedJob(jobs.jobs[0])
-    // }
+   
+    
   }, [jobs?.jobs, selectedJob, setSelectedJob])
 
   // Handle mobile selection
@@ -140,9 +135,6 @@ export default function JobPage() {
             <SheetContent side="bottom" className="h-[96vh] p-0 border-none bg-white rounded-t-[2.5rem] shadow-[0_-8px_30px_rgb(0,0,0,0.12)] flex flex-col outline-none overflow-hidden">
               <div className="flex-none bg-white pt-5 pb-4 border-b border-slate-50 relative">
                 <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto" />
-                <SheetClose className="absolute right-6 top-1/2 -translate-y-1/2 p-2 hover:bg-slate-50 rounded-full transition-colors outline-none">
-                  <X className="w-5 h-5 text-slate-400" />
-                </SheetClose>
               </div>
               <div className="flex-1 overflow-y-auto scrollbar-hide">
                 <JobDetails job={selectedJob} />

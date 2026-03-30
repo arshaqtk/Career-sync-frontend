@@ -12,7 +12,7 @@ import { JobSkillsCard } from "../components/jobs/DetailView/JobSkillsCard"
 import { JobStatsCard } from "../components/jobs/DetailView/JobStatsCard"
 import { RecruiterInfoCard } from "../components/jobs/DetailView/RecruiterInfoCard"
 import { JobActionCard } from "../components/jobs/DetailView/JobActionCard"
-import {  SectionSkeleton } from "@/components/Loaders"
+import {  JobDetailSkeleton } from "@/components/Loaders"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 import { JobBlockedInfoCard } from "../components/jobs/DetailView/jobBlockedInfoCard"
 
@@ -27,7 +27,7 @@ export default function AdminJobDetailPage() {
   const [currentStatus, setCurrentStatus] =
     useState<Status | null>(null)
 
-  if (isLoading) return <SectionSkeleton/>
+  if (isLoading) return <JobDetailSkeleton/>
   if(error)handleRQError(error)
 
   const job = data.data

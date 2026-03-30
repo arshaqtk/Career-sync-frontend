@@ -5,7 +5,7 @@ import { useAdminCompanyActions } from "../hooks/useAdminCompanyActions"
 import { AdminCompanyHeader } from "../components/Company/AdminCompanyHeader"
 import { AdminCompanyInfo } from "../components/Company/AdminCompanyInfo"
 import { AdminCompanyRecruiters } from "../components/Company/AdminCompanyRecruiters"
-import { SectionSkeleton } from "@/components/Loaders"
+import { CompanyDetailSkeleton } from "@/components/Loaders"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 import { ConfirmStatusDialog } from "../components/dialogs/ConfirmBlockUser"
 
@@ -16,7 +16,7 @@ export default function AdminCompanyDetailPage() {
 
     const [blockDialogOpen, setBlockDialogOpen] = useState(false)
 
-    if (isLoading) return <SectionSkeleton />
+    if (isLoading) return <CompanyDetailSkeleton />
     if (isError || !response?.data) {
         handleRQError(error)
         return <div className="p-10 text-center text-red-500 font-bold">Failed to load company details.</div>
