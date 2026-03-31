@@ -10,7 +10,7 @@ export default function EducationCard({ education }: EducationCardProps) {
     if (!education?.length) return null;
 
     return (
-        <Card className="bg-white border border-gray-200 shadow-sm overflow-hidden text-black mt-6">
+        <Card className="bg-card border border-gray-200 shadow-sm overflow-hidden text-black mt-6">
             <CardHeader className="bg-gray-50 border-b border-gray-200 py-4">
                 <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                     <GraduationCap className="h-4 w-4" />

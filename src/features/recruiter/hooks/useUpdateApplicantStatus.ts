@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner";
 import type { ApplicationStatus } from "../types/applicationStatus.types";
 import type { RecruiterApplicationDTO } from "../types/application.dto";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 type UpdateApplicationResponse = {
   message: string;
   data:RecruiterApplicationDTO
@@ -25,7 +26,8 @@ export const useUpdateApplicantStatus=()=>{
       };
     }
   );
-        }
+        },
+        onError: handleRQError
     })
     
     }

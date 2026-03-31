@@ -53,7 +53,7 @@ export default function JobApplicantsPage() {
         />
       ) : (
         // Empty state / fallback UI
-        <Card className="border-dashed border-2 bg-white/60 backdrop-blur-sm">
+        <Card className="border-dashed border-2 bg-card/60 backdrop-blur-sm">
           <CardContent className="flex flex-col items-center justify-center py-16 text-center">
             <div className="rounded-full bg-muted p-6 mb-6">
               <Inbox className="h-12 w-12 text-muted-foreground" />

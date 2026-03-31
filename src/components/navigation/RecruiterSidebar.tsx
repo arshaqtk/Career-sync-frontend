@@ -3,6 +3,7 @@ import { recruiterSidebar } from "@/config/recruiterSidebar.config";
 import { iconMap } from "@/config/iconMap";
 import { cn } from "@/lib/utils";
 import useUserData from "@/hooks/useUserData";
+import CareerSyncLogo from "@/shared/logo/careerSync.logo";
 
 interface RecruiterSidebarProps {
   isOpen: boolean;
@@ -28,13 +29,7 @@ export function RecruiterSidebar({ isOpen, isMobile, onNavItemClick }: Recruiter
           "h-20 flex items-center px-6 border-b transition-all duration-300",
           !isOpen && "justify-center px-0"
         )}>
-          <span className={cn(
-            "text-2xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent truncate",
-            !isOpen && "hidden"
-          )}>
-            CSync
-          </span>
-          {!isOpen && <span className="text-2xl font-bold text-primary">C</span>}
+           <CareerSyncLogo showText={isOpen} className="h-9" />
         </div>
       )}
 
@@ -54,7 +49,7 @@ export function RecruiterSidebar({ isOpen, isMobile, onNavItemClick }: Recruiter
                     "flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group relative",
                     isActive
                       ? "bg-primary/10 text-primary font-semibold shadow-sm"
-                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-900",
+                      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
                     !isOpen && !isMobile && "justify-center p-3"
                   )
                 }
@@ -69,7 +64,7 @@ export function RecruiterSidebar({ isOpen, isMobile, onNavItemClick }: Recruiter
                 )}
 
                 {!isOpen && !isMobile && (
-                  <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 whitespace-nowrap">
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-popover text-popover-foreground border border-border text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 whitespace-nowrap">
                     {item.label}
                   </div>
                 )}
@@ -78,9 +73,9 @@ export function RecruiterSidebar({ isOpen, isMobile, onNavItemClick }: Recruiter
           })}
       </nav>
 
-      <div className="p-4 border-t">
+      <div className="p-4 border-t border-border">
         <div className={cn(
-          "bg-gray-50 rounded-xl p-3 flex items-center gap-3",
+          "bg-muted/50 rounded-xl p-3 flex items-center gap-3",
           !isOpen && !isMobile && "justify-center"
         )}>
           <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0">
@@ -88,8 +83,8 @@ export function RecruiterSidebar({ isOpen, isMobile, onNavItemClick }: Recruiter
           </div>
           {(isOpen || isMobile) && (
             <div className="flex flex-col truncate">
-              <span className="text-xs font-semibold text-gray-900">Recruiter Mode</span>
-              <span className="text-[10px] text-gray-500">Professional Access</span>
+              <span className="text-xs font-semibold text-foreground">Recruiter Mode</span>
+              <span className="text-[10px] text-muted-foreground">Professional Access</span>
             </div>
           )}
         </div>

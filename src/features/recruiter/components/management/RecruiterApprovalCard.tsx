@@ -27,7 +27,7 @@ export function RecruiterApprovalCard({
         <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow duration-200"
+            className="bg-card rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow duration-200"
         >
             <div className="flex items-start justify-between gap-4">
                 <div className="flex gap-4">

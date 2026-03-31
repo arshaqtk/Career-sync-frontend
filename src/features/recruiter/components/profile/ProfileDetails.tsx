@@ -21,8 +21,8 @@ export function RecruiterProfileDetails({ profile }: RecruiterProfileDetailsProp
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 space-y-12">
       {/* Personal Info Section */}
       <section className="space-y-6">
-        <div className="flex items-center gap-2 px-1 border-b border-slate-100 pb-2">
-          <CardTitle className="text-xl font-bold text-slate-900">Personal Information</CardTitle>
+        <div className="flex items-center gap-2 px-1 border-b border-border/50 pb-2">
+          <CardTitle className="text-xl font-bold text-foreground">Personal Information</CardTitle>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-2">
@@ -34,10 +34,10 @@ export function RecruiterProfileDetails({ profile }: RecruiterProfileDetailsProp
 
       {/* Company Info Section */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between px-1 border-b border-slate-100 pb-2">
+        <div className="flex items-center justify-between px-1 border-b border-border/50 pb-2">
           <div className="space-y-1">
-            <CardTitle className="text-xl font-bold text-slate-900">Company Overview</CardTitle>
-            <p className="text-xs text-slate-500 font-medium tracking-tight">Public details shown on company pages</p>
+            <CardTitle className="text-xl font-bold text-foreground">Company Overview</CardTitle>
+            <p className="text-xs text-muted-foreground font-medium tracking-tight">Public details shown on company pages</p>
           </div>
 
           <Button
@@ -68,9 +68,9 @@ export function RecruiterProfileDetails({ profile }: RecruiterProfileDetailsProp
                 <InfoRow label="Founded Date" value={company?.foundedYear || "—"} />
               </div>
 
-              <div className="space-y-3 p-6 bg-slate-50/50 rounded-xl border border-slate-100/50">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">About the Company</span>
-                <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-line font-medium italic">
+              <div className="space-y-3 p-6 bg-muted/50/50 rounded-xl border border-border/50/50">
+                <span className="text-xs font-bold text-muted-foreground/70 uppercase tracking-wider">About the Company</span>
+                <p className="text-foreground/80 text-sm leading-relaxed whitespace-pre-line font-medium italic">
                   "{company?.description || "No description provided yet. Add one to help candidates find you."}"
                 </p>
               </div>

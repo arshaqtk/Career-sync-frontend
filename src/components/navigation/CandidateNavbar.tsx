@@ -1,4 +1,4 @@
-import { Bell, LogOut, MessageSquare, User } from "lucide-react";
+import { Bell, LogOut, MessageSquareText, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { candidateNav } from "@/config/candidateNav.config";
 import {
@@ -83,7 +83,7 @@ export function CandidateNavbar() {
           <ThemeToggle />
 
           <button onClick={() => navigate("/chat")} className="hover:text-blue-600 transition-colors">
-            <MessageSquare />
+            <MessageSquareText />
           </button>
           {/* Notifications */}
           <button onClick={() => navigate("/notifications")} className="relative hover:text-blue-600 transition-colors">

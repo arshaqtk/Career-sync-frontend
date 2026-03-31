@@ -14,6 +14,7 @@ import useLogout from "@/features/auth/hooks/useLogout";
 import { Spinner } from "../ui/shadcn/spinner";
 import { Button } from "@/components/ui/shadcn/button";
 import { Badge } from "../ui/shadcn/badge";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface RecruiterTopNavbarProps {
   onMenuClick?: () => void;
@@ -54,6 +55,8 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
 
       {/* Right side */}
       <div className="flex items-center gap-2 sm:gap-4">
+        
+        <ThemeToggle />
 
         {/* Notifications */}
         <div className="relative">
@@ -80,13 +83,13 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="pl-1 pr-2 py-1 h-auto flex items-center gap-3 rounded-full hover:bg-muted/50 transition-all group">
               <div className="relative">
-                <Avatar className="h-9 w-9 border-2 border-white shadow-sm ring-1 ring-slate-100 transition-all group-hover:ring-blue-100">
+                <Avatar className="h-9 w-9 border-2 border-background shadow-sm ring-1 ring-border transition-all group-hover:ring-primary/20">
                   <AvatarImage src={user?.profilePicture?.url} alt={user?.name} className="object-cover" />
-                  <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-xs uppercase">
+                  <AvatarFallback className="bg-primary/10 text-primary font-bold text-xs uppercase">
                     {user?.name?.substring(0, 2) || "RC"}
                   </AvatarFallback>
                 </Avatar>
-                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
+                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-background rounded-full" />
               </div>
 
               <div className="hidden lg:flex flex-col items-start leading-none text-left gap-1">

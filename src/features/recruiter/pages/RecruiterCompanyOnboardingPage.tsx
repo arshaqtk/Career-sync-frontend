@@ -16,7 +16,7 @@ export default function RecruiterCompanyOnboardingPage() {
     const isPending = user?.recruiterData?.companyApprovalStatus === "pending";
 
     return (
-        <div className="min-h-screen flex bg-white">
+        <div className="min-h-screen flex bg-card">
             {/* ─── Left Panel ─── */}
             <div className="hidden lg:flex w-[40%] bg-slate-900 flex-col justify-between p-12 relative overflow-hidden">
                 {/* grid pattern */}
@@ -43,7 +43,7 @@ export default function RecruiterCompanyOnboardingPage() {
                         <h2 className="text-3xl font-bold text-white leading-snug">
                             {isPending ? "Waiting for Approval" : "Let's get your company set up."}
                         </h2>
-                        <p className="mt-3 text-slate-400 text-sm leading-relaxed max-w-sm">
+                        <p className="mt-3 text-muted-foreground/70 text-sm leading-relaxed max-w-sm">
                             {isPending
                                 ? "You have requested to join a company. We're waiting for the company owner to approve your request."
                                 : "Join an existing company or register a new one. It only takes a minute to start hiring top talent."}
@@ -53,10 +53,10 @@ export default function RecruiterCompanyOnboardingPage() {
                     {/* Steps (Only show if not pending) */}
                     {!isPending && (
                         <div className="space-y-4">
-                            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">How it works</p>
+                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">How it works</p>
                             {STEPS.map((step, i) => (
                                 <div key={step.text} className="flex items-start gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <div className="w-8 h-8 rounded-lg bg-card/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
                                         <span className="text-xs font-bold text-blue-400">{i + 1}</span>
                                     </div>
                                     <div>
@@ -69,12 +69,12 @@ export default function RecruiterCompanyOnboardingPage() {
                 </div>
 
                 {/* Bottom info */}
-                <div className="relative z-10 border border-white/10 rounded-xl p-5 bg-white/5 backdrop-blur-sm">
+                <div className="relative z-10 border border-white/10 rounded-xl p-5 bg-card/5 backdrop-blur-sm">
                     <div className="flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                         <div>
                             <p className="text-white text-sm font-semibold">Company verification</p>
-                            <p className="text-slate-400 text-xs mt-1 leading-relaxed">
+                            <p className="text-muted-foreground/70 text-xs mt-1 leading-relaxed">
                                 All companies undergo verification to ensure a trusted hiring environment for candidates.
                             </p>
                         </div>
@@ -86,7 +86,7 @@ export default function RecruiterCompanyOnboardingPage() {
             <div className="flex-1 flex flex-col justify-center items-center px-6 py-12 overflow-y-auto">
                 {/* Mobile header */}
                 <div className="lg:hidden mb-8 text-center">
-                    <span className="font-bold text-lg text-slate-900 tracking-tight">CareerSync</span>
+                    <span className="font-bold text-lg text-foreground tracking-tight">CareerSync</span>
                     <span className="ml-2 text-xs font-medium px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full border border-blue-100">
                         Recruiter
                     </span>
@@ -94,10 +94,10 @@ export default function RecruiterCompanyOnboardingPage() {
 
                 <div className="w-full max-w-2xl">
                     {isPending ? (
-                        <div className="text-center py-16 px-6 border border-slate-100 rounded-2xl bg-slate-50">
+                        <div className="text-center py-16 px-6 border border-border/50 rounded-2xl bg-muted/50">
                             <Clock className="w-16 h-16 text-blue-500 mx-auto mb-6" />
-                            <h2 className="text-2xl font-bold text-slate-900 mb-3">Approval Pending</h2>
-                            <p className="text-slate-500 max-w-md mx-auto mb-8">
+                            <h2 className="text-2xl font-bold text-foreground mb-3">Approval Pending</h2>
+                            <p className="text-muted-foreground max-w-md mx-auto mb-8">
                                 Your request to join the company has been sent to the owner. You will gain access to the dashboard once they approve your request.
                             </p>
 
@@ -112,25 +112,25 @@ export default function RecruiterCompanyOnboardingPage() {
                         <>
                             {/* Header */}
                             <div className="mb-8">
-                                <h1 className="text-2xl font-bold text-slate-900">Company Onboarding</h1>
-                                <p className="text-slate-500 text-sm mt-1">
+                                <h1 className="text-2xl font-bold text-foreground">Company Onboarding</h1>
+                                <p className="text-muted-foreground text-sm mt-1">
                                     To get started, join an existing company or create a new one.
                                 </p>
                             </div>
 
                             {/* Tabs */}
                             <Tabs defaultValue="join" className="w-full">
-                                <TabsList className="grid w-full grid-cols-2 bg-slate-100 p-1 rounded-lg h-11">
+                                <TabsList className="grid w-full grid-cols-2 bg-muted p-1 rounded-lg h-11">
                                     <TabsTrigger
                                         value="join"
-                                        className="flex items-center gap-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm rounded-md transition-all"
+                                        className="flex items-center gap-2 text-sm font-medium data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm rounded-md transition-all"
                                     >
                                         <Users className="w-4 h-4" />
                                         Join Existing
                                     </TabsTrigger>
                                     <TabsTrigger
                                         value="create"
-                                        className="flex items-center gap-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm rounded-md transition-all"
+                                        className="flex items-center gap-2 text-sm font-medium data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm rounded-md transition-all"
                                     >
                                         <Plus className="w-4 h-4" />
                                         Create New

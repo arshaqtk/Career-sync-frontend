@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getPendingRecruitersApi, approveRecruiterApi, rejectRecruiterApi } from "@/api/recruiter.api";
 import { toast } from "sonner";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export function useManageRecruiters(companyId: string | undefined) {
     const queryClient = useQueryClient();
@@ -16,7 +17,8 @@ export function useManageRecruiters(companyId: string | undefined) {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["pending-recruiters", companyId] });
             toast.success("Recruiter approved successfully");
-        }
+        },
+        onError: handleRQError
     });
 
     const rejectMutation = useMutation({
@@ -24,7 +26,8 @@ export function useManageRecruiters(companyId: string | undefined) {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["pending-recruiters", companyId] });
             toast.success("Recruiter rejected");
-        }
+        },
+        onError: handleRQError
     });
 
     return {

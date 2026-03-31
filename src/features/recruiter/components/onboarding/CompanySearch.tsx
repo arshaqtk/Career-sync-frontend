@@ -20,27 +20,27 @@ export function CompanySearch() {
         <div className="space-y-5">
             {/* Header */}
             <div>
-                <h3 className="text-lg font-semibold text-slate-900">Find Your Company</h3>
-                <p className="text-sm text-slate-500 mt-0.5">
+                <h3 className="text-lg font-semibold text-foreground">Find Your Company</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">
                     Search by name and request to join your employer.
                 </p>
             </div>
 
             {/* Search */}
             <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/70" />
                 <Input
                     placeholder="Search company name..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 h-11 border-slate-200 bg-slate-50 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                    className="pl-10 h-11 border-border bg-muted/50 rounded-lg focus:bg-card focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                 />
             </div>
 
             {/* Results */}
             <div className="space-y-2">
                 {isSearching && (
-                    <div className="flex flex-col items-center justify-center py-12 text-slate-400">
+                    <div className="flex flex-col items-center justify-center py-12 text-muted-foreground/70">
                         <Loader2 className="h-6 w-6 animate-spin mb-2" />
                         <span className="text-sm">Searching companies...</span>
                     </div>
@@ -49,8 +49,8 @@ export function CompanySearch() {
                 {!isSearching && searchResults && searchResults?.data?.length === 0 && searchQuery.length >= 2 && (
                     <div className="text-center py-12">
                         <Building2 className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-                        <p className="text-sm font-medium text-slate-500">No companies found</p>
-                        <p className="text-xs text-slate-400 mt-1">
+                        <p className="text-sm font-medium text-muted-foreground">No companies found</p>
+                        <p className="text-xs text-muted-foreground/70 mt-1">
                             Try a different name or switch to the <span className="font-semibold">"Create New"</span> tab.
                         </p>
                     </div>
@@ -59,8 +59,8 @@ export function CompanySearch() {
                 {!isSearching && !searchQuery && (
                     <div className="text-center py-12">
                         <Search className="w-10 h-10 text-slate-200 mx-auto mb-3" />
-                        <p className="text-sm font-medium text-slate-500">Start typing to search</p>
-                        <p className="text-xs text-slate-400 mt-1">
+                        <p className="text-sm font-medium text-muted-foreground">Start typing to search</p>
+                        <p className="text-xs text-muted-foreground/70 mt-1">
                             Enter at least 2 characters to find your company.
                         </p>
                     </div>
@@ -69,24 +69,24 @@ export function CompanySearch() {
                 {!isSearching && searchResults?.data?.map((company: ICompany) => (
                     <div
                         key={company._id}
-                        className="flex items-center justify-between p-4 border border-slate-100 rounded-xl hover:border-slate-200 hover:bg-slate-50/50 transition-all group"
+                        className="flex items-center justify-between p-4 border border-border/50 rounded-xl hover:border-border hover:bg-muted/50/50 transition-all group"
                     >
                         <div className="flex items-center gap-3.5 min-w-0">
-                            <div className="h-10 w-10 rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden shrink-0">
+                            <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center overflow-hidden shrink-0">
                                 {company.logo?.url ? (
                                     <img src={company.logo.url} alt={company.name} className="h-full w-full object-cover" />
                                 ) : (
-                                    <Building2 className="h-5 w-5 text-slate-400" />
+                                    <Building2 className="h-5 w-5 text-muted-foreground/70" />
                                 )}
                             </div>
                             <div className="min-w-0">
                                 <h4
-                                    className="font-semibold text-sm text-slate-900 truncate hover:text-blue-600 cursor-pointer transition-colors"
+                                    className="font-semibold text-sm text-foreground truncate hover:text-blue-600 cursor-pointer transition-colors"
                                     onClick={() => window.open(`/companies/${company._id}`, '_blank')}
                                 >
                                     {company.name}
                                 </h4>
-                                <p className="text-xs text-slate-400 truncate">
+                                <p className="text-xs text-muted-foreground/70 truncate">
                                     {[company.location, company.industry].filter(Boolean).join(" · ")}
                                 </p>
                             </div>
@@ -94,7 +94,7 @@ export function CompanySearch() {
                         <button
                             onClick={() => handleJoin(company._id)}
                             disabled={joinCompanyMutation.isPending}
-                            className="ml-4 shrink-0 flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 disabled:bg-slate-100 disabled:text-slate-400 rounded-lg transition-colors"
+                            className="ml-4 shrink-0 flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 disabled:bg-muted disabled:text-muted-foreground/70 rounded-lg transition-colors"
                         >
                             {joinCompanyMutation.isPending ? (
                                 <Loader2 className="h-3.5 w-3.5 animate-spin" />

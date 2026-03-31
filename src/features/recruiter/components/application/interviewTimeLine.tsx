@@ -50,11 +50,11 @@ function InterviewRound({ interview }: { interview: Interview }) {
   return (
     <div className="relative pl-12">
       {/* Timeline marker */}
-      <div className="absolute left-0 mt-1.5 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm ring-8 ring-white">
+      <div className="absolute left-0 mt-1.5 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-card shadow-sm ring-8 ring-white">
         <span className="text-xs font-bold text-gray-500">{roundNumber}</span>
       </div>
 
-      <Card className="border border-gray-200 shadow-sm overflow-hidden bg-white">
+      <Card className="border border-gray-200 shadow-sm overflow-hidden bg-card">
         <div className="p-5">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

@@ -78,16 +78,16 @@ export function JobDetailDrawer({ job, isOpen, onClose }: JobDetailDrawerProps) 
     return (
         <>
             <Sheet open={isOpen} onOpenChange={onClose}>
-                <SheetContent className="w-full sm:max-w-2xl overflow-y-auto bg-white border-l p-0">
+                <SheetContent className="w-full sm:max-w-2xl overflow-y-auto bg-card border-l p-0">
                     {/* Header Section */}
-                    <div className="px-8 py-6 border-b border-slate-100 sticky top-0 bg-white/80 backdrop-blur-md z-20">
+                    <div className="px-8 py-6 border-b border-border/50 sticky top-0 bg-card/80 backdrop-blur-md z-20">
                         <div className="flex items-start justify-between gap-4">
                             <div className="space-y-1.5">
-                                <SheetTitle className="text-2xl font-bold text-slate-900 leading-tight">
+                                <SheetTitle className="text-2xl font-bold text-foreground leading-tight">
                                     {job.title}
                                 </SheetTitle>
-                                <div className="flex items-center gap-2 text-slate-500 font-medium text-sm">
-                                    <span className="bg-slate-100 px-2 py-0.5 rounded text-xs font-semibold text-slate-600 uppercase tracking-wide">
+                                <div className="flex items-center gap-2 text-muted-foreground font-medium text-sm">
+                                    <span className="bg-muted px-2 py-0.5 rounded text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                                         {typeof job?.company=="string"?job?.company:job?.company?.name}
                                     </span>
                                 </div>
@@ -117,7 +117,7 @@ export function JobDetailDrawer({ job, isOpen, onClose }: JobDetailDrawerProps) 
                             <Button
                                 variant="outline"
                                 onClick={handleEdit}
-                                className="border-slate-200 text-slate-600 font-semibold h-10 px-6 rounded-lg hover:bg-slate-50 transition-all"
+                                className="border-border text-muted-foreground font-semibold h-10 px-6 rounded-lg hover:bg-muted/50 transition-all"
                             >
                                 <Edit className="h-4 w-4 mr-2" />
                                 Edit
@@ -145,12 +145,12 @@ export function JobDetailDrawer({ job, isOpen, onClose }: JobDetailDrawerProps) 
                                 { icon: MapPin, label: "Location", value: job.location },
                                 { icon: Power, label: "Mode", value: job.remote ? "Remote" : "On-site" }
                             ].map((item, idx) => (
-                                <div key={idx} className="flex flex-col gap-1.5 p-4 rounded-xl border border-slate-100 bg-slate-50/30">
-                                    <div className="flex items-center gap-2 text-slate-400">
+                                <div key={idx} className="flex flex-col gap-1.5 p-4 rounded-xl border border-border/50 bg-muted/50/30">
+                                    <div className="flex items-center gap-2 text-muted-foreground/70">
                                         <item.icon className="h-4 w-4" />
                                         <span className="text-[10px] font-bold uppercase tracking-widest">{item.label}</span>
                                     </div>
-                                    <p className="text-[14px] font-semibold text-slate-800 capitalize leading-tight">
+                                    <p className="text-[14px] font-semibold text-foreground/90 capitalize leading-tight">
                                         {item.value}
                                     </p>
                                 </div>
@@ -159,12 +159,12 @@ export function JobDetailDrawer({ job, isOpen, onClose }: JobDetailDrawerProps) 
 
                         {/* Description Section */}
                         <div className="space-y-4">
-                            <div className="flex items-center gap-2 text-slate-900">
+                            <div className="flex items-center gap-2 text-foreground">
                                 <Info className="h-4 w-4 text-blue-500" />
                                 <h3 className="text-sm font-bold uppercase tracking-widest leading-none">Job Description</h3>
                             </div>
-                            <div className="p-6 bg-slate-50/50 rounded-2xl border border-slate-100">
-                                <p className="text-sm text-slate-600 whitespace-pre-wrap leading-relaxed">
+                            <div className="p-6 bg-muted/50/50 rounded-2xl border border-border/50">
+                                <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">
                                     {job.description}
                                 </p>
                             </div>
@@ -173,7 +173,7 @@ export function JobDetailDrawer({ job, isOpen, onClose }: JobDetailDrawerProps) 
                         {/* Technology Stack */}
                         {job.skills && job.skills.length > 0 && (
                             <div className="space-y-4">
-                                <div className="flex items-center gap-2 text-slate-900">
+                                <div className="flex items-center gap-2 text-foreground">
                                     <Cpu className="h-4 w-4 text-indigo-500" />
                                     <h3 className="text-sm font-bold uppercase tracking-widest leading-none">Required Skills</h3>
                                 </div>
@@ -182,7 +182,7 @@ export function JobDetailDrawer({ job, isOpen, onClose }: JobDetailDrawerProps) 
                                         <Badge
                                             key={index}
                                             variant="secondary"
-                                            className="bg-white text-slate-700 border border-slate-200 px-4 py-1.5 text-xs font-semibold rounded-lg shadow-sm"
+                                            className="bg-card text-foreground/80 border border-border px-4 py-1.5 text-xs font-semibold rounded-lg shadow-sm"
                                         >
                                             {skill}
                                         </Badge>
@@ -192,13 +192,13 @@ export function JobDetailDrawer({ job, isOpen, onClose }: JobDetailDrawerProps) 
                         )}
 
                         {/* Footer Details */}
-                        <div className="pt-10 border-t border-slate-100 flex items-center justify-between text-slate-400">
+                        <div className="pt-10 border-t border-border/50 flex items-center justify-between text-muted-foreground/70">
                             <div className="flex items-center gap-4 text-xs font-medium">
                                 <div className="flex items-center gap-1.5">
                                     <Calendar className="h-3.5 w-3.5" />
                                     <span>Posted {job.createdAt ? new Date(job.createdAt).toLocaleDateString() : "Draft"}</span>
                                 </div>
-                                <div className="w-1 h-1 rounded-full bg-slate-200" />
+                                <div className="w-1 h-1 rounded-full bg-muted" />
                                 <div className="flex items-center gap-1.5">
                                     <Users className="h-3.5 w-3.5" />
                                     <span>{job.applicationCount || 0} applicants</span>

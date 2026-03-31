@@ -92,7 +92,7 @@ export function RecruiterFinalizeApplicationActions({
       </div>
 
       <AlertDialog open={!!action} onOpenChange={() => setAction(null)}>
-        <AlertDialogContent className="bg-white">
+        <AlertDialogContent className="bg-card">
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
               {action === "Selected" ? (
@@ -107,7 +107,7 @@ export function RecruiterFinalizeApplicationActions({
                 </>
               )}
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-gray-500">
+            <AlertDialogDescription className="text-muted-foreground">
               {action === "Selected"
                 ? "You are about to formally select this candidate for the role. This will update their status and notify them."
                 : "You are about to reject this application. This action is permanent and will notify the candidate."}
@@ -115,7 +115,7 @@ export function RecruiterFinalizeApplicationActions({
           </AlertDialogHeader>
 
           <div className="space-y-3 py-4">
-            <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground/70 uppercase tracking-widest">
               <AlertCircle className="h-3 w-3" />
               Final Decision Note
             </div>
@@ -123,12 +123,12 @@ export function RecruiterFinalizeApplicationActions({
               placeholder={action === "Selected" ? "Explain why this candidate was selected..." : "Reason for rejection (will be sent to candidate)..."}
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="resize-none min-h-[120px] bg-gray-50 border-gray-200 focus:bg-white transition-all"
+              className="resize-none min-h-[120px] bg-muted/30 border-border focus:bg-card transition-all"
             />
           </div>
 
-          <AlertDialogFooter className="bg-gray-50 -mx-6 -mb-6 p-6 mt-2 border-t border-gray-100">
-            <AlertDialogCancel disabled={isPending} className="border-gray-200">
+          <AlertDialogFooter className="bg-muted/30 -mx-6 -mb-6 p-6 mt-2 border-t border-border">
+            <AlertDialogCancel disabled={isPending} className="border-border">
               Cancel
             </AlertDialogCancel>
             <Button

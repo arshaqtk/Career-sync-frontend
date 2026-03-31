@@ -17,24 +17,24 @@ export function InterviewTableRow({
   const navigate = useNavigate();
 
    return (
-    <TableRow className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+    <TableRow className="border-b border-border/30 transition-colors group">
       <TableCell className="py-4">
-        <span className="font-semibold text-gray-950">{index}</span>
+        <span className="font-semibold text-foreground/60">{index}</span>
       </TableCell>
       <TableCell className="py-4">
-        <span className="font-semibold text-gray-900">{interview.candidateName}</span>
+        <span className="font-semibold text-foreground group-hover:text-primary transition-colors">{interview.candidateName}</span>
       </TableCell>
 
       <TableCell>
-        <span className="text-sm font-medium text-gray-700">{interview.jobTitle}</span>
+        <span className="text-sm font-medium text-foreground/80">{interview.jobTitle}</span>
       </TableCell>
 
       <TableCell>
-        <span className="text-sm text-gray-600">{interview.roundType}</span>
+        <span className="text-sm text-muted-foreground">{interview.roundType}</span>
       </TableCell>
 
       <TableCell>
-        <span className="text-sm font-medium text-gray-700">Round {interview.roundNumber}</span>
+        <span className="text-sm font-medium text-foreground/80">Round {interview.roundNumber}</span>
       </TableCell>
 
       <TableCell>

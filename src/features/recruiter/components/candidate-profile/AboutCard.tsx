@@ -5,7 +5,7 @@ export default function AboutCard({ about }: { about?: string }) {
   if (!about) return null;
 
   return (
-    <Card className="bg-white border border-gray-200 shadow-sm overflow-hidden">
+    <Card className="bg-card border border-gray-200 shadow-sm overflow-hidden">
       <CardHeader className="bg-gray-50 border-b border-gray-200 py-4">
         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
           <FileText className="h-4 w-4" />

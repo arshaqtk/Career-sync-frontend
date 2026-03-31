@@ -38,14 +38,14 @@ export function NotificationItem({ notification }: { notification: Notification 
       className={cn(
         "group relative cursor-pointer overflow-hidden border-l-4 transition-all duration-200 hover:shadow-md active:scale-[0.99]",
         notification.isRead
-          ? "border-l-transparent bg-white opacity-80"
-          : "border-l-primary bg-primary/5 shadow-sm"
+          ? "border-l-transparent bg-card hover:bg-muted/30 opacity-70"
+          : "border-l-primary bg-primary/5 hover:bg-primary/10 shadow-sm"
       )}
     >
       <div className="flex items-start gap-4 p-4">
         <div className={cn(
           "flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors",
-          notification.isRead ? "bg-muted" : "bg-white shadow-sm"
+          notification.isRead ? "bg-muted" : "bg-card shadow-sm ring-1 ring-border"
         )}>
           {getIcon(notification.type)}
         </div>

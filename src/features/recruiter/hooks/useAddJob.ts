@@ -4,6 +4,7 @@ import type { Job } from "@/features/recruiter/types/job.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useJobModalStore } from "../store/openJobModalStore";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 type AddJobResponse = {
   message: string;
@@ -24,6 +25,7 @@ export const useAddJob = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.jobs.all,
       });
-    }
+    },
+    onError: handleRQError
   });
 };

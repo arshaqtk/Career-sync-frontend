@@ -33,13 +33,13 @@ export function RecruiterProfileHeader({
     .toUpperCase()
 
   return (
-    <div className="bg-white border-b border-slate-200">
+    <div className="bg-card border-b border-border">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
           <div className="relative group">
-            <Avatar className="h-20 w-20 md:h-24 md:w-24 border-2 border-slate-100 shadow-sm overflow-hidden">
+            <Avatar className="h-20 w-20 md:h-24 md:w-24 border-2 border-border/50 shadow-sm overflow-hidden">
               <AvatarImage src={recruiter.profilePicture?.url} className="object-cover w-full h-full" />
-              <AvatarFallback className="text-xl font-bold bg-slate-50 text-slate-400">{initials}</AvatarFallback>
+              <AvatarFallback className="text-xl font-bold bg-muted/50 text-muted-foreground/70">{initials}</AvatarFallback>
             </Avatar>
             <label className="absolute bottom-0 right-0 p-1.5 bg-blue-600 rounded-full shadow-lg border border-white cursor-pointer hover:bg-blue-700 transition-all transform hover:scale-110">
               <Camera size={14} className="text-white" />
@@ -56,17 +56,17 @@ export function RecruiterProfileHeader({
           </div>
 
           <div className="space-y-1.5 pt-2">
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">
               {recruiter.name}
             </h2>
 
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1 text-slate-600 font-medium text-sm md:text-base">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1 text-muted-foreground font-medium text-sm md:text-base">
               <span>{recruiter.role}</span>
-              <span className="text-slate-300">•</span>
+              <span className="text-muted-foreground/50">•</span>
               <span className="text-blue-700 font-semibold">{recruiter.recruiterData?.company?.name || "Company not defined"}</span>
             </div>
 
-            <p className="text-sm text-slate-500 font-medium">
+            <p className="text-sm text-muted-foreground font-medium">
               Field: {recruiter.field}
             </p>
           </div>

@@ -1,8 +1,6 @@
-
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { RecruiterSidebar } from "../components/navigation/RecruiterSidebar";
 import { RecruiterTopNavbar } from "../components/navigation/RecruiterTopNavbar";
-import { SidebarToggle } from "../components/navigation/SidebarToggle";
 import { useState, useEffect } from "react";
 import { useNotificationSocket } from "@/hooks/useNotificationSocket";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/shadcn/sheet";
@@ -11,7 +9,7 @@ import { SectionSkeleton } from "@/components/Loaders";
 
 export default function RecruiterLayout() {
   useNotificationSocket();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const { data: user, isLoading } = useUserData();
@@ -55,16 +53,19 @@ export default function RecruiterLayout() {
 
   return (
     <div className="min-h-screen flex bg-background text-foreground transition-colors duration-300">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block">
+      {/* Desktop Sidebar — expands on hover, collapses on mouse leave */}
+      <div
+        className="hidden lg:block"
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+      >
         <RecruiterSidebar isOpen={open} />
-        <SidebarToggle isOpen={open} toggle={() => setOpen(!open)} />
       </div>
 
       {/* Mobile Sidebar */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent side="left" className="p-0 w-72">
-          <SheetHeader className="p-6 border-b">
+        <SheetContent side="left" className="p-0 w-72 bg-card border-r border-border">
+          <SheetHeader className="p-6 border-b border-border">
             <SheetTitle className="text-2xl font-bold text-primary">CareerSync</SheetTitle>
           </SheetHeader>
           <div className="mt-4">

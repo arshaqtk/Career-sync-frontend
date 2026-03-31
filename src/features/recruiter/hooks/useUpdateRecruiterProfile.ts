@@ -4,6 +4,7 @@ import type { IUser, ProfileUpdatePayload } from "@/types/profileUpdate.type"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
+import { handleRQError } from "@/lib/react-query/errorHandler"
 
 export const useUpdateRecruiterProfile = () => {
     const navigate = useNavigate()
@@ -14,7 +15,7 @@ export const useUpdateRecruiterProfile = () => {
             queryClient.setQueryData(QUERY_KEYS.recruiter.profile(), updatedUser)
             toast.success("Profile updated successfully")
             navigate("/recruiter/profile")
-        }, onError(error: unknown) { ErrorHandler(error) }
+        }, onError: handleRQError
     })
 }
 
@@ -28,28 +29,6 @@ export const useUpdateProfileImage = () => {
             toast.success("Profile updated successfully")
             navigate("/recruiter/profile")
         },
-        onError(error: unknown) { { ErrorHandler(error) } }
+        onError: handleRQError
     })
-}
-
-
-const ErrorHandler = (error: unknown) => {
-    type ErrorWithResponse = {
-        response?: {
-            data?: {
-                message?: string;
-            };
-        };
-    };
-    if (
-        typeof error === "object" &&
-        error !== null &&
-        "response" in error &&
-        typeof (error as ErrorWithResponse).response === "object"
-    ) {
-        const err = error as ErrorWithResponse;
-        toast.error(err.response?.data?.message);
-    } else {
-        toast.error("An unexpected error occurred.");
-    }
-}
+}

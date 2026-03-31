@@ -3,6 +3,7 @@ import { QUERY_KEYS } from "@/config/queryKeys";
 import type { Job } from "@/features/recruiter/types/job.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 type UpdateJobResponse = {
   message: string;
 };
@@ -22,8 +23,9 @@ export const useUpdateJobstatus=()=>{
             })
             return {previousJobs}
         },
-        onError:(_err,_var,ctx)=>{
+        onError:(err,_var,ctx)=>{
             queryClient.setQueryData([QUERY_KEYS.jobs],ctx?.previousJobs)
+            handleRQError(err)
         },
         onSuccess:(data)=>{
             queryClient.invalidateQueries({queryKey:QUERY_KEYS.jobs.lists()})

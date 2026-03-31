@@ -31,17 +31,17 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
     <div className="flex items-center gap-3 w-full">
       {/* 🔍 SEARCH */}
       <div className="relative flex-1 max-w-md group">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/70 group-focus-within:text-blue-500 transition-colors" />
         <Input
           placeholder="Search professional opportunities..."
           value={filters.search ?? ""}
           onChange={(e) => updateFilter("search", e.target.value)}
-          className="pl-10 h-11 bg-white border-slate-200 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500/10 transition-all font-medium"
+          className="pl-10 h-11 bg-card border-border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500/10 transition-all font-medium"
         />
         {filters.search && (
           <button
             onClick={() => updateFilter("search", "")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 rounded-full text-slate-400 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full text-muted-foreground/70 transition-colors"
           >
             <X className="h-3 w-3" />
           </button>
@@ -53,7 +53,7 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className={`h-11 px-5 rounded-xl border-slate-200 font-semibold transition-all hover:bg-slate-50 flex items-center gap-2 ${activeFiltersCount > 0 ? "border-blue-200 bg-blue-50/30 text-blue-600 shadow-sm shadow-blue-100/50" : "text-slate-600 shadow-sm"
+            className={`h-11 px-5 rounded-xl border-border font-semibold transition-all hover:bg-muted/50 flex items-center gap-2 ${activeFiltersCount > 0 ? "border-blue-200 bg-blue-50/30 text-blue-600 shadow-sm shadow-blue-100/50" : "text-muted-foreground shadow-sm"
               }`}
           >
             <SlidersHorizontal className="h-4 w-4" />
@@ -66,9 +66,9 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent align="end" className="w-[320px] p-0 rounded-2xl shadow-xl border-slate-100 mt-2 overflow-hidden">
-          <div className="p-4 bg-slate-50/50 border-b border-slate-100 flex items-center justify-between">
-            <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Filter Settings</h4>
+        <PopoverContent align="end" className="w-[320px] p-0 rounded-2xl shadow-xl border-border/50 mt-2 overflow-hidden">
+          <div className="p-4 bg-muted/50/50 border-b border-border/50 flex items-center justify-between">
+            <h4 className="text-sm font-bold text-foreground uppercase tracking-wider">Filter Settings</h4>
             {isFiltered && (
               <Button
                 variant="ghost"
@@ -92,17 +92,17 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
           <div className="p-5 space-y-6">
             {/* Status */}
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Availability Status</label>
+              <label className="text-[10px] font-bold text-muted-foreground/70 uppercase tracking-widest pl-1">Availability Status</label>
               <Select
                 value={filters.status}
                 onValueChange={(value) =>
                   updateFilter("status", value as JobFilters["status"])
                 }
               >
-                <SelectTrigger className="h-10 rounded-lg border-slate-200 bg-slate-50/30 focus:ring-2 focus:ring-blue-500/10 font-medium text-slate-700">
+                <SelectTrigger className="h-10 rounded-lg border-border bg-muted/50/30 focus:ring-2 focus:ring-blue-500/10 font-medium text-foreground/80">
                   <SelectValue placeholder="All Statuses" />
                 </SelectTrigger>
-                <SelectContent className="rounded-xl shadow-lg border-slate-100">
+                <SelectContent className="rounded-xl shadow-lg border-border/50">
                   <SelectItem value="all" className="rounded-lg">STATUS [ALL]</SelectItem>
                   <SelectItem value="open" className="rounded-lg">Active Positions</SelectItem>
                   <SelectItem value="closed" className="rounded-lg">Closed / Archived</SelectItem>
@@ -112,17 +112,17 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
 
             {/* Job Type */}
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Employment Type</label>
+              <label className="text-[10px] font-bold text-muted-foreground/70 uppercase tracking-widest pl-1">Employment Type</label>
               <Select
                 value={filters.jobType}
                 onValueChange={(value) =>
                   updateFilter("jobType", value as JobFilters["jobType"])
                 }
               >
-                <SelectTrigger className="h-10 rounded-lg border-slate-200 bg-slate-50/30 focus:ring-2 focus:ring-blue-500/10 font-medium text-slate-700">
+                <SelectTrigger className="h-10 rounded-lg border-border bg-muted/50/30 focus:ring-2 focus:ring-blue-500/10 font-medium text-foreground/80">
                   <SelectValue placeholder="All types" />
                 </SelectTrigger>
-                <SelectContent className="rounded-xl shadow-lg border-slate-100">
+                <SelectContent className="rounded-xl shadow-lg border-border/50">
                   <SelectItem value="all" className="rounded-lg">JOB TYPE [ALL]</SelectItem>
                   <SelectItem value="full-time" className="rounded-lg">Full Time Engagement</SelectItem>
                   <SelectItem value="part-time" className="rounded-lg">Part Time Engagement</SelectItem>
@@ -133,7 +133,7 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
 
             {/* Sort by Application */}
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Engagement Sort</label>
+              <label className="text-[10px] font-bold text-muted-foreground/70 uppercase tracking-widest pl-1">Engagement Sort</label>
               <Select
                 value={filters.sortByApplication}
                 onValueChange={(value) =>
@@ -143,10 +143,10 @@ export const JobFilter = ({ filters, onChange }: JobFilterProps) => {
                   )
                 }
               >
-                <SelectTrigger className="h-10 rounded-lg border-slate-200 bg-slate-50/30 focus:ring-2 focus:ring-blue-500/10 font-medium text-slate-700">
+                <SelectTrigger className="h-10 rounded-lg border-border bg-muted/50/30 focus:ring-2 focus:ring-blue-500/10 font-medium text-foreground/80">
                   <SelectValue placeholder="Engagement priority" />
                 </SelectTrigger>
-                <SelectContent className="rounded-xl shadow-lg border-slate-100">
+                <SelectContent className="rounded-xl shadow-lg border-border/50">
                   <SelectItem value="most_applied" className="rounded-lg flex items-center gap-2">
                     Highest Applicant Count
                   </SelectItem>

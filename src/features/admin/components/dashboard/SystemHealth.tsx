@@ -4,7 +4,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card"
-import { Badge } from "@/components/ui/shadcn/badge"
 import { Skeleton } from "@/components/ui/shadcn/skeleton"
 
 export interface SystemHealthData {
@@ -27,7 +26,7 @@ const DUMMY_HEALTH: SystemHealthData = {
 }
 
 import { motion } from "framer-motion"
-import { Activity, ShieldCheck, AlertCircle } from "lucide-react"
+import { ShieldCheck, AlertCircle } from "lucide-react"
 
 export function SystemHealth({
   data,

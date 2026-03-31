@@ -26,7 +26,7 @@ const {user}=useAuthStore()
     <div className="space-y-6">
       {/* Page Header */}
       <div className="border-b border-gray-200 pb-5">
-        <h1 className="text-2xl font-semibold text-gray-900">Interview Schedule</h1>
+        <h1 className="text-2xl font-semibold text-foreground">Interview Schedule</h1>
         <p className="mt-1 text-sm text-gray-500">Manage and track all scheduled interviews</p>
       </div>
 

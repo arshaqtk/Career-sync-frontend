@@ -21,7 +21,7 @@ export interface ApplicantDTO{
 
   jobId: {
     title: string,
-    company: string,
+    company: {_id:string,name:string},
     location: string,
     jobType: string,
     salary: string

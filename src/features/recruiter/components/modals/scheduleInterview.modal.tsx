@@ -157,7 +157,7 @@ export function ScheduleInterviewModal({
                   value={watch("roundType")}
                   onValueChange={(value) => setValue("roundType", value as InterviewRoundType, { shouldValidate: true })}
                 >
-                  <SelectTrigger className="bg-white border-gray-200">
+                  <SelectTrigger className="bg-card border-gray-200">
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -175,7 +175,7 @@ export function ScheduleInterviewModal({
                 <Input
                   type="number"
                   min="1"
-                  className="bg-white border-gray-200"
+                  className="bg-card border-gray-200"
                   {...register("roundNumber", { valueAsNumber: true })}
                 />
                 {errors.roundNumber && <p className="text-xs font-medium text-red-500">{errors.roundNumber.message}</p>}
@@ -197,7 +197,7 @@ export function ScheduleInterviewModal({
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full justify-start text-left font-normal border-gray-200 bg-white",
+                      "w-full justify-start text-left font-normal border-gray-200 bg-card",
                       !watch("date") && "text-muted-foreground"
                     )}
                   >
@@ -225,13 +225,13 @@ export function ScheduleInterviewModal({
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-sm font-semibold text-gray-700">Start Time</label>
-                <Input type="time" className="bg-white border-gray-200" {...register("startTime")} />
+                <Input type="time" className="bg-card border-gray-200" {...register("startTime")} />
                 {errors.startTime && <p className="text-xs font-medium text-red-500">{errors.startTime.message}</p>}
               </div>
 
               <div className="space-y-1.5">
                 <label className="text-sm font-semibold text-gray-700">End Time</label>
-                <Input type="time" className="bg-white border-gray-200" {...register("endTime")} />
+                <Input type="time" className="bg-card border-gray-200" {...register("endTime")} />
                 {errors.endTime && <p className="text-xs font-medium text-red-500">{errors.endTime.message}</p>}
               </div>
             </div>
@@ -257,7 +257,7 @@ export function ScheduleInterviewModal({
                     trigger();
                   }}
                 >
-                  <SelectTrigger className="bg-white border-gray-200 text-xs">
+                  <SelectTrigger className="bg-card border-gray-200 text-xs">
                     <SelectValue placeholder="Mode" />
                   </SelectTrigger>
                   <SelectContent>
@@ -274,13 +274,13 @@ export function ScheduleInterviewModal({
                       <LinkIcon className="h-3.5 w-3.5 text-gray-400" />
                       Meeting Link
                     </label>
-                    <Input placeholder="Meet link" className="bg-white border-gray-200 h-9" {...register("meetingLink")} />
+                    <Input placeholder="Meet link" className="bg-card border-gray-200 h-9" {...register("meetingLink")} />
                     {errors.meetingLink && <p className="text-xs font-medium text-red-500">{errors.meetingLink.message}</p>}
                     <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                       <LinkIcon className="h-3.5 w-3.5 text-gray-400" />
                      Interviewer Email(optional)
                     </label>
-                    <Input placeholder="email" className="bg-white border-gray-200 h-9" {...register("interviewerEmail")} />
+                    <Input placeholder="email" className="bg-card border-gray-200 h-9" {...register("interviewerEmail")} />
                     {errors.meetingLink && <p className="text-xs font-medium text-red-500">{errors.interviewerEmail?.message}</p>}
                   </>
                 ) : (
@@ -289,7 +289,7 @@ export function ScheduleInterviewModal({
                       <MapPin className="h-3.5 w-3.5 text-gray-400" />
                       Location
                     </label>
-                    <Input placeholder="Office address" className="bg-white border-gray-200 h-9" {...register("location")} />
+                    <Input placeholder="Office address" className="bg-card border-gray-200 h-9" {...register("location")} />
                     {errors.location && <p className="text-xs font-medium text-red-500">{errors.location.message}</p>}
                   </>
                 )}

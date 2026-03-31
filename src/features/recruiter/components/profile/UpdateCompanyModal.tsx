@@ -62,12 +62,12 @@ export function UpdateCompanyModal({ open, onClose, company }: UpdateCompanyModa
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-     <DialogContent className="max-w-2xl p-0 overflow-hidden border border-slate-200 shadow-xl rounded-xl max-h-[90vh] flex flex-col">
-        <DialogHeader className="p-8 pb-4 shrink-0 bg-white z-10">
-          <DialogTitle className="text-2xl font-bold text-slate-900">
+     <DialogContent className="max-w-2xl p-0 overflow-hidden border border-border shadow-xl rounded-xl max-h-[90vh] flex flex-col">
+        <DialogHeader className="p-8 pb-4 shrink-0 bg-card z-10">
+          <DialogTitle className="text-2xl font-bold text-foreground">
             Update Company Profile
           </DialogTitle>
-          <p className="text-slate-500 text-sm font-medium mt-1">
+          <p className="text-muted-foreground text-sm font-medium mt-1">
             Provide comprehensive details about your company to attract the best talent.
           </p>
         </DialogHeader>
@@ -77,82 +77,82 @@ export function UpdateCompanyModal({ open, onClose, company }: UpdateCompanyModa
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
             {/* Row 1 */}
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700">Company Name</label>
+              <label className="text-sm font-bold text-foreground/80">Company Name</label>
               <Input
                 placeholder="e.g. Acme Corp"
-                className="h-11 rounded-lg border-slate-200 focus:border-blue-500 shadow-none font-medium"
+                className="h-11 rounded-lg border-border focus:border-blue-500 shadow-none font-medium"
                 {...register("name")}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700">Industry</label>
+              <label className="text-sm font-bold text-foreground/80">Industry</label>
               <Input
                 placeholder="e.g. Technology, Finance"
-                className="h-11 rounded-lg border-slate-200 focus:border-blue-500 shadow-none font-medium"
+                className="h-11 rounded-lg border-border focus:border-blue-500 shadow-none font-medium"
                 {...register("industry")}
               />
             </div>
 
             {/* Row 2 */}
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700">Official Website</label>
+              <label className="text-sm font-bold text-foreground/80">Official Website</label>
               <Input
                 placeholder="e.g. https://acme.com"
-                className="h-11 rounded-lg border-slate-200 focus:border-blue-500 shadow-none font-medium"
+                className="h-11 rounded-lg border-border focus:border-blue-500 shadow-none font-medium"
                 {...register("website")}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700">HQ Location</label>
+              <label className="text-sm font-bold text-foreground/80">HQ Location</label>
               <Input
                 placeholder="e.g. San Francisco, CA"
-                className="h-11 rounded-lg border-slate-200 focus:border-blue-500 shadow-none font-medium"
+                className="h-11 rounded-lg border-border focus:border-blue-500 shadow-none font-medium"
                 {...register("location")}
               />
             </div>
 
             {/* Row 3 */}
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700">Company Size</label>
+              <label className="text-sm font-bold text-foreground/80">Company Size</label>
               <Input
                 placeholder="e.g. 50-100 employees"
-                className="h-11 rounded-lg border-slate-200 focus:border-blue-500 shadow-none font-medium"
+                className="h-11 rounded-lg border-border focus:border-blue-500 shadow-none font-medium"
                 {...register("size")}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700">Founded Year</label>
+              <label className="text-sm font-bold text-foreground/80">Founded Year</label>
               <Input
                 type="number"
                 placeholder="e.g. 2010"
-                className="h-11 rounded-lg border-slate-200 focus:border-blue-500 shadow-none font-medium"
+                className="h-11 rounded-lg border-border focus:border-blue-500 shadow-none font-medium"
                 {...register("foundedYear")}
               />
             </div>
 
             {/* Row 4 - Full Width */}
             <div className="space-y-2 md:col-span-2">
-              <label className="text-sm font-bold text-slate-700">Company Description</label>
+              <label className="text-sm font-bold text-foreground/80">Company Description</label>
               <Textarea
                 placeholder="Tell candidates what makes your company unique..."
                 rows={4}
-                className="rounded-lg border-slate-200 focus:border-blue-500 shadow-none resize-none leading-relaxed text-sm font-medium"
+                className="rounded-lg border-border focus:border-blue-500 shadow-none resize-none leading-relaxed text-sm font-medium"
                 {...register("description")}
               />
             </div>
             </div>
           </div>
 
-       <DialogFooter className="p-8 py-6 border-t border-slate-100 shrink-0 bg-slate-50/50">
+       <DialogFooter className="p-8 py-6 border-t border-border/50 shrink-0 bg-muted/50/50">
             <Button
               type="button"
               variant="ghost"
               onClick={onClose}
               disabled={isPending}
-              className="font-bold text-slate-500 h-11 px-6 hover:bg-slate-50"
+              className="font-bold text-muted-foreground h-11 px-6 hover:bg-muted/50"
             >
               Cancel
             </Button>

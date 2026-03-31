@@ -36,7 +36,7 @@ export default function ManageRecruitersPage() {
 
             {/* Stats Overview */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                <div className="bg-card p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
                     <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
                         <Users size={24} />
                     </div>
@@ -46,7 +46,7 @@ export default function ManageRecruitersPage() {
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                <div className="bg-card p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
                     <div className="p-3 bg-green-50 text-green-600 rounded-xl">
                         <ShieldCheck size={24} />
                     </div>
@@ -56,7 +56,7 @@ export default function ManageRecruitersPage() {
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                <div className="bg-card p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
                     <div className="p-3 bg-purple-50 text-purple-600 rounded-xl">
                         <Mail size={24} />
                     </div>

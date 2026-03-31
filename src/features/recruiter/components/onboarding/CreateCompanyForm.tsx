@@ -57,8 +57,8 @@ export function CreateCompanyForm() {
         <div className="space-y-5">
             {/* Header */}
             <div>
-                <h3 className="text-lg font-semibold text-slate-900">Register New Company</h3>
-                <p className="text-sm text-slate-500 mt-0.5">
+                <h3 className="text-lg font-semibold text-foreground">Register New Company</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">
                     Create a new company profile. You'll be set as the administrator.
                 </p>
             </div>
@@ -72,15 +72,15 @@ export function CreateCompanyForm() {
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-sm font-medium text-slate-700">
+                                    <FormLabel className="text-sm font-medium text-foreground/80">
                                         Company Name
                                     </FormLabel>
                                     <FormControl>
                                         <div className="relative">
-                                            <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                                            <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/70" />
                                             <Input
                                                 placeholder="Acme Corp"
-                                                className="pl-10 h-10 border-slate-200 bg-slate-50 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                                className="pl-10 h-10 border-border bg-muted/50 rounded-lg focus:bg-card focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                                                 {...field}
                                             />
                                         </div>
@@ -95,15 +95,15 @@ export function CreateCompanyForm() {
                             name="website"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-sm font-medium text-slate-700">
-                                        Website <span className="text-slate-400 font-normal">(Optional)</span>
+                                    <FormLabel className="text-sm font-medium text-foreground/80">
+                                        Website <span className="text-muted-foreground/70 font-normal">(Optional)</span>
                                     </FormLabel>
                                     <FormControl>
                                         <div className="relative">
-                                            <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                                            <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/70" />
                                             <Input
                                                 placeholder="https://example.com"
-                                                className="pl-10 h-10 border-slate-200 bg-slate-50 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                                className="pl-10 h-10 border-border bg-muted/50 rounded-lg focus:bg-card focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                                                 {...field}
                                             />
                                         </div>
@@ -121,13 +121,13 @@ export function CreateCompanyForm() {
                             name="industry"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-sm font-medium text-slate-700">Industry</FormLabel>
+                                    <FormLabel className="text-sm font-medium text-foreground/80">Industry</FormLabel>
                                     <FormControl>
                                         <div className="relative">
-                                            <Factory className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                                            <Factory className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/70" />
                                             <Input
                                                 placeholder="e.g. Technology"
-                                                className="pl-10 h-10 border-slate-200 bg-slate-50 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                                className="pl-10 h-10 border-border bg-muted/50 rounded-lg focus:bg-card focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                                                 {...field}
                                             />
                                         </div>
@@ -142,12 +142,12 @@ export function CreateCompanyForm() {
                             name="size"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-sm font-medium text-slate-700">Company Size</FormLabel>
+                                    <FormLabel className="text-sm font-medium text-foreground/80">Company Size</FormLabel>
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
-                                            <SelectTrigger className="h-10 border-slate-200 bg-slate-50 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all">
-                                                <div className="flex items-center gap-2 text-slate-500">
-                                                    <Users className="h-4 w-4 text-slate-400" />
+                                            <SelectTrigger className="h-10 border-border bg-muted/50 rounded-lg focus:bg-card focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all">
+                                                <div className="flex items-center gap-2 text-muted-foreground">
+                                                    <Users className="h-4 w-4 text-muted-foreground/70" />
                                                     <SelectValue placeholder="Select size" />
                                                 </div>
                                             </SelectTrigger>
@@ -173,16 +173,16 @@ export function CreateCompanyForm() {
                             name="foundedYear"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-sm font-medium text-slate-700">
-                                        Founded Year <span className="text-slate-400 font-normal">(Optional)</span>
+                                    <FormLabel className="text-sm font-medium text-foreground/80">
+                                        Founded Year <span className="text-muted-foreground/70 font-normal">(Optional)</span>
                                     </FormLabel>
                                     <FormControl>
                                         <div className="relative">
-                                            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                                            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/70" />
                                             <Input
                                                 type="number"
                                                 placeholder="2024"
-                                                className="pl-10 h-10 border-slate-200 bg-slate-50 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                                className="pl-10 h-10 border-border bg-muted/50 rounded-lg focus:bg-card focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                                                 value={field.value ?? ""}
                                                 onChange={(e) => {
                                                     const val = e.target.valueAsNumber;
@@ -201,15 +201,15 @@ export function CreateCompanyForm() {
                             name="location"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel className="text-sm font-medium text-slate-700">
+                                    <FormLabel className="text-sm font-medium text-foreground/80">
                                         Headquarters Location
                                     </FormLabel>
                                     <FormControl>
                                         <div className="relative">
-                                            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                                            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/70" />
                                             <Input
                                                 placeholder="New York, NY"
-                                                className="pl-10 h-10 border-slate-200 bg-slate-50 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                                className="pl-10 h-10 border-border bg-muted/50 rounded-lg focus:bg-card focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                                                 {...field}
                                             />
                                         </div>
@@ -226,11 +226,11 @@ export function CreateCompanyForm() {
                         name="description"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="text-sm font-medium text-slate-700">Description</FormLabel>
+                                <FormLabel className="text-sm font-medium text-foreground/80">Description</FormLabel>
                                 <FormControl>
                                     <Textarea
                                         placeholder="Tell us about your company, its mission, and culture..."
-                                        className="resize-none border-slate-200 bg-slate-50 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                        className="resize-none border-border bg-muted/50 rounded-lg focus:bg-card focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                                         rows={4}
                                         {...field}
                                     />
@@ -245,7 +245,7 @@ export function CreateCompanyForm() {
                         <button
                             type="submit"
                             disabled={createCompanyMutation.isPending}
-                            className="flex items-center gap-2 px-6 h-11 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white text-sm font-semibold rounded-lg transition-colors"
+                            className="flex items-center gap-2 px-6 h-11 bg-blue-600 hover:bg-blue-700 disabled:bg-muted disabled:text-muted-foreground/70 text-white text-sm font-semibold rounded-lg transition-colors"
                         >
                             {createCompanyMutation.isPending ? (
                                 <>

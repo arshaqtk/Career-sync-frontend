@@ -78,7 +78,7 @@ export function InterviewTimeline({
   onReschedule?: () => void;
 }) {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+    <div className="bg-card rounded-lg border border-gray-200 shadow-sm">
       <div className="p-6 pb-4 border-b border-gray-100">
         <h2 className="text-lg font-semibold text-gray-900">Interview Timeline</h2>
       </div>

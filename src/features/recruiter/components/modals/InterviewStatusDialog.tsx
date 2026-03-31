@@ -84,7 +84,7 @@ export function InterviewStatusDialog({
                   ? "Briefly explain why this interview is being cancelled..."
                   : "Key takeaways, performance notes, or next steps..."
               }
-              className="bg-gray-50/50 border-gray-200 min-h-[100px] resize-none focus:bg-white transition-colors"
+              className="bg-gray-50/50 border-gray-200 min-h-[100px] resize-none focus:bg-card transition-colors"
               value={remark}
               onChange={(e) => setRemark(e.target.value)}
             />

@@ -102,10 +102,10 @@ export function AddJobModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={closeModal}>
-      <DialogContent className="max-w-2xl p-0 overflow-hidden border-none shadow-2xl">
-        <DialogHeader className="bg-gray-50 border-b border-gray-200 p-6">
-          <DialogTitle className="flex items-center gap-2 text-gray-900">
-            <Briefcase className="h-5 w-5 text-blue-600" />
+      <DialogContent className="max-w-2xl p-0 overflow-hidden border border-border shadow-2xl bg-card">
+        <DialogHeader className="border-b border-border p-6">
+          <DialogTitle className="flex items-center gap-2 text-foreground">
+            <Briefcase className="h-5 w-5 text-primary" />
             {selectedJob ? "Edit Job Posting" : "Create New Job"}
           </DialogTitle>
         </DialogHeader>
@@ -114,23 +114,23 @@ export function AddJobModal({
           {/* Section: Basic Information */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-blue-50 flex items-center justify-center">
-                <Info className="h-4 w-4 text-blue-600" />
+              <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Info className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-gray-900 leading-none">General Information</h3>
-                <p className="text-[11px] text-gray-500 mt-1 font-medium italic">Basic details about the position</p>
+                <h3 className="text-sm font-bold text-foreground leading-none">General Information</h3>
+                <p className="text-[11px] text-muted-foreground mt-1 font-medium italic">Basic details about the position</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                   <Briefcase className="h-3 w-3" />
                   Job Title
                 </label>
-                <Input placeholder="e.g. Senior Frontend Engineer" className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100 transition-all" {...form.register("title")} />
-                {errors.title && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.title.message}</p>}
+                <Input placeholder="e.g. Senior Frontend Engineer" className="h-10 border-border focus:border-primary focus:ring-primary/20 transition-all bg-muted/20" {...form.register("title")} />
+                {errors.title && <p className="text-destructive text-[10px] font-bold mt-1">{errors.title.message}</p>}
               </div>
 
               {/* <div className="space-y-2">
@@ -145,12 +145,12 @@ export function AddJobModal({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                   <LayoutGrid className="h-3 w-3" />
                   Industry / Field
                 </label>
                 <Select onValueChange={(val) => form.setValue("field", val)} value={form.watch("field")}>
-                  <SelectTrigger className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100">
+                  <SelectTrigger className="h-10 border-border focus:border-primary focus:ring-primary/20 bg-muted/20">
                     <SelectValue placeholder="Select industry" />
                   </SelectTrigger>
                   <SelectContent>
@@ -159,16 +159,16 @@ export function AddJobModal({
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.field && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.field.message}</p>}
+                {errors.field && <p className="text-destructive text-[10px] font-bold mt-1">{errors.field.message}</p>}
               </div>
 
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                   <Clock className="h-3 w-3" />
                   Employment type
                 </label>
                 <Select onValueChange={(val) => form.setValue("jobType", val as "full-time" | "part-time" | "internship")} value={form.watch("jobType")}>
-                  <SelectTrigger className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100">
+                  <SelectTrigger className="h-10 border-border focus:border-primary focus:ring-primary/20 bg-muted/20">
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -184,40 +184,40 @@ export function AddJobModal({
           {/* Section: Requirements & Description */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-purple-50 flex items-center justify-center">
-                <Cpu className="h-4 w-4 text-purple-600" />
+              <div className="h-8 w-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                <Cpu className="h-4 w-4 text-purple-500" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-gray-900 leading-none">Requirements & Role</h3>
-                <p className="text-[11px] text-gray-500 mt-1 font-medium italic">What are you looking for in a candidate?</p>
+                <h3 className="text-sm font-bold text-foreground leading-none">Requirements & Role</h3>
+                <p className="text-[11px] text-muted-foreground mt-1 font-medium italic">What are you looking for in a candidate?</p>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Detailed Description</label>
+              <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Detailed Description</label>
               <Textarea
                 placeholder="Break down responsibilities and expectations..."
-                className="min-h-[140px] border-gray-200 focus:border-blue-400 focus:ring-blue-100 resize-none leading-relaxed"
+                className="min-h-[140px] border-border focus:border-primary focus:ring-primary/20 resize-none leading-relaxed bg-muted/20"
                 {...form.register("description")}
               />
-              {errors.description && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.description.message}</p>}
+              {errors.description && <p className="text-destructive text-[10px] font-bold mt-1">{errors.description.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Required Skills</label>
-              <Input placeholder="React, Node.js, TypeScript (comma separated)" className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100" {...form.register("skills")} />
+              <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Required Skills</label>
+              <Input placeholder="React, Node.js, TypeScript (comma separated)" className="h-10 border-border focus:border-primary focus:ring-primary/20 bg-muted/20" {...form.register("skills")} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Min. Experience (Years)</label>
-                <Input type="number" className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100" {...form.register("experienceMin", { valueAsNumber: true })} />
-                {errors.experienceMin && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.experienceMin.message}</p>}
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Min. Experience (Years)</label>
+                <Input type="number" className="h-10 border-border focus:border-primary focus:ring-primary/20 bg-muted/20" {...form.register("experienceMin", { valueAsNumber: true })} />
+                {errors.experienceMin && <p className="text-destructive text-[10px] font-bold mt-1">{errors.experienceMin.message}</p>}
               </div>
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Max. Experience (Years)</label>
-                <Input type="number" className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100" {...form.register("experienceMax", { valueAsNumber: true })} />
-                {errors.experienceMax && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.experienceMax.message}</p>}
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Max. Experience (Years)</label>
+                <Input type="number" className="h-10 border-border focus:border-primary focus:ring-primary/20 bg-muted/20" {...form.register("experienceMax", { valueAsNumber: true })} />
+                {errors.experienceMax && <p className="text-destructive text-[10px] font-bold mt-1">{errors.experienceMax.message}</p>}
               </div>
             </div>
           </div>
@@ -225,54 +225,54 @@ export function AddJobModal({
           {/* Section: Logistics */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-green-50 flex items-center justify-center">
-                <MapPin className="h-4 w-4 text-green-600" />
+              <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                <MapPin className="h-4 w-4 text-emerald-500" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-gray-900 leading-none">Location & Compensation</h3>
-                <p className="text-[11px] text-gray-500 mt-1 font-medium italic">Logistical details and salary</p>
+                <h3 className="text-sm font-bold text-foreground leading-none">Location & Compensation</h3>
+                <p className="text-[11px] text-muted-foreground mt-1 font-medium italic">Logistical details and salary</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                   <MapPin className="h-3 w-3" />
                   Office Location
                 </label>
-                <Input placeholder="e.g. New York, NY" className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100 transition-all" {...form.register("location")} />
-                {errors.location && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.location.message}</p>}
+                <Input placeholder="e.g. New York, NY" className="h-10 border-border focus:border-primary focus:ring-primary/20 transition-all bg-muted/20" {...form.register("location")} />
+                {errors.location && <p className="text-destructive text-[10px] font-bold mt-1">{errors.location.message}</p>}
               </div>
 
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                   <DollarSign className="h-3 w-3" />
                   Annual Salary (INR)
                 </label>
-                <Input type="number" placeholder="e.g. 1200000" className="h-10 border-gray-200 focus:border-blue-400 focus:ring-blue-100 transition-all" {...form.register("salary", { valueAsNumber: true })} />
-                {errors.salary && <p className="text-red-500 text-[10px] font-bold mt-1">{errors.salary.message}</p>}
+                <Input type="number" placeholder="e.g. 1200000" className="h-10 border-border focus:border-primary focus:ring-primary/20 transition-all bg-muted/20" {...form.register("salary", { valueAsNumber: true })} />
+                {errors.salary && <p className="text-destructive text-[10px] font-bold mt-1">{errors.salary.message}</p>}
               </div>
             </div>
 
-            <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 p-4 rounded-xl hover:bg-white transition-all group">
+            <div className="flex items-center gap-3 bg-muted/20 border border-border p-4 rounded-xl hover:bg-muted/30 transition-all group">
               <Checkbox
                 id="remote-checkbox"
                 checked={form.watch("remote")}
                 onCheckedChange={(val) => form.setValue("remote", Boolean(val))}
-                className="h-5 w-5 data-[state=checked]:bg-blue-600 border-gray-300"
+                className="h-5 w-5 data-[state=checked]:bg-primary border-border"
               />
               <div className="flex flex-col">
-                <label htmlFor="remote-checkbox" className="text-sm font-bold text-gray-800 cursor-pointer group-hover:text-blue-700 transition-colors">
+                <label htmlFor="remote-checkbox" className="text-sm font-bold text-foreground cursor-pointer group-hover:text-primary transition-colors">
                   Remote friendly position
                 </label>
-                <p className="text-[10px] text-gray-500 font-medium">Candidates can work from anywhere in the world</p>
+                <p className="text-[10px] text-muted-foreground font-medium">Candidates can work from anywhere in the world</p>
               </div>
             </div>
           </div>
 
-          <DialogFooter className="pt-6 border-t border-gray-100">
-            <Button type="button" variant="ghost" onClick={closeModal} className="text-gray-500">Cancel</Button>
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700 shadow-md">
+          <DialogFooter className="pt-6 border-t border-border">
+            <Button type="button" variant="ghost" onClick={closeModal} className="text-muted-foreground">Cancel</Button>
+            <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md">
               {selectedJob ? "Update Job Posting" : "Publish Job"}
             </Button>
           </DialogFooter>

@@ -45,19 +45,19 @@ export default function JobApplicantionDetailPage() {
   return (
     <div className="space-y-6">
       {/* Back Header */}
-    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b border-gray-200 pb-6">
+    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b border-border pb-6">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => navigate(`/recruiter/jobs/${jobId}/applicants`)}
-            className="h-9 w-9 p-0 hover:bg-gray-100"
+            className="h-9 w-9 p-0 hover:bg-muted"
           >
-            <ArrowLeft className="h-5 w-5 text-gray-600" />
+            <ArrowLeft className="h-5 w-5 text-muted-foreground" />
           </Button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Applicant Details</h1>
-            <p className="text-sm text-gray-500 font-medium">Managing application for {data.jobId?.title}</p>
+            <h1 className="text-2xl font-bold text-foreground">Applicant Details</h1>
+            <p className="text-sm text-muted-foreground font-medium">Managing application for {data.jobId?.title}</p>
           </div>
         </div>
       </div>
@@ -87,26 +87,26 @@ export default function JobApplicantionDetailPage() {
           <JobInfoCard job={data.jobId} />
 
           {/* Actions Card */}
-          <Card className="bg-white border border-gray-200 shadow-sm overflow-hidden">
-            <CardHeader className="bg-gray-50 border-b border-gray-200 py-4">
-              <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+          <Card className="bg-card border border-border shadow-sm overflow-hidden">
+            <CardHeader className="border-b border-border py-4">
+              <CardTitle className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4" />
                 Application Progress
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-6">
               <div className="space-y-2">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Documents</p>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Documents</p>
                 <ResumeModal directUrl={data.resumeUrl} />
               </div>
 
-              <div className="pt-6 border-t border-gray-100 space-y-4">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</p>
+              <div className="pt-6 border-t border-border space-y-4">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Actions</p>
                 <RecruiterActions applicationId={applicationId!} currentStatus={data.status} />
               </div>
 
-              <div className="pt-6 border-t border-gray-100 space-y-4">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Final Decision</p>
+              <div className="pt-6 border-t border-border space-y-4">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Final Decision</p>
                 <RecruiterFinalizeApplicationActions applicationId={applicationId!} currentStatus={data.status} />
               </div>
             </CardContent>

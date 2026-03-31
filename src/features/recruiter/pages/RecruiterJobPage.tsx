@@ -51,7 +51,7 @@ export default function RecruiterJobPage() {
     <div className="space-y-6">
       {/* Page Header */}
       <div className="border-b border-gray-200 pb-5">
-        <h1 className="text-2xl font-semibold text-gray-900">Job Postings</h1>
+        <h1 className="text-2xl font-semibold  text-foreground">Job Postings</h1>
         <p className="mt-1 text-sm text-gray-500">Manage and track all your job listings</p>
       </div>
 
@@ -81,7 +81,7 @@ export default function RecruiterJobPage() {
 
       {/* Empty State */}
       {!isLoading && data?.jobs.length === 0 && (
-        <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+        <div className="bg-card rounded-lg border border-gray-200 p-12 text-center">
           <div className="text-5xl mb-4">📋</div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">No jobs found</h3>
           <p className="text-gray-500 mb-6">

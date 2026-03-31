@@ -6,10 +6,11 @@ import { Briefcase, Building2, Clock, DollarSign, MapPin } from "lucide-react";
 type JobInfoProps={job:ApplicantDTO["jobId"]}
 
 export  function JobInfoCard({ job }:JobInfoProps) {
+  console.log("job",job)
   return (
-    <Card className="bg-white border border-gray-200 shadow-sm overflow-hidden">
-      <CardHeader className="bg-gray-50 border-b border-gray-200 py-4">
-        <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+    <Card className="bg-card border border-border shadow-sm overflow-hidden">
+      <CardHeader className="border-b border-border py-4">
+        <CardTitle className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
           <Briefcase className="h-4 w-4" />
           Job Information
         </CardTitle>
@@ -19,54 +20,54 @@ export  function JobInfoCard({ job }:JobInfoProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-gray-100 rounded-lg shrink-0">
-                <Briefcase className="h-4 w-4 text-gray-600" />
+              <div className="p-2 bg-muted rounded-lg shrink-0">
+                <Briefcase className="h-4 w-4 text-muted-foreground" />
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Job Title</p>
-                <p className="text-sm font-semibold text-gray-900 mt-0.5">{job?.title}</p>
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Job Title</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{job?.title}</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-gray-100 rounded-lg shrink-0">
-                <Building2 className="h-4 w-4 text-gray-600" />
+              <div className="p-2 bg-muted rounded-lg shrink-0">
+                <Building2 className="h-4 w-4 text-muted-foreground" />
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Company</p>
-                <p className="text-sm font-semibold text-gray-900 mt-0.5">{job?.company}</p>
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Company</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{job?.company.name}</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-gray-100 rounded-lg shrink-0">
-                <MapPin className="h-4 w-4 text-gray-600" />
+              <div className="p-2 bg-muted rounded-lg shrink-0">
+                <MapPin className="h-4 w-4 text-muted-foreground" />
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Location</p>
-                <p className="text-sm font-semibold text-gray-900 mt-0.5">{job?.location}</p>
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Location</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{job?.location}</p>
               </div>
             </div>
           </div>
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-gray-100 rounded-lg shrink-0">
-                <Clock className="h-4 w-4 text-gray-600" />
+              <div className="p-2 bg-muted rounded-lg shrink-0">
+                <Clock className="h-4 w-4 text-muted-foreground" />
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Employment Type</p>
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Employment Type</p>
                 <p className="text-sm font-semibold text-gray-900 mt-0.5 capitalize">{job?.jobType}</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-gray-100 rounded-lg shrink-0">
-                <DollarSign className="h-4 w-4 text-gray-600" />
+              <div className="p-2 bg-muted rounded-lg shrink-0">
+                <DollarSign className="h-4 w-4 text-muted-foreground" />
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Salary Range</p>
-                <p className="text-sm font-semibold text-gray-900 mt-0.5">{job?.salary}</p>
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Salary Range</p>
+                <p className="text-sm font-semibold text-foreground mt-0.5">{job?.salary}</p>
               </div>
             </div>
           </div>

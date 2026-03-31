@@ -47,7 +47,7 @@ return (
     <div className="space-y-6">
       {/* Page Header */}
       <div className="border-b border-gray-200 pb-5">
-        <h1 className="text-2xl font-semibold text-gray-900">Applications</h1>
+        <h1 className="text-2xl font-semibold  text-foreground">Applications</h1>
         <p className="mt-1 text-sm text-gray-500">Review and manage candidate applications</p>
       </div>
 
@@ -103,7 +103,7 @@ return (
             Previous
           </Button>
 
-          <span className="flex items-center px-4 text-sm text-gray-600 bg-white rounded border border-gray-200">
+          <span className="flex items-center px-4 text-sm text-gray-600 bg-card rounded border border-gray-200">
             Page {pagination.page} of {pagination.totalPages}
           </span>
 

@@ -24,7 +24,7 @@ export function ApplicationTable({ applications, isLoading, showJobColumn = true
 
     if (isLoading) {
         return (
-            <div className="bg-white rounded-lg border border-gray-200 p-8">
+            <div className="bg-card rounded-lg border border-gray-200 p-8">
                 <div className="animate-pulse space-y-3">
                     <div className="h-3 bg-gray-200 rounded"></div>
                     <div className="h-3 bg-gray-200 rounded w-5/6"></div>
@@ -35,23 +35,23 @@ export function ApplicationTable({ applications, isLoading, showJobColumn = true
     }
 
     return (
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-card rounded-lg border border-border shadow-sm overflow-hidden">
             <Table>
                 <TableHeader>
-                    <TableRow className="bg-gray-50 border-b border-gray-200">
-                        <TableHead className="font-semibold text-gray-700 h-12">Candidate</TableHead>
-                        {showJobColumn && <TableHead className="font-semibold text-gray-700">Applied For</TableHead>}
-                        <TableHead className="font-semibold text-gray-700">Experience</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Applied Date</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Status</TableHead>
-                        <TableHead className="text-right font-semibold text-gray-700">Actions</TableHead>
+                    <TableRow className="border-b border-border">
+                        <TableHead className="font-bold text-foreground/70 h-12 uppercase text-xs tracking-wider">Candidate</TableHead>
+                        {showJobColumn && <TableHead className="font-bold text-foreground/70 uppercase text-xs tracking-wider">Applied For</TableHead>}
+                        <TableHead className="font-bold text-foreground/70 uppercase text-xs tracking-wider">Experience</TableHead>
+                        <TableHead className="font-bold text-foreground/70 uppercase text-xs tracking-wider">Applied Date</TableHead>
+                        <TableHead className="font-bold text-foreground/70 uppercase text-xs tracking-wider">Status</TableHead>
+                        <TableHead className="text-right font-bold text-foreground/70 uppercase text-xs tracking-wider">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {applications.map((app) => (
                         <TableRow
                             key={app.id}
-                            className="border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
+                            className="border-b border-border/30 transition-colors cursor-pointer group"
                             onClick={() => {
                                 const path = showJobColumn
                                     ? `/recruiter/applicants/${app.id}`
@@ -61,22 +61,22 @@ export function ApplicationTable({ applications, isLoading, showJobColumn = true
                         >
                             <TableCell className="py-4">
                                 <div className="flex flex-col">
-                                    <span className="font-semibold text-gray-900">{app.candidate.name}</span>
-                                    <span className="text-sm text-gray-500">{app.candidate.email}</span>
+                                    <span className="font-semibold text-foreground group-hover:text-primary transition-colors">{app.candidate.name}</span>
+                                    <span className="text-sm text-muted-foreground">{app.candidate.email}</span>
                                 </div>
                             </TableCell>
                             {showJobColumn && (
                                 <TableCell>
-                                    <span className="text-sm font-medium text-gray-700">{app.job.title}</span>
+                                    <span className="text-sm font-medium text-foreground/80">{app.job.title}</span>
                                 </TableCell>
                             )}
                             <TableCell>
                                 <div className="flex flex-col text-sm">
-                                    <span className="font-medium text-gray-900">{app.experience} Years</span>
-                                    <span className="text-gray-500">{app.currentRole}</span>
+                                    <span className="font-medium text-foreground">{app.experience} Years</span>
+                                    <span className="text-muted-foreground">{app.currentRole}</span>
                                 </div>
                             </TableCell>
-                            <TableCell className="text-gray-600">
+                            <TableCell className="text-foreground/70">
                                 {new Date(app.createdAt).toLocaleDateString('en-US', {
                                     month: 'short',
                                     day: 'numeric',
