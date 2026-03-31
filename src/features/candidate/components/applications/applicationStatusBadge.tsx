@@ -11,7 +11,7 @@ export default function ApplicationStatusBadge({ status }: { status: string }) {
   };
 
   const currentStyle =
-    styles[status] || "bg-slate-50 text-slate-600 border-slate-200";
+    styles[status] || "bg-muted/50 text-muted-foreground border-border";
 
   return (
     <Badge

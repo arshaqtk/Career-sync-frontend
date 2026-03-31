@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import AppRouter from "./routes/AppRouter";
 import { registerSocketListeners } from "./lib/socket";
 import { SocketProvider } from "./providers/SocketProvider";
+import { ThemeProvider } from "./providers/ThemeProvider";
 import { ErrorBoundary } from "./components/errors/ErrorBoundary";
 import { initPresenceSocket } from "./sockets/presence.socket";
 import { useEffect } from "react";
@@ -40,11 +41,13 @@ useEffect(() => {
   }, []);
   return (
     <QueryClientProvider client={queryClient}>
-       <ErrorBoundary>
-      <SocketProvider />
-      <Toaster position="top-right" />
-      <AppRouter />
-</ErrorBoundary>
+      <ThemeProvider>
+        <ErrorBoundary>
+          <SocketProvider />
+          <Toaster position="top-right" />
+          <AppRouter />
+        </ErrorBoundary>
+      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

@@ -5,9 +5,9 @@ import type { JobDetails } from "@/features/candidate/types/applicationDetail.ty
 
 export const JobDetailsCard = ({ job }: { job: JobDetails }) => {
   return (
-    <Card className="border-slate-200 shadow-sm">
+    <Card className="border-border shadow-sm">
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <CardTitle className="text-lg font-bold text-foreground flex items-center gap-2">
           Job Details
         </CardTitle>
       </CardHeader>
@@ -15,24 +15,24 @@ export const JobDetailsCard = ({ job }: { job: JobDetails }) => {
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <p className="text-[12px] font-bold text-slate-500 uppercase">Role</p>
-            <p className="text-[14px] font-semibold text-slate-800">{job.title}</p>
+            <p className="text-[12px] font-bold text-muted-foreground uppercase">Role</p>
+            <p className="text-[14px] font-semibold text-foreground/90">{job.title}</p>
           </div>
           <div className="space-y-1">
-            <p className="text-[12px] font-bold text-slate-500 uppercase">Type</p>
-            <p className="text-[14px] font-semibold text-slate-800">{job.jobType}</p>
+            <p className="text-[12px] font-bold text-muted-foreground uppercase">Type</p>
+            <p className="text-[14px] font-semibold text-foreground/90">{job.jobType}</p>
           </div>
           <div className="space-y-1">
-            <p className="text-[12px] font-bold text-slate-500 uppercase">Experience</p>
-            <p className="text-[14px] font-semibold text-slate-800">{job.experienceMin} – {job.experienceMax} years</p>
+            <p className="text-[12px] font-bold text-muted-foreground uppercase">Experience</p>
+            <p className="text-[14px] font-semibold text-foreground/90">{job.experienceMin} – {job.experienceMax} years</p>
           </div>
         </div>
 
         <div className="space-y-2">
-          <p className="text-[12px] font-bold text-slate-500 uppercase">Skills Required</p>
+          <p className="text-[12px] font-bold text-muted-foreground uppercase">Skills Required</p>
           <div className="flex flex-wrap gap-1.5">
             {job.skills?.map((skill) => (
-              <Badge key={skill} variant="secondary" className="bg-slate-50 text-slate-600 border border-slate-100 font-medium">
+              <Badge key={skill} variant="secondary" className="bg-muted/50 text-muted-foreground border border-border/50 font-medium">
                 {skill}
               </Badge>
             ))}
@@ -41,8 +41,8 @@ export const JobDetailsCard = ({ job }: { job: JobDetails }) => {
 
         {job.description && (
           <div className="space-y-2 pt-2 border-t border-slate-50">
-            <p className="text-[12px] font-bold text-slate-500 uppercase">Description</p>
-            <p className="text-[14px] text-slate-600 leading-relaxed whitespace-pre-wrap">{job.description}</p>
+            <p className="text-[12px] font-bold text-muted-foreground uppercase">Description</p>
+            <p className="text-[14px] text-muted-foreground leading-relaxed whitespace-pre-wrap">{job.description}</p>
           </div>
         )}
       </CardContent>

@@ -17,7 +17,7 @@ export function RecruiterSidebar({ isOpen, isMobile, onNavItemClick }: Recruiter
   return (
     <aside
       className={cn(
-        "h-screen bg-white transition-all duration-300 ease-in-out flex flex-col",
+        "h-screen bg-card transition-all duration-300 ease-in-out flex flex-col",
         !isMobile && "fixed top-0 left-0 border-r",
         isOpen ? "w-64" : "w-20",
         isMobile && "w-full border-none"

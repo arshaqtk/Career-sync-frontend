@@ -41,7 +41,7 @@ export function InterviewListCard({
   return (
     <Card
       onClick={() => navigate(`/interviews/${interview._id}`)}
-      className="relative overflow-hidden cursor-pointer transition-all duration-200 border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md group"
+      className="relative overflow-hidden cursor-pointer transition-all duration-200 border border-border bg-card hover:border-border hover:shadow-md group"
     >
       {/* Side Indicator */}
       <div className={cn(
@@ -55,11 +55,11 @@ export function InterviewListCard({
               {interview.roundType} Interview • Round {interview.roundNumber}
             </h3>
             <div className="flex items-center gap-2 mt-1.5">
-              <span className="text-[14px] font-bold text-slate-700">
+              <span className="text-[14px] font-bold text-foreground/80">
                 {interview.jobTitle}
               </span>
-              <span className="text-slate-300">|</span>
-              <span className="text-[14px] font-medium text-slate-500 flex items-center gap-1">
+              <span className="text-muted-foreground/50">|</span>
+              <span className="text-[14px] font-medium text-muted-foreground flex items-center gap-1">
                 <Building2 className="h-4 w-4" />
                 {interview.companyName}
               </span>
@@ -68,9 +68,9 @@ export function InterviewListCard({
           <InterviewStatusBadge status={interview.status} />
         </div>
 
-        <div className="flex flex-wrap gap-x-6 gap-y-3 text-[13px] text-slate-500 font-medium mb-5">
+        <div className="flex flex-wrap gap-x-6 gap-y-3 text-[13px] text-muted-foreground font-medium mb-5">
           <span className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-slate-400" />
+            <Calendar className="h-4 w-4 text-muted-foreground/70" />
             {start ? start.toLocaleDateString("en-IN", {
               day: "numeric",
               month: "short",
@@ -82,9 +82,9 @@ export function InterviewListCard({
 
           <span className="flex items-center gap-2">
             {isOffline ? (
-              <MapPin className="h-4 w-4 text-slate-400" />
+              <MapPin className="h-4 w-4 text-muted-foreground/70" />
             ) : (
-              <Video className="h-4 w-4 text-slate-400" />
+              <Video className="h-4 w-4 text-muted-foreground/70" />
             )}
             {interview.mode}
           </span>

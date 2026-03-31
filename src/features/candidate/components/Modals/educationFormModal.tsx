@@ -64,12 +64,12 @@ export function EducationFormModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={closeModal}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 border-none bg-white shadow-2xl rounded-2xl">
-        <DialogHeader className="px-8 pt-8 pb-6 bg-slate-50/50 border-b border-slate-100">
-          <DialogTitle className="text-2xl font-extrabold text-slate-900 tracking-tight uppercase">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 border-none bg-card shadow-2xl rounded-2xl">
+        <DialogHeader className="px-8 pt-8 pb-6 bg-muted/50/50 border-b border-border/50">
+          <DialogTitle className="text-2xl font-extrabold text-foreground tracking-tight uppercase">
             {selectedEducation ? "Update Education" : "Add Education"}
           </DialogTitle>
-          <p className="text-sm font-medium text-slate-500 mt-1">
+          <p className="text-sm font-medium text-muted-foreground mt-1">
             Provide details about your academic background to help recruiters find you.
           </p>
         </DialogHeader>
@@ -77,10 +77,10 @@ export function EducationFormModal({
         <form onSubmit={form.handleSubmit(handleSubmit)} className="p-8 space-y-6">
           {/* School */}
           <div className="space-y-2">
-            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Institution Name</label>
+            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Institution Name</label>
             <Input
               placeholder="e.g. Stanford University, MIT..."
-              className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+              className="h-11 border-border focus-visible:ring-blue-600 font-medium"
               {...form.register("school")}
             />
             {errors.school && (
@@ -91,15 +91,15 @@ export function EducationFormModal({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Standard */}
             <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Degree / Standard</label>
+              <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Degree / Standard</label>
               <Select
                 defaultValue={form.watch("standard")}
                 onValueChange={(value: EducationroundNumber) => form.setValue("standard", value)}
               >
-                <SelectTrigger className="h-11 border-slate-200 focus:ring-blue-600 font-medium">
+                <SelectTrigger className="h-11 border-border focus:ring-blue-600 font-medium">
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
-                <SelectContent className="rounded-xl border-slate-200 shadow-xl">
+                <SelectContent className="rounded-xl border-border shadow-xl">
                   <SelectItem value="High School">High School</SelectItem>
                   <SelectItem value="Higher Secondary">Higher Secondary</SelectItem>
                   <SelectItem value="Diploma">Diploma</SelectItem>
@@ -116,10 +116,10 @@ export function EducationFormModal({
 
             {/* Grade */}
             <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Grade / CGPA / %</label>
+              <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Grade / CGPA / %</label>
               <Input
                 placeholder="e.g. 3.84 / 4.0 or 92%"
-                className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+                className="h-11 border-border focus-visible:ring-blue-600 font-medium"
                 {...form.register("gradeOrPercentage")}
               />
             </div>
@@ -129,14 +129,14 @@ export function EducationFormModal({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Start Date */}
             <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Start Date</label>
+              <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Start Date</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full h-11 text-left font-medium border-slate-200 hover:bg-slate-50 transition-all",
-                      !form.watch("startDate") && "text-slate-400"
+                      "w-full h-11 text-left font-medium border-border hover:bg-muted/50 transition-all",
+                      !form.watch("startDate") && "text-muted-foreground/70"
                     )}
                   >
                     {form.watch("startDate")
@@ -161,14 +161,14 @@ export function EducationFormModal({
 
             {/* End Date */}
             <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">End Date</label>
+              <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">End Date</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full h-11 text-left font-medium border-slate-200 hover:bg-slate-50 transition-all",
-                      !form.watch("endDate") && "text-slate-400"
+                      "w-full h-11 text-left font-medium border-border hover:bg-muted/50 transition-all",
+                      !form.watch("endDate") && "text-muted-foreground/70"
                     )}
                   >
                     {form.watch("endDate")
@@ -196,30 +196,30 @@ export function EducationFormModal({
 
           {/* Location */}
           <div className="space-y-2">
-            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Location</label>
+            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Location</label>
             <Input
               placeholder="e.g. New York, USA"
-              className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+              className="h-11 border-border focus-visible:ring-blue-600 font-medium"
               {...form.register("location")}
             />
           </div>
 
           {/* Description */}
           <div className="space-y-2">
-            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Description</label>
+            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Description</label>
             <Textarea
               placeholder="Describe your major accomplishments, extracurriculars, or relevant projects..."
-              className="min-h-[120px] border-slate-200 focus-visible:ring-blue-600 font-medium text-slate-700 placeholder:text-slate-400 resize-none rounded-xl p-4"
+              className="min-h-[120px] border-border focus-visible:ring-blue-600 font-medium text-foreground/80 placeholder:text-muted-foreground/70 resize-none rounded-xl p-4"
               {...form.register("description")}
             />
           </div>
 
-          <div className="pt-8 border-t border-slate-100 flex justify-end gap-4">
+          <div className="pt-8 border-t border-border/50 flex justify-end gap-4">
             <Button
               type="button"
               variant="ghost"
               onClick={closeModal}
-              className="text-slate-500 font-bold hover:bg-slate-50 px-6 h-12"
+              className="text-muted-foreground font-bold hover:bg-muted/50 px-6 h-12"
             >
               Cancel
             </Button>

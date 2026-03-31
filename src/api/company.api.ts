@@ -10,5 +10,5 @@ export const getCompanyByIdApi = async (companyId: string): Promise<ApiResponse<
 
 export const getCompanyJobsApi = async (companyId: string): Promise<ApiResponse<Job[]>> => {
     const res = await api.get(`/companies/${companyId}/jobs`);
-    return res.data.data;
+    return res.data;
 };

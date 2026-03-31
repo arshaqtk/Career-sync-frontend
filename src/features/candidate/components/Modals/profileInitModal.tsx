@@ -64,15 +64,15 @@ export const ProfileInitModal = ({ open, onSkip }: ProfileInitModalProps) => {
       >
         {/* ── Done state ── */}
         {isDone ? (
-          <div className="flex flex-col items-center justify-center gap-6 py-20 px-10 bg-white text-center">
+          <div className="flex flex-col items-center justify-center gap-6 py-20 px-10 bg-card text-center">
             <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center animate-bounce">
               <CheckCircle2 className="w-10 h-10 text-green-500" />
             </div>
             <div>
-              <h2 className="text-2xl font-extrabold text-slate-900 mb-2">
+              <h2 className="text-2xl font-extrabold text-foreground mb-2">
                 Profile initialized!
               </h2>
-              <p className="text-slate-500 text-sm">
+              <p className="text-muted-foreground text-sm">
                 Your resume has been parsed and your profile is ready.
                 You can edit any details from your profile settings.
               </p>
@@ -114,7 +114,7 @@ export const ProfileInitModal = ({ open, onSkip }: ProfileInitModalProps) => {
               <div className="space-y-3 mt-8">
                 {features.map(({ icon: Icon, label }) => (
                   <div key={label} className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-card/15 flex items-center justify-center flex-shrink-0">
                       <Icon className="w-3.5 h-3.5 text-white" />
                     </div>
                     <span className="text-blue-100 text-xs font-medium">{label}</span>
@@ -124,12 +124,12 @@ export const ProfileInitModal = ({ open, onSkip }: ProfileInitModalProps) => {
             </div>
 
             {/* ── Right panel ── */}
-            <div className="flex-1 bg-white p-8 flex flex-col justify-center gap-6">
+            <div className="flex-1 bg-card p-8 flex flex-col justify-center gap-6">
               <div>
-                <h3 className="text-xl font-extrabold text-slate-900">
+                <h3 className="text-xl font-extrabold text-foreground">
                   Upload your resume
                 </h3>
-                <p className="text-slate-400 text-sm mt-1">
+                <p className="text-muted-foreground/70 text-sm mt-1">
                   Supports PDF, DOC, DOCX · Max 5MB
                 </p>
               </div>
@@ -146,7 +146,7 @@ export const ProfileInitModal = ({ open, onSkip }: ProfileInitModalProps) => {
                   cursor-pointer transition-all duration-200
                   ${isDragging
                     ? "border-blue-500 bg-blue-50 scale-[1.01]"
-                    : "border-slate-200 hover:border-blue-400 hover:bg-slate-50/80"
+                    : "border-border hover:border-blue-400 hover:bg-muted/50/80"
                   }
                   ${isPending ? "pointer-events-none opacity-70" : ""}
                 `}
@@ -158,15 +158,15 @@ export const ProfileInitModal = ({ open, onSkip }: ProfileInitModalProps) => {
                       <Sparkles className="w-7 h-7 text-blue-500 animate-pulse" />
                     </div>
                     <div className="text-center">
-                      <p className="text-sm font-bold text-slate-800">
+                      <p className="text-sm font-bold text-foreground/90">
                         AI is reading your resume...
                       </p>
-                      <p className="text-xs text-slate-400 mt-1">
+                      <p className="text-xs text-muted-foreground/70 mt-1">
                         Extracting skills, experience & education
                       </p>
                     </div>
                     {/* Progress bar */}
-                    <div className="w-full bg-slate-100 rounded-full h-1.5 mt-2 overflow-hidden">
+                    <div className="w-full bg-muted rounded-full h-1.5 mt-2 overflow-hidden">
                       <div className="h-full bg-gradient-to-r from-blue-500 to-violet-500 rounded-full animate-[progress_2s_ease-in-out_infinite]" style={{ width: "70%" }} />
                     </div>
                   </>
@@ -176,8 +176,8 @@ export const ProfileInitModal = ({ open, onSkip }: ProfileInitModalProps) => {
                       <CheckCircle2 className="w-7 h-7 text-green-500" />
                     </div>
                     <div className="text-center">
-                      <p className="text-sm font-bold text-slate-800">{uploadedFile.name}</p>
-                      <p className="text-xs text-slate-400 mt-1">Uploaded successfully</p>
+                      <p className="text-sm font-bold text-foreground/90">{uploadedFile.name}</p>
+                      <p className="text-xs text-muted-foreground/70 mt-1">Uploaded successfully</p>
                     </div>
                   </>
                 ) : (
@@ -186,13 +186,13 @@ export const ProfileInitModal = ({ open, onSkip }: ProfileInitModalProps) => {
                       <Upload className="w-7 h-7 text-blue-500" />
                     </div>
                     <div className="text-center">
-                      <p className="text-sm font-bold text-slate-800">
+                      <p className="text-sm font-bold text-foreground/90">
                         Drag & drop or{" "}
                         <span className="text-blue-600 underline underline-offset-2">
                           browse
                         </span>
                       </p>
-                      <p className="text-xs text-slate-400 mt-1">
+                      <p className="text-xs text-muted-foreground/70 mt-1">
                         Your resume will auto-fill your entire profile
                       </p>
                     </div>
@@ -209,7 +209,7 @@ export const ProfileInitModal = ({ open, onSkip }: ProfileInitModalProps) => {
               />
 
               {/* Manual skip option */}
-              <p className="text-center text-xs text-slate-400">
+              <p className="text-center text-xs text-muted-foreground/70">
                 Want to fill manually?{" "}
                 <button
                   type="button"

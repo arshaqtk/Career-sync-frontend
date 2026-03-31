@@ -30,7 +30,7 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
     mutate(formData);
   };
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-100">
+    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-border/50">
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
         <div className="relative group">
           <Avatar className="h-28 w-28 border-4 border-slate-50 shadow-sm">
@@ -39,8 +39,8 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
               {user.name.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <label className="absolute bottom-1 right-1 p-2 bg-white rounded-full shadow-md border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors">
-            <Camera size={16} className="text-slate-600" />
+          <label className="absolute bottom-1 right-1 p-2 bg-card rounded-full shadow-md border border-border cursor-pointer hover:bg-muted/50 transition-colors">
+            <Camera size={16} className="text-muted-foreground" />
             <input
               type="file"
               accept="image/*"
@@ -54,27 +54,27 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl font-extrabold text-foreground tracking-tight">
             {user.name}
           </h1>
 
           <div className="flex flex-wrap gap-y-2 gap-x-4">
-            <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-              <Briefcase size={16} className="text-slate-400" />
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <Briefcase size={16} className="text-muted-foreground/70" />
               {user.field || "Professional"}
             </div>
-            <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-              <Mail size={16} className="text-slate-400" />
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <Mail size={16} className="text-muted-foreground/70" />
               {user.email}
             </div>
             {user.phone && (
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                <Phone size={16} className="text-slate-400" />
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                <Phone size={16} className="text-muted-foreground/70" />
                 {user.phone}
               </div>
             )}
-            {/* <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-              <MapPin size={16} className="text-slate-400" />
+            {/* <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <MapPin size={16} className="text-muted-foreground/70" />
               {user.location || "Remote"}
             </div> */}
           </div>

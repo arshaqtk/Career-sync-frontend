@@ -20,34 +20,34 @@ export function ProfileTabs({ user }: { user: UserDto }) {
  }
   return (
     <Tabs defaultValue="overview" className="w-full">
-      <TabsList className="flex gap-2 bg-transparent border-b border-slate-200 rounded-none h-auto p-0 mb-8">
+      <TabsList className="flex gap-2 bg-transparent border-b border-border rounded-none h-auto p-0 mb-8">
         <TabsTrigger
           value="overview"
-          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-slate-500 transition-all hover:text-slate-700 shadow-none capitalize"
+          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-muted-foreground transition-all hover:text-foreground/80 shadow-none capitalize"
         >
           About
         </TabsTrigger>
         <TabsTrigger
           value="experience"
-          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-slate-500 transition-all hover:text-slate-700 shadow-none capitalize"
+          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-muted-foreground transition-all hover:text-foreground/80 shadow-none capitalize"
         >
           Experience
         </TabsTrigger>
         <TabsTrigger
           value="skills"
-          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-slate-500 transition-all hover:text-slate-700 shadow-none capitalize"
+          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-muted-foreground transition-all hover:text-foreground/80 shadow-none capitalize"
         >
           Skills
         </TabsTrigger>
         <TabsTrigger
           value="education"
-          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-slate-500 transition-all hover:text-slate-700 shadow-none capitalize"
+          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-muted-foreground transition-all hover:text-foreground/80 shadow-none capitalize"
         >
           Education
         </TabsTrigger>
         <TabsTrigger
           value="resume"
-          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-slate-500 transition-all hover:text-slate-700 shadow-none capitalize"
+          className="data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 border-b-2 border-transparent rounded-none bg-transparent px-4 py-3 text-sm font-bold text-muted-foreground transition-all hover:text-foreground/80 shadow-none capitalize"
         >
           Resume
         </TabsTrigger>

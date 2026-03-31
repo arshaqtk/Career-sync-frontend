@@ -23,13 +23,13 @@ export default function InterviewDetailPage() {
   const { interview, timeline } = data
 
   return (
-    <div className="min-h-screen bg-slate-50/30 py-8">
+    <div className="min-h-screen bg-muted/50/30 py-8">
       <div className="container mx-auto max-w-5xl px-4 md:px-6">
         {/* Back Button */}
         <Button
           variant="ghost"
           size="sm"
-          className="mb-6 text-slate-500 hover:text-blue-600 font-medium p-0 h-auto hover:bg-transparent group"
+          className="mb-6 text-muted-foreground hover:text-blue-600 font-medium p-0 h-auto hover:bg-transparent group"
           onClick={() => navigate("/interviews")}
         >
           <ChevronLeft className="h-4 w-4 mr-1 transition-transform group-hover:-translate-x-1" />

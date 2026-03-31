@@ -25,11 +25,11 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
   const { data: user, isLoading } = useUserData()
 
 
-  if (isLoading) return <div className="h-20 flex items-center justify-center bg-white border-b border-slate-100">
+  if (isLoading) return <div className="h-20 flex items-center justify-center bg-card border-b border-border/50">
     <Spinner />
   </div>
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-white border-b h-20">
+    <header className="flex items-center justify-between px-6 py-4 bg-card border-b h-20">
       <div className="flex items-center gap-4">
         <Button
           variant="ghost"
@@ -44,7 +44,7 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
         {/* <div className="hidden sm:block">
           <Input
             placeholder="Search candidates, jobs, interviews..."
-            className="w-[300px] lg:w-[450px] bg-gray-50 border-none transition-all focus:bg-white focus:ring-1"
+            className="w-[300px] lg:w-[450px] bg-gray-50 border-none transition-all focus:bg-card focus:ring-1"
           />
         </div> */}
       </div>
@@ -61,7 +61,7 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
             variant="ghost"
             size="icon"
             onClick={() => navigate("notifications")}
-            className="text-slate-500 hover:bg-slate-50 relative"
+            className="text-muted-foreground hover:bg-muted/50 relative"
           >
             <Bell className="h-5 w-5" />
             {user?.notificationCount > 0 && (
@@ -73,12 +73,12 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
           </Button>
         </div>
 
-        <div className="h-6 w-[1px] bg-slate-100 mx-2 hidden sm:block" />
+        <div className="h-6 w-[1px] bg-muted mx-2 hidden sm:block" />
 
         {/* User Profile Section */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="pl-1 pr-2 py-1 h-auto flex items-center gap-3 rounded-full hover:bg-slate-50 transition-all group">
+            <Button variant="ghost" className="pl-1 pr-2 py-1 h-auto flex items-center gap-3 rounded-full hover:bg-muted/50 transition-all group">
               <div className="relative">
                 <Avatar className="h-9 w-9 border-2 border-white shadow-sm ring-1 ring-slate-100 transition-all group-hover:ring-blue-100">
                   <AvatarImage src={user?.profilePicture?.url} alt={user?.name} className="object-cover" />
@@ -90,8 +90,8 @@ export function RecruiterTopNavbar({ onMenuClick }: RecruiterTopNavbarProps) {
               </div>
 
               <div className="hidden lg:flex flex-col items-start leading-none text-left gap-1">
-                <span className="text-sm font-bold text-slate-900 line-clamp-1">{user?.name}</span>
-                <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-none bg-slate-100 text-slate-500 font-bold tracking-wider leading-none uppercase">
+                <span className="text-sm font-bold text-foreground line-clamp-1">{user?.name}</span>
+                <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-none bg-muted text-muted-foreground font-bold tracking-wider leading-none uppercase">
                   Recruiter
                 </Badge>
               </div>

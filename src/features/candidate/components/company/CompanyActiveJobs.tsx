@@ -3,30 +3,33 @@ import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import type { Job } from '@/features/recruiter/types/job.type';
-import { formatDistanceToNow } from 'date-fns'; // Optional: for cleaner "2 days ago" labels
+import { formatDistanceToNow } from 'date-fns'; 
+import { useNavigate } from 'react-router-dom';
 
 export const CompanyActiveJobs = ({ jobs }: { jobs: Job[] }) => {
+    const navigate = useNavigate();
+    
     return (
         <section className="space-y-6">
             {/* Header with cleaner typography */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 px-1">
                 <div>
-                    <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-3">
+                    <h2 className="text-xl font-semibold text-foreground flex items-center gap-3">
                         Open Roles
-                        <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50 border-blue-100 px-2.5">
+                        <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20 border-primary/20 px-2.5">
                             {jobs?.length}
                         </Badge>
                     </h2>
-                    <p className="text-sm text-slate-500 mt-1">Explore current opportunities to join our team</p>
+                    <p className="text-sm text-muted-foreground mt-1">Explore current opportunities to join our team</p>
                 </div>
-                <Button variant="outline" size="sm" className="hidden md:flex text-slate-600 font-medium border-slate-200 hover:bg-slate-50 transition-colors">
+                <Button variant="outline" size="sm" className="hidden md:flex text-muted-foreground font-medium border-border hover:bg-muted transition-colors">
                     View All Careers <ChevronRight size={14} className="ml-1" />
                 </Button>
             </div>
 
             <div className="grid gap-4">
                 {jobs?.map((job) => (
-                    <Card key={job._id} className="group overflow-hidden border-slate-200 transition-all duration-300 hover:border-blue-400 hover:shadow-md bg-white rounded-xl">
+                    <Card key={job._id} className="group overflow-hidden border-border transition-all duration-300 hover:border-primary/50 hover:shadow-md bg-card rounded-xl">
                         <CardContent className="p-0">
                             <div className="flex flex-col md:flex-row md:items-center p-5 md:p-6 gap-6">
                                 
@@ -34,22 +37,22 @@ export const CompanyActiveJobs = ({ jobs }: { jobs: Job[] }) => {
                                 <div className="flex-1 space-y-3">
                                     <div className="space-y-1.5">
                                         <div className="flex items-center gap-2">
-                                            <h3 className="text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                                            <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
                                                 {job.title}
                                             </h3>
                                         </div>
                                         
-                                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-slate-500 text-sm">
+                                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground text-sm">
                                             <span className="flex items-center gap-1.5 font-medium">
-                                                <MapPin size={14} className="text-slate-400" />
+                                                <MapPin size={14} className="text-muted-foreground/70" />
                                                 {job.location}
                                             </span>
                                             <span className="flex items-center gap-1.5 font-medium">
-                                                <DollarSign size={14} className="text-slate-400" />
+                                                <DollarSign size={14} className="text-muted-foreground/70" />
                                                 {job.salary}
                                             </span>
                                             <span className="flex items-center gap-1.5 font-medium">
-                                                <Clock size={14} className="text-slate-400" />
+                                                <Clock size={14} className="text-muted-foreground/70" />
                                                 {/* Uses fallback if toISOString fails */}
                                                 {job.createdAt ? `Posted ${formatDistanceToNow(new Date(job.createdAt))} ago` : 'Recently posted'}
                                             </span>
@@ -62,7 +65,7 @@ export const CompanyActiveJobs = ({ jobs }: { jobs: Job[] }) => {
                                             <Badge 
                                                 key={i} 
                                                 variant="secondary" 
-                                                className="bg-slate-50 text-slate-500 border-slate-100 font-medium text-[11px] px-2 py-0.5 rounded-md"
+                                                className="bg-muted/50 text-muted-foreground border-border/50 font-medium text-[11px] px-2 py-0.5 rounded-md"
                                             >
                                                 {skill}
                                             </Badge>
@@ -71,9 +74,10 @@ export const CompanyActiveJobs = ({ jobs }: { jobs: Job[] }) => {
                                 </div>
 
                                 {/* Action Area */}
-                                <div className="flex items-center md:pl-6 md:border-l border-slate-100">
-                                    <Button className="w-full md:w-auto bg-slate-900 hover:bg-blue-600 text-white font-medium px-6 py-5 rounded-lg transition-all active:scale-[0.98]">
-                                        Apply Now
+                                <div className="flex items-center md:pl-6 md:border-l border-border/50">
+                                    <Button className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-5 rounded-lg transition-all active:scale-[0.98]"
+                                    onClick={() => navigate(`/jobs?id=${job._id}`)}>
+                                       View Job
                                     </Button>
                                 </div>
                             </div>
@@ -83,7 +87,7 @@ export const CompanyActiveJobs = ({ jobs }: { jobs: Job[] }) => {
             </div>
             
             {/* Mobile-only view all button */}
-            <Button variant="outline" className="w-full md:hidden border-slate-200 text-slate-600">
+            <Button variant="outline" className="w-full md:hidden border-border text-muted-foreground">
                 View All Jobs
             </Button>
         </section>

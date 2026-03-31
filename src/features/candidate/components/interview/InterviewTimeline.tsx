@@ -10,13 +10,13 @@ interface InterviewTimelineProps {
 
 export function InterviewTimeline({ timeline }: InterviewTimelineProps) {
   return (
-    <Card className="border-slate-200 shadow-sm overflow-hidden bg-white">
-      <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+    <Card className="border-border shadow-sm overflow-hidden bg-card">
+      <div className="p-6 border-b border-border/50 flex items-center justify-between">
         <div>
-          <h2 className="text-[17px] font-bold text-slate-900">
+          <h2 className="text-[17px] font-bold text-foreground">
             Interview Journey
           </h2>
-          <p className="text-[13px] text-slate-500 font-medium">
+          <p className="text-[13px] text-muted-foreground font-medium">
             Historical and upcoming rounds for this application
           </p>
         </div>
@@ -25,7 +25,7 @@ export function InterviewTimeline({ timeline }: InterviewTimelineProps) {
       <div className="p-6">
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-[15px] top-6 bottom-0 w-0.5 bg-slate-100" />
+          <div className="absolute left-[15px] top-6 bottom-0 w-0.5 bg-muted" />
 
           <div className="space-y-10">
             {timeline.map((item) => {
@@ -45,7 +45,7 @@ export function InterviewTimeline({ timeline }: InterviewTimelineProps) {
                         ? "bg-blue-600 text-white animate-pulse"
                         : isCancelled
                           ? "bg-rose-500 text-white"
-                          : "bg-slate-200 text-slate-500"
+                          : "bg-muted text-muted-foreground"
                       }`}
                   >
                     <User2 size={14} className="font-bold" />
@@ -55,17 +55,17 @@ export function InterviewTimeline({ timeline }: InterviewTimelineProps) {
                     {/* Content Header */}
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-[16px] font-bold text-slate-900 mb-1">
+                        <h3 className="text-[16px] font-bold text-foreground mb-1">
                           Round {item.roundNumber}: {item.roundType}
                         </h3>
-                        <div className="flex items-center gap-3 text-[13px] font-medium text-slate-500">
+                        <div className="flex items-center gap-3 text-[13px] font-medium text-muted-foreground">
                           <span className="flex items-center gap-1.5">
                             {item.mode === "Offline" ? <MapPin size={14} /> : <Video size={14} />}
                             {item.mode}
                           </span>
                           {duration && (
                             <>
-                              <span className="text-slate-300">•</span>
+                              <span className="text-muted-foreground/50">•</span>
                               <span className="flex items-center gap-1.5 underline decoration-slate-200 underline-offset-4">
                                 <Clock size={14} />
                                 {duration}
@@ -80,13 +80,13 @@ export function InterviewTimeline({ timeline }: InterviewTimelineProps) {
                     {/* Schedule Block */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {item.startTime && (
-                        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 border border-slate-100">
-                          <Calendar className="h-4 w-4 text-slate-400" />
+                        <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/50/80 border border-border/50">
+                          <Calendar className="h-4 w-4 text-muted-foreground/70" />
                           <div>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                            <p className="text-[10px] font-bold text-muted-foreground/70 uppercase tracking-wider">
                               {isCompleted ? "Held On" : "Scheduled For"}
                             </p>
-                            <p className="text-[13px] font-bold text-slate-700">
+                            <p className="text-[13px] font-bold text-foreground/80">
                               {formatDateTime(item.startTime)}
                             </p>
                           </div>
@@ -117,13 +117,13 @@ export function InterviewTimeline({ timeline }: InterviewTimelineProps) {
                               history.status === "Scheduled" ? "bg-blue-600" : "bg-slate-300"
                               }`} />
                             <div className="flex-1">
-                              <p className="text-[13px] text-slate-600">
-                                <span className="font-bold text-slate-900">{history.status}</span>
-                                <span className="mx-2 text-slate-300">•</span>
-                                <span className="text-slate-400 font-medium">{formatDateTime(history.changedAt)}</span>
+                              <p className="text-[13px] text-muted-foreground">
+                                <span className="font-bold text-foreground">{history.status}</span>
+                                <span className="mx-2 text-muted-foreground/50">•</span>
+                                <span className="text-muted-foreground/70 font-medium">{formatDateTime(history.changedAt)}</span>
                               </p>
                               {history.notes && (
-                                <p className="mt-1 text-[13px] text-slate-500 italic bg-slate-50 p-2 rounded-lg border border-slate-100/50 flex gap-2 items-start">
+                                <p className="mt-1 text-[13px] text-muted-foreground italic bg-muted/50 p-2 rounded-lg border border-border/50/50 flex gap-2 items-start">
                                   <MessageSquare size={14} className="shrink-0 mt-0.5" />
                                   {history.notes}
                                 </p>

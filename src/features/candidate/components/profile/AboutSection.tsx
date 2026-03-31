@@ -30,9 +30,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ about }) => {
   };
 
   return (
-    <Card className="border border-slate-200 shadow-none bg-white overflow-hidden">
-      <CardHeader className="flex flex-row justify-between items-center px-6 py-4 border-b border-slate-50 bg-slate-50/50">
-        <CardTitle className="text-lg font-extrabold text-slate-900 uppercase tracking-tight">About</CardTitle>
+    <Card className="border border-border shadow-none bg-card overflow-hidden">
+      <CardHeader className="flex flex-row justify-between items-center px-6 py-4 border-b border-slate-50 bg-muted/50/50">
+        <CardTitle className="text-lg font-extrabold text-foreground uppercase tracking-tight">About</CardTitle>
 
         {!isEditing && (
           <Button
@@ -55,7 +55,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ about }) => {
               onChange={(e) => setValue(e.target.value)}
               rows={5}
               placeholder="Tell us about yourself, your career goals, and what makes you unique..."
-              className="resize-none border-slate-200 focus-visible:ring-blue-500 font-medium text-slate-700"
+              className="resize-none border-border focus-visible:ring-blue-500 font-medium text-foreground/80"
             />
 
             <div className="flex gap-2 justify-end">
@@ -64,7 +64,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ about }) => {
                 Save Changes
               </Button>
 
-              <Button onClick={cancelEdit} variant="outline" className="border-slate-200 text-slate-600 font-bold px-4 h-9 flex items-center gap-2">
+              <Button onClick={cancelEdit} variant="outline" className="border-border text-muted-foreground font-bold px-4 h-9 flex items-center gap-2">
                 <X className="h-4 w-4" />
                 Cancel
               </Button>
@@ -73,17 +73,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ about }) => {
         ) : (
           <>
             {about && about.trim() !== "" ? (
-              <p className="text-[15px] font-medium text-slate-600 leading-relaxed whitespace-pre-wrap">
+              <p className="text-[15px] font-medium text-muted-foreground leading-relaxed whitespace-pre-wrap">
                 {about}
               </p>
             ) : (
               <div className="flex flex-col gap-4 items-center justify-center py-6 text-center">
-                <div className="p-3 bg-slate-50 rounded-full">
-                  <Pencil className="h-6 w-6 text-slate-300" />
+                <div className="p-3 bg-muted/50 rounded-full">
+                  <Pencil className="h-6 w-6 text-muted-foreground/50" />
                 </div>
                 <div>
-                  <p className="text-slate-500 font-bold mb-1">No about section yet</p>
-                  <p className="text-slate-400 text-sm mb-4">Add a brief description to help recruiters get to know you.</p>
+                  <p className="text-muted-foreground font-bold mb-1">No about section yet</p>
+                  <p className="text-muted-foreground/70 text-sm mb-4">Add a brief description to help recruiters get to know you.</p>
                   <Button
                     className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-9"
                     onClick={startEdit}

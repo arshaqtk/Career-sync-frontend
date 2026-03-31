@@ -25,9 +25,9 @@ export default function CandidateLayout() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <ProfileInitModal open={showInitModal} onSkip={handleSkip} />
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-card border-b border-border">
         <CandidateNavbar />
       </div>
       <main className="pt-20 px-6 pb-6 max-w-7xl w-full mx-auto">

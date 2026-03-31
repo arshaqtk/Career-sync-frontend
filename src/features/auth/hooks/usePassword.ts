@@ -2,13 +2,15 @@ import { ResendResetPasswordOtp, ResetPasswordApi, SendResetPasswordEmail, Verif
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export const useSendResetPasswordEmail = () => {
     const mutate = useMutation({
         mutationFn: SendResetPasswordEmail,
         onSuccess() {
             toast.success("Otp Sent Successfully")
-        }
+        },
+        onError: handleRQError
     })
 
     return mutate
@@ -19,7 +21,8 @@ export const useResendResetPasswordOtpMutation = () => {
         mutationFn: ResendResetPasswordOtp,
         onSuccess: () => {
             toast.success("OTP resent successfully");
-        }
+        },
+        onError: handleRQError
     })
     return mutation
 }
@@ -35,7 +38,8 @@ export const useVerifyResetPasswordOtp = () => {
                     resetToken: data.resetToken,
                 },
             });
-        }
+        },
+        onError: handleRQError
     })
     return mutation
 }
@@ -47,8 +51,8 @@ export const useResetPassword = () => {
         onSuccess() {
             toast.success("updated successfully")
             navigate("/auth/login")
-        }
-
+        },
+        onError: handleRQError
     })
     return mutation
 }

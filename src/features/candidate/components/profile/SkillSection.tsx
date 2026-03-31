@@ -13,7 +13,7 @@ export function SkillsSection({skills }: SkillsSectionProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-extrabold text-slate-900 uppercase tracking-tight">Key skills</h3>
+        <h3 className="text-lg font-extrabold text-foreground uppercase tracking-tight">Key skills</h3>
         <Button
           variant="ghost"
           size="sm"
@@ -25,21 +25,21 @@ export function SkillsSection({skills }: SkillsSectionProps) {
         </Button>
       </div>
 
-      <div className="flex gap-2 flex-wrap p-6 rounded-xl border border-slate-200 bg-white min-h-[100px]">
+      <div className="flex gap-2 flex-wrap p-6 rounded-xl border border-border bg-card min-h-[100px]">
         {skills.length > 0 ? (
           skills.map((skill, i) => (
             <CustomBadge
               key={i}
               size="md"
               variant="minimal"
-              className="bg-slate-50 border-slate-200 text-slate-700 font-bold hover:border-blue-200 hover:bg-blue-50 transition-all cursor-default"
+              className="bg-muted/50 border-border text-foreground/80 font-bold hover:border-blue-200 hover:bg-blue-50 transition-all cursor-default"
             >
               {skill}
             </CustomBadge>
           ))
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-center">
-            <p className="text-slate-400 text-sm font-medium italic">No skills added yet.</p>
+            <p className="text-muted-foreground/70 text-sm font-medium italic">No skills added yet.</p>
           </div>
         )}
       </div>

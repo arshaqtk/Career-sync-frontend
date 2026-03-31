@@ -36,31 +36,31 @@ export const RecruiterInfoCard = ({ name, email, id }: Props) => {
   }
 
   return (
-    <Card className="border-slate-200 shadow-sm overflow-hidden">
-      <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-3">
-        <CardTitle className="text-lg font-bold text-slate-900">
+    <Card className="border-border shadow-sm overflow-hidden">
+      <CardHeader className="bg-muted/50/50 border-b border-border/50 pb-3">
+        <CardTitle className="text-lg font-bold text-foreground">
           Recruiter Info
         </CardTitle>
       </CardHeader>
 
       <CardContent className="pt-5 space-y-4">
         <div className="flex items-start gap-3">
-          <div className="p-2 bg-slate-100 text-slate-500 rounded-lg">
+          <div className="p-2 bg-muted text-muted-foreground rounded-lg">
             <UserCircle size={18} />
           </div>
           <div>
-            <p className="text-[12px] font-bold text-slate-500 uppercase">Contact Name</p>
-            <p className="text-[14px] font-bold text-slate-800">{name}</p>
+            <p className="text-[12px] font-bold text-muted-foreground uppercase">Contact Name</p>
+            <p className="text-[14px] font-bold text-foreground/90">{name}</p>
           </div>
         </div>
 
         <div className="flex items-start gap-3">
-          <div className="p-2 bg-slate-100 text-slate-500 rounded-lg">
+          <div className="p-2 bg-muted text-muted-foreground rounded-lg">
             <Mail size={18} />
           </div>
           <div>
-            <p className="text-[12px] font-bold text-slate-500 uppercase">Email Address</p>
-            <p className="text-[14px] font-medium text-slate-600 truncate">{email}</p>
+            <p className="text-[12px] font-bold text-muted-foreground uppercase">Email Address</p>
+            <p className="text-[14px] font-medium text-muted-foreground truncate">{email}</p>
           </div>
         </div>
       </CardContent>

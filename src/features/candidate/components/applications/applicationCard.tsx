@@ -19,7 +19,7 @@ console.log(applications)
         <Card
           key={app.id}
           onClick={() => navigate(`/applications/${app.id}`)}
-          className="relative overflow-hidden cursor-pointer transition-all duration-200 border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md group"
+          className="relative overflow-hidden cursor-pointer transition-all duration-200 border border-border bg-card hover:border-border hover:shadow-md group"
         >
           {/* Status Indicator */}
           <div className={cn(
@@ -32,21 +32,21 @@ console.log(applications)
                 <h3 className="text-[17px] font-bold text-blue-600 leading-tight group-hover:underline transition-colors">
                   {app.job.title}
                 </h3>
-                <p className="text-[14px] font-bold text-slate-700 mt-1">
+                <p className="text-[14px] font-bold text-foreground/80 mt-1">
                   {app.job?.company?.name}
                 </p>
               </div>
               <ApplicationStatusBadge status={app.status || "Pending"} />
             </div>
 
-            <div className="flex flex-wrap gap-4 text-[13px] text-slate-500 font-medium pb-1">
+            <div className="flex flex-wrap gap-4 text-[13px] text-muted-foreground font-medium pb-1">
               <span className="flex items-center gap-1.5">
-                <MapPin className="h-4 w-4 text-slate-400" />
+                <MapPin className="h-4 w-4 text-muted-foreground/70" />
                 {app.job.location || "Remote"}
               </span>
 
               <span className="flex items-center gap-1.5">
-                <Building2 className="h-4 w-4 text-slate-400" />
+                <Building2 className="h-4 w-4 text-muted-foreground/70" />
                 Applied {new Date(app.createdAt).toLocaleDateString("en-IN", {
                   day: "numeric",
                   month: "short",

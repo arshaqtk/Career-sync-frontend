@@ -122,13 +122,13 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
 
     return (
         <Dialog open={open} onOpenChange={OpenChange}>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 border-none bg-white shadow-2xl rounded-2xl">
-                <DialogHeader className="px-8 pt-8 pb-6 bg-slate-50/50 border-b border-slate-100">
-                    <DialogTitle className="text-2xl font-extrabold text-slate-900 tracking-tight uppercase flex items-center gap-3">
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 border-none bg-card shadow-2xl rounded-2xl">
+                <DialogHeader className="px-8 pt-8 pb-6 bg-muted/50/50 border-b border-border/50">
+                    <DialogTitle className="text-2xl font-extrabold text-foreground tracking-tight uppercase flex items-center gap-3">
                         <Briefcase className="w-8 h-8 text-blue-600" />
                         Apply for Job
                     </DialogTitle>
-                    <p className="text-sm font-medium text-slate-500 mt-1">
+                    <p className="text-sm font-medium text-muted-foreground mt-1">
                         Submit your application and stand out to recruiters with a professional profile.
                     </p>
                 </DialogHeader>
@@ -138,12 +138,12 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Current Role */}
                         <div className="space-y-2">
-                            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1 flex items-center gap-2">
+                            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1 flex items-center gap-2">
                                 <User className="w-3.5 h-3.5" /> Current Role
                             </label>
                             <Input
                                 placeholder="e.g. Software Engineer"
-                                className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+                                className="h-11 border-border focus-visible:ring-blue-600 font-medium"
                                 {...register("currentRole")}
                             />
                             {errors.currentRole && (
@@ -153,13 +153,13 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
 
                         {/* Experience */}
                         <div className="space-y-2">
-                            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1 flex items-center gap-2">
+                            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1 flex items-center gap-2">
                                 <Briefcase className="w-3.5 h-3.5" /> Experience (Years)
                             </label>
                             <Input
                                 type="number"
                                 placeholder="e.g. 3"
-                                className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+                                className="h-11 border-border focus-visible:ring-blue-600 font-medium"
                                 {...register("experience", { valueAsNumber: true })}
                             />
                             {errors.experience && (
@@ -171,13 +171,13 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Expected Salary */}
                         <div className="space-y-2">
-                            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1 flex items-center gap-2">
+                            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1 flex items-center gap-2">
                                 <DollarSign className="w-3.5 h-3.5" /> Expected Salary
                             </label>
                             <Input
                                 placeholder="e.g. 1500000"
                                 type="number"
-                                className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+                                className="h-11 border-border focus-visible:ring-blue-600 font-medium"
                                 {...register("expectedSalary", { valueAsNumber: true })}
                             />
                             {errors.expectedSalary && (
@@ -187,12 +187,12 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
 
                         {/* Notice Period */}
                         <div className="space-y-2">
-                            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1 flex items-center gap-2">
+                            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1 flex items-center gap-2">
                                 <Clock className="w-3.5 h-3.5" /> Notice Period
                             </label>
                             <Input
                                 placeholder="e.g. 30 Days"
-                                className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+                                className="h-11 border-border focus-visible:ring-blue-600 font-medium"
                                 {...register("noticePeriod")}
                             />
                             {errors.noticePeriod && (
@@ -203,7 +203,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
 
                     {/* Resume Section */}
                     <div className="space-y-3">
-                        <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1 flex items-center gap-2">
+                        <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1 flex items-center gap-2">
                             <FileText className="w-3.5 h-3.5" /> Resume
                         </label>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border border-blue-100 rounded-xl bg-blue-50/30">
@@ -214,7 +214,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                                         <span className="text-sm">Using your saved resume</span>
                                     </div>
                                 ) : (
-                                    <p className="text-sm text-slate-500">No resume selected. Please upload one.</p>
+                                    <p className="text-sm text-muted-foreground">No resume selected. Please upload one.</p>
                                 )}
                             </div>
                             <Button
@@ -222,7 +222,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                                 variant="outline"
                                 disabled={isPending}
                                 onClick={() => fileInputRef.current?.click()}
-                                className="border-blue-200 text-blue-600 hover:bg-blue-50 font-bold gap-2 bg-white"
+                                className="border-blue-200 text-blue-600 hover:bg-blue-50 font-bold gap-2 bg-card"
                             >
                                 {isPending ? <Upload className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                                 {isPending ? "Uploading..." : candidateresumeUrl ? "Update Resume" : "Upload Resume"}
@@ -244,14 +244,14 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                     {/* ✅ Cover Letter Section with AI Generator */}
                     <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">
+                            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">
                                 Cover Letter
                             </label>
 
                             {/* Tone Dropdown + Generate Button */}
                             <div className="flex items-center gap-2">
                                 <Select value={tone} onValueChange={(val) => setTone(val as Tone)}>
-                                    <SelectTrigger className="h-8 w-36 text-xs font-semibold border-slate-200 focus:ring-blue-600">
+                                    <SelectTrigger className="h-8 w-36 text-xs font-semibold border-border focus:ring-blue-600">
                                         <SelectValue placeholder="Tone" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -288,7 +288,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
   )}
   {/* Usage counter below the label */}
 {!limitState.isLimited ? (
-  <p className="text-[11px] text-slate-400 px-1">
+  <p className="text-[11px] text-muted-foreground/70 px-1">
     {limitState.remaining}/{limitState.total} generations remaining today
   </p>
 ) : (
@@ -309,7 +309,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
 
                         <Textarea
                             placeholder="Write a brief cover letter or click AI Generate above..."
-                            className="min-h-[160px] border-slate-200 focus-visible:ring-blue-600 font-medium text-slate-700 placeholder:text-slate-400 resize-none rounded-xl p-4"
+                            className="min-h-[160px] border-border focus-visible:ring-blue-600 font-medium text-foreground/80 placeholder:text-muted-foreground/70 resize-none rounded-xl p-4"
                             {...register("coverLetter")}
                         />
                         {errors.coverLetter && (
@@ -317,13 +317,13 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                         )}
                     </div>
 
-                    <div className="pt-8 border-t border-slate-100 flex justify-end gap-4">
+                    <div className="pt-8 border-t border-border/50 flex justify-end gap-4">
                         <Button
                             type="button"
                             variant="ghost"
                             onClick={() => OpenChange(false)}
                             disabled={form.formState.isSubmitting}
-                            className="text-slate-500 font-bold hover:bg-slate-50 px-6 h-12"
+                            className="text-muted-foreground font-bold hover:bg-muted/50 px-6 h-12"
                         >
                             Cancel
                         </Button>

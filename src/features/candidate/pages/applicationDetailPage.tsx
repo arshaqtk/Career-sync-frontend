@@ -34,7 +34,7 @@ console.log(application)
 
 
   return (
-    <div className="min-h-screen bg-white pb-20">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300 pb-20">
       <div className="container mx-auto max-w-6xl px-4 md:px-6 pt-6">
         <ApplicationHeader
           jobTitle={application.job.title}

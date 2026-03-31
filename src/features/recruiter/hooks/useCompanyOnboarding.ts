@@ -56,7 +56,7 @@ export const useCompanyDetails = (companyId: string) => {
 
 export const useCompanyJobDetails = (companyId: string) => {
     return useQuery({
-        queryKey: ["companies", "jobs", companyId],
+        queryKey: ["companies", "jobs", companyId], 
         queryFn: () => getCompanyJobsApi(companyId),
         enabled: !!companyId,
     });

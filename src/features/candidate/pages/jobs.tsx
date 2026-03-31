@@ -1,4 +1,3 @@
-
 import { JobList } from "../components/jobs/jobList";
 import { JobDetails } from "../components/jobs/JobDetails";
 import useCandidateJobData from "../hooks/useCandidateJobs";
@@ -69,24 +68,33 @@ export default function JobPage() {
   const { data: jobs, isLoading, isFetching, isError, error } = useCandidateJobData({ page, limit: 5, filters })
 
   useEffect(() => {
-   
     const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    const urlJobId = searchParams.get("id");
 
-    if (jobs?.jobs?.length && !selectedJob && isDesktop) {
-      setSelectedJob(jobs?.jobs[0]);
+    if (jobs?.jobs?.length) {
+      if (urlJobId) {
+        const jobFromUrl = jobs.jobs.find((j: CandidateJob) => j._id === urlJobId);
+        if (jobFromUrl && (!selectedJob || selectedJob._id !== urlJobId)) {
+          setSelectedJob(jobFromUrl);
+        } else if (!jobFromUrl && !selectedJob && isDesktop) {
+          setSelectedJob(jobs.jobs[0]);
+        }
+      } else if (!selectedJob && isDesktop) {
+        setSelectedJob(jobs.jobs[0]);
+      }
     }
-   
     
-  }, [jobs?.jobs, selectedJob, setSelectedJob])
+  }, [jobs?.jobs, selectedJob, setSelectedJob, searchParams]);
 
   // Handle mobile selection
   const handleJobSelect = (job: CandidateJob) => {
     setSelectedJob(job);
+    const params = new URLSearchParams(searchParams);
+    params.set("id", job._id as string);
     if (window.innerWidth < 768) {
-      const params = new URLSearchParams(searchParams);
       params.set("view", "detail");
-      setSearchParams(params);
     }
+    setSearchParams(params);
   };
 
   const handleMobileOpenChange = (open: boolean) => {
@@ -127,14 +135,14 @@ export default function JobPage() {
             isFetching={isFetching}
             selectedJobId={selectedJob?._id} />
           {/* Desktop Job Details */}
-          <div className="hidden md:block flex-1 h-full overflow-hidden border border-slate-200 rounded-lg">
+          <div className="hidden md:block flex-1 h-full overflow-hidden border border-border rounded-lg shadow-sm">
             <JobDetails job={selectedJob} />
           </div>
           {/* Mobile Job Details Sheet */}
           <Sheet open={isMobileDetailOpen} onOpenChange={handleMobileOpenChange}>
-            <SheetContent side="bottom" className="h-[96vh] p-0 border-none bg-white rounded-t-[2.5rem] shadow-[0_-8px_30px_rgb(0,0,0,0.12)] flex flex-col outline-none overflow-hidden">
-              <div className="flex-none bg-white pt-5 pb-4 border-b border-slate-50 relative">
-                <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto" />
+            <SheetContent side="bottom" className="h-[96vh] p-0 border-none bg-card rounded-t-[2.5rem] shadow-[0_-8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_-8px_30px_rgba(255,255,255,0.03)] flex flex-col outline-none overflow-hidden">
+              <div className="flex-none bg-card pt-5 pb-4 border-b border-border/50 relative">
+                <div className="w-12 h-1.5 bg-muted rounded-full mx-auto" />
               </div>
               <div className="flex-1 overflow-y-auto scrollbar-hide">
                 <JobDetails job={selectedJob} />

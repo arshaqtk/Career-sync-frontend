@@ -53,10 +53,10 @@ export default function ResumeUpload({
   
 
    return (
-    <Card className="border border-slate-200 shadow-none bg-white overflow-hidden">
-      <CardHeader className="px-6 py-4 border-b border-slate-50 bg-slate-50/50">
-        <CardTitle className="text-lg font-extrabold text-slate-900 uppercase tracking-tight">Resume</CardTitle>
-        <p className="text-sm font-medium text-slate-500">
+    <Card className="border border-border shadow-none bg-card overflow-hidden">
+      <CardHeader className="px-6 py-4 border-b border-slate-50 bg-muted/50/50">
+        <CardTitle className="text-lg font-extrabold text-foreground uppercase tracking-tight">Resume</CardTitle>
+        <p className="text-sm font-medium text-muted-foreground">
           Your resume is the first impression you make on potential employers. Keep it updated.
         </p>
       </CardHeader>
@@ -64,14 +64,14 @@ export default function ResumeUpload({
       <CardContent className="px-6 py-6 space-y-6">
         {/* EXISTING RESUME */}
         {resume && resume?.originalName &&(
-          <div className="flex items-center justify-between border border-slate-200 rounded-xl px-5 py-4 bg-white shadow-sm transition-all hover:border-blue-200">
+          <div className="flex items-center justify-between border border-border rounded-xl px-5 py-4 bg-card shadow-sm transition-all hover:border-blue-200">
             <div className="flex items-center gap-4">
               <div className="p-2.5 bg-blue-50 rounded-lg">
                 <Download size={20} className="text-blue-600" />
               </div>
               <div>
-                <p className="font-bold text-slate-900">{resume.originalName}</p>
-                <p className="text-[12px] font-medium text-slate-500 italic">
+                <p className="font-bold text-foreground">{resume.originalName}</p>
+                <p className="text-[12px] font-medium text-muted-foreground italic">
                   Uploaded on {resume.uploadedAt}
                 </p>
               </div>
@@ -81,7 +81,7 @@ export default function ResumeUpload({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-9 w-9 text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                className="h-9 w-9 text-muted-foreground/70 hover:text-blue-600 hover:bg-blue-50 transition-colors"
                 onClick={handleResumeDownload}
                 title="Download Resume"
               >
@@ -96,7 +96,7 @@ export default function ResumeUpload({
               disabled={isDeletePending}
                 variant="ghost"
                 size="icon"
-                className="h-9 w-9 text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                className="h-9 w-9 text-muted-foreground/70 hover:text-red-600 hover:bg-red-50 transition-colors"
                 title="Delete Resume"
               >
                 <Trash2 size={18} />
@@ -121,17 +121,17 @@ export default function ResumeUpload({
 
           <label
             htmlFor="resume-upload"
-            className="border-2 border-dashed border-slate-200 group-hover:border-blue-300 rounded-xl flex flex-col items-center justify-center py-12 cursor-pointer w-full bg-slate-50/50 group-hover:bg-blue-50/30 transition-all"
+            className="border-2 border-dashed border-border group-hover:border-blue-300 rounded-xl flex flex-col items-center justify-center py-12 cursor-pointer w-full bg-muted/50/50 group-hover:bg-blue-50/30 transition-all"
           >
-            <div className="p-4 bg-white rounded-full shadow-sm mb-4 border border-slate-100 group-hover:scale-110 transition-transform">
-              <Upload size={24} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
+            <div className="p-4 bg-card rounded-full shadow-sm mb-4 border border-border/50 group-hover:scale-110 transition-transform">
+              <Upload size={24} className="text-muted-foreground/70 group-hover:text-blue-600 transition-colors" />
             </div>
 
             <div className="text-center">
-              <p className="text-slate-700 font-bold mb-1">
+              <p className="text-foreground/80 font-bold mb-1">
                 {isPending ? "Uploading your resume..." : resume ? "Update your resume" : "Upload your resume"}
               </p>
-              <p className="text-slate-400 text-[13px] font-medium mb-6">
+              <p className="text-muted-foreground/70 text-[13px] font-medium mb-6">
                 Supported formats: PDF, DOC, DOCX, RTF
               </p>
             </div>

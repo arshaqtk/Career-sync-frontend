@@ -52,13 +52,13 @@ export function InterviewJoinSection({
           In-Person Interview
         </div>
 
-        <p className="text-[13px] text-slate-600 leading-relaxed">
+        <p className="text-[13px] text-muted-foreground leading-relaxed">
           Please attend the interview at the specified location. We recommend
           arriving 10 minutes before the scheduled time.
         </p>
 
         <div className="pt-3 border-t border-amber-100 space-y-2">
-          <div className="flex items-center gap-2 text-[13px] font-bold text-slate-700">
+          <div className="flex items-center gap-2 text-[13px] font-bold text-foreground/80">
             <CalendarClock size={16} className="text-amber-600" />
             <span>
               {start.toLocaleDateString("en-IN", {
@@ -70,7 +70,7 @@ export function InterviewJoinSection({
           </div>
 
           {interview.location && (
-            <div className="flex items-start gap-2 text-[13px] font-medium text-slate-600">
+            <div className="flex items-start gap-2 text-[13px] font-medium text-muted-foreground">
               <MapPin size={16} className="text-amber-600 mt-0.5 shrink-0" />
               <span>{interview.location}</span>
             </div>
@@ -86,7 +86,7 @@ export function InterviewJoinSection({
         <Video size={20} />
         Online Interview
       </div>
-      <p className="text-[13px] text-slate-600 leading-relaxed">
+      <p className="text-[13px] text-muted-foreground leading-relaxed">
         This interview will be held via a video call. Click the button below to join the meeting.
       </p>
       <Tooltip>

@@ -27,9 +27,9 @@ export const ApplicationsFilter = ({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm mb-4">
+    <div className="flex flex-wrap items-center gap-3 bg-card p-3 rounded-lg border border-border shadow-sm mb-4">
       <div className="flex items-center gap-2">
-        <span className="text-[12px] font-bold text-slate-500 uppercase tracking-wider px-1">
+        <span className="text-[12px] font-bold text-muted-foreground uppercase tracking-wider px-1">
           Filter by:
         </span>
         {/* STATUS FILTER */}
@@ -39,7 +39,7 @@ export const ApplicationsFilter = ({
             updateFilter("status", value as ApplicationFilters["status"])
           }
         >
-          <SelectTrigger className="w-[160px] h-9 text-[13px] font-medium border-slate-200 focus:ring-blue-500">
+          <SelectTrigger className="w-[160px] h-9 text-[13px] font-medium border-border focus:ring-blue-500">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
 
@@ -59,7 +59,7 @@ export const ApplicationsFilter = ({
             updateFilter("sortBy", value as ApplicationFilters["sortBy"])
           }
         >
-          <SelectTrigger className="w-[160px] h-9 text-[13px] font-medium border-slate-200 focus:ring-blue-500">
+          <SelectTrigger className="w-[160px] h-9 text-[13px] font-medium border-border focus:ring-blue-500">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
 

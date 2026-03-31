@@ -36,7 +36,7 @@ export function ExperienceSection({
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-extrabold text-slate-900 uppercase tracking-tight">
+        <h3 className="text-lg font-extrabold text-foreground uppercase tracking-tight">
           Work Experience
         </h3>
         <Button
@@ -53,20 +53,20 @@ export function ExperienceSection({
       />
 
       {!experience?.length ? (
-        <div className="border border-slate-200 border-dashed rounded-xl p-10 bg-slate-50/50 text-center flex flex-col items-center">
-          <div className="p-3 bg-white rounded-full shadow-sm mb-4">
-            <Plus className="h-6 w-6 text-slate-300" />
+        <div className="border border-border border-dashed rounded-xl p-10 bg-muted/50/50 text-center flex flex-col items-center">
+          <div className="p-3 bg-card rounded-full shadow-sm mb-4">
+            <Plus className="h-6 w-6 text-muted-foreground/50" />
           </div>
-          <p className="text-slate-500 font-bold mb-1">
+          <p className="text-muted-foreground font-bold mb-1">
             No experience added yet
           </p>
-          <p className="text-slate-400 text-sm mb-4 max-w-xs">
+          <p className="text-muted-foreground/70 text-sm mb-4 max-w-xs">
             Showcase your professional journey to attract potential employers.
           </p>
           <Button
             variant="outline"
             onClick={() => openModal()}
-            className="border-slate-200 text-slate-600 font-bold"
+            className="border-border text-muted-foreground font-bold"
           >
             Add your first job
           </Button>

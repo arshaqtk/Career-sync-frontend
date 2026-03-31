@@ -3,6 +3,7 @@ import { LoginApi, RegisterApi, ResendRegisterOtp, VerifyRegisterOtpApi } from "
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/auth.store";
 import { toast } from "sonner";
+import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export const useRegister = () => {
     const navigate = useNavigate()
@@ -12,7 +13,8 @@ export const useRegister = () => {
         mutationFn: RegisterApi,
         onSuccess(data: { email: string }) {
             navigate("/auth/verify-otp", { state: { email: data.email } })
-        }
+        },
+        onError: handleRQError
     })
     return mutation
 }
@@ -41,7 +43,8 @@ export const useLogin = () => {
                 navigate("/")
             }
 
-        }
+        },
+        onError: handleRQError
     })
     return mutation
 }
@@ -52,7 +55,8 @@ export const useResendRegisterOtpMutation = () => {
         mutationFn: ResendRegisterOtp,
         onSuccess: () => {
             toast.success("OTP resent successfully");
-        }
+        },
+        onError: handleRQError
     })
     return mutation
 }
@@ -63,7 +67,8 @@ export const useVerifyRegisterOtp = () => {
         mutationFn: VerifyRegisterOtpApi,
         onSuccess() {
             navigate("/auth/login")
-        }
+        },
+        onError: handleRQError
     })
     return mutation
 }

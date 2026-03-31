@@ -18,6 +18,8 @@ import { useEffect } from "react";
 import { NavbarSkeleton } from "../Loaders/NavSkelton";
 import { Button } from "../ui/shadcn/button";
 import { AlertDialogComponent } from "../dialogs/alertDialog";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import CareerSyncLogo from "@/shared/logo/careerSync.logo";
 
 export function CandidateNavbar() {
 
@@ -42,10 +44,12 @@ export function CandidateNavbar() {
 
 
   return (
-    <header className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 py-4 bg-white h-16">
+    <header className="w-full mx-auto flex items-center justify-between px-6 py-4 bg-card dark:bg-slate-950 text-foreground dark:text-slate-50 border-b border-border dark:border-slate-800 h-16 transition-colors duration-300">
 
       <div>
-        <img src="/careerSyncNavName.png" alt="careerSync" className="h-6 mt-1" onClick={() => navigate("/")} />
+       <CareerSyncLogo/>
+
+        {/* <img src="/careerSyncNavName.png" alt="careerSync" className="h-6 mt-1" onClick={() => navigate("/")} /> */}
       </div>
 
       {/* DesktopLogo */}
@@ -76,12 +80,13 @@ export function CandidateNavbar() {
       {/* Right Side */}
       {user ? (
         <div className="flex items-center gap-6">
+          <ThemeToggle />
 
-          <button onClick={() => navigate("/chat")}>
+          <button onClick={() => navigate("/chat")} className="hover:text-blue-600 transition-colors">
             <MessageSquare />
           </button>
           {/* Notifications */}
-          <button onClick={() => navigate("/notifications")} className="relative">
+          <button onClick={() => navigate("/notifications")} className="relative hover:text-blue-600 transition-colors">
             <Bell />
 
             {notificationCount > 0 && (
@@ -134,6 +139,7 @@ export function CandidateNavbar() {
         </div>
       ) : (
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           <Button variant="ghost" className="hidden sm:inline-flex"
             onClick={() => navigate("/auth/login")}>Login</Button>
           <Button

@@ -47,14 +47,14 @@ export default function RecruiterLayout() {
   // If user needs onboarding or is pending approval, show simplified layout (just the outlet)
   if (!isOwner && (!hasCompany || !isApproved || isOnboarding)) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
         <Outlet />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-50/50">
+    <div className="min-h-screen flex bg-background text-foreground transition-colors duration-300">
       {/* Desktop Sidebar */}
       <div className="hidden lg:block">
         <RecruiterSidebar isOpen={open} />
@@ -75,7 +75,7 @@ export default function RecruiterLayout() {
 
       {/* Main Content Area */}
       <div className={`flex-1 flex flex-col transition-all duration-300 ${open ? "lg:ml-64" : "lg:ml-20"}`}>
-        <div className={`fixed top-0 right-0 h-20 bg-white/80 backdrop-blur-md z-40 border-b transition-all duration-300 
+        <div className={`fixed top-0 right-0 h-20 bg-card/80 backdrop-blur-md z-40 border-b border-border transition-all duration-300 
           ${open ? "lg:left-64" : "lg:left-20"} left-0`}>
           <RecruiterTopNavbar onMenuClick={() => setMobileOpen(true)} />
         </div>

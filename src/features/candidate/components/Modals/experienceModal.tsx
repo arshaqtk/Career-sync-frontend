@@ -88,12 +88,12 @@ export function ExperienceFormModal({
         }
       }}
     >
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 border-none bg-white shadow-2xl rounded-2xl">
-        <DialogHeader className="px-8 pt-8 pb-6 bg-slate-50/50 border-b border-slate-100">
-          <DialogTitle className="text-2xl font-extrabold text-slate-900 tracking-tight uppercase">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 border-none bg-card shadow-2xl rounded-2xl">
+        <DialogHeader className="px-8 pt-8 pb-6 bg-muted/50/50 border-b border-border/50">
+          <DialogTitle className="text-2xl font-extrabold text-foreground tracking-tight uppercase">
             {selectedExperience ? "Update Experience" : "Add Experience"}
           </DialogTitle>
-          <p className="text-sm font-medium text-slate-500 mt-1">
+          <p className="text-sm font-medium text-muted-foreground mt-1">
             Highlight your professional journey and key responsibilities.
           </p>
         </DialogHeader>
@@ -120,10 +120,10 @@ export function ExperienceFormModal({
         >
           {/* Role */}
           <div className="space-y-2">
-            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Job Title / Role</label>
+            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Job Title / Role</label>
             <Input
               placeholder="e.g. Senior Software Engineer"
-              className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+              className="h-11 border-border focus-visible:ring-blue-600 font-medium"
               {...form.register("role")}
             />
             {errors.role && (
@@ -134,10 +134,10 @@ export function ExperienceFormModal({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Company */}
             <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Company Name</label>
+              <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Company Name</label>
               <Input
                 placeholder="e.g. Google, Amazon, Startup Inc."
-                className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+                className="h-11 border-border focus-visible:ring-blue-600 font-medium"
                 {...form.register("company")}
               />
               {errors.company && (
@@ -147,7 +147,7 @@ export function ExperienceFormModal({
 
             {/* Job Type */}
             <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Employment Type</label>
+              <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Employment Type</label>
               <Controller
                 name="jobType"
                 control={form.control}
@@ -156,10 +156,10 @@ export function ExperienceFormModal({
                     value={field.value}
                     onValueChange={field.onChange}
                   >
-                    <SelectTrigger className="h-11 border-slate-200 focus:ring-blue-600 font-medium capitalize">
+                    <SelectTrigger className="h-11 border-border focus:ring-blue-600 font-medium capitalize">
                       <SelectValue placeholder="Select Job Type" />
                     </SelectTrigger>
-                    <SelectContent className="rounded-xl border-slate-200 shadow-xl">
+                    <SelectContent className="rounded-xl border-border shadow-xl">
                       <SelectItem value="full-time">Full-time</SelectItem>
                       <SelectItem value="part-time">Part-time</SelectItem>
                       <SelectItem value="internship">Internship</SelectItem>
@@ -172,10 +172,10 @@ export function ExperienceFormModal({
 
           {/* Location */}
           <div className="space-y-2">
-            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Location</label>
+            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Location</label>
             <Input
               placeholder="e.g. Hyderabad, India (or Remote)"
-              className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+              className="h-11 border-border focus-visible:ring-blue-600 font-medium"
               {...form.register("location")}
             />
           </div>
@@ -184,14 +184,14 @@ export function ExperienceFormModal({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Start Date */}
             <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Start Date</label>
+              <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Start Date</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full h-11 text-left font-medium border-slate-200 hover:bg-slate-50 transition-all",
-                      !form.watch("startDate") && "text-slate-400"
+                      "w-full h-11 text-left font-medium border-border hover:bg-muted/50 transition-all",
+                      !form.watch("startDate") && "text-muted-foreground/70"
                     )}
                   >
                     {form.watch("startDate")
@@ -221,14 +221,14 @@ export function ExperienceFormModal({
 
             {/* End Date */}
             <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">End Date (Optional)</label>
+              <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">End Date (Optional)</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full h-11 text-left font-medium border-slate-200 hover:bg-slate-50 transition-all",
-                      !form.watch("endDate") && "text-slate-400"
+                      "w-full h-11 text-left font-medium border-border hover:bg-muted/50 transition-all",
+                      !form.watch("endDate") && "text-muted-foreground/70"
                     )}
                   >
                     {form.watch("endDate")
@@ -258,13 +258,13 @@ export function ExperienceFormModal({
 
           {/* Skills */}
           <div className="space-y-2">
-            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Skills Used</label>
+            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Skills Used</label>
             <Input
               placeholder="e.g. React, Next.js, Node.js (comma separated)"
-              className="h-11 border-slate-200 focus-visible:ring-blue-600 font-medium"
+              className="h-11 border-border focus-visible:ring-blue-600 font-medium"
               {...form.register("skills")}
             />
-            <p className="text-[11px] text-slate-400 font-medium px-1 italic">Separate multiple skills with commas.</p>
+            <p className="text-[11px] text-muted-foreground/70 font-medium px-1 italic">Separate multiple skills with commas.</p>
             {errors.skills && (
               <p className="text-red-500 text-[12px] font-bold mt-1 px-1">⚠ {errors.skills.message}</p>
             )}
@@ -272,21 +272,21 @@ export function ExperienceFormModal({
 
           {/* Description */}
           <div className="space-y-2">
-            <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider px-1">Key Responsibilities / Achievements</label>
+            <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1">Key Responsibilities / Achievements</label>
             <Textarea
               placeholder="Describe your role, projects you worked on, and impact you made..."
-              className="min-h-[140px] border-slate-200 focus-visible:ring-blue-600 font-medium text-slate-700 placeholder:text-slate-400 resize-none rounded-xl p-4"
+              className="min-h-[140px] border-border focus-visible:ring-blue-600 font-medium text-foreground/80 placeholder:text-muted-foreground/70 resize-none rounded-xl p-4"
               {...form.register("description")}
             />
           </div>
 
-          <div className="pt-8 border-t border-slate-100 flex justify-end gap-4">
+          <div className="pt-8 border-t border-border/50 flex justify-end gap-4">
             <Button
               type="button"
               variant="ghost"
               onClick={closeModal}
               disabled={form.formState.isSubmitting}
-              className="text-slate-500 font-bold hover:bg-slate-50 px-6 h-12"
+              className="text-muted-foreground font-bold hover:bg-muted/50 px-6 h-12"
             >
               Cancel
             </Button>

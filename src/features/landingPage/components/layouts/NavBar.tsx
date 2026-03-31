@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/shadcn/button"
 import { Briefcase } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
+import { ThemeToggle } from "@/components/ThemeToggle"
 
 export function Navbar() {
     const navigate=useNavigate()
@@ -20,6 +21,7 @@ export function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-4">
+                    <ThemeToggle />
                     <Button variant="ghost" className="hidden sm:inline-flex" 
                     onClick={()=>navigate("/auth/login")}>Login</Button>
                     <Button

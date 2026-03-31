@@ -38,7 +38,7 @@ export default function ApplicationsPage() {
   const { applications, pagination } = data;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <div className="container mx-auto max-w-5xl px-4 md:px-6 h-[calc(100vh-64px)] flex flex-col pt-2">
         {/* Header/Filters */}
         <div className="flex-none mb-1">
@@ -54,7 +54,7 @@ export default function ApplicationsPage() {
         {/* Results Info */}
         {!isLoading && applications.length > 0 && (
           <div className="flex-none mb-2 px-1">
-            <h2 className="text-[12px] font-bold text-slate-500 uppercase tracking-tight">
+            <h2 className="text-[12px] font-bold text-muted-foreground uppercase tracking-tight">
               {pagination.totalApplications || 0} applications in total
             </h2>
           </div>
@@ -71,7 +71,7 @@ export default function ApplicationsPage() {
 
         {/* Pagination bar */}
         {!isLoading && applications.length > 0 && pagination.totalPages > 1 && (
-          <div className="flex-none py-4 border-t border-slate-100 bg-white">
+          <div className="flex-none py-4 border-t border-border bg-background">
             <Pagination className="justify-center">
               <PaginationContent>
                 <PaginationItem>
