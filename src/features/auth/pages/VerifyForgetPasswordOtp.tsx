@@ -105,7 +105,7 @@ export default function VerifyForgetPasswordOtp() {
           {/* Divider note */}
           <p className="text-center text-xs text-slate-400 mt-6">
             Remember your password?{" "}
-            <a href="/login" className="text-blue-600 hover:underline font-medium">
+            <a href="/auth/login" className="text-blue-600 hover:underline font-medium">
               Back to Login
             </a>
           </p>

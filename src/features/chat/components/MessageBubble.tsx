@@ -16,17 +16,17 @@ export default function MessageBubble({
         className={cn(
           "max-w-[75%] px-4 py-2.5 relative group transition-all",
           mine
-            ? "bg-blue-600 text-white rounded-[18px] rounded-tr-[4px] shadow-sm"
-            : "bg-slate-100 text-slate-800 rounded-[18px] rounded-tl-[4px]"
+            ? "bg-primary text-primary-foreground rounded-[20px] rounded-tr-[4px] shadow-sm shadow-primary/20"
+            : "bg-secondary text-secondary-foreground rounded-[20px] rounded-tl-[4px] border border-border/50"
         )}
       >
-        <p className="text-[14px] leading-relaxed whitespace-pre-wrap break-words">
+        <p className="text-[14px] leading-relaxed whitespace-pre-wrap break-words font-medium">
           {text}
         </p>
 
         <span className={cn(
           "absolute text-[10px] bottom-1 opacity-0 group-hover:opacity-70 transition-opacity",
-          mine ? "right-2 text-blue-100" : "left-2 text-slate-400"
+          mine ? "right-2 text-primary-foreground/70" : "left-2 text-muted-foreground"
         )}>
         </span>
       </div>

@@ -67,35 +67,35 @@ export default function ChatPage() {
   // ── Connecting State ──────────────────────────────────────────────
   if (!connected && !connectionFailed) {
     return (
-      <div className="h-[calc(100dvh-64px)] flex items-center justify-center bg-slate-50/50">
-        <div className="max-w-sm w-full mx-4 bg-white rounded-2xl shadow-sm border border-slate-200 p-10 flex flex-col items-center text-center gap-6 animate-in fade-in zoom-in duration-500">
+      <div className="h-[calc(100dvh-64px)] flex items-center justify-center bg-background/50 backdrop-blur-sm">
+        <div className="max-w-sm w-full mx-4 bg-card rounded-3xl shadow-2xl shadow-primary/10 border border-border p-10 flex flex-col items-center text-center gap-8 animate-in fade-in zoom-in duration-500">
           {/* Animated Icon */}
           <div className="relative">
-            <div className="w-20 h-20 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg">
-              <MessageSquare className="h-9 w-9 text-white" />
+            <div className="w-24 h-24 rounded-3xl bg-primary flex items-center justify-center shadow-xl">
+              <MessageSquare className="h-10 w-10 text-primary-foreground" />
             </div>
-            <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-md border border-slate-100">
-              <Loader2 className="h-5 w-5 text-blue-600 animate-spin" />
+            <div className="absolute -bottom-2 -right-2 bg-background rounded-full p-2 shadow-lg border border-border">
+              <Loader2 className="h-6 w-6 text-primary animate-spin" />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <h2 className="text-xl font-bold text-slate-900">
-              {isRetrying ? "Reconnecting…" : "Connecting to Chat"}
+          <div className="space-y-3">
+            <h2 className="text-2xl font-black text-foreground tracking-tight">
+              {isRetrying ? "Reconnecting…" : "Connecting"}
             </h2>
-            <p className="text-sm text-slate-500 leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed font-medium">
               {isRetrying
-                ? "Attempting to re-establish your connection. Please wait a moment."
+                ? "Attempting to re-establish your secure connection. Please wait."
                 : "Establishing a secure connection to the messaging server…"}
             </p>
           </div>
 
           {/* Animated dots */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className="h-2 w-2 rounded-full bg-blue-400 animate-bounce"
+                className="h-2.5 w-2.5 rounded-full bg-primary/40 animate-bounce"
                 style={{ animationDelay: `${i * 0.15}s` }}
               />
             ))}
@@ -108,31 +108,31 @@ export default function ChatPage() {
   // ── Connection Failed State ───────────────────────────────────────
   if (connectionFailed && !connected) {
     return (
-      <div className="h-[calc(100dvh-64px)] flex items-center justify-center bg-slate-50/50">
-        <div className="max-w-sm w-full mx-4 bg-white rounded-2xl shadow-sm border border-slate-200 p-10 flex flex-col items-center text-center gap-6 animate-in fade-in zoom-in duration-500">
+      <div className="h-[calc(100dvh-64px)] flex items-center justify-center bg-background/50 backdrop-blur-sm">
+        <div className="max-w-sm w-full mx-4 bg-card rounded-3xl shadow-2xl shadow-destructive/10 border border-border p-10 flex flex-col items-center text-center gap-8 animate-in fade-in zoom-in duration-500">
           {/* Error Icon */}
           <div className="relative">
-            <div className="w-20 h-20 rounded-2xl bg-red-50 border-2 border-red-100 flex items-center justify-center">
-              <WifiOff className="h-9 w-9 text-red-500" />
+            <div className="w-24 h-24 rounded-3xl bg-destructive/10 border-2 border-destructive/20 flex items-center justify-center">
+              <WifiOff className="h-10 w-10 text-destructive" />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <h2 className="text-xl font-bold text-slate-900">
-              Connection Failed
+          <div className="space-y-3">
+            <h2 className="text-2xl font-black text-foreground tracking-tight">
+              Connection Lost
             </h2>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              We couldn't connect to the chat server. This may be a temporary issue — please try again or reload the page.
+            <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+              We couldn't reach the chat server. This could be due to a network interruption.
             </p>
           </div>
 
           {/* Possible reasons */}
-          <div className="w-full bg-slate-50 rounded-xl p-4 text-left space-y-2 border border-slate-100">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Possible reasons</p>
-            {["Slow or unstable internet connection", "Server is temporarily unavailable", "Firewall or VPN blocking the connection"].map((reason, i) => (
-              <div key={i} className="flex items-start gap-2 text-slate-500">
-                <div className="h-1.5 w-1.5 rounded-full bg-red-400 mt-1.5 shrink-0" />
-                <span className="text-xs">{reason}</span>
+          <div className="w-full bg-muted/50 rounded-2xl p-5 text-left space-y-3 border border-border/50">
+            <p className="text-[10px] font-black text-muted-foreground/60 uppercase tracking-widest">Network Troubleshooting</p>
+            {["Unstable internet connection", "Server maintenance in progress", "Firewall restriction"].map((reason, i) => (
+              <div key={i} className="flex items-center gap-3 text-muted-foreground">
+                <div className="h-1.5 w-1.5 rounded-full bg-destructive/60 shrink-0" />
+                <span className="text-xs font-bold">{reason}</span>
               </div>
             ))}
           </div>
@@ -141,15 +141,15 @@ export default function ChatPage() {
           <div className="flex flex-col gap-3 w-full">
             <Button
               onClick={handleRetry}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold h-11 rounded-xl gap-2"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 rounded-2xl gap-3 shadow-lg shadow-primary/20 transition-all"
             >
               <RefreshCw className="h-4 w-4" />
-              Try Again
+              Try Reconnecting
             </Button>
             <Button
               onClick={handleReload}
               variant="outline"
-              className="w-full font-semibold h-11 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 gap-2"
+              className="w-full font-bold h-12 rounded-2xl border-border text-muted-foreground hover:bg-muted/80 gap-3 transition-all"
             >
               Reload Page
             </Button>

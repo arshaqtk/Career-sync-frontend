@@ -6,6 +6,7 @@ import { useNotificationSocket } from "@/hooks/useNotificationSocket";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/shadcn/sheet";
 import useUserData from "@/hooks/useUserData";
 import { SectionSkeleton } from "@/components/Loaders";
+import { cn } from "@/lib/utils";
 
 export default function RecruiterLayout() {
   useNotificationSocket();
@@ -81,7 +82,12 @@ export default function RecruiterLayout() {
           <RecruiterTopNavbar onMenuClick={() => setMobileOpen(true)} />
         </div>
 
-        <main className="flex-1 pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl w-full mx-auto">
+        <main className={cn(
+          "flex-1 w-full mx-auto transition-all duration-300",
+          location.pathname.includes("/chat") 
+            ? "max-w-full px-0 pt-20 h-[calc(100dvh-0px)] overflow-hidden" 
+            : "max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-12"
+        )}>
           <Outlet />
         </main>
       </div>

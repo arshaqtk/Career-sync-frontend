@@ -15,13 +15,18 @@ import { Mail, UserCircle } from "lucide-react";
 export const RecruiterInfoCard = ({ name, email, id }: Props) => {
   const navigate = useNavigate()
   const socket = getSocket()
-  const { setConversationId, setMessages, setActiveChatId } = useChatStore()
+  const { setConversationId, setMessages, setActiveChatId, setActiveChatUser } = useChatStore()
 
   const openChat = (receiverId: string) => {
     if (!socket.connected) {
       socket.connect()
     }
     setActiveChatId(receiverId)
+    setConversationId(null)
+    setActiveChatUser({
+      _id: receiverId,
+      name: name,
+    })
     socket.emit(
       "chat:joinConversation",
       receiverId,

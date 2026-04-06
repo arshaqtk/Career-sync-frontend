@@ -23,12 +23,17 @@ type CandidateProfileProps = {
 export function CandidateProfileCard({ candidate }: CandidateProfileProps) {
   const navigate = useNavigate();
   const socket = getSocket();
-  const { setConversationId, setMessages, setActiveChatId } = useChatStore();
-
+  const { setConversationId, setMessages, setActiveChatId, setActiveChatUser } = useChatStore();
   const openChat = (receiverId: string) => {
     if (!socket.connected) socket.connect();
 
     setActiveChatId(receiverId);
+    setConversationId(null);
+    setActiveChatUser({
+      _id: receiverId,
+      name: candidate.name,
+      profilePicture: candidate.profilePicture?.url,
+    });
     socket.emit(
       "chat:joinConversation",
       receiverId,
