@@ -2,10 +2,7 @@ import ChatList from "../components/chatList"
 import ChatWindow from "../components/chatWIndow"
 import { useChatStore } from "../store/chat.store"
 import { MessageSquare } from "lucide-react"
-import { useState } from "react"
 import { usePresenceStore } from "../store/presence.store"
-// import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/shadcn/sheet"
-// import { Button } from "@/components/ui/shadcn/button"
 
 
 export default function ChatLayout() {
