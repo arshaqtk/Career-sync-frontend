@@ -62,6 +62,7 @@ export default function LoginForm() {
           label="Email Address"
           type="email"
           placeholder="alex@example.com"
+          className="text-black"
           icon={<Mail className="w-5 h-5 text-gray-400" />}
           error={errors.email?.message}
           {...register("email")}
@@ -69,19 +70,11 @@ export default function LoginForm() {
 
         {/* PASSWORD */}
         <div className="space-y-1">
-          <div className="flex justify-between items-center px-1">
-            <label className="text-sm font-semibold dark:text-gray-200">Password</label>
-            <button
-              type="button"
-              className="text-xs font-bold text-primary hover:underline"
-              onClick={() => navigate("/auth/forget-password")}
-            >
-              Forgot password?
-            </button>
-          </div>
           <CSInput
             type={showPassword ? "text" : "password"}
+            label="Password"
             placeholder="Enter your password"
+            className="text-black"
             icon={<Lock className="w-5 h-5 text-gray-400" />}
             rightIcon={
               <button
@@ -95,6 +88,15 @@ export default function LoginForm() {
             error={errors.password?.message}
             {...register("password")}
           />
+          <div className="flex justify-end items-center px-1">
+            <button
+              type="button"
+              className="text-xs font-bold text-primary hover:underline"
+              onClick={() => navigate("/auth/forget-password")}
+            >
+              Forgot password?
+            </button>
+          </div>
         </div>
 
         {/* REMEMBER ME */}

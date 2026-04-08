@@ -71,7 +71,7 @@ export default function RegisterForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Your name" icon={<User className="h-4 w-4" />} {...field} />
+                <Input className="text-black" placeholder="Your name" icon={<User className="h-4 w-4" />} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,7 +86,7 @@ export default function RegisterForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="you@example.com" icon={<Mail className="h-4 w-4" />} {...field} />
+                <Input className="text-black" placeholder="you@example.com" icon={<Mail className="h-4 w-4" />} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -128,6 +128,7 @@ export default function RegisterForm() {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
+                className="text-black"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   icon={<Lock className="h-4 w-4" />}
@@ -135,7 +136,7 @@ export default function RegisterForm() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((p) => !p)}
-                      className="text-muted-foreground hover:text-foreground"
+                      className="text-muted-foreground"
                     >
                       {showPassword ? (
                         <EyeOff className="h-4 w-4" />
@@ -162,6 +163,7 @@ export default function RegisterForm() {
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
                 <Input
+                className="text-black"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="••••••••"
                   icon={<Lock className="h-4 w-4" />}
@@ -169,7 +171,7 @@ export default function RegisterForm() {
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword((p) => !p)}
-                      className="text-muted-foreground hover:text-foreground"
+                      className="text-muted-foreground"
                     >
                       {showConfirmPassword ? (
                         <EyeOff className="h-4 w-4" />

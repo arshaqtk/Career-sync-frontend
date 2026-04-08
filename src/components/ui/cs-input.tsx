@@ -21,7 +21,7 @@ export default function CSInput({
   return (
     <div className="space-y-1">
       {label && (
-        <Label className="text-sm font-medium text-[var(--text-primary)]">
+        <Label className="text-sm font-medium text-black">
           {label}
         </Label>
       )}

@@ -13,21 +13,15 @@ interface CategoryDistributionChartProps {
 }
 
 const COLORS = [
-  "var(--accent-blue)",
-  "var(--accent-yellow)",
-  "var(--accent-green)",
-  "var(--accent-red)",
-  "var(--accent-blue-text)",
+  "#3b82f6", // blue
+  "#f59e0b", // amber
+  "#10b981", // emerald
+  "#ef4444", // red
+  "#8b5cf6", // violet
 ];
 
 export const CategoryDistributionChart = ({ data }: CategoryDistributionChartProps) => {
-  const chartData = data?.length ? data : [
-    { name: "Engineering", value: 400 },
-    { name: "Design", value: 300 },
-    { name: "Marketing", value: 300 },
-    { name: "Sales", value: 200 },
-    { name: "Finance", value: 150 },
-  ];
+  const chartData = data?.length ? data : [];
 
   return (
     <Card className="border-border/50 shadow-sm h-full">

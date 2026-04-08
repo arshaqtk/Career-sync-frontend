@@ -75,7 +75,7 @@ export default function VerifyForgetPasswordOtp() {
                   id="forgot-password-email"
                   type="email"
                   placeholder="you@example.com"
-                  className="pl-10 h-12 border-slate-200 bg-slate-50 rounded-xl focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                  className="pl-10 h-12 border-slate-200 bg-white rounded-xl focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-black"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()}

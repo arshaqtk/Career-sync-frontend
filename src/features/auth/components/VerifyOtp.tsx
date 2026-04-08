@@ -103,7 +103,7 @@ export default function VerifyOtp({
                   <InputOTPSlot
                     key={i}
                     index={i}
-                    className="w-11 h-12 text-lg font-bold border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                    className="w-11 h-12 text-lg  text-black font-bold border-slate-200 rounded-xl bg-white focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                   />
                 ))}
               </InputOTPGroup>
