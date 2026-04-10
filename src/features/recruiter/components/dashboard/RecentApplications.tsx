@@ -17,17 +17,10 @@ import { Button } from "@/components/ui/shadcn/button"
 import { Badge } from "@/components/ui/shadcn/badge"
 import { Skeleton } from "@/components/ui/shadcn/skeleton"
 import { useNavigate } from "react-router-dom"
-
-interface Application {
-  id: string
-  candidateName: string
-  jobTitle: string
-  experience: string
-  status: "Applied" | "Shortlisted" | "Rejected"
-}
+import type { RecentApplication as DashboardRecentApplication } from "../../types/dashboard.types"
 
 interface RecentApplicationsProps {
-  data: Application[]
+  data: DashboardRecentApplication[]
   loading?: boolean
 }
 
@@ -38,9 +31,12 @@ export function RecentApplications({
   const applications = data 
 const navigate=useNavigate()
   return (
-    <Card>
-      <CardHeader>
+    <Card className="border-border/60 shadow-sm">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle>Recent Applications</CardTitle>
+        <Button variant="outline" size="sm" onClick={() => navigate("/recruiter/applicants")}>
+          View all
+        </Button>
       </CardHeader>
 
       <CardContent>
@@ -69,24 +65,26 @@ const navigate=useNavigate()
 
                   <TableCell>{app.jobTitle}</TableCell>
 
-                  <TableCell>{app.experience}</TableCell>
+                  <TableCell>{app.experience || "Not specified"}</TableCell>
 
                   <TableCell>
                     <StatusBadge status={app.status} />
                   </TableCell>
 
                   <TableCell className="text-right space-x-2">
-                    <Button size="icon" variant="ghost" onClick={()=>navigate(`/recruiter/jobs/:jobId/applicants/${app.id}`)}>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() =>
+                        navigate(
+                          app.jobId
+                            ? `/recruiter/jobs/${app.jobId}/applicants/${app.id}`
+                            : `/recruiter/applicants/${app.id}`
+                        )
+                      }
+                    >
                       <Eye className="h-4 w-4" />
                     </Button>
-
-                    {/* <Button size="icon" variant="ghost">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                    </Button>
-
-                    <Button size="icon" variant="ghost">
-                      <XCircle className="h-4 w-4 text-red-600" />
-                    </Button> */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -100,13 +98,22 @@ const navigate=useNavigate()
 
 /* ---------------- Helper Components ---------------- */
 
-function StatusBadge({ status }: { status: Application["status"] }) {
-  const variant =
-    status === "Applied"
-      ? "secondary"
-      : status === "Shortlisted"
-      ? "default"
-      : "destructive"
+function StatusBadge({ status }: { status: DashboardRecentApplication["status"] }) {
+  const variant = (() => {
+    switch (status) {
+      case "Pending":
+      case "Viewed":
+        return "secondary"
+      case "Shortlisted":
+      case "Interview":
+      case "Selected":
+        return "default"
+      case "Rejected":
+        return "destructive"
+      default:
+        return "secondary"
+    }
+  })()
 
   return <Badge variant={variant}>{status}</Badge>
 }

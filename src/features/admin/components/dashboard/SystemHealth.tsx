@@ -8,9 +8,9 @@ import { Skeleton } from "@/components/ui/shadcn/skeleton"
 
 export interface SystemHealthData {
   status: "Stable" | "Warning" | "Critical"
-  flaggedJobs: number
-  blockedRecruiters: number
-  lastIncident?: string
+  pendingCompanies: number
+  pausedJobs: number
+  applicationsToday: number
 }
 
 interface SystemHealthProps {
@@ -20,19 +20,25 @@ interface SystemHealthProps {
 
 const DUMMY_HEALTH: SystemHealthData = {
   status: "Stable",
-  flaggedJobs: 12,
-  blockedRecruiters: 4,
-  lastIncident: "No recent incidents",
+  pendingCompanies: 3,
+  pausedJobs: 5,
+  applicationsToday: 18,
 }
 
 import { motion } from "framer-motion"
-import { ShieldCheck, AlertCircle } from "lucide-react"
+import { AlertCircle, BriefcaseBusiness, Building2 } from "lucide-react"
 
 export function SystemHealth({
   data,
   loading,
 }: SystemHealthProps) {
   const health = data ?? DUMMY_HEALTH
+  const indicatorColor =
+    health.status === "Stable"
+      ? "bg-emerald-500"
+      : health.status === "Critical"
+        ? "bg-rose-500"
+        : "bg-amber-500"
 
   if (loading) {
     return (
@@ -59,9 +65,9 @@ export function SystemHealth({
             <motion.div 
                animate={{ scale: [1, 1.2, 1] }} 
                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-               className={`w-2 h-2 rounded-full ${health.status === 'Stable' ? 'bg-emerald-500' : 'bg-amber-500'}`} 
+               className={`w-2 h-2 rounded-full ${indicatorColor}`} 
             />
-            <div className={`absolute inset-0 rounded-full blur-[2px] opacity-50 ${health.status === 'Stable' ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+            <div className={`absolute inset-0 rounded-full blur-[2px] opacity-50 ${indicatorColor}`} />
         </div>
       </CardHeader>
 
@@ -71,35 +77,30 @@ export function SystemHealth({
           <span className="text-2xl font-bold tracking-tight text-foreground">
             {health.status}
           </span>
-          <p className="text-xs text-muted-foreground font-medium">Platform systems operational</p>
+          <p className="text-xs text-muted-foreground font-medium">Operations snapshot for approvals, jobs, and hiring flow</p>
         </div>
 
         <div className="space-y-3">
-            {/* Flagged Jobs */}
             <HealthRow
-              label="Flagged Listings"
-              value={health.flaggedJobs}
-              icon={AlertCircle}
+              label="Pending Companies"
+              value={health.pendingCompanies}
+              icon={Building2}
+              color="text-sky-500"
+            />
+
+            <HealthRow
+              label="Paused Jobs"
+              value={health.pausedJobs}
+              icon={BriefcaseBusiness}
               color="text-amber-500"
             />
 
-            {/* Blocked Recruiters */}
             <HealthRow
-              label="Restricted Accounts"
-              value={health.blockedRecruiters}
-              icon={ShieldCheck}
+              label="Applications Today"
+              value={health.applicationsToday}
+              icon={AlertCircle}
               color="text-emerald-500"
             />
-        </div>
-
-        {/* Last Incident */}
-        <div className="pt-4 border-t border-border/50">
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Security Logs</span>
-            <span className="text-sm font-medium text-foreground">
-                {health.lastIncident ?? "No recent security events"}
-            </span>
-          </div>
         </div>
       </CardContent>
     </Card>

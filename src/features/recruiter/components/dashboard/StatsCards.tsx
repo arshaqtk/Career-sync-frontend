@@ -78,14 +78,14 @@ function StatCard({
   icon: React.ReactNode
 }) {
   return (
-    <Card className="hover:shadow-md transition">
-      <CardContent className="p-6 flex items-center justify-between">
-        <div>
-          <p className="text-sm text-muted-foreground">{title}</p>
-          <h3 className="text-2xl font-semibold mt-1">{value}</h3>
+    <Card className="h-full border-border/60 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+      <CardContent className="flex h-full items-center justify-between gap-4 p-6">
+        <div className="min-w-0">
+          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+          <h3 className="mt-2 text-2xl font-semibold tracking-tight text-foreground">{value}</h3>
         </div>
 
-        <div className="p-3 rounded-full bg-muted">{icon}</div>
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-muted">{icon}</div>
       </CardContent>
     </Card>
   )

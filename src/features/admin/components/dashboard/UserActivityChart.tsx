@@ -9,13 +9,22 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 
+const AXIS_TICK_STYLE = { fill: "var(--muted-foreground)", fontSize: 10 };
+const TOOLTIP_STYLE = {
+  backgroundColor: "var(--card)",
+  borderColor: "var(--border)",
+  borderRadius: "12px",
+  color: "var(--card-foreground)",
+};
+const TOOLTIP_LABEL_STYLE = { color: "var(--card-foreground)" };
+
 interface UserActivityChartProps {
-  data?: { date: string; count: number }[];
+  data?: { date: string; label: string; count: number }[];
 }
 
 export const UserActivityChart = ({ data }: UserActivityChartProps) => {
   const chartData = data?.map(item => ({
-    name: item.date.split("-").slice(1).join("/"),
+    name: item.label,
     count: item.count,
   })) || [
     { name: "20/03", count: 40 },
@@ -39,8 +48,8 @@ export const UserActivityChart = ({ data }: UserActivityChartProps) => {
           <AreaChart data={chartData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="var(--primary)" stopOpacity={0} />
+                <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
@@ -48,27 +57,23 @@ export const UserActivityChart = ({ data }: UserActivityChartProps) => {
               dataKey="name" 
               axisLine={false} 
               tickLine={false} 
-              tick={{ fill: "var(--text-muted)", fontSize: 10 }} 
+              tick={AXIS_TICK_STYLE}
               dy={10}
             />
             <YAxis 
               axisLine={false} 
               tickLine={false} 
-              tick={{ fill: "var(--text-muted)", fontSize: 10 }}
+              tick={AXIS_TICK_STYLE}
             />
             <Tooltip
-              contentStyle={{
-                backgroundColor: "var(--card)",
-                borderColor: "var(--border)",
-                borderRadius: "12px",
-                color: "var(--foreground)",
-              }}
-              itemStyle={{ color: "var(--primary)" }}
+              contentStyle={TOOLTIP_STYLE}
+              labelStyle={TOOLTIP_LABEL_STYLE}
+              itemStyle={{ color: "var(--card-foreground)" }}
             />
             <Area 
               type="monotone" 
               dataKey="count" 
-              stroke="var(--primary)" 
+              stroke="var(--chart-1)" 
               strokeWidth={3}
               fillOpacity={1} 
               fill="url(#colorCount)" 

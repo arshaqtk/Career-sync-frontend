@@ -13,10 +13,12 @@ export interface DashboardActionItem {
 
 export interface RecentApplication {
   id: string
+  jobId?: string
   candidateName: string
   jobTitle: string
-  experience:string
-  status:"Applied" | "Shortlisted" | "Rejected"
+  experience: string
+  status: "Pending" | "Viewed" | "Shortlisted" | "Interview" | "Selected" | "Rejected"
+  createdAt?: string
 }
 
 export interface TodaysInterview {

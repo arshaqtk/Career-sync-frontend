@@ -17,12 +17,12 @@ import { Badge } from "@/components/ui/shadcn/badge"
 import { Skeleton } from "@/components/ui/shadcn/skeleton"
 
 export interface RecruiterOverviewItem {
-  _id: string
+  id: string
   name: string
   company: string
-  jobPosted: number
+  jobsPosted: number
   status: "Active" | "Blocked"
-  lastActive: string
+  lastActive: string | null
 }
 
 interface RecruiterOverviewProps {
@@ -66,20 +66,20 @@ export function RecruiterOverview({
 
             <TableBody>
               {recruiters?.map((rec) => (
-                <TableRow key={rec._id}>
+                <TableRow key={rec.id}>
                   <TableCell className="font-medium">
                     {rec.name}
                   </TableCell>
 
                   <TableCell>{rec.company}</TableCell>
 
-                  <TableCell>{rec.jobPosted}</TableCell>
+                  <TableCell>{rec.jobsPosted}</TableCell>
 
                   <TableCell>
                     <StatusBadge status={rec.status} />
                   </TableCell>
 
-                  <TableCell>{rec.lastActive}</TableCell>
+                  <TableCell>{rec.lastActive ? new Date(rec.lastActive).toLocaleString() : "No activity yet"}</TableCell>
 
                   <TableCell className="text-right">
                     <Button
@@ -91,7 +91,7 @@ export function RecruiterOverview({
                       }
                       onClick={() =>
                         onToggleStatus?.(
-                          rec._id,
+                          rec.id,
                           rec.status === "Active"
                             ? "Active"
                             : "Blocked"

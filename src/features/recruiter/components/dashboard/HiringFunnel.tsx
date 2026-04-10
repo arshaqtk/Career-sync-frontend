@@ -46,17 +46,16 @@ export function HiringFunnel({ data, loading }: HiringFunnelProps) {
   }
 
   return (
-    <Card>
+    <Card className="border-border/60 shadow-sm">
       <CardHeader>
         <CardTitle>Hiring Funnel</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <FunnelRow label="Pending" value={funnel.applied} />
+        <FunnelRow label="Applied" value={funnel.applied} tone="bg-slate-500" />
         <FunnelRow label="Shortlisted" value={funnel.shortlisted} />
-        <FunnelRow label="Interviewed" value={funnel.interviewed} />
-        <FunnelRow label="Hired" value={funnel.selected} />
-        {/* <FunnelRow label="Hired" value={funnel.hired} /> */}
+        <FunnelRow label="Interviewed" value={funnel.interviewed} tone="bg-amber-500" />
+        <FunnelRow label="Selected" value={funnel.selected} tone="bg-emerald-500" />
       </CardContent>
     </Card>
   )
@@ -67,14 +66,19 @@ export function HiringFunnel({ data, loading }: HiringFunnelProps) {
 function FunnelRow({
   label,
   value,
+  tone = "bg-primary",
 }: {
   label: string
   value: number
+  tone?: string
 }) {
   return (
-    <div className="flex items-center justify-between rounded-lg border p-4">
-      <p className="text-sm font-medium">{label}</p>
-      <span className="text-lg font-semibold">{value}</span>
+    <div className="flex items-center justify-between rounded-xl border border-border/60 bg-muted/20 p-4">
+      <div className="flex items-center gap-3">
+        <span className={`h-2.5 w-2.5 rounded-full ${tone}`} />
+        <p className="text-sm font-medium text-foreground">{label}</p>
+      </div>
+      <span className="text-lg font-semibold text-foreground">{value}</span>
     </div>
   )
 }

@@ -16,9 +16,11 @@ export default function RecruiterDashboardPage() {
   const { data, isLoading, isError,error } = useRecruiterDashboard()
   const { mutate: addJob } = useAddJob();
 
-  if (isError) return <p>Failed to load dashboard</p>
   if (isLoading) return <DashboardSkeleton />
-  if(error)handleRQError(error)
+  if (isError && error) {
+    handleRQError(error)
+    return <p>Failed to load dashboard</p>
+  }
 
  const handleModalSubmission = (payload: {
     job: Job;
@@ -26,38 +28,35 @@ export default function RecruiterDashboardPage() {
       addJob({ data: payload.job });
   };
   return (
-    <div className="grid grid-cols-12 gap-6 p-6">
-      <div className="col-span-12">
+    <div className="space-y-6 p-4 md:p-6">
+      <AddJobModal onSubmit={handleModalSubmission} />
+
+      <div>
         <DashboardHeader />
       </div>
 
-      <div className="col-span-12">
+      <div>
         <StatsCards data={data?.stats} loading={isLoading} />
       </div>
 
-      <div className="col-span-12 lg:col-span-8">
-        <ActionCenter data={data?.actions} loading={isLoading} />
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
+        <div className="xl:col-span-8">
+          <ActionCenter data={data?.actions} loading={isLoading} />
+        </div>
+
+        <div className="xl:col-span-4">
+          <QuickActions />
+        </div>
       </div>
 
-      <div className="col-span-12 lg:col-span-4">
-        <QuickActions />
-      </div>
-<AddJobModal onSubmit={handleModalSubmission} />
-      <div className="col-span-12 lg:col-span-12">
+      <div>
         <RecentApplications
           data={data?.recentApplications||[]}
           loading={isLoading}
         />
       </div>
 
-      {/* <div className="col-span-12 lg:col-span-4">
-        <TodaysInterviews
-          data={data?.todaysInterviews}
-          loading={isLoading}
-        />
-      </div> */}
-
-      <div className="col-span-12">
+      <div>
         <HiringFunnel data={data?.funnel} loading={isLoading} />
       </div>
     </div>

@@ -2,8 +2,13 @@ export interface AdminDashboardStats {
   totalUsers: number
   recruiters: number
   candidates: number
-  jobs: number
+  totalCompanies: number
+  approvedCompanies: number
+  pendingCompanies: number
+  openJobs: number
+  pausedJobs: number
   applicationsLast30Days: number
+  applicationsToday: number
 }
 
 export interface RecruiterOverviewItem {
@@ -12,14 +17,34 @@ export interface RecruiterOverviewItem {
   company: string
   jobsPosted: number
   status: "Active" | "Blocked"
-  lastActive: string
+  lastActive: string | null
 }
 
 export interface SystemHealthData {
   status: "Stable" | "Warning" | "Critical"
-  flaggedJobs: number
-  blockedRecruiters: number
-  lastIncident: string
+  pendingCompanies: number
+  pausedJobs: number
+  applicationsToday: number
+}
+
+export interface UserGrowthPoint {
+  year: number
+  month: number
+  label: string
+  recruiters: number
+  candidates: number
+  total: number
+}
+
+export interface ActivityDataPoint {
+  date: string
+  label: string
+  count: number
+}
+
+export interface DistributionPoint {
+  name: string
+  value: number
 }
 
 export interface JobModerationItem {
@@ -43,6 +68,11 @@ export interface AdminDashboardResponse {
   stats: AdminDashboardStats
   recruiterOverview: RecruiterOverviewItem[]
   systemHealth: SystemHealthData
-  jobModeration: JobModerationItem[]
-  recentLogs: SystemLogItem[]
+  charts: {
+    userGrowth: UserGrowthPoint[]
+    categoryDistribution: DistributionPoint[]
+    activityData: ActivityDataPoint[]
+    applicationStatusDistribution: DistributionPoint[]
+    jobStatusDistribution: DistributionPoint[]
+  }
 }

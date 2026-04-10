@@ -13,11 +13,11 @@ interface CategoryDistributionChartProps {
 }
 
 const COLORS = [
-  "#3b82f6", // blue
-  "#f59e0b", // amber
-  "#10b981", // emerald
-  "#ef4444", // red
-  "#8b5cf6", // violet
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
 ];
 
 export const CategoryDistributionChart = ({ data }: CategoryDistributionChartProps) => {
@@ -53,15 +53,16 @@ export const CategoryDistributionChart = ({ data }: CategoryDistributionChartPro
                     backgroundColor: "var(--card)",
                     borderColor: "var(--border)",
                     borderRadius: "12px",
-                    color: "var(--foreground)",
+                    color: "var(--card-foreground)",
                }}
-               itemStyle={{ color: "var(--foreground)" }}
+               labelStyle={{ color: "var(--card-foreground)" }}
+               itemStyle={{ color: "var(--card-foreground)" }}
             />
             <Legend 
               verticalAlign="bottom" 
               align="center"
               iconType="circle"
-              wrapperStyle={{ fontSize: 10, paddingTop: 20 }}
+              wrapperStyle={{ fontSize: 10, paddingTop: 20, color: "var(--muted-foreground)" }}
             />
           </PieChart>
         </ResponsiveContainer>

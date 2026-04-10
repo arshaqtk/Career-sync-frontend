@@ -11,6 +11,8 @@ import { handleRQError } from "@/lib/react-query/errorHandler";
 import { PlatformGrowthChart } from "../components/dashboard/PlatformGrowthChart";
 import { UserActivityChart } from "../components/dashboard/UserActivityChart";
 import { CategoryDistributionChart } from "../components/dashboard/CategoryDistributionChart";
+import { ApplicationStatusChart } from "../components/dashboard/ApplicationStatusChart";
+import { JobStatusChart } from "../components/dashboard/JobStatusChart";
 
 export default function AdminDashboardPage() {
 
@@ -33,18 +35,23 @@ export default function AdminDashboardPage() {
         totalUsers: number
         recruiters: number
         candidates: number
-        jobs: number
+        totalCompanies: number
+        approvedCompanies: number
+        pendingCompanies: number
+        openJobs: number
+        pausedJobs: number
         applicationsLast30Days: number
+        applicationsToday: number
     }) => {
         if (!stats) return undefined
 
         return [
             { label: "Total Users", value: stats.totalUsers,type: "users" },
-            { label: "Total Companies", value: stats.recruiters,type: "companies" },
-            { label: "Active Jobs", value: stats.jobs,type: "jobs" },
-            { label: "Total Apps", value: stats.applicationsLast30Days,type: "apps" },
-            { label: "New Users (WK)", value: stats.candidates,type: "new-users" },
-            { label: "Jobs Today", value: Math.floor(stats.jobs / 30),type: "jobs-today" },
+            { label: "Recruiters", value: stats.recruiters,type: "companies" },
+            { label: "Candidates", value: stats.candidates,type: "new-users" },
+            { label: "Companies", value: stats.totalCompanies,type: "companies" },
+            { label: "Open Jobs", value: stats.openJobs,type: "jobs" },
+            { label: "Apps (30 Days)", value: stats.applicationsLast30Days,type: "apps" },
         ]
     }
 
@@ -85,11 +92,19 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Detailed Analytics Section */}
-            <div className="col-span-12 lg:col-span-3">
+            <div className="col-span-12 lg:col-span-4">
                  <CategoryDistributionChart data={dashboardData?.charts?.categoryDistribution} />
             </div>
 
-            <div className="col-span-12 lg:col-span-9">
+            <div className="col-span-12 lg:col-span-4">
+                <ApplicationStatusChart data={dashboardData?.charts?.applicationStatusDistribution} />
+            </div>
+
+            <div className="col-span-12 lg:col-span-4">
+                <JobStatusChart data={dashboardData?.charts?.jobStatusDistribution} />
+            </div>
+
+            <div className="col-span-12 lg:col-span-8">
                 <RecruiterOverview
                     data={dashboardData?.recruiterOverview}
                     loading={isLoading}
@@ -98,9 +113,9 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Health and Status Section */}
-            <div className="col-span-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div className="md:col-span-1">
+            <div className="col-span-12 lg:col-span-4">
+                <div className="grid grid-cols-1 gap-6">
+                    <div>
                          <SystemHealth loading={isLoading} data={dashboardData?.systemHealth} />
                     </div>
                 </div>
