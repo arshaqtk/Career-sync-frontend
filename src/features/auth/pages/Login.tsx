@@ -13,7 +13,7 @@ import CareerSyncLogo from "@/shared/logo/careerSync.logo";
 
 export default function Login() {
   return (
-    <div className="min-h-screen flex bg-white">
+    <div className="min-h-screen flex bg-background text-foreground">
       <SEO 
         title="Login - CareerSync" 
         description="Login to your CareerSync account to manage your job applications or find new talent."
@@ -77,10 +77,9 @@ export default function Login() {
         </div>
 
         <div className="w-full max-w-[420px]">
-          {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
-            <p className="text-slate-500 text-sm mt-1">Sign in to continue to your account</p>
+            <h1 className="text-2xl font-bold text-foreground">Welcome back</h1>
+            <p className="text-muted-foreground text-sm mt-1">Sign in to continue to your account</p>
           </div>
 
           <LoginForm />

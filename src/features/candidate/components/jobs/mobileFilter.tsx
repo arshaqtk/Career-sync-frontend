@@ -63,10 +63,10 @@ export function JobMobileFilterPopover({ filters, onChange }: Props) {
             update("status", value as JobFilters["status"])
           }
         >
-          <SelectTrigger className="w-[140px] h-11 bg-white border-slate-300 rounded-md hover:border-slate-400 transition-all focus:ring-2 focus:ring-blue-100 focus:border-blue-600 text-[14px] font-medium text-slate-700 shadow-none">
+          <SelectTrigger className="w-[140px] h-11 bg-background border-border rounded-md hover:border-border transition-all focus:ring-2 focus:ring-blue-100 focus:border-blue-600 text-[14px] font-medium text-foreground shadow-none">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
-          <SelectContent className="rounded-md border-slate-200">
+          <SelectContent className="rounded-md border-border">
             <SelectItem value="all">All listings</SelectItem>
             <SelectItem value="open">Open</SelectItem>
             <SelectItem value="closed">Closed</SelectItem>
@@ -80,10 +80,10 @@ export function JobMobileFilterPopover({ filters, onChange }: Props) {
             update("jobType", value as JobFilters["jobType"])
           }
         >
-          <SelectTrigger className="w-[140px] h-11 bg-white border-slate-300 rounded-md hover:border-slate-400 transition-all focus:ring-2 focus:ring-blue-100 focus:border-blue-600 text-[14px] font-medium text-slate-700 shadow-none">
+          <SelectTrigger className="w-[140px] h-11 bg-background border-border rounded-md hover:border-border transition-all focus:ring-2 focus:ring-blue-100 focus:border-blue-600 text-[14px] font-medium text-foreground shadow-none">
             <SelectValue placeholder="Job type" />
           </SelectTrigger>
-          <SelectContent className="rounded-md border-slate-200">
+          <SelectContent className="rounded-md border-border">
             <SelectItem value="all">All types</SelectItem>
             <SelectItem value="full-time">Full-time</SelectItem>
             <SelectItem value="part-time">Part-time</SelectItem>

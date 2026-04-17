@@ -21,7 +21,7 @@ export default function EducationCard({education}:{education:Education}){
   const { openModal } = EducationModalStore();
 
   return (
-    <Card className="overflow-hidden border border-slate-200 shadow-none hover:border-blue-200 transition-all bg-white group">
+    <Card className="overflow-hidden border border-border shadow-none hover:border-primary/50 transition-all bg-card group">
       <div className="p-5 sm:p-6">
         <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
           <div className="flex items-start gap-4">
@@ -32,7 +32,7 @@ export default function EducationCard({education}:{education:Education}){
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h3 className="text-xl font-extrabold text-foreground tracking-tight leading-tight">
                 {school}
               </h3>
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -42,7 +42,7 @@ export default function EducationCard({education}:{education:Education}){
                 {gradeOrPercentage && (
                   <>
                     <span className="text-slate-300 hidden sm:inline">•</span>
-                    <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-50 border-none px-2 py-0 text-[11px] font-bold">
+                    <Badge variant="secondary" className="bg-muted text-foreground hover:bg-muted border-none px-2 py-0 text-[11px] font-bold">
                       Grade: {gradeOrPercentage}
                     </Badge>
                   </>

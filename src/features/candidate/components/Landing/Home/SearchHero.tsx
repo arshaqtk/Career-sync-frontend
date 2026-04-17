@@ -17,26 +17,26 @@ export const SearchHero = () => {
 }
   return(
   <div className="w-full max-w-2xl space-y-6">
-    <div className="flex flex-col md:flex-row items-center bg-white p-2 rounded-xl border shadow-sm gap-2">
+    <div className="flex flex-col md:flex-row items-center bg-card p-2 rounded-xl border border-border shadow-sm gap-2">
       <div className="flex items-center flex-1 px-3 gap-2 w-full">
         <Search className="text-blue-500 w-5 h-5" />
         <input 
         onChange={(e)=>setJobTitle(e.target.value)}
           placeholder="Job title, keyword..." 
-          className="w-full outline-none text-slate-600 py-2"
+          className="w-full outline-none bg-transparent text-foreground py-2"
         />
       </div>
-      <div className="hidden md:block w-px h-8 bg-slate-200" />
+      <div className="hidden md:block w-px h-8 bg-border" />
       <div className="flex items-center flex-1 px-3 gap-2 w-full">
         <MapPin className="text-blue-500 w-5 h-5" />
         <input 
          onChange={(e)=>setLocation(e.target.value)}
           placeholder="Location" 
-          className="w-full outline-none text-slate-600 py-2"
+          className="w-full outline-none bg-transparent text-foreground py-2"
         />
       </div>
       <button onClick={handleSubmit}
-      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors w-full md:w-auto">
+      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors w-full md:w-auto cursor-pointer">
         Find Job
       </button>
     </div>

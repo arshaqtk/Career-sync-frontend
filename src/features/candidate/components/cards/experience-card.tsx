@@ -23,7 +23,7 @@ export default function ExperienceCard({ experience,className = "" }: Experience
   const { openModal } = ExperienceModalStore();
 
 return (
-    <Card className={`overflow-hidden border border-slate-200 shadow-none hover:border-blue-200 transition-all bg-white group ${className}`}>
+    <Card className={`overflow-hidden border border-border shadow-none hover:border-primary/50 transition-all bg-card group ${className}`}>
       <div className="p-5 sm:p-6">
         <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
           <div className="flex items-start gap-4">
@@ -34,7 +34,7 @@ return (
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h3 className="text-xl font-extrabold text-foreground tracking-tight leading-tight">
                 {role}
               </h3>
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -85,7 +85,7 @@ return (
             <h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-wider mb-3">Relevant Skills</h4>
             <div className="flex flex-wrap gap-2">
               {skills.map((s, i) => (
-                <Badge key={i} variant="outline" className="text-[12px] font-semibold py-1 px-3 bg-slate-50 border-slate-200 text-slate-600 rounded-lg">
+                <Badge key={i} variant="outline" className="text-[12px] font-semibold py-1 px-3 bg-muted border-border text-foreground rounded-lg">
                   {s}
                 </Badge>
               ))}

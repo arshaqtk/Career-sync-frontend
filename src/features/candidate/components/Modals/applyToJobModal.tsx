@@ -126,7 +126,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 border-none bg-card shadow-2xl rounded-2xl">
                 <DialogHeader className="px-8 pt-8 pb-6 bg-muted/50/50 border-b border-border/50">
                     <DialogTitle className="text-2xl font-extrabold text-foreground tracking-tight uppercase flex items-center gap-3">
-                        <Briefcase className="w-8 h-8 text-blue-600" />
+                        <Briefcase className="w-8 h-8 text-primary" />
                         Apply for Job
                     </DialogTitle>
                     <p className="text-sm font-medium text-muted-foreground mt-1">
@@ -207,10 +207,10 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                         <label className="text-[13px] font-bold text-foreground/80 uppercase tracking-wider px-1 flex items-center gap-2">
                             <FileText className="w-3.5 h-3.5" /> Resume
                         </label>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border border-blue-100 rounded-xl bg-blue-50/30">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border border-border rounded-xl bg-muted/30">
                             <div className="flex-1">
                                 {candidateresumeUrl ? (
-                                    <div className="flex items-center gap-2 text-blue-700 font-medium">
+                                    <div className="flex items-center gap-2 text-primary font-medium">
                                         <FileText className="w-5 h-5" />
                                         <span className="text-sm">Using your saved resume</span>
                                     </div>
@@ -223,7 +223,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
                                 variant="outline"
                                 disabled={isPending}
                                 onClick={() => fileInputRef.current?.click()}
-                                className="border-blue-200 text-blue-600 hover:bg-blue-50 font-bold gap-2 bg-card"
+                                className="border-border text-foreground hover:bg-muted font-bold gap-2 bg-card"
                             >
                                 {isPending ? <Upload className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                                 {isPending ? "Uploading..." : candidateresumeUrl ? "Update Resume" : "Upload Resume"}

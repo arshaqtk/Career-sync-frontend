@@ -37,7 +37,7 @@ export default function LoginForm() {
       <button
         onClick={handleGoogleLogin}
         type="button"
-        className="w-full flex items-center justify-center gap-2.5 h-11 rounded-lg border border-slate-200 bg-white text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+        className="w-full flex items-center justify-center gap-2.5 h-11 rounded-lg border border-border bg-background text-sm font-medium text-foreground hover:bg-muted transition-colors"
       >
         <img
           alt="Google"
@@ -49,10 +49,10 @@ export default function LoginForm() {
 
       <div className="relative my-5">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-slate-100" />
+          <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center">
-          <span className="px-3 bg-white text-xs text-slate-400 font-medium">or sign in with email</span>
+          <span className="px-3 bg-background text-xs text-muted-foreground font-medium">or sign in with email</span>
         </div>
       </div>
 
@@ -62,7 +62,6 @@ export default function LoginForm() {
           label="Email Address"
           type="email"
           placeholder="alex@example.com"
-          className="text-black"
           icon={<Mail className="w-5 h-5 text-gray-400" />}
           error={errors.email?.message}
           {...register("email")}
@@ -74,7 +73,6 @@ export default function LoginForm() {
             type={showPassword ? "text" : "password"}
             label="Password"
             placeholder="Enter your password"
-            className="text-black"
             icon={<Lock className="w-5 h-5 text-gray-400" />}
             rightIcon={
               <button

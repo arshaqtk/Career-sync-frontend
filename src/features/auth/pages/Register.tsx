@@ -16,7 +16,7 @@ export default function Register() {
   const { setSelectedRole, role } = useRegisterRoleStore();
 
   return (
-    <div className="min-h-screen flex bg-white">
+    <div className="min-h-screen flex bg-background text-foreground">
       <SEO 
         title="Register - CareerSync" 
         description="Join CareerSync today! Create an account as a candidate or recruiter and start your professional journey."
@@ -94,10 +94,9 @@ export default function Register() {
         </div>
 
         <div className="w-full max-w-[440px]">
-          {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-slate-900">Create your account</h1>
-            <p className="text-slate-500 text-sm mt-1">Start your journey with CareerSync today</p>
+            <h1 className="text-2xl font-bold text-foreground">Create your account</h1>
+            <p className="text-muted-foreground text-sm mt-1">Start your journey with CareerSync today</p>
           </div>
 
           {/* Role Tabs */}

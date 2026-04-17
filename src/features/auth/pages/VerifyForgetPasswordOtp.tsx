@@ -37,7 +37,7 @@ export default function VerifyForgetPasswordOtp() {
 
   // Email entry screen
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
       {/* Background blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl" />
@@ -46,7 +46,7 @@ export default function VerifyForgetPasswordOtp() {
 
       <div className="relative w-full max-w-md">
         {/* Card */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/60 rounded-2xl shadow-xl shadow-blue-100/40 p-8">
+        <div className="bg-card/80 backdrop-blur-xl border border-border rounded-2xl shadow-xl p-8">
 
           {/* Icon */}
           <div className="flex justify-center mb-6">
@@ -57,8 +57,8 @@ export default function VerifyForgetPasswordOtp() {
 
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-slate-900 mb-2">Forgot Password?</h1>
-            <p className="text-sm text-slate-500 leading-relaxed">
+            <h1 className="text-2xl font-bold text-foreground mb-2">Forgot Password?</h1>
+            <p className="text-sm text-muted-foreground leading-relaxed">
               No worries! Enter your registered email and we'll send you a verification code.
             </p>
           </div>
@@ -66,16 +66,16 @@ export default function VerifyForgetPasswordOtp() {
           {/* Email Input */}
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
+              <label className="block text-sm font-medium text-foreground mb-1.5">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="forgot-password-email"
                   type="email"
                   placeholder="you@example.com"
-                  className="pl-10 h-12 border-slate-200 bg-white rounded-xl focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-black"
+                  className="pl-10 h-12 border-border bg-background rounded-xl focus:bg-background focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-foreground"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()}

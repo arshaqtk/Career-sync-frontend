@@ -54,7 +54,7 @@ export default function VerifyOtp({
     : ""
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
       {/* Background decorative blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl" />
@@ -63,7 +63,7 @@ export default function VerifyOtp({
 
       <div className="relative w-full max-w-md">
         {/* Card */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/60 rounded-2xl shadow-xl shadow-blue-100/40 p-8">
+        <div className="bg-card/80 backdrop-blur-xl border border-border rounded-2xl shadow-xl p-8">
 
           {/* Icon */}
           <div className="flex justify-center mb-6">
@@ -79,18 +79,18 @@ export default function VerifyOtp({
 
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-slate-900 mb-2">
+            <h1 className="text-2xl font-bold text-foreground mb-2">
               {isRegister ? "Verify Your Email" : "Reset Password"}
             </h1>
-            <p className="text-sm text-slate-500 leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               {isRegister
                 ? "We've sent a 6-digit verification code to"
                 : "Enter the 6-digit code sent to your email"}
             </p>
             {email && (
-              <div className="inline-flex items-center gap-2 mt-2 px-3 py-1.5 bg-blue-50 border border-blue-100 rounded-full">
+              <div className="inline-flex items-center gap-2 mt-2 px-3 py-1.5 bg-muted border border-border rounded-full">
                 <Mail className="w-3.5 h-3.5 text-blue-500" />
-                <span className="text-sm font-medium text-blue-700">{maskedEmail}</span>
+                <span className="text-sm font-medium text-foreground">{maskedEmail}</span>
               </div>
             )}
           </div>
@@ -103,7 +103,7 @@ export default function VerifyOtp({
                   <InputOTPSlot
                     key={i}
                     index={i}
-                    className="w-11 h-12 text-lg  text-black font-bold border-slate-200 rounded-xl bg-white focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                    className="w-11 h-12 text-lg text-foreground font-bold border-border rounded-xl bg-background focus:bg-background focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                   />
                 ))}
               </InputOTPGroup>
