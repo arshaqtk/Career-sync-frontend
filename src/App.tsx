@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { getSocket } from "@/lib/socket"
 import { usePresenceStore } from "./features/chat/store/presence.store";
 import { getOnlineUsersApi } from "./api/users.api";
-
+import { Analytics } from "@vercel/analytics/next"
 import { SEO } from "./components/seo/SEO";
 
 const queryClient = new QueryClient();
@@ -44,6 +44,7 @@ useEffect(() => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <ErrorBoundary>
+          <Analytics/>
           <SEO />
           <SocketProvider />
           <Toaster position="top-right" />
