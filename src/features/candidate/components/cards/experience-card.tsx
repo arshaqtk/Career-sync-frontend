@@ -1,15 +1,17 @@
 import { Card } from "@/components/ui/shadcn/card";
 import { Button } from "@/components/ui/shadcn/button";
 import { Badge } from "@/components/ui/shadcn/badge";
-import { Briefcase, MapPin, Calendar, Pencil } from "lucide-react";
+import { Briefcase, MapPin, Calendar, Pencil, Trash } from "lucide-react";
+import { AlertDialogComponent } from "@/components/dialogs/alertDialog";
 import type { Experience } from "../../types/Experience.types";
 import { formatRange } from "../../helpers/formatRange";
 import { ExperienceModalStore } from "../../store/experienceFormModal.store";
 export interface ExperienceCardProps {
   experience: Experience;
   className?: string;
+  deleteExperience: (id: string) => void;
 }
-export default function ExperienceCard({ experience,className = "" }: ExperienceCardProps) {
+export default function ExperienceCard({ experience,className = "",deleteExperience }: ExperienceCardProps) {
   const {
     company,
     role,
@@ -71,6 +73,21 @@ return (
             >
               <Pencil className="w-4 h-4" />
             </Button>
+            <AlertDialogComponent
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 text-slate-400 hover:text-red-600 hover:bg-red-50 border border-slate-100 hover:border-red-100"
+                >
+                  <Trash className="w-4 h-4" />
+                </Button>
+              }
+              alertTitle="Delete Experience"
+              alertDescription="Are you sure you want to delete this experience entry? This action cannot be undone."
+              onConfirm={() => deleteExperience(experience?._id as string)}
+            />
+            
           </div>
         </div>
 

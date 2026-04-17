@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import type { Education } from "../../types/Education.types";
 import { EducationModalStore } from "../../store/educationModal.store";
 import { EducationFormModal } from "../Modals/educationFormModal";
-import { useAddProfileEducation, useUpdateProfileEducation } from "../../hooks/useUpdateProfile";
+import { useAddProfileEducation, useDeleteEducation, useUpdateProfileEducation } from "../../hooks/useUpdateProfile";
 
 interface EducationSectionProps {
   Education: Education[];
@@ -15,8 +15,8 @@ export function EducationSection({ Education }: EducationSectionProps) {
   const { openModal, closeModal } = EducationModalStore()
   const updateEducation = useUpdateProfileEducation()
   const addEducation = useAddProfileEducation()
-  const hasNoEducation = !Education || Education.length === 0;
-
+  const hasNoEducation = !Education || Education.length === 0
+  const deleteEducation=useDeleteEducation()
   const handleEducationSubmit = (payload: Education) => {
     if (!payload._id) {
       addEducation.mutate(payload)
@@ -64,7 +64,7 @@ export function EducationSection({ Education }: EducationSectionProps) {
       ) : (
         <div className="grid gap-4">
           {Education.map((edu) => (
-            <EducationCard key={edu._id} education={edu} />
+            <EducationCard key={edu._id} education={edu} deleteEducation={(id)=>deleteEducation.mutate(id)} />
           ))}
         </div>
       )}

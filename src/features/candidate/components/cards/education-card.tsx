@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/shadcn/button";
-import { Calendar, MapPin, GraduationCap, Pencil } from "lucide-react";
+import { Calendar, MapPin, GraduationCap, Pencil, Trash } from "lucide-react";
 import { EducationModalStore } from "../../store/educationModal.store";
 import type { Education } from "../../types/Education.types";
 import { Card } from "@/components/ui/shadcn/card";
 import { Badge } from "@/components/ui/shadcn/badge";
+import { AlertDialogComponent } from "@/components/dialogs/alertDialog";
 
 
 
-export default function EducationCard({education}:{education:Education}){
+export default function EducationCard({education,deleteEducation}:{education:Education,deleteEducation:(id:string)=>void}){
   const {school,
   standard,
   startDate,
@@ -87,6 +88,21 @@ export default function EducationCard({education}:{education:Education}){
             >
               <Pencil className="w-4 h-4" />
             </Button>
+
+            <AlertDialogComponent
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 text-slate-400 hover:text-red-600 hover:bg-red-50 border border-slate-100 hover:border-red-100"
+                >
+                  <Trash className="w-4 h-4" />
+                </Button>
+              }
+              alertTitle="Delete Education"
+              alertDescription="Are you sure you want to delete this education entry? This action cannot be undone."
+              onConfirm={() => deleteEducation(education?._id as string)}
+            />
           </div>
         </div>
 

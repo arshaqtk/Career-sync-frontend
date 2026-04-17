@@ -20,12 +20,12 @@ export const Documentscard = ({ application }: { application: ApplicationDetails
               <FileText size={20} />
             </div>
             <div>
-              <p className="text-[14px] font-bold text-foreground/90">Resume_Candidate.pdf</p>
+              <p className="text-[14px] font-bold text-foreground/90 truncate max-w-[200px]">{application.resumeName || "Resume_Candidate.pdf"}</p>
               <p className="text-[12px] text-muted-foreground font-medium">Applied Resume</p>
             </div>
           </div>
           <Button asChild variant="outline" size="sm" className="h-9 border-border text-blue-600 font-bold hover:bg-blue-50">
-            <a href={application.resumeUrl} target="_blank" className="flex items-center gap-2">
+            <a href={application.resumeUrl} download={application.resumeName || "resume.pdf"} target="_blank" className="flex items-center gap-2">
               <Download size={14} />
               Download
             </a>

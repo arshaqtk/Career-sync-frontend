@@ -89,6 +89,7 @@ export interface ApplicationDetails{
   experience:string;
   currentRole:string;
   resumeUrl:string;
+  resumeName?:string;
   decisionNote?:string;
 }
 

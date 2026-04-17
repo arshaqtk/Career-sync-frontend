@@ -1,9 +1,6 @@
 import { Container } from "@/components/ui/container";
 import { ProfileHeader } from "../components/profile/ProfileHeader";
-// import { ProfileStatsRow } from "../components/profile/ProfileStatsRow";
-// import { ProfileStatCard } from "../components/profile/ProfileStatCard";
 import { ProfileTabs } from "../components/profile/ProfileTabs";
-// import { FileText, Video, Award, Clock } from "lucide-react";
 import useUserData from "@/hooks/useUserData";
 import useFetchCandidateProfileStats from "../hooks/useProfileStats";
 import { SectionSkeleton } from "@/components/Loaders";
@@ -33,30 +30,6 @@ export default function CandidateProfilePage() {
             profilePicture,
           }}
         />
- {/* <div className="mt-8">
-          <ProfileStatsRow>
-            <ProfileStatCard
-              icon={<FileText size={20} className="text-blue-600" />}
-              value={stats.totalApplications}
-              label="Applications"
-            />
-            <ProfileStatCard
-              icon={<Video size={20} className="text-blue-600" />}
-              value={stats.totalInterviews}
-              label="Interviews"
-            />
-            <ProfileStatCard
-              icon={<Award size={20} className="text-blue-600" />}
-              value={stats.offersReceived}
-              label="Offers"
-            />
-            <ProfileStatCard
-              icon={<Clock size={20} className="text-blue-600" />}
-              value={stats.yearsOfExperience}
-              label="Years Exp"
-            />
-          </ProfileStatsRow>
-        </div> */}
           <div className="mt-10">
           <ProfileTabs user={user} />
         </div>

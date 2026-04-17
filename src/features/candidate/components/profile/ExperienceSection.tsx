@@ -6,6 +6,7 @@ import { ExperienceModalStore } from "../../store/experienceFormModal.store";
 import { ExperienceFormModal } from "../Modals/experienceModal";
 import {
   useAddProfileExperience,
+  useDeleteProfileExperience,
   useUpdateProfileExperience,
 } from "../../hooks/useUpdateProfile";
 
@@ -20,6 +21,7 @@ export function ExperienceSection({
 
   const addExperience = useAddProfileExperience();
   const updateExperience = useUpdateProfileExperience();
+  const deleteExperience=useDeleteProfileExperience();
 
   const handleExperienceSubmit = (payload: Experience) => {
     if (!payload._id) {
@@ -75,6 +77,7 @@ export function ExperienceSection({
         <div className="grid gap-4">
           {experience.map((exp) => (
             <ExperienceCard
+            deleteExperience={(id)=>deleteExperience.mutate(id)}
               key={exp._id}
               experience={exp}
             />

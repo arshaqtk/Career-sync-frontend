@@ -33,6 +33,11 @@ export const updateProfileExperienceApi = async ({ payload, experienceId }: { pa
     const res = await api.put(`/candidate/profile/experience/${experienceId}`, { experience: payload })
     return res.data.data
 }
+
+export const deleteExperienceApi = async (experienceId: string): Promise<IUser> => {
+    const res = await api.delete(`/candidate/profile/experience/${experienceId}`)
+    return res.data.data
+}
 export const updateProfileSkillApi = async (payload: string[]): Promise<IUser> => {
     const res = await api.put("/candidate/profile/skill", payload)
     return res.data.data
@@ -45,6 +50,11 @@ export const addProfileEducationApi = async (payload: Education): Promise<IUser>
 
 export const updateProfileEducationApi = async ({ payload, educationId }: { payload: Education, educationId: string }): Promise<IUser> => {
     const res = await api.put(`/candidate/profile/education/${educationId}`, { education: payload })
+    return res.data.data
+}
+
+export const deleteEducationApi = async (educationId: string): Promise<IUser> => {
+    const res = await api.delete(`/candidate/profile/education/${educationId}`)
     return res.data.data
 }
 

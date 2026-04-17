@@ -1,7 +1,7 @@
 import { ApplicationsFilter } from "../components/applications/applicationFilter";
 import { useApplicationData } from "../hooks/useApplication";
 import type { ApplicationFilters } from "../types/applicationFilter.types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthStore } from "@/store/auth.store";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/shadcn/pagination";
 import { SectionSkeleton } from "@/components/Loaders";
@@ -17,7 +17,7 @@ export default function ApplicationsPage() {
   });
 
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const limit = 5;
 
   const candidateId = useAuthStore(
     (state) => state.user?.id
@@ -29,6 +29,13 @@ export default function ApplicationsPage() {
     page,
     limit,
   });
+
+  useEffect(() => {
+    const listContainer = document.getElementById('applications-list');
+    if (listContainer) {
+      listContainer.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [page]);
 
   if (isLoading) {
     return <SectionSkeleton />
@@ -55,7 +62,7 @@ export default function ApplicationsPage() {
         {!isLoading && applications.length > 0 && (
           <div className="flex-none mb-2 px-1">
             <h2 className="text-[12px] font-bold text-muted-foreground uppercase tracking-tight">
-              {pagination.totalApplications || 0} applications in total
+              {pagination.total || applications.length} applications in total
             </h2>
           </div>
         )}
@@ -64,7 +71,7 @@ export default function ApplicationsPage() {
         {!isLoading && applications.length === 0 ? (
           <EmptyApplications />
         ) : (
-          <div className="flex-1 overflow-y-auto pr-2 scrollbar-hide pb-20 md:pb-6">
+          <div id="applications-list" className="flex-1 overflow-y-auto pr-2 scrollbar-hide pb-20 md:pb-6">
             <ApplicationsCardList applications={applications} />
           </div>
         )}

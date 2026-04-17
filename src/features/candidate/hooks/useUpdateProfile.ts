@@ -1,4 +1,4 @@
-import { addProfileEducationApi, addProfileExperienceApi, deleteResumeApi, updateAvatarApi, updateProfileAboutApi, updateProfileApi, updateProfileEducationApi, updateProfileExperienceApi, updateProfileSkillApi, updateResumeApi } from "@/api/profile.api";
+import { addProfileEducationApi, addProfileExperienceApi, deleteEducationApi, deleteExperienceApi, deleteResumeApi, updateAvatarApi, updateProfileAboutApi, updateProfileApi, updateProfileEducationApi, updateProfileExperienceApi, updateProfileSkillApi, updateResumeApi } from "@/api/profile.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { IUser, ProfileUpdatePayload, UpdateAboutPayload } from "@/types/profileUpdate.type";
 import { QUERY_KEYS } from "../../../config/queryKeys";
@@ -79,6 +79,16 @@ export const useUpdateProfileExperience = () => {
     })
 }
 
+export const useDeleteProfileExperience = () => {
+    const queryClient = useQueryClient()
+    return useMutation<IUser, Error, string>({
+        mutationFn: deleteExperienceApi,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
+            toast.success("Experience Deleted Successfully")
+        }
+    })
+}
 
 //--------------Skill----------------------------
 
@@ -118,6 +128,17 @@ export const useUpdateProfileEducation = () => {
     })
 }
 
+export const useDeleteEducation = () => {
+    const queryClient = useQueryClient()
+    return useMutation<IUser, Error, string>({
+        mutationFn: deleteEducationApi,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
+            toast.success("Education Deleted Successfully")
+        }
+    })
+}
+
 export const useUpdateResume = () => {
     const queryClient = useQueryClient()
     return useMutation({
@@ -139,4 +160,4 @@ export const useDeleteResume = () => {
             toast.success("Resume deleted Successfully")
         }
     })
-}
+}
