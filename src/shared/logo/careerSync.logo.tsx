@@ -1,12 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils";
 
 interface CareerSyncLogoProps {
   showText?: boolean;
-  className?: string;
 }
 
-const CareerSyncLogo = ({ showText = true, className }: CareerSyncLogoProps) => {
+const CareerSyncLogo = ({ showText = true }: CareerSyncLogoProps) => {
   const navigate = useNavigate();
   return (
     <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" 
