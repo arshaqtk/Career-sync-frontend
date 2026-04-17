@@ -1,6 +1,6 @@
 import LoginForm from "../components/LoginForm";
 import LoginFooter from "../components/LoginFooter";
-import { Briefcase, CheckCircle2 } from "lucide-react";
+import {  CheckCircle2 } from "lucide-react";
 
 const HIGHLIGHTS = [
   "Access thousands of verified job listings",
@@ -9,6 +9,7 @@ const HIGHLIGHTS = [
 ];
 
 import { SEO } from "@/components/seo/SEO";
+import CareerSyncLogo from "@/shared/logo/careerSync.logo";
 
 export default function Login() {
   return (
@@ -29,12 +30,7 @@ export default function Login() {
 
         {/* Logo */}
         <div className="relative z-10">
-          <div className="flex items-center gap-2.5">
-            {/* <div className="w-9 h-9 bg-blue-500 rounded-lg flex items-center justify-center">
-              <Briefcase className="w-5 h-5 text-white" />
-            </div> */}
-            <span className="text-white font-bold text-xl tracking-tight">CareerSync</span>
-          </div>
+          <CareerSyncLogo textClassName="fill-white" className="h-9" />
         </div>
 
         {/* Centre copy */}
@@ -76,11 +72,8 @@ export default function Login() {
       {/* ─── Right Panel ─── */}
       <div className="flex-1 flex flex-col justify-center items-center px-6 py-12">
         {/* Mobile logo */}
-        <div className="lg:hidden flex items-center gap-2.5 mb-10">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <Briefcase className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-bold text-lg text-slate-900 tracking-tight">CareerSync</span>
+        <div className="lg:hidden mb-10">
+          <CareerSyncLogo className="h-9" />
         </div>
 
         <div className="w-full max-w-[420px]">

@@ -1,4 +1,4 @@
-import { Briefcase } from "lucide-react"
+import CareerSyncLogo from "@/shared/logo/careerSync.logo"
 
 export function Footer() {
     return (
@@ -6,10 +6,7 @@ export function Footer() {
             <div className="container mx-auto py-12 md:py-16 px-4 md:px-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="space-y-4">
-                        <div className="flex items-center gap-2 font-bold text-xl text-primary">
-                            <Briefcase className="h-6 w-6" />
-                            <span>CareerSync</span>
-                        </div>
+                        <CareerSyncLogo className="h-9" />
                         <p className="text-sm text-muted-foreground">
                             Connecting top talent with world-class employers through AI-driven matching.
                         </p>

@@ -7,6 +7,7 @@ import { CompanyActiveJobs } from '../components/company/CompanyActiveJobs';
 import { CompanyQuickStats } from '../components/company/CompanyQuickStats';
 import { Button } from "@/components/ui/shadcn/button";
 import { useCompanyDetails, useCompanyJobDetails } from '@/features/recruiter/hooks/useCompanyOnboarding';
+import CareerSyncLogo from "@/shared/logo/careerSync.logo";
 
 export default function CompanyDetailsPage() {
     const { companyId } = useParams<{ companyId: string }>();
@@ -87,7 +88,7 @@ export default function CompanyDetailsPage() {
                 </Button>
 
                 <div className="hidden md:flex items-center gap-2 text-muted-foreground font-bold text-xs tracking-widest uppercase">
-                    <span>CareerSync</span>
+                    <CareerSyncLogo showText={false} className="h-4" />
                     <span className="text-border">/</span>
                     <span className="text-primary">Company Profile</span>
                 </div>

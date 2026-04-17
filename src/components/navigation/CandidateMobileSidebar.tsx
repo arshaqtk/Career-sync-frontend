@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { candidateMobileSideBarNav } from "@/config/candidateNav.config";
 import { Separator } from "../ui/shadcn/separator";
 import useLogout from "@/features/auth/hooks/useLogout";
+import CareerSyncLogo from "@/shared/logo/careerSync.logo";
 
 export function CandidateMobileSidebar() {
   const [open, setOpen] = useState(false);
@@ -20,15 +21,9 @@ export function CandidateMobileSidebar() {
 
 
       <SheetContent side="right" className="flex flex-col h-full">
-        {/* Logo */}
-        {/* <div>
-    <img
-      src="/careerSyncNavLogo.png"
-      alt="careerSync"
-      className="h-12 cursor-pointer"
-      onClick={() => navigate("/")}
-    />
-  </div> */}
+        <div className="mt-4">
+           <CareerSyncLogo className="h-9" />
+        </div>
 
         {/* Navigation */}
         <nav className="flex flex-col gap-4 mt-6">

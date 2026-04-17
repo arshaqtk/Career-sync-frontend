@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { Users, Briefcase, BarChart, Building2 } from "lucide-react"
+import CareerSyncLogo from "@/shared/logo/careerSync.logo"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -18,30 +19,8 @@ const springConfig = { stiffness: 300, damping: 30 }
 export function AdminSidebar({ isOpen }: { isOpen: boolean }) {
   return (
     <div className="h-full w-full bg-background/50 backdrop-blur-xl border-r border-border/50 px-3 py-6 relative overflow-hidden">
-      <div className={cn("mb-10 px-4 flex items-center", !isOpen && "justify-center")}>
-        <div className="flex items-center gap-3">
-            <motion.div 
-               layout
-               transition={springConfig}
-               className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-lg shadow-primary/20 shrink-0"
-            >
-                <BarChart className="text-primary-foreground h-5 w-5" />
-            </motion.div>
-            
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.span 
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -10, transition: { duration: 0.1 } }}
-                        transition={{ ...springConfig, delay: 0.1 }}
-                        className="text-xl font-bold tracking-tight text-foreground bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent whitespace-nowrap"
-                    >
-                        CareerSync
-                    </motion.span>
-                )}
-            </AnimatePresence>
-        </div>
+      <div className={cn("mb-10 px-4 flex items-center")}>
+        <CareerSyncLogo showText={isOpen} className="h-9" />
       </div>
 
       <nav className="space-y-2">
