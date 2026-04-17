@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { getSocket } from "@/lib/socket"
 import { usePresenceStore } from "./features/chat/store/presence.store";
 import { getOnlineUsersApi } from "./api/users.api";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 import { SEO } from "./components/seo/SEO";
 
 const queryClient = new QueryClient();
