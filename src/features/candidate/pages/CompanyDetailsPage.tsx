@@ -14,7 +14,6 @@ export default function CompanyDetailsPage() {
 
     const { data: response, isLoading, error } = useCompanyDetails(companyId || "");
     const {data:jobs,isLoading:jobsLoading}=useCompanyJobDetails(companyId ||"")
-    console.log("jobs",jobs);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [companyId]);

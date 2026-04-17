@@ -14,6 +14,7 @@ import { getSocket } from "@/lib/socket"
 import { usePresenceStore } from "./features/chat/store/presence.store";
 import { getOnlineUsersApi } from "./api/users.api";
 
+import { SEO } from "./components/seo/SEO";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ useEffect(() => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <ErrorBoundary>
+          <SEO />
           <SocketProvider />
           <Toaster position="top-right" />
           <AppRouter />

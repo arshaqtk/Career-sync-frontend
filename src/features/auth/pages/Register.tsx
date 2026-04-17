@@ -9,11 +9,17 @@ const FEATURES = [
   "Hear back from employers faster",
 ];
 
+import { SEO } from "@/components/seo/SEO";
+
 export default function Register() {
   const { setSelectedRole, role } = useRegisterRoleStore();
 
   return (
     <div className="min-h-screen flex bg-white">
+      <SEO 
+        title="Register - CareerSync" 
+        description="Join CareerSync today! Create an account as a candidate or recruiter and start your professional journey."
+      />
       {/* ─── Left Panel ─── */}
       <div className="hidden lg:flex w-[44%] bg-slate-900 flex-col justify-between p-12 relative overflow-hidden">
         {/* grid pattern */}

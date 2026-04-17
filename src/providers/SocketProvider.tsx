@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { getSocket } from "@/lib/socket"
+import { logger } from "@/lib/logger"
 import { useAuthStore } from "@/store/auth.store"
 
 export const SocketProvider = () => {
@@ -12,31 +13,20 @@ export const SocketProvider = () => {
     if (!socket.connected) {
       socket.connect()
     }
-
     socket.on("connect", () => {
     })
 
     socket.on("disconnect", (reason) => {
-      console.warn("⚠️ Socket disconnected:", reason)
-    })
-
-    socket.on("reconnect_attempt", () => {
-    })
-
-    socket.on("reconnect", () => {
-
-      // 🔑 IMPORTANT: rejoin rooms here later
+      logger.warn("⚠️ Socket disconnected:", reason)
     })
 
     socket.on("connect_error", (err) => {
-      console.error("❌ Socket connect error:", err.message)
+      logger.error("❌ Socket connect error:", err.message)
     })
 
     return () => {
       socket.off("connect")
       socket.off("disconnect")
-      socket.off("reconnect")
-      socket.off("reconnect_attempt")
       socket.off("connect_error")
     }
   }, [user])

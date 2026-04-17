@@ -9,9 +9,15 @@ import {CheckCircle2, Target, Users, Shield, Search,
 import { Navbar } from "../components/layouts/NavBar"
 import { Footer } from "../components/layouts/Footer"
 
+import { SEO } from "@/components/seo/SEO";
+
 export function AboutPage() {
     return (
         <div className="min-h-screen bg-background font-sans antialiased text-foreground">
+            <SEO 
+                title="About Us - CareerSync" 
+                description="Learn more about CareerSync, our mission, vision, and how we are simplifying the job search and recruitment process for everyone."
+            />
             <Navbar />
             <main className="flex-1">
 

@@ -1,4 +1,5 @@
 import { io, Socket } from "socket.io-client"
+import { logger } from "./logger"
 
 let socket: Socket | null = null
 
@@ -25,6 +26,6 @@ export const registerSocketListeners = () => {
   })
 
   socket?.on("connect_error", (err) => {
-    console.error("❌ Socket error:", err.message)
+    logger.error("❌ Socket error:", err.message)
   })
 }

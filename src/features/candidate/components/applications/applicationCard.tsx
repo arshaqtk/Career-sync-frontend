@@ -12,7 +12,6 @@ export default function ApplicationsCardList({
   applications: CandidateApplicationDTO[];
 }) {
   const navigate = useNavigate();
-console.log(applications)
   return (
     <div className="flex flex-col gap-3">
       {applications.map((app) => (

@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { logger } from "@/lib/logger";
 import type { ApplyJobDTO } from "../../types/application.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { applyJobSchema } from "../../validators/applyJob.schema";
@@ -113,7 +114,7 @@ export const ApplyToJobModal = ({ jobIds, candidateresumeUrl, onSubmit, open, Op
             }
 
         } catch (err) {
-            console.error("Cover letter generation failed:", err);
+            logger.error("Cover letter generation failed:", err);
             form.setValue("coverLetter", "Failed to generate. Please try again.");
         } finally {
             setIsGenerating(false);

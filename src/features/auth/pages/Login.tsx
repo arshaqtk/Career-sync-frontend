@@ -8,9 +8,15 @@ const HIGHLIGHTS = [
   "Track your applications in real time",
 ];
 
+import { SEO } from "@/components/seo/SEO";
+
 export default function Login() {
   return (
     <div className="min-h-screen flex bg-white">
+      <SEO 
+        title="Login - CareerSync" 
+        description="Login to your CareerSync account to manage your job applications or find new talent."
+      />
       {/* ─── Left Panel ─── */}
       <div className="hidden lg:flex w-[44%] bg-slate-900 flex-col justify-between p-12 relative overflow-hidden">
         {/* subtle grid pattern */}

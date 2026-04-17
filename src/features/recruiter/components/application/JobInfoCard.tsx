@@ -6,7 +6,6 @@ import { Briefcase, Building2, Clock, DollarSign, MapPin } from "lucide-react";
 type JobInfoProps={job:ApplicantDTO["jobId"]}
 
 export  function JobInfoCard({ job }:JobInfoProps) {
-  console.log("job",job)
   return (
     <Card className="bg-card border border-border shadow-sm overflow-hidden">
       <CardHeader className="border-b border-border py-4">

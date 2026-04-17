@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { logger } from "@/lib/logger";
 
 interface LimitState {
   remaining: number;       // how many left today
@@ -20,7 +21,7 @@ export const useCoverLetterLimit = () => {
           return parsed;
         }
       } catch (e) {
-        console.error("Error parsing coverLetterLimit from localStorage", e);
+        logger.error("Error parsing coverLetterLimit from localStorage", e);
         localStorage.removeItem("coverLetterLimit");
       }
     }
