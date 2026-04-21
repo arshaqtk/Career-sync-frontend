@@ -6,7 +6,7 @@ import { QUERY_KEYS } from "../config/queryKeys";
 export default function useUserData(){
    
     return useQuery({
-        queryKey: [QUERY_KEYS.user],
+        queryKey: QUERY_KEYS.user.profile(),
         queryFn:fetchProfile,
          staleTime: 1000 * 60 * 5,
           retry: 1,

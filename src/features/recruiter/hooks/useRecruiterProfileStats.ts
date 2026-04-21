@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function useFetchRecruiterProfileStats(){
   return useQuery({
-    queryKey: QUERY_KEYS.recruiter.ProfileStats,
+    queryKey: QUERY_KEYS.recruiter.profileStats(),
     queryFn: fetchRecruiterProfileStatsApi,
     staleTime: 1000 * 60 * 5,
     retry: 1,

@@ -1,10 +1,9 @@
 import "./App.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "sonner";
 
 import AppRouter from "./routes/AppRouter";
 import { registerSocketListeners } from "./lib/socket";
+import { QueryProvider } from "./providers/QueryProvider";
 import { SocketProvider } from "./providers/SocketProvider";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import { ErrorBoundary } from "./components/errors/ErrorBoundary";
@@ -15,8 +14,6 @@ import { usePresenceStore } from "./features/chat/store/presence.store";
 import { getOnlineUsersApi } from "./api/users.api";
 import { Analytics } from "@vercel/analytics/react"
 import { SEO } from "./components/seo/SEO";
-
-const queryClient = new QueryClient();
 
 function App() {
  
@@ -41,7 +38,7 @@ useEffect(() => {
     };
   }, []);
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryProvider>
       <ThemeProvider>
         <ErrorBoundary>
           <Analytics/>
@@ -51,8 +48,7 @@ useEffect(() => {
           <AppRouter />
         </ErrorBoundary>
       </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </QueryProvider>
   );
 }
 

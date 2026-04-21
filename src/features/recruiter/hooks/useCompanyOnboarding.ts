@@ -15,7 +15,7 @@ export const useCreateCompany = () => {
         mutationFn: createCompanyApi,
         onSuccess: async () => {
             toast.success("Company created successfully!");
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] });
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() });
             await refetch();
             navigate("/recruiter");
         }
@@ -30,7 +30,7 @@ export const useJoinCompany = () => {
         mutationFn: joinCompanyApi,
         onSuccess: async () => {
             toast.success("Join request sent successfully!");
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] });
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() });
             await refetch();
             // Automatically stays on the page to show the pending message
         }

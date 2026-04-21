@@ -6,7 +6,7 @@ import { QUERY_KEYS } from "../../../config/queryKeys";
 export default function useFetchRecruiterProfile(){
    
     return useQuery({
-        queryKey: [QUERY_KEYS.recruiter.profile],
+        queryKey: QUERY_KEYS.recruiter.profile(),
         queryFn:fetchProfile,
          staleTime: 1000 * 60 * 5,
           retry: 1,

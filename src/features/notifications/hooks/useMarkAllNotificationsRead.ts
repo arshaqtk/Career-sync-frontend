@@ -12,7 +12,7 @@ export default function useMarkAllNotificationsRead() {
   mutationFn: markAllNotificationsAsRead,
   onSuccess: () => {
     queryClient.invalidateQueries({queryKey:["notifications"]})
-    queryClient.invalidateQueries({queryKey:[QUERY_KEYS.user]})
+    queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() })
     resetNotificationCount()
   },
   onError:handleRQError

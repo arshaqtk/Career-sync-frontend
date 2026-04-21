@@ -1,6 +1,7 @@
 import { handleRQError } from "@/lib/react-query/errorHandler";
 import { QueryCache, MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import type { ReactNode } from "react";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -22,9 +23,11 @@ const queryClient = new QueryClient({
   }
 });
 
-
-export const QueryProvider:React.FC<{children:React.ReactNode}>=({children})=>(
+export function QueryProvider({ children }: { children: ReactNode }) {
+  return (
     <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools initialIsOpen={false}/>       
-    </QueryClientProvider>)
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
+}

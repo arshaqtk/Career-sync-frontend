@@ -7,7 +7,7 @@ export const QUERY_KEYS = {
     all: ["user"] as const,
     profile: () => [...QUERY_KEYS.user.all, "profile"] as const,
     byId: (id: string) => [...QUERY_KEYS.user.all, id] as const,
-     ProfileStats: ["recruiter", "profile","stats"] as const,
+    profileStats: () => [...QUERY_KEYS.user.all, "stats"] as const,
   },
 
   jobs: {
@@ -29,12 +29,12 @@ export const QUERY_KEYS = {
 
   applications: {
     all: ["applications"] as const,
-list: (params: {
+    list: (params: {
       page: number;
       limit: number;
       filters?: ApplicationFilters;
     }) =>
-      [...QUERY_KEYS.jobs.lists(), params] as const,
+      [...QUERY_KEYS.applications.all, "list", params] as const,
     byCandidate: (
       candidateId: string,page:number,limit:number,
       filters?: ApplicationFilters,
@@ -92,12 +92,12 @@ list: (params: {
     jobApplicants: (jobId: string) =>
       ["recruiter", "job", jobId, "applicants"] as const,
     
-     profile: () => [...QUERY_KEYS.user.all, "profile"] as const,
-     ProfileStats: ["recruiter", "profile","stats"] as const,
+    profile: () => QUERY_KEYS.user.profile(),
+    profileStats: () => ["recruiter", "profile", "stats"] as const,
   },
 
-  admin:{
-  dashboard: ["admin", "dashboard"] as const,
-}
-  }
+  admin: {
+    dashboard: ["admin", "dashboard"] as const,
+  },
+};
 

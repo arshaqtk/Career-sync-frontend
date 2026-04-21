@@ -23,7 +23,7 @@ export const useUpdateProfile = () => {
     return useMutation<IUser, Error, ProfileUpdatePayload>({
         mutationFn: updateProfileApi,
         onSuccess: (updatedUser) => {
-            queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
+            queryClient.setQueryData(QUERY_KEYS.user.profile(), updatedUser)
             toast.success("user Data updated successfully")
             navigate("/profile")
         }
@@ -36,7 +36,7 @@ export const useUpdateProfileImage = () => {
     return useMutation<IUser, Error, FormData>({
         mutationFn: updateAvatarApi,
         onSuccess: (updatedUser) => {
-            queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
+            queryClient.setQueryData(QUERY_KEYS.user.profile(), updatedUser)
             toast.success("Profile updated successfully")
             navigate("/profile")
         }
@@ -48,7 +48,7 @@ export const useUpdateProfileAbout = () => {
     return useMutation<IUser, Error, UpdateAboutPayload>({
         mutationFn: updateProfileAboutApi,
         onSuccess: (updatedUser: IUser) => {
-            queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
+            queryClient.setQueryData(QUERY_KEYS.user.profile(), updatedUser)
             toast.success("Profile updated successfully")
         }
     })
@@ -61,7 +61,7 @@ export const useAddProfileExperience = () => {
     return useMutation<IUser, Error, Experience>({
         mutationFn: addProfileExperienceApi,
         onSuccess: (updatedUser: IUser) => {
-            queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
+            queryClient.setQueryData(QUERY_KEYS.user.profile(), updatedUser)
             toast.success("Experience Added Successfully")
         }
     })
@@ -73,7 +73,7 @@ export const useUpdateProfileExperience = () => {
     return useMutation<IUser, Error, UpdateExperienceVars>({
         mutationFn: updateProfileExperienceApi,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() })
             toast.success("Experience Updated Successfully")
         }
     })
@@ -84,7 +84,7 @@ export const useDeleteProfileExperience = () => {
     return useMutation<IUser, Error, string>({
         mutationFn: deleteExperienceApi,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() })
             toast.success("Experience Deleted Successfully")
         }
     })
@@ -97,7 +97,7 @@ export const useUpdateProfileSkill = () => {
     return useMutation<IUser, Error, string[]>({
         mutationFn: updateProfileSkillApi,
         onSuccess: (updatedUser: IUser) => {
-            queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
+            queryClient.setQueryData(QUERY_KEYS.user.profile(), updatedUser)
             toast.success("Skill updated successfully")
         }
     })
@@ -110,7 +110,7 @@ export const useAddProfileEducation = () => {
     return useMutation<IUser, Error, Education>({
         mutationFn: addProfileEducationApi,
         onSuccess: (updatedUser: IUser) => {
-            queryClient.setQueryData([QUERY_KEYS.user], updatedUser)
+            queryClient.setQueryData(QUERY_KEYS.user.profile(), updatedUser)
             toast.success("Education Added Successfully")
         }
     })
@@ -122,7 +122,7 @@ export const useUpdateProfileEducation = () => {
     return useMutation<IUser, Error, UpdateEduactionVars>({
         mutationFn: updateProfileEducationApi,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() })
             toast.success("Education Updated Successfully")
         }
     })
@@ -133,7 +133,7 @@ export const useDeleteEducation = () => {
     return useMutation<IUser, Error, string>({
         mutationFn: deleteEducationApi,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() })
             toast.success("Education Deleted Successfully")
         }
     })
@@ -144,7 +144,7 @@ export const useUpdateResume = () => {
     return useMutation({
         mutationFn: updateResumeApi,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() })
             toast.success("Resume Updated Successfully")
         }
     })
@@ -156,7 +156,7 @@ export const useDeleteResume = () => {
     return useMutation({
         mutationFn: deleteResumeApi,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.user] })
+            queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() })
             toast.success("Resume deleted Successfully")
         }
     })

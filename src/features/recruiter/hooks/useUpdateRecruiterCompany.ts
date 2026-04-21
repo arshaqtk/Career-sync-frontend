@@ -12,7 +12,7 @@ export function useUpdateRecruiterCompany() {
 
     onSuccess: () => {
       toast.success("Company details updated successfully")
-      queryClient.invalidateQueries({queryKey:[QUERY_KEYS.recruiter.profile]})
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.recruiter.profile() })
     //  queryClient.setQueryData(QUERY_KEYS.recruiter.profile(), updatedUser)
     },
     onError: handleRQError

@@ -4,8 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function useFetchCandidateProfileStats(){
   return useQuery({
-    //change it 
-    queryKey: QUERY_KEYS.user.ProfileStats,
+    queryKey: QUERY_KEYS.user.profileStats(),
     queryFn: getCandidateProfileStatsApi,
     staleTime: 1000 * 60 * 5,
     retry: 1,
