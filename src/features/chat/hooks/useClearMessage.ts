@@ -1,9 +1,11 @@
 import { clearMessageApi } from "@/api/chat.api"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useChatStore } from "../store/chat.store"
 
 export const useClearChat = () => {
   const queryClient = useQueryClient()
+  const { setMessages } = useChatStore()
 
   return useMutation({
     mutationFn: (conversationId: string) =>
@@ -23,6 +25,10 @@ export const useClearChat = () => {
     ["conversation-messages", conversationId],
     []
   )
+  
+  // Update Zustand Store
+  setMessages([])
+
   queryClient.invalidateQueries({
   queryKey: ["conversations"],
 })

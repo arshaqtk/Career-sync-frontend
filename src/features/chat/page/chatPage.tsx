@@ -14,8 +14,6 @@ export default function ChatPage() {
     if (!socket.connected) {
       socket.connect()
     }
-
-    // Set a timeout — if not connected in 8s, show the failed state
     const failTimeout = setTimeout(() => {
       if (!socket.connected) {
         setConnectionFailed(true)
@@ -50,8 +48,6 @@ export default function ChatPage() {
     setConnectionFailed(false)
     setIsRetrying(true)
     socket.connect()
-
-    // If still not connected after 8s, show failed again
     setTimeout(() => {
       if (!socket.connected) {
         setConnectionFailed(true)

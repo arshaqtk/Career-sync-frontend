@@ -13,13 +13,14 @@ import useUserData from "@/hooks/useUserData"
 import { ChatActionsDropdown } from "./chatActionsDropdown"
 import { useClearChat } from "../hooks/useClearMessage"
 import { useDeleteConversation } from "../hooks/useDeleteConversation"
+import { useBlockUser, useUnblockUser } from "../hooks/useBlockUser"
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/shadcn/sheet"
 import { Button } from "@/components/ui/shadcn/button"
-import { Menu } from "lucide-react"
+import { Menu, ShieldAlert } from "lucide-react"
 import ChatList from "./chatList"
 export default function ChatWindow({ isOnline }: { isOnline: boolean }) {
   const { activeChatUser } = useChatStore()
@@ -33,11 +34,14 @@ export default function ChatWindow({ isOnline }: { isOnline: boolean }) {
 
   const userId = storedUser?.id|| profile?.id
 
-  const { messages, addMessage, activeChatId, conversationId, setMessages } = useChatStore()
+  const { messages, addMessage, activeChatId, conversationId, setMessages, isBlockedByMe, isMeBlocked } = useChatStore()
   const { data: messageHistory, isLoading, isError, error } = useMessageHistory(conversationId!)
   const { mutate: clearChat, isPending } = useClearChat()
   const { mutate: deleteChat, isPending:deletePending } = useDeleteConversation()
+  const { mutate: blockUser } = useBlockUser()
+  const { mutate: unblockUser } = useUnblockUser()
 
+  const blockedStatus = isBlockedByMe || isMeBlocked;
 
   useEffect(() => {
     const handler = (msg: ChatMessage) => {
@@ -138,6 +142,9 @@ export default function ChatWindow({ isOnline }: { isOnline: boolean }) {
 
         <div className="flex items-center gap-1">
          <ChatActionsDropdown disabled={!storedUser && !selectedUser ||isPending||deletePending}
+           isBlocked={isBlockedByMe}
+           onBlock={() => blockUser({ conversationId: conversationId!, targetUserId: activeChatId! })}
+           onUnblock={() => unblockUser({ conversationId: conversationId!, targetUserId: activeChatId! })}
            onClear={() => {
              clearChat(conversationId!)
            }}
@@ -150,6 +157,12 @@ export default function ChatWindow({ isOnline }: { isOnline: boolean }) {
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto bg-muted/5 scrollbar-hide">
+        {blockedStatus && (
+           <div className="px-6 py-4 bg-orange-50/50 border-b border-orange-100 flex items-center justify-center gap-2 text-[13px] font-medium text-orange-700">
+             <ShieldAlert className="h-4 w-4" />
+             {isBlockedByMe ? "You have blocked this conversation" : "This conversation is blocked"}
+           </div>
+        )}
         <div className="px-6 py-10 space-y-8 min-h-full flex flex-col justify-end max-w-6xl mx-auto">
           {messages?.map((msg, i) => {
             const msgSenderId = msg.senderId
@@ -175,7 +188,7 @@ export default function ChatWindow({ isOnline }: { isOnline: boolean }) {
       {/* Input */}
       <div className="flex-shrink-0 bg-card border-t border-border p-4 sm:p-6">
         <div className="max-w-4xl mx-auto w-full">
-          <MessageInput />
+          <MessageInput disabled={!!blockedStatus} />
         </div>
       </div>
     </div>

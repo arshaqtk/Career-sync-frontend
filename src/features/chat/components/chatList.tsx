@@ -11,6 +11,7 @@ import { MessageSquareOff } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { handleRQError } from "@/lib/react-query/errorHandler"
 import { usePresenceStore } from "../store/presence.store"
+import { useAuthStore } from "@/store/auth.store"
 
 export default function ChatList({ onChange }: { onChange?: (value: { name: string, id: string }) => void }) {
   const socket = getSocket()
@@ -19,19 +20,26 @@ export default function ChatList({ onChange }: { onChange?: (value: { name: stri
     setActiveChatId,
     setActiveChatUser,
     setConversationId,
+    setBlockedState,
     setMessages,
     activeChatId,
   } = useChatStore()
+  const myId = useAuthStore(s => s.user?.id)
 
   const page = 1
   const limit = 10
 
-  const openChat = (receiverId?: string, receiverName?: string, profilePictureUrl?: string) => {
+  const openChat = (receiverId?: string, receiverName?: string, profilePictureUrl?: string, blockedBy?: Record<string, string>) => {
     if (!receiverId || !receiverName) return
     if(onChange) onChange({ name: receiverName, id: receiverId })
     if (receiverId === activeChatId) return
     setActiveChatId(receiverId)
     setConversationId(null)
+
+    const blockedByMe = myId && blockedBy ? !!blockedBy[myId] : false;
+    const meBlocked = receiverId && blockedBy ? !!blockedBy[receiverId] : false;
+    setBlockedState({ blockedByMe, meBlocked })
+
     setActiveChatUser({ name: receiverName, _id: receiverId, profilePicture:profilePictureUrl })
 
     socket.emit(
@@ -86,7 +94,7 @@ export default function ChatList({ onChange }: { onChange?: (value: { name: stri
               return (
                 <div
                   key={conv._id}
-                  onClick={() => openChat(conv.receiver?._id, conv.receiver?.name, conv.receiver?.profilePictureUrl)}
+                  onClick={() => openChat(conv.receiver?._id, conv.receiver?.name, conv.receiver?.profilePictureUrl, conv.blockedBy)}
                   className={cn(
                     "group flex items-center gap-4 p-3.5 rounded-xl cursor-pointer transition-all duration-300 border",
                     isActive

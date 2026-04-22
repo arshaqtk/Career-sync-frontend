@@ -1,4 +1,4 @@
-import { MoreVertical, Trash2, Eraser } from "lucide-react";
+import { MoreVertical, Trash2, Eraser, UserX, UserCheck } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,10 +12,16 @@ import { AlertDialogComponent } from "@/components/dialogs/alertDialog";
 export function ChatActionsDropdown({
   onClear,
   onDelete,
+  onBlock,
+  onUnblock,
+  isBlocked = false,
   disabled = false,
 }: {
   onClear: () => void;
   onDelete: () => void;
+  onBlock: () => void;
+  onUnblock: () => void;
+  isBlocked?: boolean;
   disabled?: boolean;
 }) {
   return (
@@ -45,6 +51,36 @@ export function ChatActionsDropdown({
           }
         />
 
+        <DropdownMenuSeparator />
+
+        {isBlocked ? (
+          <AlertDialogComponent
+            alertTitle="Unblock user?"
+            alertDescription="This will allow you to send and receive messages from this user again."
+            onConfirm={onUnblock}
+            trigger={
+              <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                <UserCheck className="mr-2 h-4 w-4" />
+                Unblock user
+              </DropdownMenuItem>
+            }
+          />
+        ) : (
+          <AlertDialogComponent
+            alertTitle="Block user?"
+            alertDescription="Blocking will stop you from sending and receiving messages in this chat."
+            onConfirm={onBlock}
+            trigger={
+              <DropdownMenuItem 
+                onSelect={(e) => e.preventDefault()}
+                className="text-orange-600 focus:text-orange-600"
+              >
+                <UserX className="mr-2 h-4 w-4" />
+                Block user
+              </DropdownMenuItem>
+            }
+          />
+        )}
 
         <DropdownMenuSeparator />
         <AlertDialogComponent

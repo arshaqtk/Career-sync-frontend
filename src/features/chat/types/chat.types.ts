@@ -18,4 +18,5 @@ export type Chatlist={
     };
    lastMessage:string;
    lastMessageAt:string;
+   blockedBy?: Record<string, string>;
 }

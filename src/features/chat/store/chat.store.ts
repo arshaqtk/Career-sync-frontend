@@ -6,11 +6,14 @@ type ChatState = {
   activeChatId: string | null
   activeChatUser: { name: string; _id: string; profilePicture?: string } | null
   conversationId: string | null
+  isBlockedByMe: boolean
+  isMeBlocked: boolean
   messages: ChatMessage[]
 
   setActiveChatId: (id: string | null) => void
   setActiveChatUser: (user: { name: string; _id: string; profilePicture?: string } | null) => void
   setConversationId: (id: string | null) => void
+  setBlockedState: ({ blockedByMe, meBlocked }: { blockedByMe: boolean; meBlocked: boolean }) => void
   addMessage: (msg: ChatMessage) => void
   setMessages: (msgs: ChatMessage[]) => void
   resetChat: () => void
@@ -22,11 +25,14 @@ export const useChatStore = create<ChatState>()(
       activeChatId: null,
       activeChatUser: null,
       conversationId: null,
+      isBlockedByMe: false,
+      isMeBlocked: false,
       messages: [],
 
       setActiveChatId: (id) => set({ activeChatId: id }),
       setActiveChatUser: (user) => set({ activeChatUser: user }),
       setConversationId: (id) => set({ conversationId: id }),
+      setBlockedState: ({ blockedByMe, meBlocked }) => set({ isBlockedByMe: blockedByMe, isMeBlocked: meBlocked }),
 
       addMessage: (msg) =>
         set((state) => {
@@ -41,6 +47,8 @@ export const useChatStore = create<ChatState>()(
           activeChatId: null,
           activeChatUser: null,
           conversationId: null,
+          isBlockedByMe: false,
+          isMeBlocked: false,
           messages: [],
         }),
     }),

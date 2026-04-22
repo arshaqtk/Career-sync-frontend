@@ -30,7 +30,16 @@ export const clearMessageApi=async(conversationId:string)=>{
 }
 
 export const deleteConversationApi=async(conversationId:string)=>{
-  alert("delete chat called")
   const response=await api.delete(`/chat/conversations/${conversationId}`)
   return response
+}
+
+export const blockUserApi = async ({ conversationId, targetUserId }: { conversationId: string, targetUserId: string }) => {
+  const response = await api.patch(`/chat/conversations/${conversationId}/block`, { targetUserId })
+  return response.data
+}
+
+export const unblockUserApi = async ({ conversationId, targetUserId }: { conversationId: string, targetUserId: string }) => {
+  const response = await api.patch(`/chat/conversations/${conversationId}/unblock`, { targetUserId })
+  return response.data
 }
