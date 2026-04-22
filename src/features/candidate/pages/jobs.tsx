@@ -7,7 +7,6 @@ import { JobsPagination } from "../components/jobs/JobsPagination";
 import { JobFilter } from "../components/jobs/jobFilter";
 import type { JobFilters } from "../types/jobFilter.types";
 import { SectionSkeleton } from "@/components/Loaders";
-import { handleRQError } from "@/lib/react-query/errorHandler";
 import type { CandidateJob } from "../types/candidateJob.type";
 import { useSearchParams } from "react-router-dom";
 import { getValidParams } from "@/lib/utils";
@@ -108,7 +107,9 @@ export default function JobPage() {
   if (isLoading) {
     return <SectionSkeleton />
   }
-  if (isError) handleRQError(error)
+  if (isError) {
+    throw error instanceof Error ? error : new Error("Failed to load jobs")
+  }
 
 
 

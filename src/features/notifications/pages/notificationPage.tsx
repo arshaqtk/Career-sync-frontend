@@ -1,4 +1,3 @@
-import { handleRQError } from "@/lib/react-query/errorHandler"
 import { EmptyNotifications } from "../components/EmptyNotification"
 import { NotificationList } from "../components/NotificationList"
 import NotificationSkeleton from "../components/NotificationSkelton"
@@ -28,8 +27,7 @@ export function NotificationPage() {
 
   if (isLoading) return <NotificationSkeleton />
   if (error) {
-    handleRQError(error)
-    return null
+    throw error instanceof Error ? error : new Error("Failed to load notifications")
   }
 
   const { notifications, pagination } = data

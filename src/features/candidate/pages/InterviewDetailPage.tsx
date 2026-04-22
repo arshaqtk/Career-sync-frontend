@@ -5,7 +5,6 @@ import { InterviewJoinSection } from "../components/interview/InterviewJoinSecti
 import { InterviewTimeline } from "../components/interview/InterviewTimeline"
 import { InterviewNotes } from "../components/interview/InterviewNotes"
 import { SectionSkeleton } from "@/components/Loaders"
-import { handleRQError } from "@/lib/react-query/errorHandler"
 import { Button } from "@/components/ui/shadcn/button"
 import { ChevronLeft } from "lucide-react"
 
@@ -18,7 +17,9 @@ export default function InterviewDetailPage() {
     return <SectionSkeleton />
   }
 
-  if (error) handleRQError(error)
+  if (error) {
+    throw error instanceof Error ? error : new Error("Failed to load interview details")
+  }
 
   const { interview, timeline } = data
 

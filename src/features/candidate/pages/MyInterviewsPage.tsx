@@ -5,7 +5,6 @@ import { InterviewListCard } from "../components/interview/InterviewListCard"
 import { InterviewEmptyState } from "../components/interview/InterviewEmptyState"
 import type { CandidateInterview } from "../types/interview.types"
 import { SectionSkeleton } from "@/components/Loaders"
-import { handleRQError } from "@/lib/react-query/errorHandler"
 
 export default function MyInterviewsPage() {
   const [tab, setTab] = useState("upcoming")
@@ -14,7 +13,9 @@ export default function MyInterviewsPage() {
   if (isLoading) {
     return <SectionSkeleton />
   }
-  if (error) handleRQError(error)
+  if (error) {
+    throw error instanceof Error ? error : new Error("Failed to load interviews")
+  }
 
   const interviews = data?.[tab] ?? []
 

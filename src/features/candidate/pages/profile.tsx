@@ -4,7 +4,6 @@ import { ProfileTabs } from "../components/profile/ProfileTabs";
 import useUserData from "@/hooks/useUserData";
 import useFetchCandidateProfileStats from "../hooks/useProfileStats";
 import { SectionSkeleton } from "@/components/Loaders";
-import { handleRQError } from "@/lib/react-query/errorHandler";
 
 export default function CandidateProfilePage() {
   const { data: user, isLoading, error } = useUserData();
@@ -13,7 +12,13 @@ export default function CandidateProfilePage() {
      isLoading:statsLoading, error:statsError }=useFetchCandidateProfileStats()
   if (isLoading||statsLoading) return  <SectionSkeleton />
      
-  if (error||statsError) return handleRQError(error),<p>Failed to load user</p>;
+  if (error || statsError) {
+    throw error instanceof Error
+      ? error
+      : statsError instanceof Error
+        ? statsError
+        : new Error("Failed to load user")
+  }
   if (!user) return <p>No user found</p>;
 
   const { name, email, phone, profilePicture,field } = user;

@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useAuthStore } from "@/store/auth.store";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/shadcn/pagination";
 import { SectionSkeleton } from "@/components/Loaders";
-import { handleRQError } from "@/lib/react-query/errorHandler";
 import EmptyApplications from "../components/applications/emptyApplications";
 import ApplicationsCardList from "../components/applications/applicationCard";
 import { cn } from "@/lib/utils";
@@ -40,7 +39,9 @@ export default function ApplicationsPage() {
   if (isLoading) {
     return <SectionSkeleton />
   }
-  if (error) handleRQError(error)
+  if (error) {
+    throw error instanceof Error ? error : new Error("Failed to load applications")
+  }
 
   const { applications, pagination } = data;
 

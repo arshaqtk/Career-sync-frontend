@@ -7,9 +7,7 @@ import { RecruiterInfoCard } from "../components/applications/application-detail
 import { ApplicationStatusCard } from "../components/applications/application-detail/StatusCard"
 import { useApplicationDetailViewData } from "../hooks/useApplicationDetails"
 import { useParams } from "react-router-dom"
-import { toast } from "sonner"
 import { SectionSkeleton } from "@/components/Loaders"
-import { handleRQError } from "@/lib/react-query/errorHandler"
 
 export const CandidateApplicationDetailPage = () => {
   const { applicationId } = useParams()
@@ -26,10 +24,8 @@ export const CandidateApplicationDetailPage = () => {
   }
 
   if (isError || !application) {
-    toast.error("Failed to fetch application")
-    return <div>Unable to load application</div>
+    throw error instanceof Error ? error : new Error("Failed to fetch application")
   }
-  if (error) handleRQError(error)
 
 
   return (
